@@ -1,7 +1,6 @@
 <template>
   <div>
-    <div v-for="item in main" key="item.id" id="MainBox">
-      <div id="main"></div>
+    <div v-for="item in main" id="MainBox" key="item.id">
       <div id="mainLis">
         <div class="main-title">
           <h2>{{ item.names }}</h2>
@@ -16,7 +15,7 @@
             <li v-for="items in item.liImg" key="items.id" class="main-lis">
               <div class="main-lis-allBox">
                 <div class="main-lis-kiss">
-                  <a href="javascript:;">
+                  <a href="javascript:">
                     <img :src="items.img" alt="">
                     <i class="main-masking"></i>
                     <i class="main-cover"></i>
@@ -24,7 +23,7 @@
                 </div>
                 <h4 class="main-lis-txt">
                                     <span>
-                                        <a href="javascript:;">
+                                        <a href="javascript:">
                                             {{ items.titles }}
                                         </a>
                                     </span>
@@ -34,14 +33,23 @@
           </ul>
         </div>
       </div>
-      <div>
-
+      <div id="mainSlide">
+        <div class="main-slide-left">
+          <a href="javascript:;">
+            <i class="main-left"></i>
+          </a>
+        </div>
+        <div class="main-slide-right">
+          <a href="javascript:;">
+            <i class="main-right"></i>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import '@/assets/css/Home.css'
 import {slide} from '@/uilt/slide'
 import {onMounted} from 'vue';

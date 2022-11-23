@@ -1,11 +1,10 @@
 /* this is home pages and background */
 #MainBox {
     position: relative;
-    background: url('main.webp') 50% 0 repeat-x;
+    background: url('../../../public/main.webp') 50% 0 repeat-x;
 }
 
 #mainLis {
-    position: relative;
     width: 1200px;
     height: auto;
     margin: 0 auto;
@@ -66,13 +65,15 @@
     margin-bottom: 15px;
     overflow: hidden;
     zoom: 1;
+    z-index: 100;
 }
 
-.main-lis-kiss:hover img {
+.main-lis-kiss:hover a img {
     transform: scale(1.1);
 }
 
-.main-lis-kiss:hover .main-masking {
+
+.main-lis-kiss:hover .main-masking{
     opacity: .5;
 }
 
@@ -127,3 +128,70 @@
     opacity: 0;
     transition: all .6s;
 }
+
+#mainSlide {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.main-slide-left {
+    float: left;
+}
+
+.main-slide-left  a , .main-slide-right a{
+    position: absolute;
+    width: 79px;
+    height: 108px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(237,237,237);
+    transition: all .5s ease-out;
+
+}
+
+.main-slide-right  a{
+    right: 0;
+    transform: translateX(79px);
+}
+
+.main-slide-left  a{
+    transform: translateX(-79px);
+}
+
+.main-slide-right {
+    float: right;
+}
+
+.main-slide-left , .main-slide-right {
+    width: 50%;
+    height: 100%;
+}
+
+.main-slide-left a i {
+    background: url("../../../public/zuobian.png") no-repeat;
+}
+
+.main-slide-right a i {
+    background: url("../../../public/youbian.png") no-repeat;
+}
+
+.main-slide-left a i , .main-slide-right a i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 39px;
+    left: 20px;
+    background-size: 36px 39px;
+}
+
+#MainBox:hover .main-slide-right a , #MainBox:hover .main-slide-left a {
+    transform: translateX(0);
+}
+
+
+
+
+
