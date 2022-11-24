@@ -37,11 +37,13 @@
     margin-right: -20px;
 }
 .main-ul {
+    position: relative;
     display: flex;
-    /* flex: 0 0 25%; */
     width: 1250%;
     flex-grow: 1;
     height: 310px;
+    left: 0;
+    transition: all .4s;
 }
 
 .main-ul::after {
@@ -189,6 +191,22 @@
 
 #MainBox:hover .main-slide-right a , #MainBox:hover .main-slide-left a {
     transform: translateX(0);
+}
+
+#mainOrigin ul{
+    width: auto;
+    height: auto;
+    text-align: center;
+}
+
+#mainOrigin ul li {
+    vertical-align: top;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin: 0 15px 20px 0;
 }
 
 

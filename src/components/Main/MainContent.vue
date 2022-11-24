@@ -32,15 +32,24 @@
             </li>
           </ul>
         </div>
+        <div id="mainOrigin">
+          <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
       </div>
       <div id="mainSlide">
         <div class="main-slide-left">
-          <a href="javascript:;">
+          <a href="javascript:">
             <i class="main-left"></i>
           </a>
         </div>
         <div class="main-slide-right">
-          <a href="javascript:;">
+          <a href="javascript:">
             <i class="main-right"></i>
           </a>
         </div>
@@ -51,12 +60,12 @@
 
 <script lang="ts" setup>
 import '@/assets/css/Home.css'
-import {slide} from '@/uilt/slide'
+import {Swiper} from '../../uilt/MainContent'
 import {onMounted} from 'vue';
 
 //实例创建完成，挂载后执行
 onMounted(() => {
-  slide()
+  Swiper()
 })
 
 const main = [
