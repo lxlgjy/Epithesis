@@ -6,7 +6,6 @@ html , body , div , p ,h1 , ul ,a img , li , hr ,h2 ,i {
 
 body {
     overflow-x: hidden;
-    overflow-y: hidden;
 }
 
 li {

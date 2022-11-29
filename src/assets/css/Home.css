@@ -30,6 +30,8 @@
 .main-title-level li {
     color: #333;
     margin: 0 24px;
+    cursor: pointer;
+    z-index: 50;
 }
 
 .main-box-first {
@@ -95,8 +97,8 @@
 
 .main-lis-txt {
     width: 100%;
-    white-space: initial;
-    overflow: visible;
+    white-space: nowrap;
+    overflow: hidden;
     font-size: 14px;
     text-overflow: ellipsis;
 }
@@ -197,6 +199,13 @@
     width: auto;
     height: auto;
     text-align: center;
+    cursor: pointer;
+
+
+}
+#mainOrigin {
+    z-index: 50;
+
 }
 
 #mainOrigin ul li {
@@ -207,6 +216,7 @@
     width: 8px;
     height: 8px;
     margin: 0 15px 20px 0;
+    cursor: pointer;
 }
 
 
