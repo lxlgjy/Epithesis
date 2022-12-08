@@ -1,4 +1,16 @@
+import {yaundLen} from './MainContent'
 export const MuiscSwitch = (title:string,index:any) => {
+    const list = <HTMLUListElement>document.querySelector('.main-ul')
+    list.style.left = '0px'
+
+    const li = document.querySelectorAll('#mainOrigin ul li') as NodeListOf<HTMLLIElement>
+
+    for (let i = 0; i < li.length; i++) {
+        li[i].style.backgroundColor = '#ccc'
+    }
+
+    yaundLen(li)
+
     switch(title) {
         case '为你推荐':
             index.value = 0;
