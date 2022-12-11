@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="MainBox">
-      <main-content-components :MusicData="store.MusicDate[0]['Home']"></main-content-components>
+      <main-content-components :MusicData="store.MusicDate"></main-content-components>
     </div>
   </div>
 </template>
@@ -17,7 +17,7 @@ const store = useStore()
 
 onMounted(async () => {
   const MusicHome: any = await Axios('http://127.0.0.1:3000/api/home', 'get', 'MusicHome')
-  store.getMusicDate(MusicHome.data.success.MusicTop)
+  store.getMusicDate(MusicHome.data.success)
 })
 
 </script>

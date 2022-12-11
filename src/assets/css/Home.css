@@ -34,6 +34,14 @@
     z-index: 50;
 }
 
+.main-title-level li:hover {
+    color: #39a9ed;
+}
+
+.main-title-level li:nth-child(1) {
+    color: #39a9ed;
+}
+
 .main-box-first {
     margin-bottom: 20px;
     margin-right: -20px;

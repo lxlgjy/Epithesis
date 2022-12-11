@@ -50,7 +50,7 @@
 }
 
 #headers-level-ll ul li:hover {
-    color: blue;
+    color: #39a9ed;
     cursor: pointer;
 }
 
@@ -69,13 +69,14 @@
     width: 120px;
     height: 100px;
     line-height: 100px;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: '微软雅黑', Courier, monospace;
     font-weight: 700;
     cursor: pointer;
     text-align: center;
 }
 
 .header-less ul li:hover {
-    background-color: #ccc;
+    /*background-color: #39a9ed;*/
+    background: rgba(57,169,237,.6);
 }
 

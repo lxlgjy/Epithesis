@@ -14,5 +14,5 @@
 </template>
 
 <script setup lang="ts">
-import { HanderLeft , HanderRight , OriginHander} from '../uilt/MainContent'
+import { HanderLeft , HanderRight } from '../uilt/MainContent'
 </script>

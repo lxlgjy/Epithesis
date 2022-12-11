@@ -19,7 +19,7 @@ onMounted(() => {
 })
 
 const Origin = (item:any) => {
-  const totle:number = Math.ceil(item.Home.introduce.totle / 5)
+  const totle:number = Math.ceil(item[0].data.length / 5)
   return totle
 }
 </script>
