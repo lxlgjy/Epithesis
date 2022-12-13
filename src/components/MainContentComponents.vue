@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="position: relative">
     <div id="mainLis">
       <div class="main-title">
         <h2>歌单推荐</h2>

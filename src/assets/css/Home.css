@@ -227,7 +227,23 @@
     cursor: pointer;
 }
 
+/*PHang*/
+#p-hang-box {
+    position: relative;
+}
 
+#p-hang-box ul {
+    width: 100%;
+    display: flex;
+    
+}
+
+#p-hang-box ul li {
+    width: 25%;
+    height: 400px;
+    background-color: #000;
+    margin-right: 20px;
+}
 
 
 
