@@ -1,10 +1,10 @@
 // 首页Swiper轮播
 // 2022-11-24     11-30重写
 
-const Swiper = () => {
-    const swiperlist = <HTMLDivElement>document.querySelector('.main-box-first')
-    const list = <HTMLUListElement>document.querySelector('.main-ul')
-    const lis = document.querySelectorAll('#mainOrigin ul li') as NodeListOf<HTMLLIElement>
+const Swiper = (UL: string, BOX: string, LI: string) => {
+    const swiperlist = <HTMLDivElement>document.querySelector(BOX)
+    const list = <HTMLUListElement>document.querySelector(UL)
+    const lis = document.querySelectorAll(LI) as NodeListOf<HTMLLIElement>
     return {
         swiperlist,
         list,
@@ -12,64 +12,32 @@ const Swiper = () => {
     }
 }
 
-const yuandian = () => {
-    // ts li类型检查失误
-    const li = document.querySelectorAll('#mainOrigin ul li') as NodeListOf<HTMLLIElement>
-    for (let i = 0; i < li.length; i++) {
-        li[i].style.backgroundColor = '#ccc'
-    }
 
-    yaundLen(li)
-}
-
-export const yaundLen = ( li:any) => {
-    const list = <HTMLUListElement>document.querySelector('.main-ul')
-    let lisLen = parseInt(list.style.left)
-    switch (lisLen) {
-        case 0 :
-            li[0].style.backgroundColor = '#868686'
-            break
-        case -1220:
-            li[1].style.backgroundColor = '#868686'
-            break
-        case -2440:
-            li[2].style.backgroundColor = '#868686'
-            break
-        case -3660:
-            li[3].style.backgroundColor = '#868686'
-            break
-        case -4880:
-            li[4].style.backgroundColor = '#868686'
-            break
-        case -6100:
-            li[5].style.backgroundColor = '#868686'
-            break
-        case -7320:
-            li[6].style.backgroundColor = '#868686'
-            break
-    }
-}
-
-
-// 原点
-export const OriginHander = () => {
-    const li = document.querySelectorAll('#mainOrigin ul li') as NodeListOf<HTMLLIElement>
-    li[0].style.backgroundColor = '#868686'
-    yaundLen(li)
-}
-
-export const HanderLeft = () => {
-    const {list, swiperlist} = Swiper()
+export const HanderLeft = (UL: string, BOX: string, LI: string) => {
+    const {list, swiperlist} = Swiper(UL, BOX, LI)
     list.style.left == '0px' ? list.style.left = '0px' : list.style.left = parseInt(list.style.left) + swiperlist.offsetWidth + 'px'
-    yuandian()
 }
 
-export const HanderRight = () => {
-    const {list, swiperlist, lis} = Swiper()
-    list.style.left == -(lis.length - 1) * swiperlist.offsetWidth + 'px' ? list.style.left = '0px' : list.style.left = parseInt(list.style.left) - swiperlist.offsetWidth + 'px'
-    yuandian()
-
+export const HanderRight = (UL: string, BOX: string, LI: string,index:number) => {
+    const {list, swiperlist, lis} = Swiper(UL, BOX, LI)
+    list.style.left == -((lis.length / index) - 1) * swiperlist.offsetWidth + 'px' ? list.style.left = '0px' : list.style.left = parseInt(list.style.left) - swiperlist.offsetWidth + 'px'
 }
 
+
+export const Aired = () => {
+    const li = document.querySelectorAll('.p-hang-li-box')
+    const i = document.querySelectorAll('.p-hang-li-div-adr i') as NodeListOf<HTMLElement>
+
+    li.forEach((item, index) => {
+        item.addEventListener('mouseenter', () => {
+            i[index].className = 'p'
+            i[index].innerHTML = ''
+        })
+        item.addEventListener('mouseleave', () => {
+            i[index].className = ''
+            i[index].innerHTML = '——'
+        })
+    })
+}
 
 

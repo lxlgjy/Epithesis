@@ -46,6 +46,7 @@
     margin-bottom: 20px;
     margin-right: -20px;
 }
+
 .main-ul {
     position: relative;
     display: flex;
@@ -85,7 +86,7 @@
 }
 
 
-.main-lis-kiss:hover .main-masking{
+.main-lis-kiss:hover .main-masking {
     opacity: .5;
 }
 
@@ -152,23 +153,23 @@
     float: left;
 }
 
-.main-slide-left  a , .main-slide-right a{
+.main-slide-left a, .main-slide-right a {
     position: absolute;
     width: 79px;
     height: 108px;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(237,237,237);
+    background-color: rgba(237, 237, 237);
     transition: all .5s ease-out;
 
 }
 
-.main-slide-right  a{
+.main-slide-right a {
     right: 0;
     transform: translateX(79px);
 }
 
-.main-slide-left  a{
+.main-slide-left a {
     transform: translateX(-79px);
 }
 
@@ -176,7 +177,7 @@
     float: right;
 }
 
-.main-slide-left , .main-slide-right {
+.main-slide-left, .main-slide-right {
     width: 50%;
     height: 100%;
 }
@@ -189,7 +190,7 @@
     background: url("../../../public/youbian.png") no-repeat;
 }
 
-.main-slide-left a i , .main-slide-right a i {
+.main-slide-left a i, .main-slide-right a i {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -199,51 +200,64 @@
     background-size: 36px 39px;
 }
 
-#MainBox:hover .main-slide-right a , #MainBox:hover .main-slide-left a {
+#MainBox:hover .main-slide-right a, #MainBox:hover .main-slide-left a {
     transform: translateX(0);
 }
 
-#mainOrigin ul{
-    width: auto;
-    height: auto;
-    text-align: center;
-    cursor: pointer;
 
-
-}
-#mainOrigin {
-    z-index: 50;
-
-}
-
-#mainOrigin ul li {
-    vertical-align: top;
-    background-color: #ccc;
-    border-radius: 50%;
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    margin: 0 15px 20px 0;
-    cursor: pointer;
-}
 
 /*PHang*/
 #p-hang-box {
     position: relative;
 }
-
-#p-hang-box ul {
-    width: 100%;
+#p-hang-ul-box {
     display: flex;
-    
+    flex-wrap: wrap;
+}
+#p-hang-ul-box li {
+    width: 23%;
+    height: 300px;
+    margin-right: 18px;
+}
+#p-hang-ul-box li:nth-child(1) ,#p-hang-ul-box li:nth-child(5) {
+    margin-left: 10px;
 }
 
-#p-hang-box ul li {
-    width: 25%;
-    height: 400px;
-    background-color: #000;
-    margin-right: 20px;
+.p-hang-images img {
+    width: 100%;
+    height: 100%;
+}
+.p-hang-images {
+    overflow: hidden;
+
+}
+.p-hang-images img:hover {
+    transform: scale(1.1);
+    transition: all 1s;
+}
+/*MusicHomeRecommendation*/
+
+.h-recommend {
+    overflow: hidden;
 }
 
+.h-recommend .h-recommend-ul {
+    position: relative;
+    box-sizing: border-box;
+    width: 1000%;
+    display: flex;
+    margin-bottom: 20px;
+    transition: all .4s;
+}
 
+.h-recommend .h-recommend-ul li {
+    width: 4.9%;
+}
 
+.h-recommend .h-recommend-ul li {
+    margin-right: 13px;
+}
+
+.h-recommend .h-recommend-ul li img {
+ width: 100%;
+}

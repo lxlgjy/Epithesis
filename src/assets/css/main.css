@@ -1,0 +1,10 @@
+#Box {
+    position: relative;
+    display: flex;
+    height: 100%;
+}
+
+#RightRibbon {
+    width: 15%;
+    background-color: #f7f7f7;
+}

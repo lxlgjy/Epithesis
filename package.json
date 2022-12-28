@@ -9,9 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@layui/layui-vue": "^1.7.11",
     "axios": "^1.2.0",
     "pinia": "^2.0.25",
     "pinia-plugin-persist": "^1.0.0",
+    "sass": "^1.57.1",
     "vue": "^3.2.41",
     "vue-router": "^4.1.6"
   },
