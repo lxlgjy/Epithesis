@@ -1,0 +1,55 @@
+//目前对于css动画只有浅薄的理解（在此项目只用简单动画效果，如有需要可以自行更改或使用animate动画库）
+//
+.Search-enter-active
+  transition: all .3s
+.Search-leave-active
+  transition: all .6s
+
+.Search-enter-from, .Search-leave-to
+  transform: translateX(20px)
+  opacity: 0
+
+//
+.Box-enter-active
+  transition: all .3s ease-out
+.Box-leave-active
+  transition: all .6s
+
+.Box-enter-from,
+.Box-leave-to
+  transform: translateY(400px)
+  opacity: 0
+
+//
+.PlayerActive-enter-active
+  transition: all .3s ease-out
+.PlayerActive-leave-active
+  transition: all .3s ease-out
+
+.PlayerActive-enter-from, .PlayerActive-leave-to
+  transform: translateY(400px)
+  opacity: 0
+
+// 登录头像点击动画
+.headerMenu-enter-active
+  transition: all .8s ease-out
+.headerMenu-leave-active
+  transition: all .8s ease-out
+
+.headerMenu-enter-from , .headerMenu-leave-to
+  transform: translateY(200px)
+  opacity: 0
+
+//播放模式
+.AudioMode-enter-active , .AudioMode-leave-active
+  transition: all .8s ease-out
+
+.AudioMode-enter-from , .AudioMode-leave-to
+  opacity: 0
+
+//播放列表-滑动动画
+.SongList-enter-active , .SongList-leave-active
+  transition: all .8s ease-out
+
+.SongList-enter-from , .SongList-leave-to
+  transform: translateX(400px)

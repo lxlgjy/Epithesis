@@ -1,20 +1,109 @@
-<template>
-  <div id="Box">
-    <RightRibbon id="RightRibbon"></RightRibbon>
-  </div>
-<!--  &lt;!&ndash; 开头组件开发 &ndash;&gt;-->
-<!--  &lt;!&ndash;  &ndash;&gt;-->
-<!--  <router-view>-->
+<template oncontextmenu="stop()">
+  <audio :src="Audio.MusicSong['data'] ? Audio.MusicSong['data'][0]['url']  : null" :hidden="true" id="Audio"></audio>
 
-<!--  </router-view>-->
-<!--  &lt;!&ndash; 底部组件开发 &ndash;&gt;-->
-<!--  <FooterTop></FooterTop>-->
+  <transition name="Box">
+    <div id="Box" v-if="Start.PageShow">
+      <RightRibbon id="RightRibbon" v-if="true"></RightRibbon>
+      <left-display-area id="LeftDisplayArea"></left-display-area>
+    </div>
+  </transition>
+
+  <play-audio v-if="Start.PageShow"></play-audio>
+
+  <transition name="PlayActive">
+    <Player v-if="Start.PageShow === false"></Player>
+  </transition>
+
+  <transition name="Search">
+    <Search v-if="MusicSearchInputShow"></Search>
+  </transition>
+
+  <Background v-if="MusicLoginBackgroundShow"></Background>
+
+  <Logon v-if="MusicLoginShow"></Logon>
+
+  <transition name="AudioMode">
+    <AudioMode v-if="MusicAudioModeShow"></AudioMode>
+  </transition>
+
+  <transition name="SongList">
+    <SongList v-if="MusicSongListShow"></SongList>
+  </transition>
+
+  <n-space style="position: absolute;top:50%;left:50%;transform: translateX(-50%) translateY(-50%);"
+           v-if="MusicLoadingShow">
+    <n-spin size="small" stroke="blue"/>
+  </n-space>
+
+  <n-message-provider>
+    <Notice/>
+  </n-message-provider>
+
 </template>
 
 <script lang="ts" setup>
-import RightRibbon from './views/RightRibbon.vue'
-import FooterTop from './views/footerTop.vue'
-import './assets/css/content.css'
-import './assets/css/AnimationEffects.css'
-import './assets/css/main.css'
+import RightRibbon from '@/views/RightRibbon.vue'
+import LeftDisplayArea from "@/views/LeftDisplayArea.vue";
+import '@/style/content.sass'
+import '@/style/main.sass'
+import '@/style/Flex/FlexLayout.sass'
+import useStore from "./stores/counter";
+import PlayAudio from './components/Audio.vue'
+import Player from "./components/Player.vue";
+import Search from './components/Search.vue'
+import Background from "./components/Background.vue";
+import Logon from './components/Logon.vue'
+import {
+  MusicSearchInputShow,
+  MusicLoginShow,
+  MusicLoginBackgroundShow,
+  MusicLoadingShow,
+  MusicAudioModeShow,
+  MusicSongListShow
+} from './uilt/PublicStatus'
+import {HomeLatestAlbum, HomeRankingAxios, HomeRecommendAxios, HomeSwiperAxios} from "./uilt/Api/HomeApi";
+import {MvAxios} from "./uilt/Api/MvApi";
+import {SingerAxios} from "./uilt/Api/SingerApi";
+import {PlayListAxios, PlayListTitleAxios} from "./uilt/Api/PlaylistApi";
+import {nextTick, onErrorCaptured, onMounted} from "vue";
+import AudioMode from "./components/AudioMode.vue";
+import SongList from "./components/SongList.vue";
+import Notice from "./components/Notice.vue";
+
+const {Audio, Start} = useStore()
+
+
+onMounted(async () => {
+  await Start.ToggleMusicData(false)
+  await HomeSwiperAxios('/personalized/privatecontent/list?limit=10&offset=0')
+  await HomeRecommendAxios('/top/playlist/highquality?limit=35')
+  await HomeRankingAxios('/toplist')
+  await HomeLatestAlbum('/album/newest')
+  await MvAxios()
+  await SingerAxios('/toplist/artist?type=1')
+  await PlayListTitleAxios('/playlist/hot')
+  await PlayListAxios('/top/playlist?limit=35&order=hot&offset=1&cat=华语')
+  await Start.ToggleMusicData(true)
+})
+
+nextTick(() => {
+  console.log(Start.AudioSongIndex)
+})
+
+onErrorCaptured((err, instance, info) => {
+  //组件页面错误信息
+  console.log(err.message)
+  console.log(instance)
+  console.log(info)
+  return false
+})
+
+
+document.oncontextmenu = () => {
+  return false
+}
+
+document.onselectstart = () => {
+  return false;
+}
 </script>

@@ -1,0 +1,93 @@
+#main-box
+  position: relative
+  width: 100%
+  box-sizing: border-box
+  overflow: hidden
+
+  .swiper
+    .n-carousel__dot
+      background-color: #d6d4d4
+
+    .n-carousel__dot--active
+      background-color: #616060
+
+    .n-carousel__arrow
+      color: #616060
+
+  .HomeRecommendation
+    margin-top: 40px
+    position: relative
+    //overflow: hidden
+
+    .main-ul
+      position: relative
+      width: 1250%
+      display: flex
+      height: auto
+      transition: all .8s
+
+      .main-lis-kiss
+        overflow: hidden
+        height: 140px
+        margin-bottom: 10px
+        border-radius: 3px
+
+      li
+        width: 1%
+        height: auto
+        margin-right: 10px
+        overflow: hidden
+
+        img
+          border-radius: 3px
+          overflow: hidden
+          transition: all .4s
+
+          &:hover
+            transform: scale(1.1)
+            border-radius: 3px
+
+        .main-lis-txt
+          margin: 0
+          height: 44px
+          overflow: hidden
+          text-overflow: ellipsis
+          display: -webkit-box
+          -webkit-line-clamp: 2
+          -webkit-box-orient: vertical
+          display: -moz-box
+          -moz-line-clamp: 2
+          -moz-box-orient: vertical
+          word-wrap: break-word
+          word-break: break-all
+          white-space: normal
+
+  .List
+    margin-top: 20px
+
+    .list-ul
+      width: 100%
+      display: flex
+      flex-wrap: wrap
+      margin: 0 5%
+
+    .list-lis
+      width: 12%
+      margin-right: 16px
+      margin-bottom: 14px
+
+      &:nth-child(7)
+        margin-right: 0
+
+      &:nth-child(14)
+        margin-right: 0
+
+      img
+        width: 100%
+        border-radius: 3px
+
+.tuiJan
+  background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%)
+
+.FM
+  background-image: linear-gradient(to top, #9890e3 0%, #b1f4cf 100%)

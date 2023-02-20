@@ -1,0 +1,158 @@
+.Player-BackgroundImage
+  width: 100%
+  height: 100%
+  position: absolute
+  top: 0
+
+.Player
+  position: relative
+  height: 100vh
+  box-sizing: content-box
+  margin: 0 200px
+
+  .Player-flex
+    display: flex
+    width: 100%
+    height: 100%
+    z-index: 10
+    position: absolute
+    text-align: center
+    box-sizing: content-box
+
+.Player-show, .Player-lyric
+  width: 50%
+  position: relative
+
+.Player-show
+  .Player-image
+    width: 20rem
+    height: 20rem
+    left: 50%
+    transform: translateX(-50%)
+    transition: all .4s
+
+  .Player-title
+    justify-content: space-between
+
+    & span:nth-child(1)
+      color: #fff
+
+    & span:nth-child(2)
+      color: rgba(255, 255, 255, .3)
+      font-size: 16px
+
+    span
+      font-size: 24px
+      display: block
+
+    .Player-unit
+      button
+        padding: 10px
+        background-color: rgba(171, 171, 171, .2)
+        border-radius: 50%
+
+  .progress-input
+    .Audio-Select
+      height: .3rem
+      top: 10px
+      margin: 0 8px
+      transform: translateX(-2px) translateY(-1px)
+
+      .select
+        border-radius: 10px
+
+        .progress
+          background: rgba(193, 200, 209, .6)
+
+          .progress-left
+            background-color: #165dff
+            height: 100%
+
+            .progress-btn
+              width: .5rem
+              height: .5rem
+              background-color: #165dff
+              transform: translateX(-2px) translateY(-1px)
+
+
+  .Player-btn
+    margin: 30px 40px 0 40px
+
+    button
+      width: 20%
+      border-radius: 10px
+
+      &:hover
+        background-color: rgba(193, 200, 209, .6)
+        border-radius: 10px
+
+
+.Player-lyric
+  .PLayer-lyric-list
+    transition: all .6s
+
+  ul
+    margin-left: 20px
+    box-sizing: border-box
+
+    li
+      width: 100%
+      height: 4.5rem
+      line-height: 4.5rem
+      color: #fff
+      font-size: 30px
+      box-sizing: border-box
+      opacity: .5
+      border-radius: 10px
+      transition: all .3s
+
+      &:hover
+        background-color: rgba(255, 255, 255, .4)
+        cursor: pointer
+
+
+      .Player-lyric-songs-list-title
+        span
+          text-align: left
+          font-size: 14px
+          display: block
+
+      .Player-lyric-songs-list
+        display: flex
+        overflow: hidden
+        height: 100%
+        & div:nth-child(1)
+          width: 10%
+          height: 100%
+          padding: 12px
+          //height: 5%
+          //transform: translateY(5px)
+
+          img
+            width: 100%
+            height: 100%
+            opacity: 1
+
+        & div:nth-child(2)
+          width: 80%
+          margin-left: 10px
+
+#Player
+  width: 100%
+  height: 100vh
+
+.Player-back
+  position: absolute
+  right: 60px
+  top: 50px
+  padding: 20px
+
+  button
+    width: 100px
+    height: 100px
+
+    &:hover
+      background-color: rgba(193, 200, 209, .6)
+      border-radius: 35%
+
+

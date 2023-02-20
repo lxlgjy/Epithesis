@@ -1,43 +1,21 @@
-import {defineStore} from 'pinia'
+import useHomeStore from "./Home";
+import usePlayListStore from "./PlayList";
+import useSingerStore from "./Singer";
+import useDetailStore from './Detail'
+import useLoginStore from './Login'
+import useStartStore from "./Initialstart";
+import useAudioStore from "./Audio";
+import useMvStore from "./Mv";
 
-export const useStore = defineStore('main', {
-    state: () => ({
-        MusicDate: '',
-        MusicPHang:'',
-        MusicList:'',
-        MusicHomeRecommendation:'',
-        MuiscDetail:'',
-    }),
-    actions: {
-        getMusicDate(MusicList: any) {
-            this.MusicDate = MusicList
-        },
-        getMusicPHang(MusicList:any) {
-            this.MusicPHang = MusicList
-        },
-        getMuiscList(MuiscList:any){
-          this.MusicList = MuiscList
-        },
-        getMusicHomeRecommendation(MusicList:any) {
-            this.MusicHomeRecommendation = MusicList
-        },
-        getMusicHomeDetail(MusicList:any) {
-            this.MuiscDetail = MusicList
-        }
-
-    },
-    persist: {
-        enabled: true,
-        // 自定义持久化参数
-        strategies: [
-            {
-                // 自定义key
-                key: 'Music',
-                // 自定义存储方式，默认sessionStorage
-                storage: localStorage,
-                // 指定要持久化的数据，默认所有 state 都会进行缓存，可以通过 paths 指定要持久化的字段，其他的则不会进行持久化。
-                paths: ['MusicDate','MusicPHang','MusicHomeRecommendation','MuiscDetail','MusicList'],
-            }
-        ]
-    },
-})
+export default function useStore() {
+    return {
+        Home: useHomeStore(),
+        Playlist: usePlayListStore(),
+        Singer:useSingerStore(),
+        Detail:useDetailStore(),
+        Login:useLoginStore(),
+        Start:useStartStore(),
+        Audio:useAudioStore(),
+        Mv:useMvStore(),
+    }
+}
