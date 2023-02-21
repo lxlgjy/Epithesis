@@ -11,6 +11,7 @@
   "dependencies": {
     "@vicons/ionicons5": "^0.12.0",
     "axios": "^1.2.0",
+    "file-saver": "^2.0.5",
     "pinia": "^2.0.25",
     "pinia-plugin-persist": "^1.0.0",
     "sass": "^1.57.1",
@@ -19,6 +20,7 @@
     "vue3-lazyload": "^0.3.6"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.5",
     "@vitejs/plugin-vue": "^3.2.0",
     "naive-ui": "^2.34.3",
     "typescript": "^4.6.4",

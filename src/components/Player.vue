@@ -58,7 +58,7 @@
                 <SyncSharp/>
               </n-icon>
             </button>
-            <button @click="NextAndPrevious('Previous');mess()">
+            <button @click="NextAndPrevious('Previous');mess('warning')">
               <n-icon size="40" color="#fff">
                 <PlaySkipBack/>
               </n-icon>
@@ -73,7 +73,7 @@
                 <PauseSharp/>
               </n-icon>
             </button>
-            <button @click="NextAndPrevious('Next');mess()">
+            <button @click="NextAndPrevious('Next');mess('warning')">
               <n-icon size="40" color="#fff">
                 <PlaySkipForward/>
               </n-icon>

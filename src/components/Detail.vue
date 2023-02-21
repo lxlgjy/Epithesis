@@ -1,5 +1,5 @@
 <template>
-  <n-scrollbar trigger="none">
+  <n-scrollbar trigger="none" :on-scroll="scorll">
     <div>
       <div class="Swiper RightHomeCss" v-if="Start.MusicData === false">
         <n-space vertical>
@@ -61,7 +61,20 @@
                 }}
               </div>
               <!--      目前可以正常-【喜欢列表】        -->
-              <div class="AudioDetail-list flex-Music-radius-10 flex-Music-sizing flex-Music-pointer" @click="AudioListPush">播放全部{{ Detail.MusicSongsDetailList['songs'].length}}</div>
+              <div class="componentPage-flex">
+                <div class="AudioDetail-list flex-Music-sizing flex-Music-pointer delect-border-list componentPage-flex-color-fff" @click="AudioListPush">
+                  <n-icon size="15" class="AudioDetail-icon">
+                    <Play/>
+                  </n-icon>
+                  <span class="componentPage-flex-color-fff">播放全部{{ Detail.MusicSongsDetailList['songs'].length}}</span>
+                </div>
+                <div class="AudioDetail-add delect-border-add componentPage-flex-color-fff flex-Music-pointer" @click="AudioListPush('add')">
+                  <n-icon size="15" class="AudioDetail-icon">
+                    <AddSharp/>
+                  </n-icon>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -85,10 +98,12 @@
              (route.meta['page'] === 'HomePlaylist' || route.meta['page'] === 'Recommend' || route.meta['page'] === 'PlayListDetail' || route.meta['page'] === 'HomeAlbum' ? Detail.MusicSongsDetailList['fetchDetailSongs']['songs'] :
              (route.name === 'Search' ? Detail.MusicSongsDetailList['result']['songs'] :
              Detail.MusicSongsDetailList['songs']))"
-                  key="item.id" @dblclick="Player(item['id'] , item)"
+                  key="item.id" @dblclick="Player(item['id'] , item)" @contextmenu="Capabilities($event , item)"
               >
                 <div class="songs">
-                  <p>{{ index + 1 }}</p>
+                  <p>
+                    <img v-lazy="item['al']['picUrl'] + '?param=50y50' ">
+                  </p>
                   <p>{{ item['name'] }}</p>
                   <p>{{ item['ar'][0]['name'] }}</p>
                   <p>{{ item['al']['name'] }}</p>
@@ -107,7 +122,7 @@
                     </n-icon>
                   </p>
                   <p>
-                    <n-icon size="20" @click="MusicDownload(item.id)">
+                    <n-icon size="20" @click.stop="MusicDownload(item.id , item['name'],item['ar'][0]['name']);mess('success')">
                       <CloudDownloadOutline/>
                     </n-icon>
                   </p>
@@ -178,9 +193,9 @@ import {nextTick, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import useStore from "../stores/counter";
 import {Time} from '../uilt/PageWidgets'
-import {Player, FilmMovie, Like , AudioListPush  ,MusicDownload} from "../uilt/VueIncident";
-import {Film, HeartSharp, HeartOutline, CloudDownloadOutline} from '@vicons/ionicons5'
-import {Love} from "../uilt/VueEvent";
+import {Player, FilmMovie, Like , AudioListPush  ,MusicDownload , Capabilities , scorll} from "../uilt/VueIncident";
+import {Film, HeartSharp, HeartOutline, CloudDownloadOutline,Play,AddSharp} from '@vicons/ionicons5'
+import {Love , mess} from "../uilt/VueEvent";
 
 const route = useRoute()
 const {Detail, Start} = useStore()

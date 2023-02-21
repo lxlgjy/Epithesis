@@ -22,6 +22,8 @@
 
   <Logon v-if="MusicLoginShow"></Logon>
 
+  <capabilities v-show="MusicPageCapabilities"></capabilities>
+
   <transition name="AudioMode">
     <AudioMode v-if="MusicAudioModeShow"></AudioMode>
   </transition>
@@ -53,25 +55,26 @@ import Player from "./components/Player.vue";
 import Search from './components/Search.vue'
 import Background from "./components/Background.vue";
 import Logon from './components/Logon.vue'
+import AudioMode from "./components/AudioMode.vue";
+import SongList from "./components/SongList.vue";
+import Notice from "./components/Notice.vue";
+import Capabilities from "./components/Capabilities.vue";
 import {
   MusicSearchInputShow,
   MusicLoginShow,
   MusicLoginBackgroundShow,
   MusicLoadingShow,
   MusicAudioModeShow,
-  MusicSongListShow
+  MusicSongListShow,
+  MusicPageCapabilities
 } from './uilt/PublicStatus'
 import {HomeLatestAlbum, HomeRankingAxios, HomeRecommendAxios, HomeSwiperAxios} from "./uilt/Api/HomeApi";
 import {MvAxios} from "./uilt/Api/MvApi";
 import {SingerAxios} from "./uilt/Api/SingerApi";
 import {PlayListAxios, PlayListTitleAxios} from "./uilt/Api/PlaylistApi";
 import {nextTick, onErrorCaptured, onMounted} from "vue";
-import AudioMode from "./components/AudioMode.vue";
-import SongList from "./components/SongList.vue";
-import Notice from "./components/Notice.vue";
 
 const {Audio, Start} = useStore()
-
 
 onMounted(async () => {
   await Start.ToggleMusicData(false)
@@ -105,5 +108,11 @@ document.oncontextmenu = () => {
 
 document.onselectstart = () => {
   return false;
+}
+
+document.onclick = () => {
+  if(MusicPageCapabilities.value) {
+    MusicPageCapabilities.value = false
+  }
 }
 </script>

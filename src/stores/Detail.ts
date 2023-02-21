@@ -5,7 +5,8 @@ const useDetailStore = defineStore('Detail', {
         return {
             MusicSongsDetailList:[] as object,
             MusicMV:[] as object,
-            MusicLoveListId:[] as Array<string>
+            MusicLoveListId:[] as Array<string>,
+            MusicCapabilities:{}
         }
     },
     actions:{
@@ -14,6 +15,9 @@ const useDetailStore = defineStore('Detail', {
         },
         getMusicMV(data:object) {
             this.MusicMV = data
+        },
+        getMusicCapabilities(data:object) {
+            this.MusicCapabilities = data
         }
     },
     persist:{
@@ -22,7 +26,7 @@ const useDetailStore = defineStore('Detail', {
             {
                 key:'MusicDetail',
                 storage:window.sessionStorage,
-                paths:['MusicSongsDetailList' , 'MusicMV','MusicLoveListId']
+                paths:['MusicSongsDetailList' , 'MusicMV','MusicLoveListId','MusicCapabilities']
             }
         ]
     }

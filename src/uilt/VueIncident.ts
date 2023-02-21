@@ -7,7 +7,7 @@ import {AudioLyricAxios, AudioSongAxios} from "./Api/AudioApi";
 import {
     MusicAudioModeIndex,
     MusicLoginBackgroundShow,
-    MusicLoginShow, MusicPageNoticeShow,
+    MusicLoginShow, MusicPageCapabilities, MusicPageNoticeShow,
     MusicPlay,
     MusicPlayer, MusicPlayerTime,
     MusicPlayerToggle,
@@ -23,6 +23,7 @@ import {
 } from './StateTransitions'
 import Element from "./Element";
 import {AudioProgressToggle} from './PageWidgets'
+import {DownloadSong} from "./Api/Download";
 
 export const LoginClickShow = () => {
     MusicLoginShow.value = true
@@ -31,6 +32,7 @@ export const LoginClickShow = () => {
 
 interface Event {
     clientX: number,
+    clientY: number,
     offsetX: number,
     pageX: number,
     preventDefault: Function,
@@ -170,13 +172,14 @@ const routerPush = (name: string, type?: string, page?: string) => {
 
 }
 //详情界面点击
-export const Player = async (id: string, item: object) => {
-    await useStore().Audio.clearMusicSongNow()
-    useStore().Start.AudioSongIndex = 0
+export const Player = async (id: string, item:object) => {
     await MusicSongAndLyric(id)
-    useStore().Audio.getMusicSongNow(item)
+
+    useStore().Audio.replaceMusicSongNow(item)
     // await Axios(`/check/music?id=${id}`, 'VerifyThatTheMusicIsAvailable') 是否可以播放
+
     DetailSelect()
+
     MusicAudioShow()
 }
 
@@ -271,21 +274,45 @@ export const SongListShowToggle = () => {
 }
 
 //添加音乐到播放列表
-export const AudioListPush = async () => {
+export const AudioListPush = async (type?: string) => {
+    MusicAudioShow()
+    if (type === 'add') {
+
+        if (MusicPlay.value || !MusicPlay.value) {
+
+            await MusicSongNowPush()
+
+        } else if (MusicPlay.value === false && useStore().Audio.MusicSongNow.length < 1) {
+            await MusicSongNowPush()
+            await MusicListAndPush()
+        }
+
+    } else {
+        // @ts-ignore
+        let item = await useStore().Detail.MusicSongsDetailList['songs']
+
+        useStore().Audio.replaceMusicSongNowListPush(item)
+        useStore().Start.AudioSongIndex = 0
+
+        await MusicListAndPush()
+    }
+}
+
+const MusicListAndPush = async () => {
     // @ts-ignore
-    let id = await useStore().Detail.MusicSongsDetailList['songs'][useStore().Start.AudioSongIndex]['id']
-    console.log(id)
+    let id = await useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id']
+    await MusicSongAndLyric(id)
+
+    DetailSelect()
+}
+
+const MusicSongNowPush = async () => {
     // @ts-ignore
     let item = await useStore().Detail.MusicSongsDetailList['songs']
-
-    await MusicSongAndLyric(id)
 
     item.forEach((items: object) => {
         useStore().Audio.getMusicSongNow(items)
     })
-
-    DetailSelect()
-
 }
 
 //下一首and上一首切换播放(可以简化)
@@ -328,8 +355,30 @@ export const NextAndPrevious = async (type?: string) => {
 }
 
 //下载音乐
-export const MusicDownload = (id:string) => {
-    console.log(id)
+export const MusicDownload = (id: string, name: string, singer: string) => {
+    DownloadSong(id, name, singer)
+}
+
+//右击显示小功能
+export const Capabilities = (e: Event, data: object, type?: string) => {
+    MusicPageCapabilities.value = true
+
+    useStore().Detail.getMusicCapabilities(data)
+
+    const {Capabilities} = Element()
+    if (type === 'SongList') {
+        Capabilities.style.top = e.clientY + 'px'
+        Capabilities.style.left = (e.clientX - 200) + 'px'
+    } else {
+        Capabilities.style.top = e.clientY + 'px'
+        Capabilities.style.left = e.clientX + 'px'
+    }
+
+}
+
+//监听组件是否滚动
+export const scorll = () => {
+    MusicPageCapabilities.value = false
 }
 
 

@@ -1,4 +1,4 @@
-// 页面所有状态转换(不包括pinia状态)
+// 页面所有状态转换
 
 import useStore from "../stores/counter";
 import {
@@ -20,7 +20,9 @@ export const backgroundAndloadingToggle = () => {
 }
 
 export const MusicAudioShow = () => {
-    useStore().Start.ToggleAudioShow(true)
+    if(!useStore().Start.AudioShow) {
+        useStore().Start.ToggleAudioShow(true)
+    }
 }
 
 export const MusicAudioModeToggle = () => {

@@ -22,7 +22,7 @@
         <div class="middle-information componentPage-flex componentPage-height-100">
           <div class="componentPage-flex">
             <div class="componentPage-center componentPage-flex-between">
-              <button @click="NextAndPrevious('Previous');mess()">
+              <button @click="NextAndPrevious('Previous');mess('warning')">
                 <n-icon size="35" color="#000">
                   <PlaySkipBack/>
                 </n-icon>
@@ -37,7 +37,7 @@
                   <PauseSharp/>
                 </n-icon>
               </button>
-              <button class="middle-information-btn-bw-last" @click="NextAndPrevious('Next');mess()">
+              <button class="middle-information-btn-bw-last" @click="NextAndPrevious('Next');mess('warning')">
                 <n-icon size="35" color="#000">
                   <PlaySkipForward/>
                 </n-icon>

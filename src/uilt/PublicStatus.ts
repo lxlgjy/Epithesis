@@ -17,6 +17,7 @@ const PublicStart = reactive({
     SongList:true, //播放列表,播放历史切换
     SongListShow:false, // 播放列表
     PageNoticeShow:false, // 信息展示
+    PageCapabilities:false, //功能显示
 })
 
 export const MusicSearchInputShow = toRef(PublicStart , 'searchInputShow')
@@ -35,3 +36,4 @@ export const MusicAudioModeIndex = toRef(PublicStart , 'AudioModeIndex')
 export const MusicSongList = toRef(PublicStart , 'SongList')
 export const MusicSongListShow = toRef(PublicStart , 'SongListShow')
 export const MusicPageNoticeShow = toRef(PublicStart , 'PageNoticeShow')
+export const MusicPageCapabilities = toRef(PublicStart, 'PageCapabilities')

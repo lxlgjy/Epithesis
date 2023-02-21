@@ -11,9 +11,6 @@ export const AudioLyric = () => {
 
     requestAnimationFrame(audioAnimateUpdate)
 
-    // HomeAudio.onended
-    console.log(HomeAudio.duration)
-
     HomeAudio.addEventListener('ended', async (e: Event) => {
         if (useStore().Start.AudioSongIndex < useStore().Audio.MusicSongNow.length) {
             useStore().Start.AddAudioIndex()
@@ -77,10 +74,17 @@ export const MusicSongAndLyric = async (id: string) => {
 }
 
 // 页面提示
-export const mess = () => {
+export const mess = (type:string) => {
     if (MusicPageNoticeShow.value) {
         const message = window.$message
-        message.warning(useStore().Start.MusicNotice)
+        switch(type) {
+            case type = 'warning':
+                message.warning(useStore().Start.MusicNotice)
+                break;
+            case type = 'success':
+                message.success(useStore().Start.MusicNotice)
+                break;
+        }
     }
 }
 

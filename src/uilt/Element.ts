@@ -3,9 +3,10 @@ const Element = () => {
     let HomeUl = document.querySelector('.main-ul') as HTMLUListElement // 首页滑动
     let HomeBox = document.querySelector('#main-box') as HTMLDivElement // 首页滑动
     let LyricULBox = document.querySelector('.PLayer-lyric-list') as HTMLUListElement
+    let Capabilities = document.querySelector('#capabilities') as HTMLDivElement //右击功能
 
 
-    return {HomeUl, HomeBox , HomeAudio , LyricULBox }
+    return {HomeUl, HomeBox , HomeAudio , LyricULBox , Capabilities}
 }
 
 

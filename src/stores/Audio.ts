@@ -1,4 +1,5 @@
 import {defineStore} from "pinia";
+import {AudioListPush} from "../uilt/VueIncident";
 
 const useAudioStore = defineStore('Audio', {
     state: () => {
@@ -18,8 +19,13 @@ const useAudioStore = defineStore('Audio', {
         getMusicSongNow(data: object) {
             this.MusicSongNow.push(data)
         },
-        clearMusicSongNow() {
-            this.MusicSongNow = []
+        replaceMusicSongNow(data: object) {
+            let SongList: Array<object> = []
+            SongList.push(data)
+            this.MusicSongNow = SongList
+        },
+        replaceMusicSongNowListPush(data: Array<object>) {
+            this.MusicSongNow = data
         },
     },
     persist: {
