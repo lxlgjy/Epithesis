@@ -23,7 +23,7 @@
                 <li v-for="item in Singer.MusicSingerArtists['list']['artists'].slice(0,12)" key="item"
                     @click="MusicSinger(item['id'])">
                   <div>
-                    <img :src="item['img1v1Url']" alt="">
+                    <img  v-lazy="item['img1v1Url'] + '?param=150y150'">
                   </div>
                   <div class="title">
                     <p>{{ item['name'] }}</p>

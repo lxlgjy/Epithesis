@@ -32,34 +32,39 @@ $background-hover: rgba(221, 224, 221, 0.3)
           &:nth-child(2)
             margin-right: 0
 
+    .AudioDetail-play
+      top: 200px
 
-    .AudioDetail-add , .AudioDetail-list
-      height: 2rem
-      line-height: 2rem
-      border-radius: 16px
-      background-color: #2d53c4
+      .AudioDetail-add, .AudioDetail-list
+        height: 2rem
+        line-height: 2rem
+        border-radius: 16px
+        background-color: #2d53c4
 
-    span
-      display: inline
-      padding: 0 8px
+      span
+        display: inline
 
-    .AudioDetail-list
-      width: 7rem
-      padding: 0 4px
+      .AudioDetail-list
+        width: 8rem
+        padding: 0 4px
 
-    .AudioDetail-add
-      width: 2rem
+        & i:nth-child(1)
+          padding-left: 10px
+          padding-right: 3px
 
-    .delect-border-list
-      border-bottom-right-radius: 0
-      border-top-right-radius: 0
+      .AudioDetail-add
+        width: 2rem
 
-    .delect-border-add
-      border-top-left-radius: 0
-      border-bottom-left-radius: 0
+      .delect-border-list
+        border-bottom-right-radius: 0
+        border-top-right-radius: 0
 
-    .AudioDetail-icon
-      transform: translateY(3px)
+      .delect-border-add
+        border-top-left-radius: 0
+        border-bottom-left-radius: 0
+
+      .AudioDetail-icon
+        transform: translateY(3px)
 
 .song-list
   ul
@@ -69,13 +74,13 @@ $background-hover: rgba(221, 224, 221, 0.3)
       height: 30px
       padding: 5px
       line-height: 30px
-      color: rgba(23,34,45,.4)
+      color: rgba(23, 34, 45, .4)
 
 .songs
   display: flex
 
   &:hover
-    background-color: rgba(242,243,245)
+    background-color: rgba(242, 243, 245)
     border-radius: 5px
 
   p
@@ -86,7 +91,7 @@ $background-hover: rgba(221, 224, 221, 0.3)
     &:nth-child(1)
       margin-left: 10px
 
-    &:nth-child(4) , &:nth-child(2) , &:nth-child(3)
+    &:nth-child(4), &:nth-child(2), &:nth-child(3)
       overflow: hidden
       white-space: nowrap
       text-overflow: ellipsis
@@ -111,20 +116,22 @@ $background-hover: rgba(221, 224, 221, 0.3)
     text-align: right
     width: 15%
 
-  & ul li:nth-child(6) , p:nth-child(6)
-    text-align: center
-    width: 8%
-  & ul li:nth-child(7) , p:nth-child(7)
+  & ul li:nth-child(6), p:nth-child(6)
     text-align: center
     width: 8%
 
-  & ul li:nth-child(8) , p:nth-child(8)
+  & ul li:nth-child(7), p:nth-child(7)
     text-align: center
     width: 8%
 
-  & p:nth-child(6) , & p:nth-child(8)
+  & ul li:nth-child(8), p:nth-child(8)
+    text-align: center
+    width: 8%
+
+  & p:nth-child(6), & p:nth-child(8)
     transform: translateY(4px)
     transition: color .4s
+
     &:hover
       color: #2d53c4
 
@@ -132,7 +139,7 @@ $background-hover: rgba(221, 224, 221, 0.3)
     transform: translateY(4px)
 
 
-  p:nth-child(2) , p:nth-child(3) , p:nth-child(4) , p:nth-child(5)
+  p:nth-child(2), p:nth-child(3), p:nth-child(4), p:nth-child(5)
     font-weight: bold
 
 .error
@@ -141,5 +148,11 @@ $background-hover: rgba(221, 224, 221, 0.3)
   left: 50%
   transform: translateX(-50%)
   width: 500px
+
+#Selected
+  background-color: #3780ce
+  p
+    color: #fff
+
 
 

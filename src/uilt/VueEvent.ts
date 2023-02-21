@@ -12,15 +12,47 @@ export const AudioLyric = () => {
     requestAnimationFrame(audioAnimateUpdate)
 
     HomeAudio.addEventListener('ended', async (e: Event) => {
-        if (useStore().Start.AudioSongIndex < useStore().Audio.MusicSongNow.length) {
-            useStore().Start.AddAudioIndex()
-            // @ts-ignore
-            await MusicSongAndLyric(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
-            await HomeAudio.play()
+        if (useStore().Audio.MusicSongNow.length > 1) {
+            if(useStore().Start.AudioMode === 0) {
+                const {HomeAudio} = Element()
+                HomeAudio.currentTime = 0
+                await HomeAudio.play()
+            } else if(useStore().Start.AudioMode === 1) {
+                let AudioSlice = useStore().Audio.MusicSongNow.slice()
+                for(let i = 0; i < AudioSlice.length; i++) {
+                    let AudioMathRandom = AudioRandom(i)
+                    AudioExchange(AudioSlice, i , AudioMathRandom)
+                }
+                //@ts-ignore
+                await MusicSongAndLyric(AudioSlice[useStore().Start.AudioSongIndex]['id'])
+                await HomeAudio.play()
+            } else {
+                useStore().Start.AddAudioIndex()
+                // @ts-ignore
+                await MusicSongAndLyric(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
+                await HomeAudio.play()
+            }
+
         } else {
-            console.log('这是列表最后一首歌曲')
+            if(useStore().Start.AudioMode === 0) {
+                const {HomeAudio} = Element()
+                HomeAudio.currentTime = 0
+                await HomeAudio.play()
+            } else {
+                console.log('这是列表最后一首歌曲')
+            }
         }
     })
+}
+
+const AudioRandom = (max:number) => {
+    return Math.floor(Math.random() * (max + 1))
+}
+
+const AudioExchange = (AudioArray:Array<object>, index:number , random:number) => {
+    let t = AudioArray[index]
+    AudioArray[index] = AudioArray[random]
+    AudioArray[random] = t
 }
 
 const audioAnimateUpdate = () => {

@@ -2,16 +2,16 @@
   <audio :src="Audio.MusicSong['data'] ? Audio.MusicSong['data'][0]['url']  : null" :hidden="true" id="Audio"></audio>
 
   <transition name="Box">
-    <div id="Box" v-if="Start.PageShow">
-      <RightRibbon id="RightRibbon" v-if="true"></RightRibbon>
+    <div id="Box" v-show="Start.PageShow">
+      <RightRibbon id="RightRibbon" v-show="true"></RightRibbon>
       <left-display-area id="LeftDisplayArea"></left-display-area>
     </div>
   </transition>
 
-  <play-audio v-if="Start.PageShow"></play-audio>
+  <play-audio v-show="Start.PageShow"></play-audio>
 
   <transition name="PlayActive">
-    <Player v-if="Start.PageShow === false"></Player>
+    <Player v-show="Start.PageShow === false"></Player>
   </transition>
 
   <transition name="Search">
@@ -94,9 +94,9 @@ nextTick(() => {
 })
 
 onErrorCaptured((err, instance, info) => {
-  //组件页面错误信息
+  //组件页面错误信息 instance差，在vue3中无法定位组件错误。。。
   console.log(err.message)
-  console.log(instance)
+  // console.log(instance)
   console.log(info)
   return false
 })

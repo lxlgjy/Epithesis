@@ -13,7 +13,7 @@
       </div>
       <div class="SongList-list componentPage-padding-0-1 ">
         <ul>
-          <li v-for="(item,index) in Audio.MusicSongNow" class="componentPage-pointer componentPage-radius-4" @contextmenu="Capabilities($event , item , 'SongList')">
+          <li v-for="(item,index) in Audio.MusicSongNow" class="componentPage-pointer componentPage-radius-4" @contextmenu="Capabilities($event , item , 'SongList')" :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'SongList' : ''">
             <div class="componentPage-flex componentPage-center componentPage-flex-items">
               <div>
                 <img v-lazy="item['al']['picUrl'] + '?param=50y50'">
@@ -48,6 +48,18 @@ const {Detail, Audio} = useStore()
 #SongListTap {
   background-color: #165dff;
   color: #fff;
+}
+
+#SongList {
+  background-color: #3780ce;
+  .SongList-title {
+    & span:nth-child(1) {
+      color: #fff;
+    }
+    & span:nth-child(2) {
+      color: #e4e1e1;
+    }
+  }
 }
 
 .SongList {

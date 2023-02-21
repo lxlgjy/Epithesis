@@ -17,7 +17,10 @@
             <ul>
               <li v-for="(item,index) in Detail.MusicSongsDetailList['fetchDetailSongs']['songs']"
                   @dblclick="Player(item['id'] , item)">
-                <span>{{ index + 1 }}</span>
+<!--                <span>{{ index + 1 }}</span>-->
+                <span>
+                  <img v-lazy="item['al']['picUrl'] + '?param=50y50'">
+                </span>
                 <span>{{ item.name }}</span>
                 <span>{{ item['ar'][0].name }}</span>
                 <span>{{ item['al']['name'] }}</span>
@@ -73,7 +76,7 @@ const image = (item:any) => {
 
   .recommend-playlist {
     position: relative;
-    height: 15.3rem;
+    height: 20%;
     display: flex;
     z-index: 2;
     box-shadow: -2px 4px 5px rgba(0, 0, 0, .4);
@@ -104,7 +107,7 @@ const image = (item:any) => {
   .recommend-songs-recommend {
     display: flex;
     margin: 20px 0 0 5px;
-    height: 70%;
+    height: 80%;
 
     .recommend-songs, .recommend-recommend {
       flex: 1;
@@ -135,18 +138,22 @@ const image = (item:any) => {
             }
 
             span {
-              flex: 1;
               overflow: hidden;
               white-space: nowrap;
               text-overflow: ellipsis;
               font-weight: 700;
 
+
               &:nth-child(1) {
                 text-align: left;
-                padding-left: 8px;
+                padding:0 8px;
+                width: 2.4rem;
+                height: 2.4rem;
+                transform: translateY(6px);
               }
 
               &:nth-child(2), &:nth-child(3), &:nth-child(4), &:nth-child(5) {
+                flex: 1;
                 text-align: center;
               }
             }

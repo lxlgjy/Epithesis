@@ -174,6 +174,8 @@ const routerPush = (name: string, type?: string, page?: string) => {
 //详情界面点击
 export const Player = async (id: string, item:object) => {
     await MusicSongAndLyric(id)
+    useStore().Start.AudioSongIndex = 0
+
 
     useStore().Audio.replaceMusicSongNow(item)
     // await Axios(`/check/music?id=${id}`, 'VerifyThatTheMusicIsAvailable') 是否可以播放
@@ -255,6 +257,13 @@ export const AudioProgress = async (e: Event) => {
     await HomeAudio.play()
 }
 
+// 提供倍速 （歌曲播放完恢复1.0x）
+export const AudioSpeed = (speed:number) => {
+    const {HomeAudio} = Element()
+    HomeAudio.playbackRate = speed
+    AudioToggle()
+}
+
 
 export const AudioToggle = () => {
     MusicAudioModeToggle()
@@ -262,6 +271,14 @@ export const AudioToggle = () => {
 
 export const AudioMode = (index: number) => {
     MusicAudioModeIndex.value = index
+
+    useStore().Start.ToggleAudioMode(index)
+
+    MusicAudioModeToggle()
+
+    MusicPageNoticeShow.value = true
+
+    useStore().Start.reviseMusicNotice(`播放模式已切换（${index === 0 ? '单曲循环': (index === 1 ? '随机播放' : '列表循环')}）`)
 }
 
 //播放列表（左侧滑动出现）
@@ -380,6 +397,12 @@ export const Capabilities = (e: Event, data: object, type?: string) => {
 export const scorll = () => {
     MusicPageCapabilities.value = false
 }
+
+export const PlayListToggle = async(title:string) => {
+    await PlayListAxios(`/top/playlist?limit=35&order=hot&offset=${(useStore().Start.PlayList - 1) * 35}&cat=${title}&timestamp=${Date.now()}`)
+}
+
+
 
 
 

@@ -11,7 +11,7 @@
                   <router-link to="/Playlist/PlayListDetail" class="playlist-ul">
                     <li v-for="item in Playlist.MusicPlayList['playlists']" key="item.id" @click="MusicPlayListDetail(item.id)">
                       <div class="PlayList-image">
-                        <img :src="item['coverImgUrl']" alt="">
+                        <img v-lazy="item['coverImgUrl'] + '?param=150y150'">
                       </div>
                       <div class="PlayList-text">
                         <p>{{ item.name }}</p>
@@ -20,7 +20,7 @@
                   </router-link>
               </div>
               <div class="PlayList-page">
-<!--                <n-pagination v-model:page="page" :page-count="50" @click="MusicPageNumber(page ,item.name)"/>-->
+                <n-pagination v-model:page="Start.PlayList" :page-count="50" @click.stop="PlayListToggle(item.name)"/>
               </div>
             </n-tab-pane>
           </n-tabs>
@@ -33,18 +33,13 @@
 </template>
 
 <script lang="ts" setup>
-import {onMounted, ref, reactive, toRef, nextTick} from "vue";
-import {PlayListAxios , PlayListTitleAxios} from '../../uilt/Api/PlaylistApi'
 import '@/style/Playlist.sass'
 import {useRoute} from "vue-router";
 import useStore from "../../stores/counter";
-import {Playlist_Cat , MusicPlayListDetail} from '../../uilt/VueIncident'
-
+import {Playlist_Cat , MusicPlayListDetail , PlayListToggle} from '../../uilt/VueIncident'
 
 const {Playlist, Start} = useStore()
 const route = useRoute()
-
-let page = ref(1)
 
 </script>
 

@@ -8,9 +8,9 @@
         <span class="componentPage-span-padding componentPage-sizing">播放速率</span>
       </div>
       <div class="componentPage-flex">
-        <div v-for="item in dataSpeed" class="componentPage-flex-between">
+        <div v-for="item in dataSpeed" class="componentPage-flex-between" @click="AudioSpeed(item.speed)">
           <input type="radio" name="speed" :checked="item.checked">
-          <span>{{item.speed}}</span>
+          <span>{{item.speed + 'x'}}</span>
         </div>
       </div>
     </div>
@@ -19,7 +19,7 @@
         <span>播放模式</span>
       </div>
       <div class="componentPage-flex">
-        <div :class=" MusicAudioModeIndex === 0 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click="AudioMode(0)">
+        <div :class=" MusicAudioModeIndex === 0 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click="AudioMode(0);mess('success')">
           <div>
             <n-icon size="25">
               <ReloadOutline/>
@@ -27,7 +27,7 @@
             <span>循环</span>
           </div>
         </div>
-        <div :class="MusicAudioModeIndex === 1 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click="AudioMode(1)">
+        <div :class="MusicAudioModeIndex === 1 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click="AudioMode(1);mess('success')">
           <div>
             <n-icon size="25">
               <Shuffle/>
@@ -35,7 +35,7 @@
             <span>随机</span>
           </div>
         </div>
-        <div :class="MusicAudioModeIndex === 2 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click="AudioMode(2)">
+        <div :class="MusicAudioModeIndex === 2 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click="AudioMode(2);mess('success')">
           <div>
             <n-icon size="25">
               <RepeatOutline/>
@@ -55,15 +55,16 @@
 import '../style/Flex/FlexComponents.sass'
 import {Shuffle , ReloadOutline , RepeatOutline} from '@vicons/ionicons5'
 import {MusicAudioModeIndex} from '../uilt/PublicStatus'
-import {AudioMode , AudioToggle} from '../uilt/VueIncident'
+import {AudioMode , AudioToggle , AudioSpeed} from '../uilt/VueIncident'
+import {mess} from "../uilt/VueEvent";
 import {onMounted} from "vue";
 
-const dataSpeed = [{speed:'0.5x',checked:false} , {speed:'1x',checked:true},{speed:'1.5x',checked:false},{speed:'2x',checked:false},{speed:'2.5x',checked:false},{speed:'3x',checked:false}]
+const dataSpeed = [{speed:0.5,checked:false} , {speed:1,checked:true},{speed:1.5,checked:false},{speed:2,checked:false},{speed:2.5,checked:false},{speed:3,checked:false}]
 
 onMounted(() => {
   document.querySelectorAll('.componentPage-flex-between')
-  console.log(typeof MusicAudioModeIndex.value)
 })
+
 </script>
 
 <style lang="scss" scoped>
