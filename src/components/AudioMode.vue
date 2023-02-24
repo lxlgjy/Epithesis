@@ -19,7 +19,7 @@
         <span>播放模式</span>
       </div>
       <div class="componentPage-flex">
-        <div :class=" MusicAudioModeIndex === 0 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click="AudioMode(0);mess('success')">
+        <div :class=" Start.AudioMode === 0 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click="AudioMode(0);mess('success')">
           <div>
             <n-icon size="25">
               <ReloadOutline/>
@@ -27,7 +27,7 @@
             <span>循环</span>
           </div>
         </div>
-        <div :class="MusicAudioModeIndex === 1 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click="AudioMode(1);mess('success')">
+        <div :class="Start.AudioMode === 1 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click="AudioMode(1);mess('success')">
           <div>
             <n-icon size="25">
               <Shuffle/>
@@ -35,7 +35,7 @@
             <span>随机</span>
           </div>
         </div>
-        <div :class="MusicAudioModeIndex === 2 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click="AudioMode(2);mess('success')">
+        <div :class="Start.AudioMode === 2 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click="AudioMode(2);mess('success')">
           <div>
             <n-icon size="25">
               <RepeatOutline/>
@@ -54,12 +54,14 @@
 <script setup lang="ts">
 import '../style/Flex/FlexComponents.sass'
 import {Shuffle , ReloadOutline , RepeatOutline} from '@vicons/ionicons5'
-import {MusicAudioModeIndex} from '../uilt/PublicStatus'
 import {AudioMode , AudioToggle , AudioSpeed} from '../uilt/VueIncident'
 import {mess} from "../uilt/VueEvent";
 import {onMounted} from "vue";
+import useStore from "../stores/counter";
 
 const dataSpeed = [{speed:0.5,checked:false} , {speed:1,checked:true},{speed:1.5,checked:false},{speed:2,checked:false},{speed:2.5,checked:false},{speed:3,checked:false}]
+
+const {Start} = useStore()
 
 onMounted(() => {
   document.querySelectorAll('.componentPage-flex-between')

@@ -15,12 +15,12 @@
       <div class="Player-flex">
         <div class="Player-show flex-Music-dirJust flex-Music-flexWarped">
           <div class="Player-image flex-Music-res">
-            <img :src=" Audio.MusicSongNow[Start.AudioSongIndex]['al']['picUrl']" alt="">
+            <img :src="Start.AudioMode === 1 ? Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['al']['picUrl'] : Audio.MusicSongNow[Start.AudioSongIndex]['al']['picUrl']" alt="">
           </div>
           <div class="Player-title flex-Music-left flex-Music-flexWarped">
             <div>
-              <span>{{ Audio.MusicSongNow[Start.AudioSongIndex]['name'] }}</span>
-              <span>{{ Audio.MusicSongNow[Start.AudioSongIndex]['ar'][0]['name'] }}</span>
+              <span>{{ Start.AudioMode === 1 ? Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['name'] : Audio.MusicSongNow[Start.AudioSongIndex]['name'] }}</span>
+              <span>{{ Start.AudioMode === 1  ? Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['ar'][0]['name'] : Audio.MusicSongNow[Start.AudioSongIndex]['ar'][0]['name'] }}</span>
             </div>
             <div class="Player-unit">
               <button>
@@ -33,23 +33,11 @@
           <div>
             <div class="progress-input flex-Music-flexWarped">
               <span>{{ currentTime(MusicSongTime) }}</span>
-              <div class="Audio-Select flex-Music-res flex-Music-width-100 flex-Music-sizing">
-                <div class="select flex-Music-hidden flex-Music-width-100 flex-Music-height-100">
-                  <!--如果想添加悬浮显示进度，可以更改下方进度-->
-                  <div class="progress flex-Music-pointer flex-Music-width-100 flex-Music-height-100"
-                       @click.stop="AudioProgress($event)">
-                    <div class="progress-left flex-Music-hidden"
-                         :style=" 'width:' + progress(Audio.MusicSongNow[Start.AudioSongIndex]['dt'],MusicPlayerTime)">
-                    <span class="progress-btn componentPage-index-3 flex-Music-radius-50 componentPage-position"
-                          :style=" 'left:' + progress(Audio.MusicSongNow[Start.AudioSongIndex]['dt'],MusicPlayerTime)"></span>
-                    </div>
-                  </div>
-                  <!--我是分割线-->
-                </div>
-                <!--<span class="Audio-float">01:23</span>-->
-                <!-- 目前没有悬浮显示歌曲进度-->
-              </div>
-              <span>{{ Time(Audio.MusicSongNow[Start.AudioSongIndex]['dt']) }}</span>
+              <n-space vertical class="Audio-Select">
+                <n-slider :value="AudioValue(Audio.MusicSongNow[Start.AudioSongIndex]['dt'],MusicPlayerTime)" :step="0.1" style="--n-fill-color:#165dff;--n-fill-color-hover: #165dff;--n-handle-size:8px;--n-handle-color:#165dff;"
+                          @update-value="AudioProgress($event)"  :tooltip="false"/>
+              </n-space>
+              <span>{{Start.AudioMode === 1 ? Time(Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['dt']) : Time(Audio.MusicSongNow[Start.AudioSongIndex]['dt'])}}</span>
             </div>
           </div>
           <div class="Player-btn flex-Music-sizing flex-Music-flexWarped">
@@ -137,7 +125,14 @@ import {
 } from '@vicons/ionicons5'
 import {MusicPlayer, MusicSongTime, MusicPlayerTime, MusicPlayerToggle, MusicI} from '../uilt/PublicStatus'
 import useStore from "../stores/counter";
-import {currentTime, progress, Time, lyric, BackgroundImage} from "../uilt/PageWidgets";
+import {
+  currentTime,
+  progress,
+  Time,
+  lyric,
+  BackgroundImage,
+  AudioValue
+} from "../uilt/PageWidgets";
 import {PlayToggle, lyricSelect, PlayerAudio, PlayerBack, AudioProgress, NextAndPrevious} from '../uilt/VueIncident'
 import {AudioLyric, mess} from "../uilt/VueEvent";
 

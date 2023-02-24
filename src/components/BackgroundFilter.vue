@@ -1,12 +1,6 @@
 <template>
   <div class="detail-background">
-    <img :src="route.meta['page'] === 'HomeRecommendedSongs' ? Detail.MusicSongsDetailList['fetchDetailSongs']['data']['dailySongs'][0]['al']['picUrl'] :
-            (route.meta['page'] === 'HomePlaylist' ||route.meta['page'] === 'Recommend' ||route.meta['page'] === 'PlayListDetail' ? Detail.MusicSongsDetailList['fetchDetail']['playlist']['coverImgUrl'] :
-            (route.meta['page'] === 'SingerDetail' ? Detail.MusicSongsDetailList['fetchDetail']['data']['artist']['cover'] :
-            (route.meta['page'] === 'HomeAlbum' ? Detail.MusicSongsDetailList['fetchDetailSongs']['album']['picUrl'] :
-            (Detail.MusicSongsDetailList['songs'] ?  Detail.MusicSongsDetailList['songs'][0]['al']['picUrl'] : '')
-            )))"
-         alt="">
+    <img :src="Detail.MusicSongsDetailList.DetailTitle.img" alt="">
   </div>
 </template>
 

@@ -2,10 +2,14 @@
 import router from "../router";
 import useStore from "../stores/counter";
 import {PlayListAxios} from './Api/PlaylistApi'
-import {DetailPlayListAxios, DetailSearchAxios, DetailSingerAxios, LoveSongs} from "./Api/DetailApi";
-import {AudioLyricAxios, AudioSongAxios} from "./Api/AudioApi";
 import {
-    MusicAudioModeIndex,
+    DetailHomeAxios, DetailMVAxios,
+    DetailPlaylistAxios,
+    DetailSearchAxios,
+    DetailSingerAxios,
+    LoveSongs
+} from "./Api/DetailApi";
+import {
     MusicLoginBackgroundShow,
     MusicLoginShow, MusicPageCapabilities, MusicPageNoticeShow,
     MusicPlay,
@@ -13,7 +17,14 @@ import {
     MusicPlayerToggle,
     MusicSearchInputShow
 } from './PublicStatus'
-import {DetailSelect, mess, MusicSongAndLyric, timeupdate} from "./VueEvent";
+import {
+    DetailSelect,
+    MusicAudioModeModule,
+    MusicAudioPlayAll,
+    MusicSongAndLyric,
+    newAudioList,
+    timeupdate
+} from "./VueEvent";
 import {
     backgroundAndloadingToggle,
     MusicAudioModeToggle,
@@ -70,12 +81,20 @@ export const right = () => {
     let length = parseInt(HomeUl.style.left)
     length === -(4 * HomeBox.offsetWidth) ? HomeUl.style.left = 0 + 'px' : HomeUl.style.left = length - HomeBox.offsetWidth + 'px'
 }
+
+export const SwiperData = () => {
+    MusicPageNoticeShow.value = true
+    useStore().Start.reviseMusicNotice('只展示轮播，不提供数据展示')
+}
+
+
 //歌单请求
 export const Playlist_Cat = (dom: any, page?: number) => {
     if (dom.target.innerText !== '') {
         let title = dom.target.innerText
         // 切换歌单
         PlayListAxios(`/top/playlist?limit=35&order=hot&offset=1&cat=${title}`).then()
+        useStore().Start.addPlayList(1)
     }
 }
 // 搜索请求
@@ -83,11 +102,15 @@ export const search = async () => {
     let searchInputValue = document.querySelector('.Search-top-input input') as HTMLInputElement
 
     if (searchInputValue.value !== '') {
+        backgroundAndloadingToggle()
+
         await DetailSearchAxios(`/cloudsearch?keywords=${searchInputValue.value}`)
+
         routerPush('Search', 'Search', searchInputValue.value)
 
-        MusicLoginBackgroundShow.value = false
         MusicSearchInputShow.value = false
+        backgroundAndloadingToggle()
+
     }
 }
 //歌手请求
@@ -95,7 +118,7 @@ export const MusicSinger = async (id: string) => {
     await useStore().Start.ToggleMusicData(false)
     backgroundAndloadingToggle()
 
-    await DetailSingerAxios(`/artist/detail?id=${id}`, `/artists?id=${id}`, `/artist/desc?id=${id}`)
+    await DetailSingerAxios(`/artist/detail?id=${id}`, `/artists?id=${id}`)
 
     await useStore().Start.ToggleMusicData(true)
     backgroundAndloadingToggle()
@@ -107,7 +130,7 @@ export const FilmMovie = async (id: string, type?: string) => {
 
     backgroundAndloadingToggle()
 
-    await DetailPlayListAxios(`/mv/detail?mvid=${id}`, id, 'MV')
+    await DetailMVAxios(`/mv/detail?mvid=${id}`, id)
 
     await useStore().Start.ToggleMusicData(true)
     backgroundAndloadingToggle()
@@ -122,23 +145,24 @@ export const MusicHomeDetail = async (id: string, routerType?: string) => {
 
     } else if (routerType === 'HomeRecommendedSongs') {
 
-        await DetailPlayListAxios(`/recommend/songs`, id, 'GetTheSongsDirectly')
+        await DetailHomeAxios(`/recommend/songs`, id, 'GetTheSongsDirectly')
+
         backgroundAndloadingToggle()
 
     } else if (routerType === 'HomePlaylist') {
 
-        await DetailPlayListAxios(`/playlist/detail?id=${id}`, id, 'DoNotGetTheSongsDirectly')
+        await DetailHomeAxios(`/playlist/detail?id=${id}`, id, 'DoNotGetTheSongsDirectly')
 
         backgroundAndloadingToggle()
 
     } else if (routerType === 'HomeRankings') {
 
-        await DetailPlayListAxios(`/playlist/detail?id=${id}`, id, 'DoNotGetTheSongsDirectly')
+        await DetailHomeAxios(`/playlist/detail?id=${id}`, id, 'DoNotGetTheSongsDirectly')
 
         backgroundAndloadingToggle()
 
     } else if (routerType === 'HomeAlbum') {
-        await DetailPlayListAxios(`/album?id=${id}`, id, 'GetTheSongsDirectly')
+        await DetailHomeAxios(`/album?id=${id}`, id, 'Album')
 
         backgroundAndloadingToggle()
     }
@@ -151,7 +175,8 @@ export const MusicPlayListDetail = async (id: string) => {
 
     backgroundAndloadingToggle()
 
-    await DetailPlayListAxios(`/playlist/detail?id=${id}`, id, 'DoNotGetTheSongsDirectly')
+    await DetailPlaylistAxios(`/playlist/detail?id=${id}`, id)
+
 
     backgroundAndloadingToggle()
 
@@ -168,11 +193,10 @@ const routerPush = (name: string, type?: string, page?: string) => {
         }
     }).then()
 
-    backgroundAndloadingToggle()
 
 }
 //详情界面点击
-export const Player = async (id: string, item:object) => {
+export const Player = async (id: string, item: object) => {
     await MusicSongAndLyric(id)
     useStore().Start.AudioSongIndex = 0
 
@@ -239,26 +263,12 @@ export const AudioVolumeMouseMove = (value: number) => {
 
 export const AudioProgress = async (e: Event) => {
     const {HomeAudio} = Element()
-
-    HomeAudio.pause()
-
     // @ts-ignore
-    if (e.target.offsetWidth < 617) {
-        let absolutely = ((e.offsetX / 617) * 100).toFixed(2)
-        // @ts-ignore
-        HomeAudio.currentTime = AudioProgressToggle(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['dt'], absolutely)
-    } else {
-        // @ts-ignore
-        let absolutely = ((e.offsetX / e.target.offsetWidth) * 100).toFixed(2)
-        // @ts-ignore
-        HomeAudio.currentTime = AudioProgressToggle(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['dt'], absolutely)
-    }
-
-    await HomeAudio.play()
+    HomeAudio.currentTime = AudioProgressToggle(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['dt'], e)
 }
 
 // 提供倍速 （歌曲播放完恢复1.0x）
-export const AudioSpeed = (speed:number) => {
+export const AudioSpeed = (speed: number) => {
     const {HomeAudio} = Element()
     HomeAudio.playbackRate = speed
     AudioToggle()
@@ -269,16 +279,41 @@ export const AudioToggle = () => {
     MusicAudioModeToggle()
 }
 
-export const AudioMode = (index: number) => {
-    MusicAudioModeIndex.value = index
+export const AudioMode = async (index: number) => {
+    // 修改函数
+    if(useStore().Audio.MusicSongNow.length > 1) {
 
+    } else {
+        switch(index) {
+            case index = 1:
+                MusicPageNoticeShow.value = true
+                useStore().Start.reviseMusicNotice('列表只有一首歌曲，无法进行随机播放，请添加音乐')
+                break
+            case index = 2:
+                MusicPageNoticeShow.value = true
+                useStore().Start.reviseMusicNotice('列表只有一首歌曲，无法进行列表播放，请添加音乐')
+                break
+            default:
+
+        }
+    }
     useStore().Start.ToggleAudioMode(index)
-
     MusicAudioModeToggle()
 
     MusicPageNoticeShow.value = true
+    useStore().Start.reviseMusicNotice(`播放模式已切换（${index === 0 ? '单曲循环' : (index === 1 ? '随机播放' : '列表循环')}）`)
 
-    useStore().Start.reviseMusicNotice(`播放模式已切换（${index === 0 ? '单曲循环': (index === 1 ? '随机播放' : '列表循环')}）`)
+    //模式是否切换
+    if (useStore().Start.AudioMode === 1) {
+        const AudioSlice = await newAudioList() as Array<number>
+        useStore().Start.reviseAudioModeRandomList(AudioSlice)
+
+        //@ts-ignore
+        await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['id'])
+    } else if (useStore().Start.AudioMode === 2) {
+        //@ts-ignore
+        await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
+    }
 }
 
 //播放列表（左侧滑动出现）
@@ -306,7 +341,7 @@ export const AudioListPush = async (type?: string) => {
 
     } else {
         // @ts-ignore
-        let item = await useStore().Detail.MusicSongsDetailList['songs']
+        let item = useStore().Detail.MusicSongsDetailList.DetailSong
 
         useStore().Audio.replaceMusicSongNowListPush(item)
         useStore().Start.AudioSongIndex = 0
@@ -337,39 +372,28 @@ export const NextAndPrevious = async (type?: string) => {
     const {HomeAudio} = Element()
 
     if (useStore().Audio.MusicSongNow.length < 2) {
+        MusicPageNoticeShow.value = true
+        type === 'Next' ? useStore().Start.reviseMusicNotice('已经最后一首了！！！') : useStore().Start.reviseMusicNotice('已经没有上一首了！！！')
 
     } else {
         if (type === 'Next') {
             if (useStore().Start.AudioSongIndex < useStore().Audio.MusicSongNow.length - 1) {
-                MusicPageNoticeShow.value = false
                 useStore().Start.AddAudioIndex()
-                // @ts-ignore
-                await MusicSongAndLyric(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
-                await HomeAudio.play()
-                MusicPlay.value = true
-                MusicPlayer.value = true
-            } else {
-                MusicPageNoticeShow.value = true
-                useStore().Start.reviseMusicNotice('已经最后一首了！！！')
+
+                await MusicAudioModeModule()
             }
         } else {
             if (useStore().Start.AudioSongIndex > 0) {
-                MusicPageNoticeShow.value = false
                 useStore().Start.subtractAudioIndex()
-                // @ts-ignore
-                await MusicSongAndLyric(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
-                await HomeAudio.play()
-                MusicPlay.value = true
-                MusicPlayer.value = true
-            } else {
-                MusicPageNoticeShow.value = true
-                useStore().Start.reviseMusicNotice('已经没有上一首了！！！')
+
+                await MusicAudioModeModule('Previous')
             }
         }
 
     }
 
 }
+
 
 //下载音乐
 export const MusicDownload = (id: string, name: string, singer: string) => {
@@ -398,7 +422,7 @@ export const scorll = () => {
     MusicPageCapabilities.value = false
 }
 
-export const PlayListToggle = async(title:string) => {
+export const PlayListToggle = async (title: string) => {
     await PlayListAxios(`/top/playlist?limit=35&order=hot&offset=${(useStore().Start.PlayList - 1) * 35}&cat=${title}&timestamp=${Date.now()}`)
 }
 

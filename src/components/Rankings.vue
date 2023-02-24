@@ -3,11 +3,11 @@
     <div class="recommend-playlist">
       <BackgroundFilter></BackgroundFilter>
       <div class="image">
-        <img :src="Detail.MusicSongsDetailList['fetchDetail']['playlist']['coverImgUrl']" alt="">
+        <img :src="Detail.MusicSongsDetailList.DetailTitle.img" alt="">
       </div>
       <div class="title">
-        <span>{{ Detail.MusicSongsDetailList['fetchDetail']['playlist']['name'] }}</span>
-        <span>{{ Detail.MusicSongsDetailList['fetchDetail']['playlist']['description'] }}</span>
+        <span>{{ Detail.MusicSongsDetailList.DetailTitle.title }}</span>
+        <span>{{ Detail.MusicSongsDetailList.DetailTitle.BriefIntroduction }}</span>
       </div>
     </div>
     <div class="recommend-songs-recommend">
@@ -15,13 +15,13 @@
         <div class="recommend-songs-list">
           <n-scrollbar trigger="hover" style="max-height: 100%">
             <ul>
-              <li v-for="(item,index) in Detail.MusicSongsDetailList['fetchDetailSongs']['songs']"
+              <li v-for="(item,index) in Detail.MusicSongsDetailList.DetailSong"
                   @dblclick="Player(item['id'] , item)">
 <!--                <span>{{ index + 1 }}</span>-->
                 <span>
                   <img v-lazy="item['al']['picUrl'] + '?param=50y50'">
                 </span>
-                <span>{{ item.name }}</span>
+                <span>{{ item['name'] }}</span>
                 <span>{{ item['ar'][0].name }}</span>
                 <span>{{ item['al']['name'] }}</span>
                 <span>{{ Time(item['dt']) }}</span>
@@ -50,11 +50,12 @@ import {Player} from '../uilt/VueIncident'
 const {Detail, Home , Start} = useStore()
 const route = useRoute()
 
+console.log(Detail.MusicSongsDetailList.DetailTitle)
 const image = (item:any) => {
   let arr = []
   for (let i = 0; i < item.length; i++) {
     // @ts-ignore
-    if (item[i]['id'] !== parseInt(Detail.MusicSongsDetailList['fetchDetail']['playlist']['id'])) {
+    if (item[i]['id'] !== parseInt(Detail.MusicSongsDetailList.DetailSong[i]['id'])) {
       arr.push(item[i])
     }
   }

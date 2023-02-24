@@ -12,7 +12,8 @@ const useStartStore = defineStore('Start',{
             AudioSongIndex:0 as number,
             MusicNotice:'' as string,
             PlayList:1 as number,
-            AudioMode:2 as number
+            AudioMode:2 as number,
+            AudioModeRandomList:[] as Array<number>
         }
     },
     actions:{
@@ -45,6 +46,9 @@ const useStartStore = defineStore('Start',{
         },
         ToggleAudioMode(data:number) {
             this.AudioMode = data
+        },
+        reviseAudioModeRandomList(data:Array<number>) {
+            this.AudioModeRandomList = data
         }
 
     },
@@ -59,7 +63,7 @@ const useStartStore = defineStore('Start',{
             {
                 key:'startSession',
                 storage:window.sessionStorage,
-                paths:['HomeDetail' , 'AudioShow' ,'PageShow','AudioSongIndex','PlayList','AudioMode']
+                paths:['HomeDetail' , 'AudioShow' ,'PageShow','AudioSongIndex','PlayList','AudioMode' , 'AudioModeRandomList']
             }
         ]
     }

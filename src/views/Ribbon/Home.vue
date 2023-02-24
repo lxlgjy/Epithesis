@@ -30,7 +30,7 @@
                 prev-slide-style="transform: translateX(-150%) translateZ(-800px);"
                 style="height: 240px"
             >
-              <n-carousel-item v-for="item in Home.MusicSwiperData['result']" key="item.id" :style="{ width: '60%' }">
+              <n-carousel-item v-for="item in Home.MusicSwiperData['result']" key="item.id" :style="{ width: '60%' }" @click="SwiperData();mess('error')">
                 <img
                     :src="item['picUrl']"
                     alt="item.copywriter"
@@ -144,10 +144,9 @@ import '@/style/Home.sass'
 import '@/style/Skeleton/Home.sass'
 import '../../style/content.sass'
 import useStore from "../../stores/counter";
-import {left, right, MusicHomeDetail} from '../../uilt/VueIncident'
+import {left, right, MusicHomeDetail , SwiperData} from '../../uilt/VueIncident'
 import {useRoute} from "vue-router";
-import {onMounted} from "vue";
-import {HomeLatestAlbum, HomeRankingAxios, HomeRecommendAxios, HomeSwiperAxios} from "../../uilt/Api/HomeApi";
+import {mess} from "../../uilt/VueEvent";
 
 const {Home, Start, Login} = useStore()
 const route = useRoute()

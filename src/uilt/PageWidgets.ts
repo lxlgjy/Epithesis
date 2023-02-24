@@ -1,21 +1,27 @@
 // 页面时间转换 与 歌词转换
 import useStore from "../stores/counter";
-import Element from './Element'
+import {useRoute} from "vue-router";
+
 
 export const Time = (time: any) => {
     let Time = time / 1000
     let m: string | number = Math.floor(Time / 60)
     let s: string | number = Math.floor(Time % 60)
-    m = m < 10 ? '0' +  m : m
-    s = s < 10 ? '0' +  s : s
+    m = m < 10 ? '0' + m : m
+    s = s < 10 ? '0' + s : s
 
     return m + ':' + s
 }
 //
 export const progress = (time: any, TimeAll: number) => {
+    let Length = (((TimeAll) / ((Math.floor(time / 1000 / 60) * 60) + (Math.floor(time / 1000 % 60)))) * 100)
 
-    return (((TimeAll) / ((Math.floor(time / 1000 / 60) * 60) + (Math.floor(time / 1000 % 60)))) * 100) + '%'
+    return (Length <= 10 ? Length : Length - 1) + '%'
 
+}
+
+export const  AudioValue = (time: any, TimeAll: number):number => {
+    return (((TimeAll) / ((Math.floor(time / 1000 / 60) * 60) + (Math.floor(time / 1000 % 60)))) * 100)
 }
 
 export const AudioProgressToggle = (time: any, TimeAll: number) => {
@@ -59,4 +65,6 @@ export const currentTime = (time: number) => {
     const formatSecond = second > 59 ? 59 : second
     return `${hours > 0 ? `${hours}:` : ''}${minute < 10 ? '0' + minute : minute}:${formatSecond < 10 ? '0' + formatSecond : formatSecond}`
 }
+
+
 

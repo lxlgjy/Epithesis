@@ -23,7 +23,7 @@ onMounted(() => {
   width: 300px;
   height: 300px;
   background-color: #fff;
-  z-index: 20;
+  z-index: 1000;
   img {
     position: relative;
     left: 50%;

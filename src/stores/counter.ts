@@ -7,15 +7,20 @@ import useStartStore from "./Initialstart";
 import useAudioStore from "./Audio";
 import useMvStore from "./Mv";
 
+
 export default function useStore() {
     return {
         Home: useHomeStore(),
         Playlist: usePlayListStore(),
-        Singer:useSingerStore(),
-        Detail:useDetailStore(),
-        Login:useLoginStore(),
-        Start:useStartStore(),
-        Audio:useAudioStore(),
-        Mv:useMvStore(),
-    }
+        Singer: useSingerStore(),
+        Detail: useDetailStore(),
+        Login: useLoginStore(),
+        Start: useStartStore(),
+        Audio: useAudioStore(),
+        Mv: useMvStore(),
+    };
 }
+
+
+
+

@@ -28,8 +28,8 @@ export const LoginAxios = async () => {
             MusicLoginShow.value = false
             useStore().Start.ToggleLoginShow(false)
             await localStorage.setItem('cookie', statusRes.cookie)
-            useStore().Login.MusicUname = await getLoginStatus(statusRes.cookie)
-
+            let MusicUname = await getLoginStatus(statusRes.cookie)
+            useStore().Login.getMusicUname(MusicUname.data.profile)
         }
     }, 3000)
 }

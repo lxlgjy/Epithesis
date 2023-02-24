@@ -17,5 +17,6 @@ app.use(naive)
 app.use(VueLazyload)
 pinia.use(piniaPLuginPersist)
 
+
 const store = useStore()
 app.mount('#app')

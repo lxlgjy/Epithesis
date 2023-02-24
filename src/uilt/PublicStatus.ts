@@ -5,15 +5,14 @@ const PublicStart = reactive({
     loginShow:false, //登录
     loginBackgroundShow:false, //遮罩
     PlayerToggle: true,
-    Play: false,
-    Player: false,
+    Play: false, // 控制播放
+    Player: false, // 控制播放按钮
     PlayerTime: 0,
     SongTime: 0,
     i: 0,
     loadingShow:false,
     Volume:false, // 音量滑动
     AudioMode:false, // 音乐模式
-    AudioModeIndex:2, // 模式切换
     SongList:true, //播放列表,播放历史切换
     SongListShow:false, // 播放列表
     PageNoticeShow:false, // 信息展示
@@ -32,7 +31,6 @@ export const MusicPlayer = toRef(PublicStart, 'Player')
 export const MusicLoadingShow = toRef(PublicStart , 'loadingShow')
 export const MusicVolume  = toRef(PublicStart , 'Volume')
 export const MusicAudioModeShow = toRef(PublicStart , 'AudioMode')
-export const MusicAudioModeIndex = toRef(PublicStart , 'AudioModeIndex')
 export const MusicSongList = toRef(PublicStart , 'SongList')
 export const MusicSongListShow = toRef(PublicStart , 'SongListShow')
 export const MusicPageNoticeShow = toRef(PublicStart , 'PageNoticeShow')

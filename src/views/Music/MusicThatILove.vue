@@ -14,19 +14,17 @@ import {onMounted} from "vue";
 
 const {Start , Detail} = useStore()
 
+
 onMounted(async() => {
   if(window.localStorage.getItem('cookie')) {
     await DetailThatLove()
-    // @ts-ignore
+
     let SongsListId = []
-    // @ts-ignore
-    for(let i =0 ; i < Detail.MusicSongsDetailList['songs'].length ; i++) {
-      // @ts-ignore
-      SongsListId.push(Detail.MusicSongsDetailList['songs'][i]['id'])
+    for(let i =0 ; i < Detail.MusicSongsDetailList.DetailSong.length ; i++) {
+      SongsListId.push(Detail.MusicSongsDetailList.DetailSong[i].id)
     }
 
-    // @ts-ignore
-    Detail.MusicLoveListId = SongsListId
+    Detail.getMusicLoveListId(SongsListId)
   }
 })
 

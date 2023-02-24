@@ -1,13 +1,20 @@
 import {defineStore} from "pinia";
 
+interface MusicStore {
+    MusicUname: {
+        userId: string,
+        [key:string]:unknown
+    }
+}
+
 const useLoginStore = defineStore('Login',{
     state:() => {
         return {
-            MusicUname:[] as object
+            MusicUname: {}  as MusicStore['MusicUname']
         }
     },
     actions:{
-        getMusicUname(data:object) {
+        getMusicUname(data:MusicStore['MusicUname']) {
             this.MusicUname = data
         }
     },

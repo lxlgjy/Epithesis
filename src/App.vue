@@ -32,7 +32,7 @@
     <SongList v-if="MusicSongListShow"></SongList>
   </transition>
 
-  <n-space style="position: absolute;top:50%;left:50%;transform: translateX(-50%) translateY(-50%);"
+  <n-space style="position:absolute;top:50%;left:50%;transform: translateX(-50%) translateY(-50%);"
            v-if="MusicLoadingShow">
     <n-spin size="small" stroke="blue"/>
   </n-space>
@@ -98,7 +98,7 @@ onErrorCaptured((err, instance, info) => {
   console.log(err.message)
   // console.log(instance)
   console.log(info)
-  return false
+  // return false
 })
 
 

@@ -6,11 +6,11 @@
       <div class="left componentPage-width-30 componentPage-flex" @click="playerAudioShow">
         <div class="left-box componentPage-flex componentPage-height-100">
           <div class="left-img componentPage-radius-50 componentPage-hidden">
-            <img :src="Audio.MusicSongNow ? Audio.MusicSongNow[Start.AudioSongIndex]['al']['picUrl'] :'' " alt="">
+            <img :src="Audio.MusicSongNow.length ? (Start.AudioMode === 1 && Audio.MusicSongNow.length > 1 ? Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['al']['picUrl'] : Audio.MusicSongNow[Start.AudioSongIndex]['al']['picUrl'] ):''" alt="">
           </div>
           <div class="left-title">
-            <span class="componentPage-block">{{ Audio.MusicSongNow[Start.AudioSongIndex]['name'] }}</span>
-            <span class="componentPage-block">{{ Audio.MusicSongNow[Start.AudioSongIndex]['ar'][0]['name'] }}</span>
+            <span class="componentPage-block">{{ Start.AudioMode === 1 && Audio.MusicSongNow.length > 1 ? Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['name'] : Audio.MusicSongNow[Start.AudioSongIndex]['name'] }}</span>
+            <span class="componentPage-block">{{Start.AudioMode === 1 && Audio.MusicSongNow.length > 1 ? Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['ar'][0]['name'] : Audio.MusicSongNow[Start.AudioSongIndex]['ar'][0]['name'] }}</span>
           </div>
         </div>
         <div></div>
@@ -22,7 +22,7 @@
         <div class="middle-information componentPage-flex componentPage-height-100">
           <div class="componentPage-flex">
             <div class="componentPage-center componentPage-flex-between">
-              <button @click="NextAndPrevious('Previous');mess('warning')">
+              <button @click.stop="NextAndPrevious('Previous');mess('warning')">
                 <n-icon size="35" color="#000">
                   <PlaySkipBack/>
                 </n-icon>
@@ -37,7 +37,7 @@
                   <PauseSharp/>
                 </n-icon>
               </button>
-              <button class="middle-information-btn-bw-last" @click="NextAndPrevious('Next');mess('warning')">
+              <button class="middle-information-btn-bw-last" @click.stop="NextAndPrevious('Next');mess('warning')">
                 <n-icon size="35" color="#000">
                   <PlaySkipForward/>
                 </n-icon>
@@ -46,22 +46,11 @@
           </div>
           <div class="componentPage-flex">
             <span>{{ currentTime(MusicSongTime) }}</span>
-            <div class="Audio-Select componentPage-position-re componentPage-width-100 componentPage-sizing">
-              <div class="select componentPage-hidden componentPage-width-100 componentPage-height-100">
-                <!--如果想添加悬浮显示进度，可以更改下方进度-->
-                <div class="progress componentPage-pointer componentPage-width-100" @click.stop="AudioProgress($event)">
-                  <div class="progress-left componentPage-hidden"
-                       :style=" 'width:' + progress(Audio.MusicSongNow[Start.AudioSongIndex]['dt'],MusicPlayerTime)">
-                    <span class="progress-btn componentPage-index-3 componentPage-radius-50 componentPage-position"
-                          :style=" 'left:' + progress(Audio.MusicSongNow[Start.AudioSongIndex]['dt'],MusicPlayerTime)"></span>
-                  </div>
-                </div>
-                <!--我是分割线-->
-              </div>
-              <!--<span class="Audio-float">01:23</span>-->
-              <!-- 目前没有悬浮显示歌曲进度-->
-            </div>
-            <span>{{ Time(Audio.MusicSongNow[Start.AudioSongIndex]['dt']) }}</span>
+            <n-space vertical class="Audio-Select">
+              <n-slider :value="AudioValue(Audio.MusicSongNow[Start.AudioSongIndex]['dt'],MusicPlayerTime)" :step="0.1" style="--n-fill-color:#165dff;--n-fill-color-hover: #165dff;--n-handle-size:8px;--n-handle-color:#165dff;"
+                        @update-value="AudioProgress($event)"  :tooltip="false"/>
+            </n-space>
+            <span>{{Start.AudioMode === 1 ? Time(Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['dt']) : Time(Audio.MusicSongNow[Start.AudioSongIndex]['dt'])}}</span>
           </div>
         </div>
       </div>
@@ -107,7 +96,7 @@ import {
   ReorderFour
 } from '@vicons/ionicons5'
 import useStore from "../stores/counter";
-import {Time, currentTime, progress} from '../uilt/PageWidgets'
+import {Time, currentTime, progress, AudioValue} from '../uilt/PageWidgets'
 import {MusicPlayerTime, MusicSongTime, MusicPlayer} from '../uilt/PublicStatus'
 import {
   playerAudioShow,
@@ -118,13 +107,14 @@ import {
   SongListShowToggle,
   NextAndPrevious
 } from '../uilt/VueIncident'
-import { ref} from "vue";
-import {mess} from "../uilt/VueEvent";
-
+import {computed, ref} from "vue";
+import {mess , AudioToole} from "../uilt/VueEvent";
 
 const {Audio, Start} = useStore()
 
 const value = ref(100)
+
+
 
 </script>
 <style scoped lang="scss">
@@ -163,66 +153,10 @@ const value = ref(100)
   }
 
   .Audio-Select {
-    height: .3rem;
+    width: 100%;
     top: 10px;
     margin: 0 8px;
-    transform: translateX(-2px) translateY(-1px);
-
-    .select {
-      border-radius: 10px;
-
-      .progress {
-        background: rgba(193, 200, 209, .6);
-
-        .progress-left {
-          background-color: #165dff;
-          height: 100%;
-
-          .progress-btn {
-            width: .5rem;
-            height: .5rem;
-            background-color: #165dff;
-            transform: translateY(-2px);
-          }
-        }
-      }
-    }
-  }
-
-  .progress {
-    left: 0;
-    z-index: -1;
-    background: rgba(193, 200, 209, .6);
-    border-radius: 10rem;
-    height: 100%;
-  }
-
-  .Audio-float {
-    position: absolute;
-    top: -32px;
-    width: 3rem;
-    height: 1.6rem;
-    background-color: #000;
-    border-radius: 7px;
-    color: #fff;
-    font-weight: 700;
-    text-align: center;
-    line-height: 1.6rem;
-    z-index: 10;
-
-    &::after {
-      content: "";
-      display: block;
-      width: .4rem;
-      height: .4rem;
-      border-bottom: 1px solid #000;
-      border-right: 1px solid #000;
-      transform: rotate(45deg);
-      position: absolute;
-      left: 20px;
-      background-color: #000;
-      bottom: -2px;
-    }
+    transform: translateX(-2px) translateY(8px);
   }
 
 }

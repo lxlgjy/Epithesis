@@ -1,16 +1,29 @@
 import {defineStore} from "pinia";
 
+
+interface DetailSong {
+    id?:string;
+}
+
+interface MusicSongsDetailList {
+    DetailTitle:{}
+    DetailSong: DetailSong[]
+}
+interface MusicStore {
+    MusicSongsDetailList:MusicSongsDetailList
+}
+
 const useDetailStore = defineStore('Detail', {
     state: () => {
         return {
-            MusicSongsDetailList:[] as object,
+            MusicSongsDetailList:{} as MusicStore['MusicSongsDetailList'],
             MusicMV:[] as object,
-            MusicLoveListId:[] as Array<string>,
+            MusicLoveListId:[] as unknown,
             MusicCapabilities:{}
         }
     },
     actions:{
-        getMusicSongsDetailList(data:object) {
+        getMusicSongsDetailList(data:MusicStore['MusicSongsDetailList']) {
             this.MusicSongsDetailList = data
         },
         getMusicMV(data:object) {
@@ -18,6 +31,9 @@ const useDetailStore = defineStore('Detail', {
         },
         getMusicCapabilities(data:object) {
             this.MusicCapabilities = data
+        },
+        getMusicLoveListId(data:unknown) {
+            this.MusicLoveListId = data
         }
     },
     persist:{
