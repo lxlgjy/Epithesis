@@ -9,8 +9,14 @@ interface MusicSongsDetailList {
     DetailTitle:{}
     DetailSong: DetailSong[]
 }
+
+interface MusicLoveListId {
+
+}
+
 interface MusicStore {
-    MusicSongsDetailList:MusicSongsDetailList
+    MusicSongsDetailList:MusicSongsDetailList;
+    MusicLoveListId: MusicLoveListId[]
 }
 
 const useDetailStore = defineStore('Detail', {
@@ -18,7 +24,7 @@ const useDetailStore = defineStore('Detail', {
         return {
             MusicSongsDetailList:{} as MusicStore['MusicSongsDetailList'],
             MusicMV:[] as object,
-            MusicLoveListId:[] as unknown,
+            MusicLoveListId:[] as MusicStore['MusicLoveListId'],
             MusicCapabilities:{}
         }
     },
@@ -32,7 +38,7 @@ const useDetailStore = defineStore('Detail', {
         getMusicCapabilities(data:object) {
             this.MusicCapabilities = data
         },
-        getMusicLoveListId(data:unknown) {
+        getMusicLoveListId(data:MusicStore['MusicLoveListId']) {
             this.MusicLoveListId = data
         }
     },

@@ -63,7 +63,7 @@ const useStartStore = defineStore('Start',{
             {
                 key:'startSession',
                 storage:window.sessionStorage,
-                paths:['HomeDetail' , 'AudioShow' ,'PageShow','AudioSongIndex','PlayList','AudioMode' , 'AudioModeRandomList']
+                paths:['HomeDetail' , 'AudioShow' ,'PageShow','AudioSongIndex','PlayList','AudioMode' , 'AudioModeRandomList','AudioMode']
             }
         ]
     }

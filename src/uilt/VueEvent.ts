@@ -128,8 +128,9 @@ export const MusicAudioPlayAll = async(id:string) => {
 
     await MusicSongAndLyric(id)
 
-    await HomeAudio.play()
     HomeAudio.currentTime = 0
+
+    await HomeAudio.play()
 
     MusicPlayer.value = true
 
@@ -141,19 +142,18 @@ export const MusicAudioModeModule = async(type?:string) => {
         // @ts-ignore
         await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['id'])
 
-        if(type === 'Previous') {
-            // @ts-ignore
-            await MusicSongAndLyric(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
-        } else {
-            // @ts-ignore
-            await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['id'])
-        }
+        // if(type === 'Previous') {
+        //     // @ts-ignore
+        //     await MusicSongAndLyric(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
+        // } else {
+        //     // @ts-ignore
+        //     await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['id'])
+        // }
     } else if(useStore().Start.AudioMode === 0) {
         const {HomeAudio} = Element()
         HomeAudio.currentTime = 0
         await HomeAudio.play()
     } else {
-        useStore().Start.AddAudioIndex()
         // @ts-ignore
         await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
     }

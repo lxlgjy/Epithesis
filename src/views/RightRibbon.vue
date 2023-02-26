@@ -57,7 +57,7 @@
             'Home initialIcon' " size="20">
               <HeartSharp/>
             </n-icon>
-            <li>我喜欢的音乐</li>
+            <li>音乐库</li>
           </div>
         </router-link>
         <router-link v-slot="{navigate , isActive}" custom to="/MyDownloads">

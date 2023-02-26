@@ -183,6 +183,7 @@ export const MusicPlayListDetail = async (id: string) => {
     await useStore().Start.ToggleMusicData(true)
 
 }
+
 // 可以添加查看更多，进行路由跳转 - （路由跳转改为子路由嵌套）
 const routerPush = (name: string, type?: string, page?: string) => {
 
@@ -280,40 +281,48 @@ export const AudioToggle = () => {
 }
 
 export const AudioMode = async (index: number) => {
-    // 修改函数
     if(useStore().Audio.MusicSongNow.length > 1) {
-
+        switch(index) {
+            case 1:
+                const AudioSlice = await newAudioList() as Array<number>
+                useStore().Start.reviseAudioModeRandomList(AudioSlice)
+                // @ts-ignore
+                await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['id'])
+                useStore().Start.ToggleAudioMode(index)
+                break
+            case 2:
+                // @ts-ignore
+                await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
+                useStore().Start.ToggleAudioMode(index)
+                break
+            default:
+                const  {HomeAudio} = Element()
+                useStore().Start.ToggleAudioMode(index)
+                HomeAudio.currentTime = 0
+                await HomeAudio.play()
+                console.log('循环')
+                break
+        }
     } else {
         switch(index) {
-            case index = 1:
+            case 1:
                 MusicPageNoticeShow.value = true
                 useStore().Start.reviseMusicNotice('列表只有一首歌曲，无法进行随机播放，请添加音乐')
                 break
-            case index = 2:
+            case 2:
                 MusicPageNoticeShow.value = true
                 useStore().Start.reviseMusicNotice('列表只有一首歌曲，无法进行列表播放，请添加音乐')
                 break
             default:
-
+                useStore().Start.ToggleAudioMode(index)
+                break
         }
     }
-    useStore().Start.ToggleAudioMode(index)
     MusicAudioModeToggle()
 
     MusicPageNoticeShow.value = true
     useStore().Start.reviseMusicNotice(`播放模式已切换（${index === 0 ? '单曲循环' : (index === 1 ? '随机播放' : '列表循环')}）`)
 
-    //模式是否切换
-    if (useStore().Start.AudioMode === 1) {
-        const AudioSlice = await newAudioList() as Array<number>
-        useStore().Start.reviseAudioModeRandomList(AudioSlice)
-
-        //@ts-ignore
-        await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['id'])
-    } else if (useStore().Start.AudioMode === 2) {
-        //@ts-ignore
-        await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
-    }
 }
 
 //播放列表（左侧滑动出现）
@@ -380,7 +389,7 @@ export const NextAndPrevious = async (type?: string) => {
             if (useStore().Start.AudioSongIndex < useStore().Audio.MusicSongNow.length - 1) {
                 useStore().Start.AddAudioIndex()
 
-                await MusicAudioModeModule()
+                // await MusicAudioPlayAll(useStore().Audio.MusicSongNow[])
             }
         } else {
             if (useStore().Start.AudioSongIndex > 0) {

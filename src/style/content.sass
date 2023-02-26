@@ -1,15 +1,21 @@
-html,body ,div , p ,h1 , ul ,a img , li , hr ,h2 ,i , h3 , button ,span , input
+html, body, div, p, h1, ul, a img, li, hr, h2, i, h3, button, span, input, h2
   margin: 0
   padding: 0
 
 // 界面整体
+@font-face
+  font-family: myFree
+  src: url("../../public/Ali.ttf")
+
 *
   touch-action: manipulation
 
 html
   font-size: 16px
+
 body
   overflow: hidden
+  font-family: myFree, serif
 
 li
   list-style: none
@@ -77,14 +83,14 @@ button
 
 // 公共值
 \:root
-  --background-color-button: rgba(39,46,59, .04)
-  --background-color-button-active: rgba(39,46,59,.18)
+  --background-color-button: rgba(39, 46, 59, .04)
+  --background-color-button-active: rgba(39, 46, 59, .18)
   --page-width: 100%
   --border-round: 50%
   --border: rgba(34, 45, 50, 0.13)
   --page-box-singer: 0 3.9%
   //  222
-  --span-color: rgba(23,34,45,.3)
+  --span-color: rgba(23, 34, 45, .3)
   --header-top-background-blur: 16px
   --header-top-background-color-opacity: .85
 

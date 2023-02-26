@@ -122,7 +122,20 @@ const router = createRouter({
     {
       path:'/MusicThatILove',
       name:'MusicThatILove',
-      component:() => import('@/views/Music/MusicThatILove.vue')
+      meta:{
+        ThatLoveShow:true
+      },
+      component:() => import('@/views/Music/MusicThatILove.vue'),
+      children:[
+        {
+          path:'LoveDetail',
+          name:'LoveDetail',
+          meta:{
+            ThatLoveShow:false
+          },
+          component: () => import('@/components/Detail.vue')
+        }
+      ]
     },
     {
       path:'/MyDownloads',

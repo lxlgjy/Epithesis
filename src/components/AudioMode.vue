@@ -19,7 +19,7 @@
         <span>播放模式</span>
       </div>
       <div class="componentPage-flex">
-        <div :class=" Start.AudioMode === 0 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click="AudioMode(0);mess('success')">
+        <div :class=" Start.AudioMode === 0 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click.stop="AudioMode(0);mess('success')">
           <div>
             <n-icon size="25">
               <ReloadOutline/>
@@ -27,7 +27,7 @@
             <span>循环</span>
           </div>
         </div>
-        <div :class="Start.AudioMode === 1 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click="AudioMode(1);mess('success')">
+        <div :class="Start.AudioMode === 1 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click.stop="AudioMode(1);mess('success')">
           <div>
             <n-icon size="25">
               <Shuffle/>
@@ -35,7 +35,7 @@
             <span>随机</span>
           </div>
         </div>
-        <div :class="Start.AudioMode === 2 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click="AudioMode(2);mess('success')">
+        <div :class="Start.AudioMode === 2 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click.stop="AudioMode(2);mess('success')">
           <div>
             <n-icon size="25">
               <RepeatOutline/>

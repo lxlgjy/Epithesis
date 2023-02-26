@@ -51,9 +51,9 @@ export const lyric = () => {
 }
 
 export const BackgroundImage = (background: any) => {
-    let backgroundArr = ['linear-gradient(to top, #30cfd0 0%, #330867 100%)', 'linear-gradient(to right, #74ebd5 0%, #9face6 100%)', 'linear-gradient(to top, #3f51b1 0%, #5a55ae 13%, #7b5fac 25%, #8f6aae 38%, #a86aa4 50%, #cc6b8e 62%, #f18271 75%, #f3a469 87%, #f7c978 100%)', 'linear-gradient(to right, #434343 0%, black 100%)', 'linear-gradient(to top, #09203f 0%, #537895 100%)', 'linear-gradient(-20deg, #2b5876 0%, #4e4376 100%)', 'linear-gradient(45deg, #874da2 0%, #c43a30 100%)', 'linear-gradient(to top, #3b41c5 0%, #a981bb 49%, #ffc8a9 100%)', 'linear-gradient(to right, #3ab5b0 0%, #3d99be 31%, #56317a 100%)', 'linear-gradient(-225deg, #231557 0%, #44107A 29%, #FF1361 67%, #FFF800 100%)']
+    let backgroundArr = ['1E260D','2F5B8E','0D0613','322E11']
 
-    background.style.backgroundImage = backgroundArr[Math.round(Math.random() * 9)]
+    background.style.backgroundColor ='#' + backgroundArr[Math.round(Math.random() * 4)]
 }
 
 export const currentTime = (time: number) => {

@@ -55,14 +55,17 @@
         </div>
       </div>
       <div class="right componentPage-width-30 componentPage-flex">
-        <div class="AudioPlayMode componentPage-width-30 componentPage-height-100 ">
+        <div class="AudioSpeed componentPage-width-25 componentPage-height-100">
+          <span>1x</span>
+        </div>
+        <div class="AudioPlayMode componentPage-width-25 componentPage-height-100 ">
           <div class="alignLeft componentPage-center" @click="AudioToggle">
             <n-icon size="30" color="#000" class="center">
               <SyncSharp/>
             </n-icon>
           </div>
         </div>
-        <div class="AudioVolume componentPage-width-40 componentPage-height-100 ">
+        <div class="AudioVolume componentPage-width-25 componentPage-height-100 ">
           <div class="AudioVolume-res componentPage-hidden  componentPage-center
 componentPage-width-100 componentPage-height-100 componentPage-position-re">
 
@@ -73,7 +76,7 @@ componentPage-width-100 componentPage-height-100 componentPage-position-re">
 
           </div>
         </div>
-        <div class="AudioListOfSongs componentPage-width-30 componentPage-height-100">
+        <div class="AudioListOfSongs componentPage-width-25 componentPage-height-100">
           <div class="alignLeft componentPage-center" @click="SongListShowToggle">
             <n-icon size="30">
               <ReorderFour/>

@@ -167,7 +167,7 @@ export const LoveSongs = async (Api: string, id: string, type: string) => {
         useStore().Detail.MusicLoveListId.push(id)
     } else {
         const love = await publicPostFunction(Api) as object
-        let arr: Array<string> = []
+        let arr: Array<any> = []
         useStore().Detail.MusicLoveListId.forEach(item => {
             if (item !== id) {
                 arr.push(item)

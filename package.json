@@ -1,7 +1,8 @@
 {
-  "name": "vite-project",
+  "name": "vue3-music",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "text":"已经完成页面的大部分效果，少量bug" ,
   "type": "module",
   "scripts": {
     "dev": "vite",

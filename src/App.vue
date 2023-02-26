@@ -1,11 +1,14 @@
 <template oncontextmenu="stop()">
+
   <audio :src="Audio.MusicSong['data'] ? Audio.MusicSong['data'][0]['url']  : null" :hidden="true" id="Audio"></audio>
 
   <transition name="Box">
+
     <div id="Box" v-show="Start.PageShow">
       <RightRibbon id="RightRibbon" v-show="true"></RightRibbon>
       <left-display-area id="LeftDisplayArea"></left-display-area>
     </div>
+
   </transition>
 
   <play-audio v-show="Start.PageShow"></play-audio>
@@ -76,6 +79,8 @@ import {nextTick, onErrorCaptured, onMounted} from "vue";
 
 const {Audio, Start} = useStore()
 
+
+
 onMounted(async () => {
   await Start.ToggleMusicData(false)
   await HomeSwiperAxios('/personalized/privatecontent/list?limit=10&offset=0')
@@ -98,7 +103,7 @@ onErrorCaptured((err, instance, info) => {
   console.log(err.message)
   // console.log(instance)
   console.log(info)
-  // return false
+  return false
 })
 
 
