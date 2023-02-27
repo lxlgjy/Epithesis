@@ -7,9 +7,9 @@ const PublicStart = reactive({
     PlayerToggle: true,
     Play: false, // 控制播放
     Player: false, // 控制播放按钮
-    PlayerTime: 0,
-    SongTime: 0,
-    i: 0,
+    PlayerTime: 0, // 歌词滚动
+    SongTime: 0, // 歌词滚动
+    i: 0, // 歌词滚动
     loadingShow:false,
     Volume:false, // 音量滑动
     AudioMode:false, // 音乐模式
@@ -17,6 +17,7 @@ const PublicStart = reactive({
     SongListShow:false, // 播放列表
     PageNoticeShow:false, // 信息展示
     PageCapabilities:false, //功能显示
+    ListNoticeShow:false, // 是否需要显示某一部分
 })
 
 export const MusicSearchInputShow = toRef(PublicStart , 'searchInputShow')
@@ -35,3 +36,4 @@ export const MusicSongList = toRef(PublicStart , 'SongList')
 export const MusicSongListShow = toRef(PublicStart , 'SongListShow')
 export const MusicPageNoticeShow = toRef(PublicStart , 'PageNoticeShow')
 export const MusicPageCapabilities = toRef(PublicStart, 'PageCapabilities')
+export const MusicListNoticeShow = toRef(PublicStart , 'ListNoticeShow')

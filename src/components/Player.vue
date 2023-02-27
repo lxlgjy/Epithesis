@@ -159,6 +159,7 @@ const route = useRoute()
 
 <style scoped>
 #playing {
+  transition-duration: 500ms;
   font-size: 32px;
   color: #fff;
   opacity: 1;

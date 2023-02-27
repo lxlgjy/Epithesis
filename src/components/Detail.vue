@@ -24,14 +24,14 @@
                   {{ Detail.MusicSongsDetailList.DetailTitle.title }}
                 </h3>
               </div>
-              <div class="detail-title-ul margin-lineHeight">
+              <div class="detail-title-ul margin-lineHeight" style="height: 2rem">
                 <ul>
                   <li v-for="item in Detail.MusicSongsDetailList.DetailTitle.Label">
                     {{ item }}
                   </li>
                 </ul>
               </div>
-              <div class="margin-lineHeight">
+              <div class="margin-lineHeight componentPage-flex-text-web">
                 {{ Detail.MusicSongsDetailList.DetailTitle.BriefIntroduction }}
               </div>
               <div class="AudioDetail-play componentPage-flex componentPage-position">
@@ -42,7 +42,9 @@
                     <Play/>
                   </n-icon>
                   <span
-                      class="componentPage-flex-color-fff">{{ Detail.MusicSongsDetailList.DetailTitle.MusicLength }}</span>
+                      class="componentPage-flex-color-fff">{{
+                      Detail.MusicSongsDetailList.DetailTitle.MusicLength
+                    }}</span>
                 </div>
                 <div class="AudioDetail-add delect-border-add componentPage-flex-color-fff flex-Music-pointer"
                      @click="AudioListPush('add')">
@@ -51,7 +53,6 @@
                   </n-icon>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -61,7 +62,6 @@
             <ul>
               <li></li>
               <li>歌曲标题</li>
-              <li>歌手</li>
               <li>专辑</li>
               <li>时长</li>
             </ul>
@@ -71,15 +71,17 @@
               <li v-for="(item,index) in Detail.MusicSongsDetailList.DetailSong" key="item.id"
                   @dblclick="Player(item['id'] , item)" @contextmenu="Capabilities($event , item)">
                 <!-- :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'Selected' : ''"-->
-                <div class="songs flex-Music-pointer">
-                  <p v-if="route.meta['page'] !== 'HomeAlbum'">
-                    <img v-lazy="item.al.picUrl + '?param=50y50' ">
+                <div class="songs flex-Music-pointer componentPage-flex">
+                  <p v-if="route.meta['page'] !== 'HomeAlbum'" class="imageAndIndex">
+                    <img v-lazy="item['al'].picUrl + '?param=50y50' ">
                   </p>
-                  <p v-else>{{ index + 1 }}</p>
-                  <p>{{ item['name'] }}</p>
-                  <p>{{ item['ar'][0]['name'] }}</p>
-                  <p>{{ item['al']['name'] }}</p>
-                  <p>{{ Time(item['dt']) }}</p>
+                  <p v-else class="imageAndIndex">{{ index + 1 }}</p>
+                  <div>
+                    <p>{{ item['name'] }}</p>
+                    <p>{{ item['ar'][0]['name'] }}</p>
+                  </div>
+                  <p class="AlbumAndTime">{{ item['al']['name'] }}</p>
+                  <p class="AlbumAndTime">{{ Time(item['dt']) }}</p>
                 </div>
               </li>
             </ul>
@@ -91,13 +93,12 @@
 </template>
 
 <script lang="ts" setup>
-import '../style/Detail/Playlist.sass'
 import BackgroundFilter from "./BackgroundFilter.vue";
 import {useRoute, useRouter} from "vue-router";
 import useStore from "../stores/counter";
 import {Time} from '../uilt/PageWidgets'
 import {Player, FilmMovie, Like, AudioListPush, MusicDownload, Capabilities, scorll} from "../uilt/VueIncident";
-import {Film, HeartSharp, HeartOutline, CloudDownloadOutline, Play, AddSharp} from '@vicons/ionicons5'
+import {Play, AddSharp} from '@vicons/ionicons5'
 import {Love, mess} from "../uilt/VueEvent";
 
 const route = useRoute()
@@ -106,3 +107,177 @@ const router = useRouter()
 
 
 </script>
+
+<style scoped lang="scss">
+#Selected {
+  background-color: #3780ce;
+
+  p {
+    color: #fff;
+  }
+}
+
+.error {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+}
+
+
+.detail {
+  display: flex;
+  position: relative;
+  z-index: 10;
+}
+
+
+.detail-image {
+  width: 15rem;
+  height: 15rem;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.margin-lineHeight {
+  margin-top: 10px;
+  height: 3rem;
+}
+
+.detail-title {
+  width: 79%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+
+  .detail-title-ul {
+
+    ul {
+      display: flex;
+
+      li {
+        margin-right: 5px;
+
+        &:nth-child(2) {
+          margin-right: 0
+
+        }
+      }
+    }
+  }
+
+  .AudioDetail-play {
+    top: 200px;
+
+    .AudioDetail-add, .AudioDetail-list {
+      height: 2rem;
+      line-height: 2rem;
+      border-radius: 16px;
+      background-color: #2d53c4;
+    }
+
+    span {
+      display: inline;
+    }
+
+    .AudioDetail-list {
+      width: 8rem;
+      padding: 0 4px;
+
+      & i:nth-child(1) {
+        padding-left: 10px;
+        padding-right: 3px;
+      }
+
+    }
+
+    .AudioDetail-add {
+      width: 2rem
+
+    }
+
+    .delect-border-list {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+
+    .delect-border-add {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+
+    .AudioDetail-icon {
+      transform: translateY(3px);
+
+    }
+
+  }
+}
+
+
+.song-list {
+  ul {
+    display: flex;
+  }
+
+  li {
+    height: 30px;
+    padding: 5px 0;
+    line-height: 30px;
+    color: rgba(23, 34, 45, .4);
+  }
+  li:nth-of-type(1) {
+    flex: .35;
+    margin:0 1rem;
+
+  }
+  li:nth-of-type(2) {
+    flex: 5;
+  }
+  li:nth-of-type(3) {
+    flex: 3;
+  }
+  li:nth-of-type(4) {
+    flex: 3;
+    text-align: right;
+    margin-right: 1rem;
+
+  }
+
+}
+
+.PageDetail {
+  ul {
+    li {
+      height: 3.3rem;
+      &:hover {
+        background-color: rgba(242, 243, 245);
+        border-radius: 5px;
+      }
+      .songs {
+        div {
+          flex: 5;
+          transform: translateY(.3rem);
+        }
+        .imageAndIndex {
+          flex: .35;
+          height: 2.2rem;
+          margin:0 1rem;
+          transform: translateY(.6rem);
+        }
+        .AlbumAndTime {
+          flex: 3;
+          transform: translateY(1rem);
+        }
+        p:nth-of-type(3) {
+          text-align: right;
+          margin-right: 1rem;
+        }
+      }
+    }
+  }
+}
+</style>

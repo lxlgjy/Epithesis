@@ -1,5 +1,4 @@
-// 页面所有状态转换
-
+// 页面所有状态转换 (取反或pinia)
 import useStore from "../stores/counter";
 import {
     MusicLoadingShow,

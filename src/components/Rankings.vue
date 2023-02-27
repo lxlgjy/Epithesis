@@ -80,7 +80,7 @@ const image = (item:any) => {
     height: 20%;
     display: flex;
     z-index: 2;
-    box-shadow: -2px 4px 5px rgba(0, 0, 0, .4);
+    box-shadow: -2px 1px 5px rgba(0, 0, 0, .1);
 
     .image {
       width: 15.3rem;

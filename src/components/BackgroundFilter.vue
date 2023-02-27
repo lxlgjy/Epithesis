@@ -16,7 +16,7 @@ const route = useRoute()
 .detail-background {
   position: absolute;
   width: 100%;
-  height: 15.3rem;
+  height: 100%;
   overflow: hidden;
   filter: blur(3px);
   top: 0;

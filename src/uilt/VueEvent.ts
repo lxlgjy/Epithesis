@@ -149,6 +149,7 @@ export const MusicAudioModeModule = async(type?:string) => {
         //     // @ts-ignore
         //     await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['id'])
         // }
+
     } else if(useStore().Start.AudioMode === 0) {
         const {HomeAudio} = Element()
         HomeAudio.currentTime = 0

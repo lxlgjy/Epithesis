@@ -20,7 +20,9 @@
                   </router-link>
               </div>
               <div class="PlayList-page">
-                <n-pagination v-model:page="Start.PlayList" :page-count="50" @click.stop="PlayListToggle(item.name)"/>
+                <div class="pagination componentPage-radius-8 componentPage-pointer">
+                  <span>查看更多</span>
+                </div>
               </div>
             </n-tab-pane>
           </n-tabs>

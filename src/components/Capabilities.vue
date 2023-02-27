@@ -27,11 +27,23 @@
         </li>
         <li>
           <n-icon size="20px">
+            <HeartSharp/>
+          </n-icon>
+          <p>添加我喜欢</p>
+        </li>
+        <li>
+          <n-icon size="20px">
+            <ReorderFour/>
+          </n-icon>
+          <p>添加到播放列表</p>
+        </li>
+        <li>
+          <n-icon size="20px">
             <Archive/>
           </n-icon>
           <p>下载</p>
         </li>
-        <li>
+        <li v-if="MusicListNoticeShow">
           <n-icon size="20px">
             <LogOutSharp/>
           </n-icon>
@@ -45,7 +57,8 @@
 <script setup lang="ts">
 import '../style/Flex/FlexComponents.sass'
 import useStore from "../stores/counter";
-import {MusicalNotesSharp , Play , Archive , LogOutSharp} from '@vicons/ionicons5'
+import {MusicalNotesSharp , Play , Archive , LogOutSharp , HeartSharp , ReorderFour} from '@vicons/ionicons5'
+import {MusicListNoticeShow} from '../uilt/PublicStatus'
 const {Detail } = useStore()
 
 </script>

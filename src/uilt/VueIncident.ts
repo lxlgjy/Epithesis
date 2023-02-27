@@ -10,6 +10,7 @@ import {
     LoveSongs
 } from "./Api/DetailApi";
 import {
+    MusicListNoticeShow,
     MusicLoginBackgroundShow,
     MusicLoginShow, MusicPageCapabilities, MusicPageNoticeShow,
     MusicPlay,
@@ -411,11 +412,14 @@ export const MusicDownload = (id: string, name: string, singer: string) => {
 
 //右击显示小功能
 export const Capabilities = (e: Event, data: object, type?: string) => {
+
     MusicPageCapabilities.value = true
+    MusicListNoticeShow.value = type === 'SongList'
 
     useStore().Detail.getMusicCapabilities(data)
 
     const {Capabilities} = Element()
+
     if (type === 'SongList') {
         Capabilities.style.top = e.clientY + 'px'
         Capabilities.style.left = (e.clientX - 200) + 'px'

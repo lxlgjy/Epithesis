@@ -24,7 +24,9 @@
         <div class="MyLove-right">
           <ul class="flex-Music-flex">
             <li v-for="item in Detail.MusicSongsDetailList.DetailSong.slice(0,12)"
-                class="flex-Music-sizing flex-Music-padding-title-HomeRecommendation flex-Music-radius-3 flex-Music-pointer" :id="item['id'] === Audio.MusicSong.data[0]['id'] ? 'MyLoveSelect' : ''">
+                class="flex-Music-sizing flex-Music-padding-title-HomeRecommendation flex-Music-radius-3 flex-Music-pointer"
+                :id="Audio.MusicSong.length === 0 ? '' : (Audio.MusicSong.data[0]['id'] === item['id'] ? 'MyLoveSelect' : '') ">
+              <!--              item['id'] === Audio.MusicSong.data[0]['id'] ? 'MyLoveSelect' : ''-->
               <div class="flex-Music-flex">
                 <div>
                   <img v-lazy="item['al']['picUrl'] + '?param=400y400'">
@@ -62,8 +64,9 @@ import {DetailThatLove} from "../../uilt/Api/DetailApi";
 import {onMounted} from "vue";
 import {useRoute} from "vue-router";
 
-const {Start, Detail , Audio} = useStore()
+const {Start, Detail, Audio} = useStore()
 const route = useRoute()
+console.log(Audio.MusicSong)
 
 onMounted(async () => {
   if (window.localStorage.getItem('cookie')) {
