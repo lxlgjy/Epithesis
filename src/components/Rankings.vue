@@ -17,7 +17,6 @@
             <ul>
               <li v-for="(item,index) in Detail.MusicSongsDetailList.DetailSong"
                   @dblclick="Player(item['id'] , item)">
-<!--                <span>{{ index + 1 }}</span>-->
                 <span>
                   <img v-lazy="item['al']['picUrl'] + '?param=50y50'">
                 </span>
@@ -50,7 +49,6 @@ import {Player} from '../uilt/VueIncident'
 const {Detail, Home , Start} = useStore()
 const route = useRoute()
 
-console.log(Detail.MusicSongsDetailList.DetailTitle)
 const image = (item:any) => {
   let arr = []
   for (let i = 0; i < item.length; i++) {

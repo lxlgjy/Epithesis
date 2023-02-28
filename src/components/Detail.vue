@@ -69,7 +69,7 @@
           <div style="margin-bottom: 100px" class="PageDetail">
             <ul>
               <li v-for="(item,index) in Detail.MusicSongsDetailList.DetailSong" key="item.id"
-                  @dblclick="Player(item['id'] , item)" @contextmenu="Capabilities($event , item)">
+                  @dblclick="Player(item['id'] , item)" @contextmenu="Capabilities($event , item)" class="componentPage-sizing">
                 <!-- :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'Selected' : ''"-->
                 <div class="songs flex-Music-pointer componentPage-flex">
                   <p v-if="route.meta['page'] !== 'HomeAlbum'" class="imageAndIndex">
@@ -253,6 +253,7 @@ const router = useRouter()
   ul {
     li {
       height: 3.3rem;
+      margin: 8px 0;
       &:hover {
         background-color: rgba(242, 243, 245);
         border-radius: 5px;

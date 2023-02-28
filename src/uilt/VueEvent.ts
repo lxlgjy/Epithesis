@@ -120,6 +120,8 @@ export const mess = (type:string) => {
                 message.error(useStore().Start.MusicNotice)
                 break;
         }
+        MusicPageNoticeShow.value = false
+
     }
 }
 
@@ -138,23 +140,28 @@ export const MusicAudioPlayAll = async(id:string) => {
 
 export const MusicAudioModeModule = async(type?:string) => {
     if(useStore().Start.AudioMode === 1) {
+
+        if(type === 'Previous') {
+            // @ts-ignore
+            await MusicSongAndLyric(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
+            return false
+        } else if(type === 'Next') {
+            // @ts-ignore
+            await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['id'])
+            return false
+        }
+
         useStore().Start.AddAudioIndex()
+
         // @ts-ignore
         await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['id'])
-
-        // if(type === 'Previous') {
-        //     // @ts-ignore
-        //     await MusicSongAndLyric(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
-        // } else {
-        //     // @ts-ignore
-        //     await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['id'])
-        // }
 
     } else if(useStore().Start.AudioMode === 0) {
         const {HomeAudio} = Element()
         HomeAudio.currentTime = 0
         await HomeAudio.play()
     } else {
+        useStore().Start.AddAudioIndex()
         // @ts-ignore
         await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
     }

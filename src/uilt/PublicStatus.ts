@@ -18,6 +18,8 @@ const PublicStart = reactive({
     PageNoticeShow:false, // 信息展示
     PageCapabilities:false, //功能显示
     ListNoticeShow:false, // 是否需要显示某一部分
+    MusicSpeedIndex:1 , // 倍速
+    PlayMode:3 // 播放模式切换（独立）
 })
 
 export const MusicSearchInputShow = toRef(PublicStart , 'searchInputShow')
@@ -37,3 +39,5 @@ export const MusicSongListShow = toRef(PublicStart , 'SongListShow')
 export const MusicPageNoticeShow = toRef(PublicStart , 'PageNoticeShow')
 export const MusicPageCapabilities = toRef(PublicStart, 'PageCapabilities')
 export const MusicListNoticeShow = toRef(PublicStart , 'ListNoticeShow')
+export const MusicSpeedIndex = toRef(PublicStart , 'MusicSpeedIndex')
+export const MusicPlayMode = toRef(PublicStart , 'PlayMode')

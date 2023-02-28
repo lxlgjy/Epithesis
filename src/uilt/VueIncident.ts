@@ -15,8 +15,8 @@ import {
     MusicLoginShow, MusicPageCapabilities, MusicPageNoticeShow,
     MusicPlay,
     MusicPlayer, MusicPlayerTime,
-    MusicPlayerToggle,
-    MusicSearchInputShow
+    MusicPlayerToggle, MusicPlayMode,
+    MusicSearchInputShow, MusicSpeedIndex
 } from './PublicStatus'
 import {
     DetailSelect,
@@ -281,17 +281,26 @@ export const AudioToggle = () => {
     MusicAudioModeToggle()
 }
 
+//外部模式切换 （MusicPlayMode 可以替换为pinia useStore.Start.AudioMode）
+export const PlaybackModeSwitching = async() => {
+    MusicPlayMode.value > 1 ? MusicPlayMode.value-- : MusicPlayMode.value = 3
+    await AudioMode(MusicPlayMode.value - 1)
+}
+
 export const AudioMode = async (index: number) => {
     if(useStore().Audio.MusicSongNow.length > 1) {
         switch(index) {
             case 1:
                 const AudioSlice = await newAudioList() as Array<number>
                 useStore().Start.reviseAudioModeRandomList(AudioSlice)
+                NoticeMusicTooleMode(index)
                 // @ts-ignore
                 await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['id'])
                 useStore().Start.ToggleAudioMode(index)
                 break
             case 2:
+                NoticeMusicTooleMode(index)
+
                 // @ts-ignore
                 await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
                 useStore().Start.ToggleAudioMode(index)
@@ -299,6 +308,8 @@ export const AudioMode = async (index: number) => {
             default:
                 const  {HomeAudio} = Element()
                 useStore().Start.ToggleAudioMode(index)
+                NoticeMusicTooleMode(index)
+
                 HomeAudio.currentTime = 0
                 await HomeAudio.play()
                 console.log('循环')
@@ -315,15 +326,16 @@ export const AudioMode = async (index: number) => {
                 useStore().Start.reviseMusicNotice('列表只有一首歌曲，无法进行列表播放，请添加音乐')
                 break
             default:
+                NoticeMusicTooleMode(index)
                 useStore().Start.ToggleAudioMode(index)
                 break
         }
     }
-    MusicAudioModeToggle()
+}
 
+const NoticeMusicTooleMode = (index:number) => {
     MusicPageNoticeShow.value = true
     useStore().Start.reviseMusicNotice(`播放模式已切换（${index === 0 ? '单曲循环' : (index === 1 ? '随机播放' : '列表循环')}）`)
-
 }
 
 //播放列表（左侧滑动出现）
@@ -379,7 +391,6 @@ const MusicSongNowPush = async () => {
 
 //下一首and上一首切换播放(可以简化)
 export const NextAndPrevious = async (type?: string) => {
-    const {HomeAudio} = Element()
 
     if (useStore().Audio.MusicSongNow.length < 2) {
         MusicPageNoticeShow.value = true
@@ -390,7 +401,7 @@ export const NextAndPrevious = async (type?: string) => {
             if (useStore().Start.AudioSongIndex < useStore().Audio.MusicSongNow.length - 1) {
                 useStore().Start.AddAudioIndex()
 
-                // await MusicAudioPlayAll(useStore().Audio.MusicSongNow[])
+                await MusicAudioModeModule('Next')
             }
         } else {
             if (useStore().Start.AudioSongIndex > 0) {
@@ -437,6 +448,18 @@ export const scorll = () => {
 
 export const PlayListToggle = async (title: string) => {
     await PlayListAxios(`/top/playlist?limit=35&order=hot&offset=${(useStore().Start.PlayList - 1) * 35}&cat=${title}&timestamp=${Date.now()}`)
+}
+
+export  const MusicSpeed = () => {
+    const {HomeAudio} = Element()
+
+    MusicSpeedIndex.value++
+    if(MusicSpeedIndex.value < 4) {
+        HomeAudio.playbackRate = MusicSpeedIndex.value
+    } else {
+        MusicSpeedIndex.value = 1
+        HomeAudio.playbackRate = MusicSpeedIndex.value
+    }
 }
 
 

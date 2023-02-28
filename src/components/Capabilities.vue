@@ -37,8 +37,8 @@
           </n-icon>
           <p>添加到播放列表</p>
         </li>
-        <li>
-          <n-icon size="20px">
+        <li @click.prevent="MusicDownload(Detail.MusicCapabilities['id'] , Detail.MusicCapabilities['name'] , Detail.MusicCapabilities['ar'][0]['name']);mess('success')">
+          <n-icon size="20px" >
             <Archive/>
           </n-icon>
           <p>下载</p>
@@ -59,6 +59,9 @@ import '../style/Flex/FlexComponents.sass'
 import useStore from "../stores/counter";
 import {MusicalNotesSharp , Play , Archive , LogOutSharp , HeartSharp , ReorderFour} from '@vicons/ionicons5'
 import {MusicListNoticeShow} from '../uilt/PublicStatus'
+import {MusicDownload} from '../uilt/VueIncident'
+import {mess} from "../uilt/VueEvent";
+
 const {Detail } = useStore()
 
 </script>
