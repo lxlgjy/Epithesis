@@ -14,7 +14,7 @@ import {
     MusicLoginBackgroundShow,
     MusicLoginShow, MusicPageCapabilities, MusicPageNoticeShow,
     MusicPlay,
-    MusicPlayer, MusicPlayerTime,
+    MusicPlayer,
     MusicPlayerToggle, MusicPlayMode,
     MusicSearchInputShow, MusicSpeedIndex
 } from './PublicStatus'
@@ -36,6 +36,7 @@ import {
 import Element from "./Element";
 import {AudioProgressToggle} from './PageWidgets'
 import {DownloadSong} from "./Api/Download";
+import {MusicStore} from "../stores/Detail";
 
 export const LoginClickShow = () => {
     MusicLoginShow.value = true
@@ -90,7 +91,7 @@ export const SwiperData = () => {
 
 
 //歌单请求
-export const Playlist_Cat = (dom: any, page?: number) => {
+export const Playlist_Cat = (dom: any) => {
     if (dom.target.innerText !== '') {
         let title = dom.target.innerText
         // 切换歌单
@@ -98,6 +99,7 @@ export const Playlist_Cat = (dom: any, page?: number) => {
         useStore().Start.addPlayList(1)
     }
 }
+
 // 搜索请求
 export const search = async () => {
     let searchInputValue = document.querySelector('.Search-top-input input') as HTMLInputElement
@@ -126,7 +128,7 @@ export const MusicSinger = async (id: string) => {
 
 }
 // mv请求
-export const FilmMovie = async (id: string, type?: string) => {
+export const FilmMovie = async (id: string) => {
     await useStore().Start.ToggleMusicData(false)
 
     backgroundAndloadingToggle()
@@ -183,6 +185,10 @@ export const MusicPlayListDetail = async (id: string) => {
 
     await useStore().Start.ToggleMusicData(true)
 
+}
+
+export const MusicAlbumDetail = async () => {
+    await MusicHomeDetail(useStore().Detail.MusicCapabilities.al.id, 'HomeAlbum')
 }
 
 // 可以添加查看更多，进行路由跳转 - （路由跳转改为子路由嵌套）
@@ -248,12 +254,13 @@ export const PlayToggle = (Toggle: boolean) => {
 }
 
 //添加喜欢列表
-export const Like = (e: Event, id: string, type: string) => {
-    e.preventDefault()
-    e.stopPropagation()
+export const Like = (type: string) => {
+    let id = useStore().Detail.MusicCapabilities.id
     if (type === 'true') {
+        NoticeMusicRevise('添加' + useStore().Detail.MusicCapabilities.name + '到我喜欢的列表')
         LoveSongs(`/like?id=${id}&timestamp=${Date.now()}`, id, type).then()
     } else {
+        NoticeMusicRevise('已将' + useStore().Detail.MusicCapabilities.name + '移除我喜欢的列表')
         LoveSongs(`/like?id=${id}&like=false&timestamp=${Date.now()}`, id, type).then()
     }
 }
@@ -282,14 +289,14 @@ export const AudioToggle = () => {
 }
 
 //外部模式切换 （MusicPlayMode 可以替换为pinia useStore.Start.AudioMode）
-export const PlaybackModeSwitching = async() => {
+export const PlaybackModeSwitching = async () => {
     MusicPlayMode.value > 1 ? MusicPlayMode.value-- : MusicPlayMode.value = 3
     await AudioMode(MusicPlayMode.value - 1)
 }
 
 export const AudioMode = async (index: number) => {
-    if(useStore().Audio.MusicSongNow.length > 1) {
-        switch(index) {
+    if (useStore().Audio.MusicSongNow.length > 1) {
+        switch (index) {
             case 1:
                 const AudioSlice = await newAudioList() as Array<number>
                 useStore().Start.reviseAudioModeRandomList(AudioSlice)
@@ -306,7 +313,7 @@ export const AudioMode = async (index: number) => {
                 useStore().Start.ToggleAudioMode(index)
                 break
             default:
-                const  {HomeAudio} = Element()
+                const {HomeAudio} = Element()
                 useStore().Start.ToggleAudioMode(index)
                 NoticeMusicTooleMode(index)
 
@@ -316,7 +323,7 @@ export const AudioMode = async (index: number) => {
                 break
         }
     } else {
-        switch(index) {
+        switch (index) {
             case 1:
                 MusicPageNoticeShow.value = true
                 useStore().Start.reviseMusicNotice('列表只有一首歌曲，无法进行随机播放，请添加音乐')
@@ -333,9 +340,14 @@ export const AudioMode = async (index: number) => {
     }
 }
 
-const NoticeMusicTooleMode = (index:number) => {
+const NoticeMusicTooleMode = (index: number) => {
     MusicPageNoticeShow.value = true
     useStore().Start.reviseMusicNotice(`播放模式已切换（${index === 0 ? '单曲循环' : (index === 1 ? '随机播放' : '列表循环')}）`)
+}
+
+const NoticeMusicRevise = (notice: string) => {
+    MusicPageNoticeShow.value = true
+    useStore().Start.reviseMusicNotice(notice)
 }
 
 //播放列表（左侧滑动出现）
@@ -350,17 +362,23 @@ export const SongListShowToggle = () => {
 //添加音乐到播放列表
 export const AudioListPush = async (type?: string) => {
     MusicAudioShow()
-    if (type === 'add') {
+    if (type === 'AddsAllSongsFromTheCurrentList' || type === 'AddASelectedSingle' || type === 'MoveOutOfThePlaylist') {
 
-        if (MusicPlay.value || !MusicPlay.value) {
-
+        if (type === 'AddsAllSongsFromTheCurrentList') {
             await MusicSongNowPush()
 
-        } else if (MusicPlay.value === false && useStore().Audio.MusicSongNow.length < 1) {
-            await MusicSongNowPush()
-            await MusicListAndPush()
+            NoticePrompt('已将该列表添加至播放列表')
+
+        } else if (type === 'AddASelectedSingle') {
+            useStore().Audio.getMusicSongNow(useStore().Detail.MusicCapabilities)
+            // @ts-ignore
+            NoticePrompt('添加播放列表成功-' + `${useStore().Detail.MusicCapabilities['name']}`)
+        } else if(type === 'MoveOutOfThePlaylist') {
+            const index = useStore().Audio.MusicSongNow.indexOf(useStore().Detail.MusicCapabilities)
+            useStore().Audio.MusicSongNow.splice(index , 1)
+        } else {
+            return false
         }
-
     } else {
         // @ts-ignore
         let item = useStore().Detail.MusicSongsDetailList.DetailSong
@@ -382,13 +400,17 @@ const MusicListAndPush = async () => {
 
 const MusicSongNowPush = async () => {
     // @ts-ignore
-    let item = await useStore().Detail.MusicSongsDetailList['songs']
+    let item = useStore().Detail.MusicSongsDetailList.DetailSong
 
     item.forEach((items: object) => {
         useStore().Audio.getMusicSongNow(items)
     })
 }
 
+export const NoticePrompt = (notice: string) => {
+    MusicPageNoticeShow.value = true
+    useStore().Start.reviseMusicNotice(notice)
+}
 //下一首and上一首切换播放(可以简化)
 export const NextAndPrevious = async (type?: string) => {
 
@@ -422,7 +444,7 @@ export const MusicDownload = (id: string, name: string, singer: string) => {
 }
 
 //右击显示小功能
-export const Capabilities = (e: Event, data: object, type?: string) => {
+export const Capabilities = (e: Event, data: MusicStore['MusicCapabilities'], type?: string) => {
 
     MusicPageCapabilities.value = true
     MusicListNoticeShow.value = type === 'SongList'
@@ -450,11 +472,11 @@ export const PlayListToggle = async (title: string) => {
     await PlayListAxios(`/top/playlist?limit=35&order=hot&offset=${(useStore().Start.PlayList - 1) * 35}&cat=${title}&timestamp=${Date.now()}`)
 }
 
-export  const MusicSpeed = () => {
+export const MusicSpeed = () => {
     const {HomeAudio} = Element()
 
     MusicSpeedIndex.value++
-    if(MusicSpeedIndex.value < 4) {
+    if (MusicSpeedIndex.value < 4) {
         HomeAudio.playbackRate = MusicSpeedIndex.value
     } else {
         MusicSpeedIndex.value = 1

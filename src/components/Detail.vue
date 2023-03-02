@@ -6,7 +6,7 @@
           <n-skeleton height="240px" width="100%" class="PlaylistTitle"/>
           <n-skeleton height="40px" width="100%" class="flex-Music-flex"/>
           <div class="flex-Music-flex">
-            <n-skeleton height="50px" width="100%" class="flex-Music-flex flex-Music-margin-top" v-for="item in 8"/>
+            <n-skeleton v-for="item in 8" class="flex-Music-flex flex-Music-margin-top" height="50px" width="100%"/>
           </div>
         </n-space>
       </div>
@@ -16,23 +16,23 @@
           <div class="detail" v-show="route.name !== 'Search' ">
             <BackgroundFilter></BackgroundFilter>
             <div class="detail-image">
-              <img :src="Detail.MusicSongsDetailList.DetailTitle.img" alt="">
+              <img :src="DetailImg" alt="">
             </div>
             <div class="detail-title">
               <div class="margin-lineHeight">
                 <h3>
-                  {{ Detail.MusicSongsDetailList.DetailTitle.title }}
+                  {{ DetailTitle }}
                 </h3>
               </div>
               <div class="detail-title-ul margin-lineHeight" style="height: 2rem">
                 <ul>
-                  <li v-for="item in Detail.MusicSongsDetailList.DetailTitle.Label">
+                  <li v-for="item in DetailLabel">
                     {{ item }}
                   </li>
                 </ul>
               </div>
               <div class="margin-lineHeight componentPage-flex-text-web">
-                {{ Detail.MusicSongsDetailList.DetailTitle.BriefIntroduction }}
+                {{ DetailBriefIntroduction }}
               </div>
               <div class="AudioDetail-play componentPage-flex componentPage-position">
                 <div
@@ -42,12 +42,10 @@
                     <Play/>
                   </n-icon>
                   <span
-                      class="componentPage-flex-color-fff">{{
-                      Detail.MusicSongsDetailList.DetailTitle.MusicLength
-                    }}</span>
+                      class="componentPage-flex-color-fff">{{DetailMusicLength}}</span>
                 </div>
                 <div class="AudioDetail-add delect-border-add componentPage-flex-color-fff flex-Music-pointer"
-                     @click="AudioListPush('add')">
+                     @click="AudioListPush('AddsAllSongsFromTheCurrentList')">
                   <n-icon size="15" class="AudioDetail-icon">
                     <AddSharp/>
                   </n-icon>
@@ -68,7 +66,7 @@
           </div>
           <div style="margin-bottom: 100px" class="PageDetail">
             <ul>
-              <li v-for="(item,index) in Detail.MusicSongsDetailList.DetailSong" key="item.id"
+              <li v-for="(item,index) in DetailSongList" key="item.id"
                   @dblclick="Player(item['id'] , item)" @contextmenu="Capabilities($event , item)" class="componentPage-sizing">
                 <!-- :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'Selected' : ''"-->
                 <div class="songs flex-Music-pointer componentPage-flex">
@@ -97,13 +95,17 @@ import BackgroundFilter from "./BackgroundFilter.vue";
 import {useRoute, useRouter} from "vue-router";
 import useStore from "../stores/counter";
 import {Time} from '../uilt/PageWidgets'
-import {Player, FilmMovie, Like, AudioListPush, MusicDownload, Capabilities, scorll} from "../uilt/VueIncident";
+import {Player, AudioListPush, Capabilities, scorll} from "../uilt/VueIncident";
 import {Play, AddSharp} from '@vicons/ionicons5'
-import {Love, mess} from "../uilt/VueEvent";
+import { useDetailComputed} from '../uilt/vueComputed'
+import {mess} from "../uilt/VueEvent";
+import {MusicStore} from "../stores/Detail";
 
 const route = useRoute()
 const {Detail, Start, Audio} = useStore()
 const router = useRouter()
+const {DetailImg , DetailTitle , DetailLabel , DetailBriefIntroduction , DetailMusicLength ,DetailSongList} = useDetailComputed()
+
 
 
 </script>

@@ -77,10 +77,10 @@ export const DetailSelect = () => {
     MusicPlayer.value = true
     MusicPlay.value = true
 
-    timeupdate('initial')
+    timeupdate()
 }
 
-export const timeupdate = (type?: string) => {
+export const timeupdate = () => {
     let HomeAudio = document.querySelector('#Audio') as HTMLAudioElement
 
     if (MusicPlay.value) {

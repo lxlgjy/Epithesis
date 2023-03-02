@@ -26,14 +26,13 @@
             <li v-for="item in Detail.MusicSongsDetailList.DetailSong.slice(0,12)"
                 class="flex-Music-sizing flex-Music-padding-title-HomeRecommendation flex-Music-radius-3 flex-Music-pointer"
                 :id="Audio.MusicSong.length === 0 ? '' : (Audio.MusicSong.data[0]['id'] === item['id'] ? 'MyLoveSelect' : '') ">
-              <!--              item['id'] === Audio.MusicSong.data[0]['id'] ? 'MyLoveSelect' : ''-->
               <div class="flex-Music-flex">
                 <div>
                   <img v-lazy="item['al']['picUrl'] + '?param=400y400'">
                 </div>
                 <div>
-                  <span>{{ item['name'] }}</span>
-                  <span>{{ item['ar'][0]['name'] }}</span>
+                  <span class="flex-Music-font-hidden">{{ item['name'] }}</span>
+                  <span class="flex-Music-font-hidden">{{ item['ar'][0]['name'] }}</span>
                 </div>
               </div>
             </li>
@@ -61,23 +60,26 @@ import {Play} from '@vicons/ionicons5'
 import {AudioListPush} from '../../uilt/VueIncident'
 import useStore from "../../stores/counter";
 import {DetailThatLove} from "../../uilt/Api/DetailApi";
-import {onMounted} from "vue";
+import {nextTick, onMounted} from "vue";
 import {useRoute} from "vue-router";
 
 const {Start, Detail, Audio} = useStore()
 const route = useRoute()
-console.log(Audio.MusicSong)
 
-onMounted(async () => {
+onMounted(() => {
   if (window.localStorage.getItem('cookie')) {
-    await DetailThatLove()
+    nextTick(() => {
+      if (route.matched.length === 2 || route.matched.length === 1) {
+        DetailThatLove()
+        let SongsListId: Array<any> = []
+        for (let i = 0; i < Detail.MusicSongsDetailList.DetailSong.length; i++) {
+          SongsListId.push(Detail.MusicSongsDetailList.DetailSong[i].id)
+        }
 
-    let SongsListId: Array<any> = []
-    for (let i = 0; i < Detail.MusicSongsDetailList.DetailSong.length; i++) {
-      SongsListId.push(Detail.MusicSongsDetailList.DetailSong[i].id)
-    }
+        Detail.getMusicLoveListId(SongsListId)
+      }
+    })
 
-    Detail.getMusicLoveListId(SongsListId)
   }
 })
 

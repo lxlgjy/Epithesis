@@ -1,22 +1,33 @@
 import {defineStore} from "pinia";
+import {MusicDetailData} from "../uilt/Api/DetailApi";
 
 
 interface DetailSong {
     id?:string;
 }
 
+interface Capabilities {
+    al:{
+        id:string
+        name:string
+    }
+    id:string
+    name:string
+}
+
 interface MusicSongsDetailList {
-    DetailTitle:{}
+    DetailTitle:MusicDetailData
     DetailSong: DetailSong[]
 }
 
-interface MusicLoveListId {
+interface MusicLoveListId {}
 
-}
 
-interface MusicStore {
+export interface MusicStore {
     MusicSongsDetailList:MusicSongsDetailList;
-    MusicLoveListId: MusicLoveListId[]
+    MusicLoveListId: MusicLoveListId[];
+    MusicCapabilities: Capabilities;
+    MusicAlbumSong: MusicSongsDetailList
 }
 
 const useDetailStore = defineStore('Detail', {
@@ -25,7 +36,8 @@ const useDetailStore = defineStore('Detail', {
             MusicSongsDetailList:{} as MusicStore['MusicSongsDetailList'],
             MusicMV:[] as object,
             MusicLoveListId:[] as MusicStore['MusicLoveListId'],
-            MusicCapabilities:{}
+            MusicCapabilities: {} as MusicStore['MusicCapabilities'],
+            MusicAlbumSong:{} as MusicStore['MusicAlbumSong']
         }
     },
     actions:{
@@ -35,11 +47,14 @@ const useDetailStore = defineStore('Detail', {
         getMusicMV(data:object) {
             this.MusicMV = data
         },
-        getMusicCapabilities(data:object) {
+        getMusicCapabilities(data:MusicStore['MusicCapabilities']) {
             this.MusicCapabilities = data
         },
         getMusicLoveListId(data:MusicStore['MusicLoveListId']) {
             this.MusicLoveListId = data
+        },
+        getMusicAlbumSong(data:MusicStore['MusicAlbumSong']) {
+            this.MusicAlbumSong = data
         }
     },
     persist:{

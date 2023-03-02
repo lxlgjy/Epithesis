@@ -133,8 +133,19 @@ const router = createRouter({
           meta:{
             ThatLoveShow:false
           },
-          component: () => import('@/components/Detail.vue')
-        }
+          component: () => import('@/components/Detail.vue'),
+          children:[
+            {
+              path:'SongAlbum',
+              name:'SongAlbum',
+              meta:{
+                ThatLoveShow: false
+              },
+              component:() => import('@/components/Detail.vue')
+            }
+          ]
+        },
+
       ]
     },
     {

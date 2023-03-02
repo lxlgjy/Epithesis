@@ -13,41 +13,43 @@
     </div>
     <div>
       <ul class="capabilities-ul componentPage-left componentPage-pointer componentPage-flex-text componentPage-hidden ">
-        <li>
-          <n-icon size="20">
-            <MusicalNotesSharp/>
-          </n-icon>
-          <p class="">{{Detail.MusicCapabilities['al'].name}}</p>
-        </li>
-        <li>
-          <n-icon size="20px">
-            <Play/>
-          </n-icon>
-          <p>播放</p>
-        </li>
-        <li>
+        <router-link to="/MusicThatILove/LoveDetail/SongAlbum" >
+          <li @click="MusicAlbumDetail">
+            <n-icon size="20" color="#000">
+              <MusicalNotesSharp/>
+            </n-icon>
+            <p class="">{{Detail.MusicCapabilities.al.name}}</p>
+          </li>
+        </router-link>
+        <li v-show="!IsLove" @click.prevent="Like('true');mess('success')">
           <n-icon size="20px">
             <HeartSharp/>
           </n-icon>
           <p>添加我喜欢</p>
         </li>
-        <li>
+        <li v-show="IsLove" @click.prevent="Like('false');mess('success')">
+          <n-icon size="20px">
+            <HeartSharp/>
+          </n-icon>
+          <p>移出我喜欢的列表</p>
+        </li>
+        <li @click="AudioListPush('AddASelectedSingle');mess('success')" v-if="!MusicListNoticeShow">
           <n-icon size="20px">
             <ReorderFour/>
           </n-icon>
           <p>添加到播放列表</p>
+        </li>
+        <li @click="AudioListPush('MoveOutOfThePlaylist');mess('success')" v-else>
+          <n-icon size="20px">
+            <ReorderFour/>
+          </n-icon>
+          <p>移除播放列表</p>
         </li>
         <li @click.prevent="MusicDownload(Detail.MusicCapabilities['id'] , Detail.MusicCapabilities['name'] , Detail.MusicCapabilities['ar'][0]['name']);mess('success')">
           <n-icon size="20px" >
             <Archive/>
           </n-icon>
           <p>下载</p>
-        </li>
-        <li v-if="MusicListNoticeShow">
-          <n-icon size="20px">
-            <LogOutSharp/>
-          </n-icon>
-          <p>移出</p>
         </li>
       </ul>
     </div>
@@ -59,10 +61,11 @@ import '../style/Flex/FlexComponents.sass'
 import useStore from "../stores/counter";
 import {MusicalNotesSharp , Play , Archive , LogOutSharp , HeartSharp , ReorderFour} from '@vicons/ionicons5'
 import {MusicListNoticeShow} from '../uilt/PublicStatus'
-import {MusicDownload} from '../uilt/VueIncident'
+import {MusicDownload, AudioListPush, MusicAlbumDetail , Like} from '../uilt/VueIncident'
 import {mess} from "../uilt/VueEvent";
-
+import {useCapabilitiesComputed} from '../uilt/vueComputed'
 const {Detail } = useStore()
+const {IsLove} = useCapabilitiesComputed()
 
 </script>
 
@@ -95,6 +98,9 @@ const {Detail } = useStore()
     margin: .3rem 0;
     border-radius: 2px;
     box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     &:hover {
       background-color: rgba(23,34,45,.1);
     }
