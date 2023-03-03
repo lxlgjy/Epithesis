@@ -11,3 +11,8 @@ export const PlayListAxios = async (Api: string) => {
     useStore().Playlist.getMusicPlayList(fetch)
 }
 
+export const PLayListAddAxios = async (Api: string) => {
+    const fetch = await publicGetFunction(Api) as object
+
+}
+

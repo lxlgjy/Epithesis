@@ -469,6 +469,8 @@ export const scorll = () => {
 }
 
 export const PlayListToggle = async (title: string) => {
+    useStore().Start.AddPlayList()
+
     await PlayListAxios(`/top/playlist?limit=35&order=hot&offset=${(useStore().Start.PlayList - 1) * 35}&cat=${title}&timestamp=${Date.now()}`)
 }
 

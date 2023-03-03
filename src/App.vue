@@ -75,7 +75,7 @@ import {HomeLatestAlbum, HomeRankingAxios, HomeRecommendAxios, HomeSwiperAxios} 
 import {MvAxios} from "./uilt/Api/MvApi";
 import {SingerAxios} from "./uilt/Api/SingerApi";
 import {PlayListAxios, PlayListTitleAxios} from "./uilt/Api/PlaylistApi";
-import {nextTick, onErrorCaptured, onMounted} from "vue";
+import {nextTick, onMounted} from "vue";
 
 const {Audio, Start} = useStore()
 
@@ -95,15 +95,7 @@ onMounted(async () => {
 })
 
 nextTick(() => {
-  console.log(Start.AudioSongIndex)
-})
 
-onErrorCaptured((err, instance, info) => {
-  //组件页面错误信息 instance差，在vue3中无法定位组件错误。。。
-  console.log(err.message)
-  // console.log(instance)
-  console.log(info)
-  return false
 })
 
 

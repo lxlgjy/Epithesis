@@ -13,6 +13,9 @@ const usePlayListStore = defineStore('Playlist', {
         },
         getMusicPlayListTitle(data: Object) {
             this.MusicPlayListTitle = data
+        },
+        AddMusicPlayList(data:object) {
+            // this.MusicPlayList.push(data)
         }
     },
     persist: {

@@ -19,7 +19,7 @@
                     </li>
                   </router-link>
               </div>
-              <div class="PlayList-page">
+              <div class="PlayList-page" @click="PlayListToggle(item.name)">
                 <div class="pagination componentPage-radius-8 componentPage-pointer">
                   <span>查看更多</span>
                 </div>

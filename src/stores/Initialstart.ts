@@ -35,6 +35,9 @@ const useStartStore = defineStore('Start',{
         AddAudioIndex() {
             this.AudioSongIndex++
         },
+        AddPlayList() {
+            this.PlayList++
+        },
         subtractAudioIndex() {
           this.AudioSongIndex--
         },
