@@ -7,27 +7,27 @@ export const useDetailComputed = () => {
     const route = useRoute()
 
     const DetailImg = computed(() => {
-        return route.matched.length === 3 ? useStore().Detail.MusicAlbumSong.DetailTitle.img : useStore().Detail.MusicSongsDetailList.DetailTitle.img
+        return route.matched.length === 3 || route.name === 'HomeAlbum' ?  useStore().Detail.MusicAlbumSong.DetailTitle.img : useStore().Detail.MusicSongsDetailList.DetailTitle.img
     })
 
     const DetailTitle = computed(() => {
-        return route.matched.length === 3 ?useStore().Detail.MusicAlbumSong.DetailTitle.title : useStore().Detail.MusicSongsDetailList.DetailTitle.title
+        return route.matched.length === 3 ||route.name === 'HomeAlbum' ?useStore().Detail.MusicAlbumSong.DetailTitle.title : useStore().Detail.MusicSongsDetailList.DetailTitle.title
     })
 
     const DetailLabel = computed(() => {
-        return route.matched.length === 3 ? useStore().Detail.MusicAlbumSong.DetailTitle.Label : useStore().Detail.MusicSongsDetailList.DetailTitle.Label
+        return route.matched.length === 3 ||route.name === 'HomeAlbum' ? useStore().Detail.MusicAlbumSong.DetailTitle.Label : useStore().Detail.MusicSongsDetailList.DetailTitle.Label
     })
 
     const DetailBriefIntroduction = computed(() => {
-        return route.matched.length === 3 ?useStore().Detail.MusicAlbumSong.DetailTitle.BriefIntroduction : useStore().Detail.MusicSongsDetailList.DetailTitle.BriefIntroduction
+        return route.matched.length === 3 || route.name === 'HomeAlbum' ? useStore().Detail.MusicAlbumSong.DetailTitle.BriefIntroduction : useStore().Detail.MusicSongsDetailList.DetailTitle.BriefIntroduction
     })
 
     const DetailMusicLength = computed(() => {
-        return route.matched.length === 3 ?useStore().Detail.MusicAlbumSong.DetailTitle.MusicLength : useStore().Detail.MusicSongsDetailList.DetailTitle.MusicLength
+        return route.matched.length === 3 || route.name === 'HomeAlbum'?useStore().Detail.MusicAlbumSong.DetailTitle.MusicLength : useStore().Detail.MusicSongsDetailList.DetailTitle.MusicLength
     })
 
     const DetailSongList = computed(() => {
-        return route.matched.length === 3 ?useStore().Detail.MusicAlbumSong.DetailSong : useStore().Detail.MusicSongsDetailList.DetailSong
+        return route.matched.length === 3 ||route.name === 'HomeAlbum'?useStore().Detail.MusicAlbumSong.DetailSong : useStore().Detail.MusicSongsDetailList.DetailSong
     })
 
 

@@ -1,21 +1,37 @@
 import {defineStore} from "pinia";
+import {ApiPlayList} from "../uilt/Api/PlaylistApi";
+
+//预留接口
+
+interface MusicPLayListAdd {
+    id:string,
+    name:string
+}
+interface MusicPlayList {
+    MusicPlayList:MusicPLayListAdd[],
+    MusicPlayListTitle:[]
+}
+
+export interface MusicStore {
+    MusicStore:MusicPlayList
+}
 
 const usePlayListStore = defineStore('Playlist', {
     state: () => {
         return {
-            MusicPlayList: [] as object,
-            MusicPlayListTitle: [] as object,
+            MusicPlayList: [] as MusicStore['MusicStore']['MusicPlayList'],
+            MusicPlayListTitle: [] as MusicStore['MusicStore']['MusicPlayListTitle'],
         }
     },
     actions: {
-        getMusicPlayList(data: Object) {
+        getMusicPlayList(data: MusicStore['MusicStore']['MusicPlayList']) {
             this.MusicPlayList = data
         },
-        getMusicPlayListTitle(data: Object) {
+        getMusicPlayListTitle(data: MusicStore['MusicStore']['MusicPlayListTitle']) {
             this.MusicPlayListTitle = data
         },
-        AddMusicPlayList(data:object) {
-            // this.MusicPlayList.push(data)
+        AddMusicPlayList(data:ApiPlayList['AllMusicListData']['AddPlayList']) {
+            this.MusicPlayList.push(data)
         }
     },
     persist: {

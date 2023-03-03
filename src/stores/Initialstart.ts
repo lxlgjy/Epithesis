@@ -13,7 +13,8 @@ const useStartStore = defineStore('Start',{
             MusicNotice:'' as string,
             PlayList:1 as number,
             AudioMode:2 as number,
-            AudioModeRandomList:[] as Array<number>
+            AudioModeRandomList:[] as Array<number>,
+            PlayListLoading:false as Boolean
         }
     },
     actions:{
@@ -52,6 +53,9 @@ const useStartStore = defineStore('Start',{
         },
         reviseAudioModeRandomList(data:Array<number>) {
             this.AudioModeRandomList = data
+        },
+        TogglePlayListLoading(data:Boolean) {
+            this.PlayListLoading = data
         }
 
     },

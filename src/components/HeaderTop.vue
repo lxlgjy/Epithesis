@@ -21,8 +21,8 @@
         <span>搜索</span>
       </div>
     </div>
-    <div class="Header-Top-Image" @click="avatarToggle" v-if="Login.MusicUname === false">
-      <img :src="Login.MusicUname.data.profile['avatarUrl']" alt="">
+    <div class="Header-Top-Image" @click="avatarToggle" >
+      <img :src="Login.MusicUname.avatarUrl" >
     </div>
     <transition name="headerMenu">
       <div class="header-menu" v-if="Start.LoginAvatar">

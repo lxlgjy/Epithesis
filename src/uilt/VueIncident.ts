@@ -1,7 +1,7 @@
 // 所有页面的鼠标键盘事件
 import router from "../router";
 import useStore from "../stores/counter";
-import {PlayListAxios} from './Api/PlaylistApi'
+import {PLayListAddAxios, PlayListAxios} from './Api/PlaylistApi'
 import {
     DetailHomeAxios, DetailMVAxios,
     DetailPlaylistAxios,
@@ -373,9 +373,9 @@ export const AudioListPush = async (type?: string) => {
             useStore().Audio.getMusicSongNow(useStore().Detail.MusicCapabilities)
             // @ts-ignore
             NoticePrompt('添加播放列表成功-' + `${useStore().Detail.MusicCapabilities['name']}`)
-        } else if(type === 'MoveOutOfThePlaylist') {
+        } else if (type === 'MoveOutOfThePlaylist') {
             const index = useStore().Audio.MusicSongNow.indexOf(useStore().Detail.MusicCapabilities)
-            useStore().Audio.MusicSongNow.splice(index , 1)
+            useStore().Audio.MusicSongNow.splice(index, 1)
         } else {
             return false
         }
@@ -468,10 +468,12 @@ export const scorll = () => {
     MusicPageCapabilities.value = false
 }
 
+//更多
 export const PlayListToggle = async (title: string) => {
     useStore().Start.AddPlayList()
-
-    await PlayListAxios(`/top/playlist?limit=35&order=hot&offset=${(useStore().Start.PlayList - 1) * 35}&cat=${title}&timestamp=${Date.now()}`)
+    useStore().Start.TogglePlayListLoading(true)
+    await PLayListAddAxios(`/top/playlist?limit=35&order=hot&offset=${(useStore().Start.PlayList - 1) * 35}&cat=${title}&timestamp=${Date.now()}`)
+    useStore().Start.TogglePlayListLoading(false)
 }
 
 export const MusicSpeed = () => {

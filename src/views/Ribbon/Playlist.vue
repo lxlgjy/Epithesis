@@ -5,11 +5,11 @@
         <n-card title="歌单" style="margin-bottom: 16px;--n-border-color:none;">
           <n-tabs type="line" animated
                   style="--n-bar-color: #165dff;--n-tab-text-color-hover:#165dff;--n-tab-text-color-active:#165dff;"
-                  @click="Playlist_Cat($event , page )">
-            <n-tab-pane :name="index" :tab="item.name" v-for="(item,index) in Playlist.MusicPlayListTitle['tags']" key="item.id">
+                  @click.stop="Playlist_Cat($event)">
+            <n-tab-pane :name="index" :tab="item.name" v-for="(item,index) in Playlist.MusicPlayListTitle" key="item.id">
               <div class="PlayListTest">
                   <router-link to="/Playlist/PlayListDetail" class="playlist-ul">
-                    <li v-for="item in Playlist.MusicPlayList['playlists']" key="item.id" @click="MusicPlayListDetail(item.id)">
+                    <li v-for="item in Playlist.MusicPlayList" key="item.id" @click.stop="MusicPlayListDetail(item.id)">
                       <div class="PlayList-image">
                         <img v-lazy="item['coverImgUrl'] + '?param=150y150'">
                       </div>
@@ -19,10 +19,19 @@
                     </li>
                   </router-link>
               </div>
-              <div class="PlayList-page" @click="PlayListToggle(item.name)">
+              <div class="PlayList-page" @click.stop="PlayListToggle(item.name)" v-show="!Start.PlayListLoading">
                 <div class="pagination componentPage-radius-8 componentPage-pointer">
                   <span>查看更多</span>
                 </div>
+              </div>
+              <div class="PlayList-page" v-show="Start.PlayListLoading">
+                <n-space class="pagination" style="background: transparent;display:block;">
+                  <n-spin size="small" stroke="#6270e7" :show="true" description="你不知道你有多幸运">
+                    <template #description>
+                      你不知道你有多幸运
+                    </template>
+                  </n-spin>
+                </n-space>
               </div>
             </n-tab-pane>
           </n-tabs>

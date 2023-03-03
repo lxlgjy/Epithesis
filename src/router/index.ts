@@ -139,7 +139,8 @@ const router = createRouter({
               path:'SongAlbum',
               name:'SongAlbum',
               meta:{
-                ThatLoveShow: false
+                ThatLoveShow: false,
+                page:'SongAlbum'
               },
               component:() => import('@/components/Detail.vue')
             }

@@ -70,7 +70,7 @@
                   @dblclick="Player(item['id'] , item)" @contextmenu="Capabilities($event , item)" class="componentPage-sizing">
                 <!-- :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'Selected' : ''"-->
                 <div class="songs flex-Music-pointer componentPage-flex">
-                  <p v-if="route.meta['page'] !== 'HomeAlbum'" class="imageAndIndex">
+                  <p v-if="route.meta['page'] !== 'HomeAlbum' && route.meta['page'] !== 'SongAlbum' " class="imageAndIndex">
                     <img v-lazy="item['al'].picUrl + '?param=50y50' ">
                   </p>
                   <p v-else class="imageAndIndex">{{ index + 1 }}</p>
@@ -104,6 +104,7 @@ import {MusicStore} from "../stores/Detail";
 const route = useRoute()
 const {Detail, Start, Audio} = useStore()
 const router = useRouter()
+console.log(route.matched.length !== 3)
 const {DetailImg , DetailTitle , DetailLabel , DetailBriefIntroduction , DetailMusicLength ,DetailSongList} = useDetailComputed()
 
 

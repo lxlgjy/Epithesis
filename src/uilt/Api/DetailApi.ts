@@ -112,6 +112,7 @@ export const DetailHomeAxios = async (detail: string, id: string, type: string) 
         const fetchTitle = await DetailTitle(fetchDetail.album.picUrl, fetchDetail.album.name, ['专辑', '最新'], fetchDetail.album.description, '播放全部' + fetchDetail.songs.length) as MusicDetailData
 
         useStore().Detail.getMusicAlbumSong({DetailTitle: fetchTitle, DetailSong: fetchDetail.songs})
+
     }
 
 }

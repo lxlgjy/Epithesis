@@ -88,7 +88,7 @@
                   @click="MusicHomeDetail(items.id , 'HomePlaylist')">
                 <div class="main-lis-allBox">
                   <div class="main-lis-kiss">
-                    <img :src="items['coverImgUrl']" alt="">
+                    <img v-lazy="items['coverImgUrl'] + '?param=300y300'">
                   </div>
                   <h4 class="main-lis-txt">
                 <span>
@@ -107,7 +107,7 @@
               <li v-for="item in Home.MusicRankingData['list'].slice(0,14)" :key="item.id" class="list-lis"
                   @click="MusicHomeDetail(item['id'],'HomeRankings')">
                 <div>
-                  <img :src="item['coverImgUrl']" :alt="item.name">
+                  <img v-lazy="item['coverImgUrl'] + '?param=300y300'">
                 </div>
               </li>
             </router-link>
@@ -120,7 +120,7 @@
               <li v-for="item in Home.MusicLatestAlbum['albums'].slice(0,4)" :key="item.id" class="MusicLi-48"
                   @click="MusicHomeDetail(item['id'],'HomeAlbum')">
                 <div class="Music-img-15">
-                  <img :src="item['picUrl']" :alt="item.name">
+                  <img v-lazy="item['picUrl'] + '?param=400y400'">
                 </div>
                 <div>
                   <span style="font-size: 18px;font-weight: 700">{{ item.name }}</span>
