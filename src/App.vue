@@ -1,45 +1,53 @@
 <template oncontextmenu="stop()">
-
   <audio :src="Audio.MusicSong['data'] ? Audio.MusicSong['data'][0]['url']  : null" :hidden="true" id="Audio"></audio>
 
-  <transition name="Box">
-
-    <div id="Box" v-show="Start.PageShow">
-      <RightRibbon id="RightRibbon" v-show="true"></RightRibbon>
-      <left-display-area id="LeftDisplayArea"></left-display-area>
-    </div>
-
-  </transition>
-
+  <!--  页面整体  -->
+  <div id="Box" v-show="Start.PageShow">
+    <RightRibbon id="RightRibbon"></RightRibbon>
+    <left-display-area id="LeftDisplayArea"></left-display-area>
+  </div>
+  <!-- 底部播放器 -->
   <play-audio v-show="Start.PageShow"></play-audio>
 
+  <!-- 完整播放器 -->
   <transition name="PlayActive">
     <Player v-show="Start.PageShow === false"></Player>
   </transition>
 
+  <!-- 控制播放器隐藏（完整） -->
+  <PlayBack v-show="Start.PageShow === false"></PlayBack>
+
+  <!-- 搜索界面 -->
   <transition name="Search">
     <Search v-if="MusicSearchInputShow"></Search>
   </transition>
 
+  <!-- 整个界面遮罩 -->
   <Background v-if="MusicLoginBackgroundShow"></Background>
 
+  <!-- 登录 -->
   <Logon v-if="MusicLoginShow"></Logon>
 
+  <!-- 右击小菜单 -->
   <capabilities v-show="MusicPageCapabilities"></capabilities>
 
+  <!-- 播放模式 -->
   <transition name="AudioMode">
     <AudioMode v-if="MusicAudioModeShow"></AudioMode>
   </transition>
 
+  <!-- 右侧播放列表 -->
   <transition name="SongList">
     <SongList v-if="MusicSongListShow"></SongList>
   </transition>
 
+  <!-- 加载条 -->
   <n-space style="position:absolute;top:50%;left:50%;transform: translateX(-50%) translateY(-50%);"
            v-if="MusicLoadingShow">
     <n-spin size="small" stroke="blue"/>
   </n-space>
 
+  <!-- 页面大体提示信息 -->
   <n-message-provider>
     <Notice/>
   </n-message-provider>
@@ -69,16 +77,17 @@ import {
   MusicLoadingShow,
   MusicAudioModeShow,
   MusicSongListShow,
-  MusicPageCapabilities
+  MusicPageCapabilities,
+
 } from './uilt/PublicStatus'
 import {HomeLatestAlbum, HomeRankingAxios, HomeRecommendAxios, HomeSwiperAxios} from "./uilt/Api/HomeApi";
 import {MvAxios} from "./uilt/Api/MvApi";
 import {SingerAxios} from "./uilt/Api/SingerApi";
 import {PlayListAxios, PlayListTitleAxios} from "./uilt/Api/PlaylistApi";
 import {nextTick, onMounted} from "vue";
+import PlayBack from "./components/PlayBack.vue";
 
 const {Audio, Start} = useStore()
-
 
 
 onMounted(async () => {
@@ -108,7 +117,7 @@ document.onselectstart = () => {
 }
 
 document.onclick = () => {
-  if(MusicPageCapabilities.value) {
+  if (MusicPageCapabilities.value) {
     MusicPageCapabilities.value = false
   }
 }

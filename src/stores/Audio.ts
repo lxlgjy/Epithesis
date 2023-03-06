@@ -1,30 +1,39 @@
 import {defineStore} from "pinia";
-import {AudioListPush} from "../uilt/VueIncident";
+
+export interface MusicSongNow {
+    id:string
+}
+
+interface useAudioStore {
+    MusicSong:[]
+    MusicLyric:[]
+    MusicSongNow:MusicSongNow[]
+}
 
 const useAudioStore = defineStore('Audio', {
     state: () => {
         return {
-            MusicSong: [] as object,
-            MusicLyric: [] as object,
-            MusicSongNow: [] as Array<object>
+            MusicSong: [] as useAudioStore['MusicSong'],
+            MusicLyric: [] as useAudioStore['MusicLyric'],
+            MusicSongNow: [] as useAudioStore['MusicSongNow']
         }
     },
     actions: {
-        getMusicSong(data: object) {
+        getMusicSong(data: useAudioStore['MusicSong']) {
             this.MusicSong = data
         },
-        getMusicLyric(data: object) {
+        getMusicLyric(data: useAudioStore['MusicLyric']) {
             this.MusicLyric = data
         },
-        getMusicSongNow(data: object) {
+        getMusicSongNow(data: MusicSongNow) {
             this.MusicSongNow.push(data)
         },
-        replaceMusicSongNow(data: object) {
-            let SongList: Array<object> = []
+        replaceMusicSongNow(data: MusicSongNow) {
+            let SongList: useAudioStore['MusicSongNow'] = []
             SongList.push(data)
             this.MusicSongNow = SongList
         },
-        replaceMusicSongNowListPush(data: Array<object>) {
+        replaceMusicSongNowListPush(data: useAudioStore['MusicSongNow']) {
             this.MusicSongNow = data
         },
     },

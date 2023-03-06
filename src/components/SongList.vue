@@ -13,7 +13,7 @@
       </div>
       <div class="SongList-list componentPage-padding-0-1 ">
         <ul>
-          <li v-for="(item,index) in Audio.MusicSongNow" class="componentPage-pointer componentPage-radius-4" @contextmenu="Capabilities($event , item , 'SongList')" :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'SongList' : ''">
+          <li v-for="(item,index) in Audio.MusicSongNow" class="componentPage-pointer componentPage-radius-4" @contextmenu="Capabilities($event , item , 'SongList')" :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'SongList' : ''" @dblclick="SongListAudio(item)">
             <div class="componentPage-flex componentPage-center componentPage-flex-items">
               <div>
                 <img v-lazy="item['al']['picUrl'] + '?param=50y50'">
@@ -36,7 +36,7 @@
 <script setup lang="ts">
 import useStore from "../stores/counter";
 import {Time} from '../uilt/PageWidgets'
-import {SongListToggle, Capabilities , scorll} from '../uilt/VueIncident'
+import {SongListToggle, Capabilities , scorll ,SongListAudio} from '../uilt/VueIncident'
 import {MusicSongList} from "../uilt/PublicStatus";
 import {CloseOutline, EllipsisVertical} from '@vicons/ionicons5'
 
@@ -98,6 +98,7 @@ const {Detail, Audio} = useStore()
 
   li {
     height: 3rem;
+    margin: 5px 0;
 
     &:hover {
       background-color: rgba(23, 34, 45, .1);

@@ -28,30 +28,34 @@ export const AudioProgressToggle = (time: any, TimeAll: number) => {
     return ((Math.floor(time / 1000 / 60) * 60 + Math.floor((time / 1000 % 60))) * (TimeAll) / 100).toFixed(2)
 }
 
-export const lyric = () => {
-    // @ts-ignore
-    let lyric: any = useStore().Audio.MusicLyric['lrc']['lyric']
-    let newLyric = lyric.split('[').slice(1)
+export const lyric = (item:object) => {
+    return new Promise(resolve =>  {
+        // @ts-ignore
+        let lyric: any = item['lrc']['lyric']
+        let newLyric = lyric.split('[').slice(1)
 
-    let lyricArr: any = []
-    newLyric.forEach((item: any, index: number) => {
-        let first = item.split(']')
-        let m = parseInt(first[0].split(':').slice(0))
-        let s = parseInt(first[0].split(':').slice(1))
-        let ss = (first[0].split('.').slice(1))
-        if (first[1] != '\n') {
-            let lyricObj = {
-                time: (m * 60 + s) + '.' + ss,
-                text: first[1]
+        let lyricArr: any = []
+        newLyric.forEach((item: any, index: number) => {
+            let first = item.split(']')
+            let m = parseInt(first[0].split(':').slice(0))
+            let s = parseInt(first[0].split(':').slice(1))
+            let ss = (first[0].split('.').slice(1))
+            if (first[1] != '\n') {
+                let lyricObj = {
+                    time: (m * 60 + s) + '.' + ss,
+                    text: first[1]
+                }
+                lyricArr.push(lyricObj)
             }
-            lyricArr.push(lyricObj)
-        }
+        })
+        resolve(lyricArr)
     })
-    return lyricArr
 }
 
 export const BackgroundImage = (background: any) => {
     let backgroundArr = ['1E260D','2F5B8E','0D0613','322E11']
+    // const ctx = background.getContext('2d')
+    // ctx.fillStyle = 'green';
 
     background.style.backgroundColor ='#' + backgroundArr[Math.round(Math.random() * 4)]
 }

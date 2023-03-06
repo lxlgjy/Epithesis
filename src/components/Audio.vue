@@ -55,9 +55,18 @@
         </div>
       </div>
       <div class="right componentPage-width-30 componentPage-flex componentPage-pointer">
-        <div class="AudioSpeed componentPage-width-25 componentPage-height-100" @click="MusicSpeed">
-          <span>{{MusicSpeedIndex + 'x'}}</span>
-        </div>
+        <transition name="SpeedAnimate" mode="out-in">
+          <div v-if="MusicSpeedIndex === 1" class="AudioSpeed componentPage-width-25 componentPage-height-100" @click="MusicSpeed">
+            <span>{{'1x'}}</span>
+          </div>
+          <div v-else-if="MusicSpeedIndex === 2" class="AudioSpeed componentPage-width-25 componentPage-height-100" @click="MusicSpeed">
+            <span>{{'2x'}}</span>
+          </div>
+          <div v-else class="AudioSpeed componentPage-width-25 componentPage-height-100" @click="MusicSpeed">
+            <span>{{'3x'}}</span>
+          </div>
+        </transition>
+
         <div class="AudioPlayMode componentPage-width-25 componentPage-height-100 ">
           <div class="alignLeft componentPage-center" @click="PlaybackModeSwitching();mess('success')">
             <n-icon size="30" color="#000" class="center" v-show="MusicPlayMode === 3 ">
@@ -74,12 +83,10 @@
         <div class="AudioVolume componentPage-width-25 componentPage-height-100 ">
           <div class="AudioVolume-res componentPage-hidden  componentPage-center
 componentPage-width-100 componentPage-height-100 componentPage-position-re">
-
             <n-space vertical class="Audio-volume-text">
               <n-slider v-model:value="value" :step="1" style="--n-fill-color:#165dff;--n-fill-color-hover: #165dff;"
                         @update-value="AudioVolumeMouseMove(value)"/>
             </n-space>
-
           </div>
         </div>
         <div class="AudioListOfSongs componentPage-width-25 componentPage-height-100">
@@ -119,15 +126,18 @@ import {
   SongListShowToggle,
   NextAndPrevious, PlaybackModeSwitching
 } from '../uilt/VueIncident'
-import {computed, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {mess} from "../uilt/VueEvent";
 import {MusicSpeed} from '../uilt/VueIncident'
+import Element from "../uilt/Element";
 
 const {Audio, Start} = useStore()
 
 const value = ref(100)
-const marks = {0:'0.5x', 20:'1x',40:'1.5x',60:'2x',80:'2.5',100:'3x'}
 
+onMounted(() => {
+
+})
 
 </script>
 <style scoped lang="scss">

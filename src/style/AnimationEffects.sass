@@ -1,34 +1,57 @@
 //目前对于css动画只有浅薄的理解（在此项目只用简单动画效果，如有需要可以自行更改或使用animate动画库）
-//
+
+// 搜索出现动画
 .Search-enter-active
-  transition: all .3s
+  animation: search 300ms
 .Search-leave-active
-  transition: all .6s
+  animation: search 300ms reverse
 
-.Search-enter-from, .Search-leave-to
-  transform: translateX(20px)
+@keyframes search
+  0%
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translateX(-50%) translateY(-50%) scale(0)
+  50%
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translateX(-50%) translateY(-50%) scale(1.25)
+  100%
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translateX(-50%) translateY(-50%) scale(1)
+
+// 所有页面加载 （无效果）
+.fade-enter-active,
+.fade-leave-active
+  transition: opacity 0.5s
+
+.fade-enter,
+.fade-leave-to
   opacity: 0
 
-//
-.Box-enter-active
-  transition: all .3s ease-out
-.Box-leave-active
-  transition: all .6s
+// 播放器显示（离开时没有动画效果）
+.PlayActive-enter-active
+  animation: playlist 300ms
 
-.Box-enter-from,
-.Box-leave-to
-  transform: translateY(400px)
-  opacity: 0
+.PlayActive-leave-active
+  animation: playlist 400ms reverse
 
-//
-.PlayerActive-enter-active
-  transition: all .3s ease-out
-.PlayerActive-leave-active
-  transition: all .3s ease-out
-
-.PlayerActive-enter-from, .PlayerActive-leave-to
-  transform: translateY(400px)
-  opacity: 0
+@keyframes playlist
+  0%
+    transform: translateY(100%)
+  20%
+    transform: translateY(80%)
+  40%
+    transform: translateY(60%)
+  60%
+    transform: translateY(40%)
+  80%
+    transform: translateY(20%)
+  100%
+    transform: translateY(0)
 
 // 登录头像点击动画
 .headerMenu-enter-active
@@ -37,15 +60,22 @@
   transition: all .8s ease-out
 
 .headerMenu-enter-from , .headerMenu-leave-to
-  transform: translateY(200px)
+  transform: translateY(500px)
   opacity: 0
 
 //播放模式
-.AudioMode-enter-active , .AudioMode-leave-active
-  transition: all .8s ease-out
+.AudioMode-enter-active
+  animation: AudioMode .4s
+.AudioMode-leave-active
+  animation: AudioMode .4s reverse
 
-.AudioMode-enter-from , .AudioMode-leave-to
-  opacity: 0
+@keyframes AudioMode
+  0%
+    transform: scale(0.5)
+  50%
+    transform: scale(1.15)
+  100%
+    transform: scale(1)
 
 //播放列表-滑动动画
 .SongList-enter-active , .SongList-leave-active
@@ -53,3 +83,22 @@
 
 .SongList-enter-from , .SongList-leave-to
   transform: translateX(400px)
+
+//
+.player-enter-active , .player-leave-active
+  transition: all 400ms
+
+.player-leave-to , .player-enter-from
+  opacity: 0
+
+//播放倍速
+.SpeedAnimate-enter-active , .SpeedAnimate-leave-active
+  transition: all .25s ease-out
+
+.SpeedAnimate-enter-from
+  transform: translateY(-10px)
+  opacity: 0
+
+.SpeedAnimate-leave-to
+  transform: translateY(-10px)
+  opacity: 0

@@ -10,15 +10,17 @@ import {
     LoveSongs
 } from "./Api/DetailApi";
 import {
+    MusicI,
     MusicListNoticeShow,
     MusicLoginBackgroundShow,
     MusicLoginShow, MusicPageCapabilities, MusicPageNoticeShow,
     MusicPlay,
-    MusicPlayer,
+    MusicPlayer, MusicPlayerShow,
     MusicPlayerToggle, MusicPlayMode,
     MusicSearchInputShow, MusicSpeedIndex
 } from './PublicStatus'
 import {
+    AudioLyric,
     DetailSelect,
     MusicAudioModeModule,
     MusicAudioPlayAll,
@@ -37,6 +39,7 @@ import Element from "./Element";
 import {AudioProgressToggle} from './PageWidgets'
 import {DownloadSong} from "./Api/Download";
 import {MusicStore} from "../stores/Detail";
+import {MusicSongNow} from "../stores/Audio";
 
 export const LoginClickShow = () => {
     MusicLoginShow.value = true
@@ -204,12 +207,12 @@ const routerPush = (name: string, type?: string, page?: string) => {
 
 }
 //详情界面点击
-export const Player = async (id: string, item: object) => {
+export const Player = async (id: string, item:object) => {
     await MusicSongAndLyric(id)
     useStore().Start.AudioSongIndex = 0
 
 
-    useStore().Audio.replaceMusicSongNow(item)
+    useStore().Audio.replaceMusicSongNow(<MusicSongNow>item)
     // await Axios(`/check/music?id=${id}`, 'VerifyThatTheMusicIsAvailable') 是否可以播放
 
     DetailSelect()
@@ -240,14 +243,9 @@ export const PlayerAudio = (type?: string) => {
 
 // 进入播放界面时隐藏其他界面
 export const playerAudioShow = () => {
-    useStore().Start.TogglePageShow(false)
+    useStore().Start.TogglePageShow(!useStore().Start.PageShow)
+    MusicPlayerShow.value = !MusicPlayerShow.value
 }
-
-// 播放界面返回
-export const PlayerBack = () => {
-    useStore().Start.TogglePageShow(true)
-}
-
 
 export const PlayToggle = (Toggle: boolean) => {
     MusicPlayerToggle.value = !Toggle
@@ -381,7 +379,7 @@ export const AudioListPush = async (type?: string) => {
         }
     } else {
         // @ts-ignore
-        let item = useStore().Detail.MusicSongsDetailList.DetailSong
+        let item:any = useStore().Detail.MusicSongsDetailList.DetailSong
 
         useStore().Audio.replaceMusicSongNowListPush(item)
         useStore().Start.AudioSongIndex = 0
@@ -392,7 +390,7 @@ export const AudioListPush = async (type?: string) => {
 
 const MusicListAndPush = async () => {
     // @ts-ignore
-    let id = await useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id']
+    let id =  useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id']
     await MusicSongAndLyric(id)
 
     DetailSelect()
@@ -402,8 +400,8 @@ const MusicSongNowPush = async () => {
     // @ts-ignore
     let item = useStore().Detail.MusicSongsDetailList.DetailSong
 
-    item.forEach((items: object) => {
-        useStore().Audio.getMusicSongNow(items)
+    item.forEach((items) => {
+        useStore().Audio.getMusicSongNow(<MusicSongNow>items)
     })
 }
 
@@ -411,6 +409,12 @@ export const NoticePrompt = (notice: string) => {
     MusicPageNoticeShow.value = true
     useStore().Start.reviseMusicNotice(notice)
 }
+
+export const SongListAudio = async(item: MusicSongNow) => {
+    useStore().Start.AudioSongIndex = useStore().Audio.MusicSongNow.indexOf(item)
+    await MusicAudioModeModule('SongList')
+}
+
 //下一首and上一首切换播放(可以简化)
 export const NextAndPrevious = async (type?: string) => {
 
@@ -430,6 +434,7 @@ export const NextAndPrevious = async (type?: string) => {
                 useStore().Start.subtractAudioIndex()
 
                 await MusicAudioModeModule('Previous')
+
             }
         }
 

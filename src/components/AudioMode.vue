@@ -1,53 +1,56 @@
 <template>
   <div class="componentPage-position AudioModeShow componentPage-index-5">
-    <div class="componentPage-width-100 AudioMode-title componentPage-font-weight">
-      <span class="componentPage-sizing componentPage-span-padding componentPage-font-18">播放设置</span>
-    </div>
-    <div class="AudioMode-speed">
-      <div>
-        <span class="componentPage-span-padding componentPage-sizing">播放速率</span>
+    <div class="AudioMode-box">
+      <div class="componentPage-width-100 AudioMode-title componentPage-font-weight">
+        <span class="componentPage-sizing componentPage-span-padding componentPage-font-18">播放设置</span>
       </div>
-      <div class="componentPage-flex">
-        <div v-for="item in dataSpeed" class="componentPage-flex-between" @click="AudioSpeed(item.speed)">
-          <input type="radio" name="speed" :checked="item.checked">
-          <span>{{item.speed + 'x'}}</span>
+      <div class="AudioMode-speed">
+        <div>
+          <span class="componentPage-span-padding componentPage-sizing">播放速率</span>
         </div>
-      </div>
-    </div>
-    <div class=" AudioMode-mode componentPage-sizing">
-      <div class="componentPage-span-padding componentPage-sizing">
-        <span>播放模式</span>
-      </div>
-      <div class="componentPage-flex">
-        <div :class=" Start.AudioMode === 0 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click.stop="AudioMode(0);mess('success')">
-          <div>
-            <n-icon size="25">
-              <ReloadOutline/>
-            </n-icon>
-            <span>循环</span>
-          </div>
-        </div>
-        <div :class="Start.AudioMode === 1 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click.stop="AudioMode(1);mess('success')">
-          <div>
-            <n-icon size="25">
-              <Shuffle/>
-            </n-icon>
-            <span>随机</span>
-          </div>
-        </div>
-        <div :class="Start.AudioMode === 2 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click.stop="AudioMode(2);mess('success')">
-          <div>
-            <n-icon size="25">
-              <RepeatOutline/>
-            </n-icon>
-            <span>列表</span>
+        <div class="componentPage-flex">
+          <div v-for="item in dataSpeed" class="componentPage-flex-between" @click="AudioSpeed(item.speed)">
+            <input type="radio" name="speed" :checked="item.checked">
+            <span>{{item.speed + 'x'}}</span>
           </div>
         </div>
       </div>
+      <div class=" AudioMode-mode componentPage-sizing">
+        <div class="componentPage-span-padding componentPage-sizing">
+          <span>播放模式</span>
+        </div>
+        <div class="componentPage-flex">
+          <div :class=" Start.AudioMode === 0 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click.stop="AudioMode(0);mess('success')">
+            <div>
+              <n-icon size="25">
+                <ReloadOutline/>
+              </n-icon>
+              <span>循环</span>
+            </div>
+          </div>
+          <div :class="Start.AudioMode === 1 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click.stop="AudioMode(1);mess('success')">
+            <div>
+              <n-icon size="25">
+                <Shuffle/>
+              </n-icon>
+              <span>随机</span>
+            </div>
+          </div>
+          <div :class="Start.AudioMode === 2 ? 'AudioModeHandoff' : '' " class="componentPage-flex-between componentPage-sizing AudioMode-mode-box" @click.stop="AudioMode(2);mess('success')">
+            <div>
+              <n-icon size="25">
+                <RepeatOutline/>
+              </n-icon>
+              <span>列表</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="AudioMode-close componentPage-width-100 componentPage-pointer" @click="AudioToggle">
+        <div>关闭</div>
+      </div>
     </div>
-    <div class="AudioMode-close componentPage-width-100 componentPage-pointer" @click="AudioToggle">
-      <div>关闭</div>
-    </div>
+
   </div>
 </template>
 
@@ -79,13 +82,16 @@ onMounted(() => {
     color: #fff;
   }
 }
+.AudioMode-box {
+  position: relative;
+}
 .AudioModeShow {
   width: 20rem;
   height: 16rem;
   background-color: #fff;
   box-shadow: -1px -3px 17px 1px rgba(23,34,45,.4);
-  top: 66%;
-  right: 18%;
+  top: 55%;
+  left: 7%;
   border-radius: 4px;
   text-align: center;
 }

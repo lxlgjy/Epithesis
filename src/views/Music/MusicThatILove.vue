@@ -14,7 +14,7 @@
               <span>我喜欢的音乐</span>
               <span>{{ Detail.MusicSongsDetailList.DetailSong.length + '首歌' }}</span>
             </div>
-            <div class="MyLove-left-play flex-Music-radius-50 flex-Music-radius-50" @click.stop="AudioListPush()">
+            <div class="MyLove-left-play flex-Music-radius-50 flex-Music-radius-50" @click.stop.prevent="AudioListPush()">
               <n-icon size="30" color="#fff">
                 <play/>
               </n-icon>
@@ -25,7 +25,7 @@
           <ul class="flex-Music-flex">
             <li v-for="item in Detail.MusicSongsDetailList.DetailSong.slice(0,12)"
                 class="flex-Music-sizing flex-Music-padding-title-HomeRecommendation flex-Music-radius-3 flex-Music-pointer"
-                :id="Audio.MusicSong.length === 0 ? '' : (Audio.MusicSong.data[0]['id'] === item['id'] ? 'MyLoveSelect' : '') ">
+                :id="Audio.MusicSong.length === 0 ? '' : (Audio.MusicSong.data[0]['id'] === item['id'] ? 'MyLoveSelect' : '') " @dblclick="Player(item['id'] , item)">
               <div class="flex-Music-flex">
                 <div>
                   <img v-lazy="item['al']['picUrl'] + '?param=400y400'">
@@ -57,7 +57,7 @@
 import '../../style/ThatLove.sass'
 import Information from '../../components/TextInformation.vue'
 import {Play} from '@vicons/ionicons5'
-import {AudioListPush} from '../../uilt/VueIncident'
+import {AudioListPush , Player} from '../../uilt/VueIncident'
 import useStore from "../../stores/counter";
 import {DetailThatLove} from "../../uilt/Api/DetailApi";
 import {nextTick, onMounted} from "vue";

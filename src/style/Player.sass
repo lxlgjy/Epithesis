@@ -8,7 +8,8 @@
   position: relative
   height: 100vh
   box-sizing: content-box
-  margin: 0 200px
+  margin: 0 12rem
+
 
   .Player-flex
     display: flex
@@ -18,12 +19,13 @@
     position: absolute
     text-align: center
     box-sizing: content-box
+    justify-content: center
 
-.Player-show, .Player-lyric
-  width: 50%
+.Player-show, .Player-lyric , .Player-SongList
   position: relative
 
 .Player-show
+  width: 40%
   .Player-image
     width: 35rem
     height: 35rem
@@ -34,18 +36,22 @@
   .Player-title
     justify-content: space-between
 
-    & span:nth-child(1)
-      color: #fff
+    .PLayer-SongTitleAndSinger
+      width: 60%
+      & span:nth-child(1)
+        color: #fff
 
-    & span:nth-child(2)
-      color: rgba(255, 255, 255, .3)
-      font-size: 16px
+      & span:nth-child(2)
+        color: rgba(255, 255, 255, .3)
+        font-size: 16px
 
     span
       font-size: 24px
       display: block
 
     .Player-unit
+      width: 15%
+      text-align: right
       button
         padding: 10px
         background-color: rgba(171, 171, 171, .2)
@@ -57,9 +63,6 @@
       top: 10px
       margin: 0 8px
       transform: translateX(-2px) translateY(8px)
-
-
-
 
   .Player-btn
     margin: 30px 40px 0 40px
@@ -73,73 +76,49 @@
         border-radius: 10px
 
 
-.Player-lyric
-  .PLayer-lyric-list
-    transition: all .6s
+.Player-SongList , .Player-lyric
+  width: 40%
 
-  ul
-    margin-left: 20px
-    box-sizing: border-box
+.Player-lyric
+  .Player-lyric-list
+    transition: all .3s
 
     li
       width: 100%
-      height: 4.5rem
-      line-height: 4.5rem
+      height: 4rem
+      font-size: 1.7rem
+      line-height: 4rem
       color: #fff
-      font-size: 30px
-      box-sizing: border-box
-      opacity: .5
-      border-radius: 10px
-      transition: all .3s
-
+      opacity: .3
 
       &:hover
-        background-color: rgba(255, 255, 255, .4)
-        cursor: pointer
+        background-color: rgba(255,255,255,.2)
 
+.Player-SongList
+  ul
+    li
+      width: 80%
+      height: 4rem
+      padding: 10px
+      margin-left: 3rem
 
-      .Player-lyric-songs-list-title
-        span
-          text-align: left
-          font-size: 14px
-          display: block
+      &:hover
+        background-color: rgba(255,255,255,.2)
 
       .Player-lyric-songs-list
-        display: flex
-        overflow: hidden
+        width: 100%
         height: 100%
-        & div:nth-child(1)
-          width: 10%
-          height: 100%
-          padding: 12px
-          //height: 5%
-          //transform: translateY(5px)
 
-          img
-            width: 100%
-            height: 100%
-            opacity: 1
+        & div:nth-of-type(2)
+          width: 100%
+          text-align: left
 
-        & div:nth-child(2)
-          width: 80%
-          margin-left: 10px
+        .flex-Music-sizing
+          width: 12%
+          margin-right: 3rem
 
-#Player
-  width: 100%
-  height: 100vh
 
-.Player-back
-  position: absolute
-  right: 60px
-  top: 50px
-  padding: 20px
 
-  button
-    width: 100px
-    height: 100px
 
-    &:hover
-      background-color: rgba(193, 200, 209, .6)
-      border-radius: 35%
 
 

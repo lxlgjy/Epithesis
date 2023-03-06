@@ -21,6 +21,9 @@
 .componentPage-flex
   display: flex
 
+.componentPage-flex-justify
+  justify-content: center
+
 .componentPage-block
   display: block
 
@@ -117,6 +120,16 @@
 
 .componentPage-flex-max-100
   max-width: 100%
+
+//
+\:root
+  --play-div-translateY: 7px
+.componentPage-Player-translateY
+  transform: translateY(calc(var(--play-div-translateY) + 12px))
+
+.componentPage-Player-translateY-icon
+  transform: translateY(12px)
+
 
 
 
