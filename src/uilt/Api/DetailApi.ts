@@ -125,19 +125,6 @@ export const DetailMVAxios = async (detail: string, id: string) => {
     await useStore().Detail.getMusicMV({fetchDetail, fetchAddress})
 }
 
-export const DetailSearchAxios = async (detail: string) => {
-    const fetchDetail = await publicGetFunction(detail) as DetailApi['DetailAxios']['DetailAxiosSongs']
-    const fetchTitle: MusicDetailData = {
-        img: '',
-        title: '',
-        Label: [''],
-        BriefIntroduction: '',
-        MusicLength: ''
-    }
-    useStore().Detail.getMusicSongsDetailList({DetailTitle: fetchTitle, DetailSong: fetchDetail.result.songs})
-
-}
-
 // ThatLove 特殊，单独使用interface 接口定义
 interface playlist {
     id: string

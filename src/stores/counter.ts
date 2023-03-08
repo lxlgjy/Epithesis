@@ -6,6 +6,7 @@ import useLoginStore from './Login'
 import useStartStore from "./Initialstart";
 import useAudioStore from "./Audio";
 import useMvStore from "./Mv";
+import useSearchStore from "./Search";
 
 
 export default function useStore() {
@@ -18,6 +19,7 @@ export default function useStore() {
         Start: useStartStore(),
         Audio: useAudioStore(),
         Mv: useMvStore(),
+        Search: useSearchStore()
     };
 }
 

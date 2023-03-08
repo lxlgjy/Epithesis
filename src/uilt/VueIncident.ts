@@ -2,25 +2,22 @@
 import router from "../router";
 import useStore from "../stores/counter";
 import {PLayListAddAxios, PlayListAxios} from './Api/PlaylistApi'
+import {DetailHomeAxios, DetailMVAxios, DetailPlaylistAxios, DetailSingerAxios, LoveSongs} from "./Api/DetailApi";
 import {
-    DetailHomeAxios, DetailMVAxios,
-    DetailPlaylistAxios,
-    DetailSearchAxios,
-    DetailSingerAxios,
-    LoveSongs
-} from "./Api/DetailApi";
-import {
-    MusicI,
     MusicListNoticeShow,
     MusicLoginBackgroundShow,
-    MusicLoginShow, MusicPageCapabilities, MusicPageNoticeShow,
+    MusicLoginShow,
+    MusicPageCapabilities,
+    MusicPageNoticeShow,
     MusicPlay,
-    MusicPlayer, MusicPlayerShow,
-    MusicPlayerToggle, MusicPlayMode,
-    MusicSearchInputShow, MusicSpeedIndex
+    MusicPlayer,
+    MusicPlayerShow,
+    MusicPlayerToggle,
+    MusicPlayMode,
+    MusicSearchInputShow,
+    MusicSpeedIndex
 } from './PublicStatus'
 import {
-    AudioLyric,
     DetailSelect,
     MusicAudioModeModule,
     MusicAudioPlayAll,
@@ -40,6 +37,8 @@ import {AudioProgressToggle} from './PageWidgets'
 import {DownloadSong} from "./Api/Download";
 import {MusicStore} from "../stores/Detail";
 import {MusicSongNow} from "../stores/Audio";
+import {useSearchAxios, useSearchSongListAxios} from "./Api/Search";
+import {SearchHistory} from "./Pinia";
 
 export const LoginClickShow = () => {
     MusicLoginShow.value = true
@@ -68,6 +67,8 @@ export const headerTopRight = () => {
 export const headerTopInput = () => {
     MusicSearchInputShow.value = true
     MusicLoginBackgroundShow.value = true
+
+    HotSearch()
 }
 //遮罩
 export const allPageBackground = () => {
@@ -104,21 +105,50 @@ export const Playlist_Cat = (dom: any) => {
 }
 
 // 搜索请求
-export const search = async () => {
-    let searchInputValue = document.querySelector('.Search-top-input input') as HTMLInputElement
-
-    if (searchInputValue.value !== '') {
+export const search = async (type?: string, value?: string) => {
+    if (type === 'Hot') {
         backgroundAndloadingToggle()
 
-        await DetailSearchAxios(`/cloudsearch?keywords=${searchInputValue.value}`)
+        await useSearchSongListAxios(`/cloudsearch?keywords=${value}`)
 
-        routerPush('Search', 'Search', searchInputValue.value)
+        routerPush('Search', 'Search', value)
 
         MusicSearchInputShow.value = false
         backgroundAndloadingToggle()
 
+        AddSearchHistory(typeof value === "string" ? value : 'error')
+
+
+    } else {
+        let searchInputValue = document.querySelector('.Search-top-input input') as HTMLInputElement
+
+        if (searchInputValue.value !== '') {
+            backgroundAndloadingToggle()
+
+            await useSearchSongListAxios(`/cloudsearch?keywords=${searchInputValue.value}`)
+
+            routerPush('Search', 'Search', searchInputValue.value)
+
+            MusicSearchInputShow.value = false
+            backgroundAndloadingToggle()
+
+            AddSearchHistory(searchInputValue.value)
+        }
     }
 }
+// 播放历史
+const AddSearchHistory = (value: string) => {
+    if (value && value !== 'error') {
+        let search: SearchHistory = {SearchForAValue: value}
+
+        useStore().Search.getSearchHistory(search)
+    }
+}
+// 热搜
+export const HotSearch = async () => {
+    await useSearchAxios('/search/hot/detail')
+}
+
 //歌手请求
 export const MusicSinger = async (id: string) => {
     await useStore().Start.ToggleMusicData(false)
@@ -207,7 +237,7 @@ const routerPush = (name: string, type?: string, page?: string) => {
 
 }
 //详情界面点击
-export const Player = async (id: string, item:object) => {
+export const Player = async (id: string, item: object) => {
     await MusicSongAndLyric(id)
     useStore().Start.AudioSongIndex = 0
 
@@ -379,7 +409,7 @@ export const AudioListPush = async (type?: string) => {
         }
     } else {
         // @ts-ignore
-        let item:any = useStore().Detail.MusicSongsDetailList.DetailSong
+        let item: any = useStore().Detail.MusicSongsDetailList.DetailSong
 
         useStore().Audio.replaceMusicSongNowListPush(item)
         useStore().Start.AudioSongIndex = 0
@@ -390,7 +420,7 @@ export const AudioListPush = async (type?: string) => {
 
 const MusicListAndPush = async () => {
     // @ts-ignore
-    let id =  useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id']
+    let id = useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id']
     await MusicSongAndLyric(id)
 
     DetailSelect()
@@ -410,7 +440,7 @@ export const NoticePrompt = (notice: string) => {
     useStore().Start.reviseMusicNotice(notice)
 }
 
-export const SongListAudio = async(item: MusicSongNow) => {
+export const SongListAudio = async (item: MusicSongNow) => {
     useStore().Start.AudioSongIndex = useStore().Audio.MusicSongNow.indexOf(item)
     await MusicAudioModeModule('SongList')
 }

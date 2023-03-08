@@ -7,113 +7,117 @@
       <div class="Player-flex">
         <div class="Player-show flex-Music-dirJust flex-Music-flexWarped">
           <div class="Player-image flex-Music-res">
-            <img
-                :src="Start.AudioMode === 1 ? Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['al']['picUrl'] : Audio.MusicSongNow[Start.AudioSongIndex]['al']['picUrl']"
-                alt="">
+            <img :src="PlayerImg" alt="">
           </div>
           <div class="Player-title flex-Music-left flex-Music-flexWarped ">
             <div class="PLayer-SongTitleAndSinger ">
-                <span class="componentPage-flex-text">{{
-                    Start.AudioMode === 1 ? Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['name'] : Audio.MusicSongNow[Start.AudioSongIndex]['name']
-                  }}</span>
-              <span class="componentPage-flex-text">{{
-                  Start.AudioMode === 1 ? Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['ar'][0]['name'] : Audio.MusicSongNow[Start.AudioSongIndex]['ar'][0]['name']
-                }}</span>
+              <span class="componentPage-flex-text">{{ PlayerSongName }}</span>
+              <span class="componentPage-flex-text">{{ PlayerSingerName }}</span>
             </div>
             <div
                 class="componentPage-width-25 componentPage-height-100 componentPage-flex componentPage-flex-justify ">
-              <n-icon size="20" color="#fff" class="componentPage-Player-translateY-icon" v-if="value < 20">
+              <n-icon v-if="value < 20" class="componentPage-Player-translateY-icon" color="#fff" size="20">
                 <VolumeOffOutline/>
               </n-icon>
-              <n-icon size="20" color="#fff" class="componentPage-Player-translateY-icon" v-else-if="value < 90">
+              <n-icon v-else-if="value < 90" class="componentPage-Player-translateY-icon" color="#fff" size="20">
                 <VolumeLowOutline/>
               </n-icon>
-              <n-icon size="20" color="#fff" class="componentPage-Player-translateY-icon" v-else>
+              <n-icon v-else class="componentPage-Player-translateY-icon" color="#fff" size="20">
                 <VolumeMediumOutline/>
               </n-icon>
-              <n-space vertical class="Audio-volume-text componentPage-width-100 componentPage-Player-translateY"
-                       style="height: 4px">
+              <n-space class="Audio-volume-text componentPage-width-100 componentPage-Player-translateY"
+                       style="height: 4px"
+                       vertical>
                 <n-slider v-model:value="value" :step="1"
                           style="--n-fill-color:#fff;--n-fill-color-hover: #fff;--n-handle-size:0px;--n-rail-color:rgb(219, 219, 223,.2);--n-rail-color-hover:rgb(219, 219, 223,.2);"
                           @update-value="AudioVolumeMouseMove(value)"/>
               </n-space>
             </div>
-            <div class="Player-unit">
-              <button>
-                <n-icon size="20" color="#fff">
+            <div class="Player-unit flex-Music-res">
+              <button class="flex-Music-sizing">
+                <n-icon color="#fff" size="20">
                   <EllipsisHorizontal/>
                 </n-icon>
               </button>
+              <div class="MoreFunction">
+                <!--       小功能菜单         -->
+                <ul>
+                  <li>
+
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
           <div>
             <div class="progress-input flex-Music-flexWarped">
               <span>{{ currentTime(MusicSongTime) }}</span>
-              <n-space vertical class="Audio-Select">
+              <n-space class="Audio-Select" vertical>
                 <n-slider id="ProgressBar"
-                          :value="AudioValue(Audio.MusicSongNow[Start.AudioSongIndex]['dt'],MusicPlayerTime)"
                           :step="0.1"
+                          :tooltip="false"
+                          :value="AudioValue(Audio.MusicSongNow[Start.AudioSongIndex]['dt'],MusicPlayerTime)"
                           style="--n-fill-color:#fff;--n-fill-color-hover: #fff;--n-handle-size:0px;--n-rail-color:rgb(219, 219, 223,.2);--n-rail-color-hover:rgb(219, 219, 223,.2);"
-                          @update-value="AudioProgress($event)" :tooltip="false"/>
+                          @update-value="AudioProgress($event)"/>
               </n-space>
-              <span>{{
-                  Start.AudioMode === 1 ? Time(Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['dt']) : Time(Audio.MusicSongNow[Start.AudioSongIndex]['dt'])
-                }}</span>
+              <span>{{ PlayerFinalSongTime }}</span>
             </div>
           </div>
           <div class="Player-btn flex-Music-sizing flex-Music-flexWarped" @click.stop="AudioToggle">
             <button>
-              <n-icon size="40" color="#fff">
+              <n-icon color="#fff" size="40">
                 <SyncSharp/>
               </n-icon>
             </button>
             <button @click.stop="NextAndPrevious('Previous');mess('warning')">
-              <n-icon size="40" color="#fff">
+              <n-icon color="#fff" size="40">
                 <PlaySkipBack/>
               </n-icon>
             </button>
-            <button @click.stop="PlayerAudio()" v-show="MusicPlayer === false">
-              <n-icon size="45" color="#fff">
+            <button v-show="MusicPlayer === false" @click.stop="PlayerAudio()">
+              <n-icon color="#fff" size="45">
                 <Play/>
               </n-icon>
             </button>
-            <button @click.stop="PlayerAudio()" v-show="MusicPlayer === true ">
-              <n-icon size="45" color="#fff">
+            <button v-show="MusicPlayer === true " @click.stop="PlayerAudio()">
+              <n-icon color="#fff" size="45">
                 <PauseSharp/>
               </n-icon>
             </button>
             <button @click.stop="NextAndPrevious('Next');mess('warning')">
-              <n-icon size="40" color="#fff">
+              <n-icon color="#fff" size="40">
                 <PlaySkipForward/>
               </n-icon>
             </button>
             <button @click.stop="PlayToggle(MusicPlayerToggle)">
-              <n-icon size="40" color="#fff">
+              <n-icon color="#fff" size="40">
                 <ListSharp/>
               </n-icon>
             </button>
           </div>
         </div>
-        <div class="Player-lyric" v-show="MusicPlayerToggle === true">
+        <div v-show="MusicPlayerToggle === true" class="Player-lyric">
           <n-scrollbar>
-            <transition name="player" mode="out-in">
-              <ul style="transform: translateY(500px);" id="PlayLyricScroll" class="Player-lyric-list" v-show="MusicPlayerToggle === true">
+            <transition mode="out-in" name="player">
+              <ul v-show="MusicPlayerToggle === true" id="PlayLyricScroll" class="Player-lyric-list"
+                  style="transform: translateY(500px);">
                 <li v-for="(item,index) in Audio.MusicLyric" :id="MusicI === index ? 'playing' : ''"
-                    @click="lyricSelect(item.time)" class="flex-Music-pointer flex-Music-radius-3">{{ item.text }}
+                    class="flex-Music-pointer flex-Music-radius-3" @click="lyricSelect(item.time)">{{ item.text }}
                 </li>
               </ul>
             </transition>
           </n-scrollbar>
         </div>
-        <div class="Player-SongList" v-show="MusicPlayerToggle === false">
+        <div v-show="MusicPlayerToggle === false" class="Player-SongList">
           <n-scrollbar>
-            <transition name="player" mode="out-in">
-              <ul style="transform: translateY(70px)" v-show="MusicPlayerToggle === false">
+            <transition mode="out-in" name="player">
+              <ul v-show="MusicPlayerToggle === false" style="transform: translateY(70px)">
                 <li v-for="(item,index) in Audio.MusicSongNow"
-                    :id=" item.id === Audio.MusicSong['data'][0]['id'] ? 'player-lyric-song': '' " class="flex-Music-sizing flex-Music-pointer" @dblclick="SongListAudio(item)">
+                    :id=" item.id === Audio.MusicSong['data'][0]['id'] ? 'player-lyric-song': '' "
+                    class="flex-Music-sizing flex-Music-pointer" @dblclick="SongListAudio(item)">
                   <div class="Player-lyric-songs-list flex-Music-flexWarped">
                     <div class="flex-Music-sizing">
-                      <img v-lazy="item['al']['picUrl']" alt="">
+                      <img v-lazy="item['al']['picUrl']" alt=""/>
                     </div>
                     <div class="flex-Music-font-hidden">
                       <span>{{ item['name'] }}</span>
@@ -129,51 +133,41 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import '@/style/Player.sass'
 import '../style/AnimationEffects.sass'
-import { onMounted, ref} from "vue";
+import {onMounted, ref} from "vue";
 import {
+  EllipsisHorizontal,
+  ListSharp,
+  PauseSharp,
   Play,
   PlaySkipBack,
   PlaySkipForward,
-  EllipsisHorizontal,
-  ListSharp,
   SyncSharp,
-  PauseSharp,
-  VolumeOffOutline,
+  VolumeLowOutline,
   VolumeMediumOutline,
-  VolumeLowOutline
+  VolumeOffOutline
 } from '@vicons/ionicons5'
-import {
-  MusicPlayer,
-  MusicSongTime,
-  MusicPlayerTime,
-  MusicPlayerToggle,
-  MusicI,
-} from '../uilt/PublicStatus'
+import {MusicI, MusicPlayer, MusicPlayerTime, MusicPlayerToggle, MusicSongTime,} from '../uilt/PublicStatus'
 import useStore from "../stores/counter";
+import {AudioValue, BackgroundImage, currentTime,} from "../uilt/PageWidgets";
 import {
-  currentTime,
-  Time,
-  lyric,
-  BackgroundImage,
-  AudioValue,
-} from "../uilt/PageWidgets";
-import {
-  PlayToggle,
-  lyricSelect,
-  PlayerAudio,
   AudioProgress,
-  NextAndPrevious,
+  AudioToggle,
   AudioVolumeMouseMove,
-  AudioToggle, SongListAudio
-
+  lyricSelect,
+  NextAndPrevious,
+  PlayerAudio,
+  PlayToggle,
+  SongListAudio
 } from '../uilt/VueIncident'
 import {AudioLyric, mess} from "../uilt/VueEvent";
+import {usePlayerComponent} from '../uilt/vueComputed'
 
 
 const {Audio, Detail, Start} = useStore()
+const {PlayerImg, PlayerSongName, PlayerSingerName, PlayerFinalSongTime} = usePlayerComponent()
 const value = ref(100)
 
 onMounted(() => {

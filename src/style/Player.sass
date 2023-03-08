@@ -21,11 +21,12 @@
     box-sizing: content-box
     justify-content: center
 
-.Player-show, .Player-lyric , .Player-SongList
+.Player-show, .Player-lyric, .Player-SongList
   position: relative
 
 .Player-show
   width: 40%
+
   .Player-image
     width: 35rem
     height: 35rem
@@ -38,6 +39,7 @@
 
     .PLayer-SongTitleAndSinger
       width: 60%
+
       & span:nth-child(1)
         color: #fff
 
@@ -52,10 +54,18 @@
     .Player-unit
       width: 15%
       text-align: right
+
       button
+        width: 2.5rem
+        height: 2.5rem
         padding: 10px
         background-color: rgba(171, 171, 171, .2)
         border-radius: 50%
+
+      .MoreFunction
+        width: 3rem
+        height: auto
+
 
   .progress-input
     .Audio-Select
@@ -76,7 +86,7 @@
         border-radius: 10px
 
 
-.Player-SongList , .Player-lyric
+.Player-SongList, .Player-lyric
   width: 40%
 
 .Player-lyric
@@ -85,14 +95,14 @@
 
     li
       width: 100%
-      height: 4rem
+      height: auto
       font-size: 1.7rem
       line-height: 4rem
       color: #fff
       opacity: .3
 
       &:hover
-        background-color: rgba(255,255,255,.2)
+        background-color: rgba(255, 255, 255, .2)
 
 .Player-SongList
   ul
@@ -103,7 +113,7 @@
       margin-left: 3rem
 
       &:hover
-        background-color: rgba(255,255,255,.2)
+        background-color: rgba(255, 255, 255, .2)
 
       .Player-lyric-songs-list
         width: 100%
