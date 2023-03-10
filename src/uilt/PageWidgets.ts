@@ -1,7 +1,6 @@
 // 页面时间转换 与 歌词转换
 import useStore from "../stores/counter";
-import {useRoute} from "vue-router";
-
+import Element from './Element'
 
 export const Time = (time: any) => {
     let Time = time / 1000
@@ -20,7 +19,7 @@ export const progress = (time: any, TimeAll: number) => {
 
 }
 
-export const  AudioValue = (time: any, TimeAll: number):number => {
+export const AudioValue = (time: any, TimeAll: number): number => {
     return (((TimeAll) / ((Math.floor(time / 1000 / 60) * 60) + (Math.floor(time / 1000 % 60)))) * 100)
 }
 
@@ -28,8 +27,8 @@ export const AudioProgressToggle = (time: any, TimeAll: number) => {
     return ((Math.floor(time / 1000 / 60) * 60 + Math.floor((time / 1000 % 60))) * (TimeAll) / 100).toFixed(2)
 }
 
-export const lyric = (item:object) => {
-    return new Promise(resolve =>  {
+export const lyric = (item: object) => {
+    return new Promise(resolve => {
         // @ts-ignore
         let lyric: any = item['lrc']['lyric']
         let newLyric = lyric.split('[').slice(1)
@@ -52,12 +51,26 @@ export const lyric = (item:object) => {
     })
 }
 
-export const BackgroundImage = (background: any) => {
-    let backgroundArr = ['1E260D','2F5B8E','0D0613','322E11']
-    // const ctx = background.getContext('2d')
-    // ctx.fillStyle = 'green';
+export const BackgroundImage = () => {
 
-    background.style.backgroundColor ='#' + backgroundArr[Math.round(Math.random() * 4)]
+    const {Background} = Element()
+
+    let backgroundArr = [
+        {left: '8D7B68', top: 'A4907C'},
+        {left: '2E4F4F', top: '0E8388'},
+        {left: '4C4B16', top: '898121'},
+        {left: '635985', top: '443C68'},
+        {left: 'F1DBBF', top: 'AA5656'},
+        {left: '7B8FA1', top: '567189'},
+        {left: 'DFD3C3', top: 'D0B8A8'},
+        {left: '227C70', top: '88A47C'},
+        {left: '735F32', top: 'C69749'},
+        {left: '624F82', top: '9F73AB'},
+        {left: '3D8361', top: 'D6CDA4'},
+        {left: '1C3879', top: '607EAA'},
+    ]
+
+    Background.style.background = `linear-gradient(to left top, #${backgroundArr[useStore().Start.BackgroundIndex].left}, #${backgroundArr[useStore().Start.BackgroundIndex].top})`
 }
 
 export const currentTime = (time: number) => {

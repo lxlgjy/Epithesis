@@ -52,6 +52,15 @@ const router = createRouter({
                     component: () => import('@/components/Rankings.vue')
                 },
                 {
+                    path: 'HomeHotSinger',
+                    name: 'HomeHotSinger',
+                    meta: {
+                        HomeShow: false,
+                        page: 'HomeHotSinger'
+                    },
+                    component: () => import('@/components/Detail.vue')
+                },
+                {
                     path: 'HomeAlbum',
                     name: 'HomeAlbum',
                     meta: {

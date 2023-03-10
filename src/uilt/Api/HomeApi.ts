@@ -1,5 +1,6 @@
 import useStore from "../../stores/counter";
-import {publicGetFunction, publicPostFunction} from '../Axios'
+import {publicGetFunction} from '../Axios'
+import {useAxios} from "../Api";
 
 
 export const HomeSwiperAxios = async (Api: string) => {
@@ -20,4 +21,9 @@ export const HomeRankingAxios = async (Api: string) => {
 export const HomeLatestAlbum = async (Api: string) => {
     const fetch = await publicGetFunction(Api) as object
     await useStore().Home.getMusicLatestAlbum(fetch)
+}
+
+export const HomeHotSinger = async (Api: string) => {
+    const useHotSingerFetch = await publicGetFunction(Api) as useAxios['Home']['useHotSingerFetch']
+    useStore().Home.getMusicHotSinger(useHotSingerFetch.artists)
 }

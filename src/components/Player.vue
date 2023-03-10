@@ -97,12 +97,14 @@
           </div>
         </div>
         <div v-show="MusicPlayerToggle === true" class="Player-lyric">
-          <n-scrollbar>
+          <n-scrollbar trigger="hover">
             <transition mode="out-in" name="player">
               <ul v-show="MusicPlayerToggle === true" id="PlayLyricScroll" class="Player-lyric-list"
                   style="transform: translateY(500px);">
                 <li v-for="(item,index) in Audio.MusicLyric" :id="MusicI === index ? 'playing' : ''"
-                    class="flex-Music-pointer flex-Music-radius-3" @click="lyricSelect(item.time)">{{ item.text }}
+                    class=" PlayerLyric flex-Music-pointer flex-Music-radius-12 flex-Music-sizing"
+                    @click="lyricSelect(item.time)">
+                  {{ item.text }}
                 </li>
               </ul>
             </transition>
@@ -171,8 +173,8 @@ const {PlayerImg, PlayerSongName, PlayerSingerName, PlayerFinalSongTime} = usePl
 const value = ref(100)
 
 onMounted(() => {
-  let Background = document.querySelector('.Player-BackgroundImage')
-  BackgroundImage(Background)
+
+  BackgroundImage()
 
   AudioLyric()
 

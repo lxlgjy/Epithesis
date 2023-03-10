@@ -1,6 +1,6 @@
 //后续在pinia中增加新数据更改interface
 export interface usePiniaStore {
-    Home: []
+    Home: useHome
     Playlist: []
     Singer: []
     Detail: []
@@ -9,6 +9,15 @@ export interface usePiniaStore {
     Audio: []
     Mv: []
     Search: useSearch
+}
+
+interface useHome {
+    MusicHotSinger: MusicHotSinger[]
+}
+
+interface MusicHotSinger {
+    id: string
+    img1v1Url: string
 }
 
 interface useSearch {

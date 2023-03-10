@@ -1,4 +1,5 @@
 import {defineStore} from "pinia";
+import {usePiniaStore} from "../uilt/Pinia";
 
 const useHomeStore = defineStore('Home', {
     state: () => {
@@ -7,6 +8,7 @@ const useHomeStore = defineStore('Home', {
             MusicRecommendData: [] as Object,
             MusicRankingData: [] as Object,
             MusicLatestAlbum: [] as object,
+            MusicHotSinger: [] as usePiniaStore['Home']['MusicHotSinger']
         }
     },
 
@@ -23,7 +25,9 @@ const useHomeStore = defineStore('Home', {
         getMusicLatestAlbum(data: object) {
             this.MusicLatestAlbum = data
         },
-
+        getMusicHotSinger(data: usePiniaStore['Home']['MusicHotSinger']) {
+            this.MusicHotSinger = data
+        }
     },
     persist: {
         enabled: true,

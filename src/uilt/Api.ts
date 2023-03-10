@@ -1,5 +1,15 @@
 export interface useAxios {
     Search: Search
+    Home: Home
+}
+
+interface Home {
+    useHotSingerFetch: useHotSingerFetch
+}
+
+interface useHotSingerFetch {
+    artists: []
+
 }
 
 interface Search {

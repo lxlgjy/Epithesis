@@ -1,6 +1,6 @@
 // vue功能- (动画)
 import useStore from "../stores/counter";
-import {MusicPlayer, MusicPlay, MusicSongTime, MusicPlayerTime, MusicI, MusicPageNoticeShow} from './PublicStatus'
+import {MusicI, MusicPageNoticeShow, MusicPlay, MusicPlayer, MusicPlayerTime, MusicSongTime} from './PublicStatus'
 import {AudioLyricAxios, AudioSongAxios} from "./Api/AudioApi";
 import Element from "./Element";
 
@@ -41,9 +41,8 @@ const AudioExchange = (AudioArray: Array<number>, index: number, random: number)
 }
 
 const audioAnimateUpdate = () => {
-    const lyricLineHeight = 72
-    const {HomeAudio, LyricULBox} = Element()
-
+    const {HomeAudio, LyricULBox, PlayerLyric} = Element()
+    const lyricLineHeight = PlayerLyric[0].offsetHeight
     const timeupdate = (e: Event) => {
         const LyricLength: any = useStore().Audio.MusicLyric
         MusicSongTime.value = parseInt(HomeAudio.currentTime.toString())

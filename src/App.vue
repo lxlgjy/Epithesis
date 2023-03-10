@@ -1,8 +1,8 @@
 <template oncontextmenu="stop()">
-  <audio :src="Audio.MusicSong['data'] ? Audio.MusicSong['data'][0]['url']  : null" :hidden="true" id="Audio"></audio>
+  <audio id="Audio" :hidden="true" :src="Audio.MusicSong['data'] ? Audio.MusicSong['data'][0]['url']  : null"></audio>
 
   <!--  页面整体  -->
-  <div id="Box" v-show="Start.PageShow">
+  <div v-show="Start.PageShow" id="Box">
     <RightRibbon id="RightRibbon"></RightRibbon>
     <left-display-area id="LeftDisplayArea"></left-display-area>
   </div>
@@ -42,8 +42,8 @@
   </transition>
 
   <!-- 加载条 -->
-  <n-space style="position:absolute;top:50%;left:50%;transform: translateX(-50%) translateY(-50%);"
-           v-if="MusicLoadingShow">
+  <n-space v-if="MusicLoadingShow"
+           style="position:absolute;top:50%;left:50%;transform: translateX(-50%) translateY(-50%);">
     <n-spin size="small" stroke="blue"/>
   </n-space>
 
@@ -71,16 +71,21 @@ import SongList from "./components/SongList.vue";
 import Notice from "./components/Notice.vue";
 import Capabilities from "./components/Capabilities.vue";
 import {
-  MusicSearchInputShow,
-  MusicLoginShow,
-  MusicLoginBackgroundShow,
-  MusicLoadingShow,
   MusicAudioModeShow,
-  MusicSongListShow,
+  MusicLoadingShow,
+  MusicLoginBackgroundShow,
+  MusicLoginShow,
   MusicPageCapabilities,
-
+  MusicSearchInputShow,
+  MusicSongListShow,
 } from './uilt/PublicStatus'
-import {HomeLatestAlbum, HomeRankingAxios, HomeRecommendAxios, HomeSwiperAxios} from "./uilt/Api/HomeApi";
+import {
+  HomeHotSinger,
+  HomeLatestAlbum,
+  HomeRankingAxios,
+  HomeRecommendAxios,
+  HomeSwiperAxios
+} from "./uilt/Api/HomeApi";
 import {MvAxios} from "./uilt/Api/MvApi";
 import {SingerAxios} from "./uilt/Api/SingerApi";
 import {PlayListAxios, PlayListTitleAxios} from "./uilt/Api/PlaylistApi";
@@ -91,15 +96,19 @@ const {Audio, Start} = useStore()
 
 
 onMounted(async () => {
+
   await Start.ToggleMusicData(false)
-  await HomeSwiperAxios('/personalized/privatecontent/list?limit=10&offset=0')
-  await HomeRecommendAxios('/top/playlist/highquality?limit=35')
-  await HomeRankingAxios('/toplist')
-  await HomeLatestAlbum('/album/newest')
-  await MvAxios()
-  await SingerAxios('/toplist/artist?type=1')
-  await PlayListTitleAxios('/playlist/hot')
-  await PlayListAxios('/top/playlist?limit=35&order=hot&offset=1&cat=华语')
+  await Promise.all([
+    HomeSwiperAxios('/personalized/privatecontent/list?limit=10&offset=0'),
+    HomeRecommendAxios('/top/playlist/highquality?limit=35'),
+    HomeRankingAxios('/toplist'),
+    HomeLatestAlbum('/album/newest'),
+    HomeHotSinger('/top/artists?limit=7'),
+    MvAxios(),
+    SingerAxios('/toplist/artist?type=1'),
+    PlayListTitleAxios('/playlist/hot'),
+    PlayListAxios('/top/playlist?limit=35&order=hot&offset=1&cat=华语'),
+  ])
   await Start.ToggleMusicData(true)
 })
 

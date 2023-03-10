@@ -33,7 +33,7 @@ import {
     MusicSongListToggle
 } from './StateTransitions'
 import Element from "./Element";
-import {AudioProgressToggle} from './PageWidgets'
+import {AudioProgressToggle, BackgroundImage} from './PageWidgets'
 import {DownloadSong} from "./Api/Download";
 import {MusicStore} from "../stores/Detail";
 import {MusicSongNow} from "../stores/Audio";
@@ -157,9 +157,11 @@ export const MusicSinger = async (id: string) => {
     await DetailSingerAxios(`/artist/detail?id=${id}`, `/artists?id=${id}`)
 
     await useStore().Start.ToggleMusicData(true)
+
     backgroundAndloadingToggle()
 
 }
+
 // mv请求
 export const FilmMovie = async (id: string) => {
     await useStore().Start.ToggleMusicData(false)
@@ -201,7 +203,15 @@ export const MusicHomeDetail = async (id: string, routerType?: string) => {
         await DetailHomeAxios(`/album?id=${id}`, id, 'Album')
 
         backgroundAndloadingToggle()
+    } else if (routerType === 'HomeHotSinger') {
+
+        await DetailSingerAxios(`/artist/detail?id=${id}`, `/artists?id=${id}`)
+
+        backgroundAndloadingToggle()
+    } else {
+        return false
     }
+
     await useStore().Start.ToggleMusicData(true)
 
 }
@@ -458,13 +468,16 @@ export const NextAndPrevious = async (type?: string) => {
                 useStore().Start.AddAudioIndex()
 
                 await MusicAudioModeModule('Next')
+                useStore().Start.ToggleBackgroundIndex('add')
+                BackgroundImage()
             }
         } else {
             if (useStore().Start.AudioSongIndex > 0) {
                 useStore().Start.subtractAudioIndex()
 
                 await MusicAudioModeModule('Previous')
-
+                useStore().Start.ToggleBackgroundIndex('sub')
+                BackgroundImage()
             }
         }
 

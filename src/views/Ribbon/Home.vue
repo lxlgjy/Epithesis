@@ -1,24 +1,24 @@
 <template>
-  <n-scrollbar trigger="none" v-if="route.meta['HomeShow']">
+  <n-scrollbar v-if="route.meta['HomeShow']" trigger="none">
     <div>
-      <div class="Swiper RightHomeCss" v-if="Start.MusicData === false">
+      <div v-if="Start.MusicData === false" class="Swiper RightHomeCss">
         <n-space vertical>
-          <n-skeleton height="240px" width="100%" class="flex-Music-margin"/>
-          <n-skeleton height="26px" width="100%" class="flex-Music-margin"/>
+          <n-skeleton class="flex-Music-margin" height="240px" width="100%"/>
+          <n-skeleton class="flex-Music-margin" height="26px" width="100%"/>
           <div class="flex-Music-flex">
-            <n-skeleton height="170px" width="48%" :sharp="false" class="flex-Music-margin" v-for="item in 2"/>
+            <n-skeleton v-for="item in 2" :sharp="false" class="flex-Music-margin" height="170px" width="48%"/>
           </div>
-          <n-skeleton height="26px" width="100%" class="flex-Music-margin"/>
+          <n-skeleton class="flex-Music-margin" height="26px" width="100%"/>
           <div class="flex-Music-flex flex-Music-padding-title-HomeRecommendation">
-            <n-skeleton height="194px" width="177px" :sharp="false" class="flex-Music-margin" v-for="item in 7"/>
+            <n-skeleton v-for="item in 7" :sharp="false" class="flex-Music-margin" height="194px" width="177px"/>
           </div>
-          <n-skeleton height="26px" width="100%" class="flex-Music-margin"/>
+          <n-skeleton class="flex-Music-margin" height="26px" width="100%"/>
           <div class="flex-Music-flex flex-Music-padding-title-List">
-            <n-skeleton height="170px" width="170px" class="flex-Music-margin" v-for="item in 7"/>
+            <n-skeleton v-for="item in 7" class="flex-Music-margin" height="170px" width="170px"/>
           </div>
         </n-space>
       </div>
-      <div class="RightHomeCss" v-if="Start.MusicData">
+      <div v-if="Start.MusicData" class="RightHomeCss">
         <div id="main-box">
           <!-- 首页轮播展示 -->
           <div class="swiper">
@@ -30,7 +30,8 @@
                 prev-slide-style="transform: translateX(-150%) translateZ(-800px);"
                 style="height: 240px"
             >
-              <n-carousel-item v-for="item in Home.MusicSwiperData['result']" key="item.id" :style="{ width: '60%' }" @click="SwiperData();mess('error')">
+              <n-carousel-item v-for="item in Home.MusicSwiperData['result']" key="item.id" :style="{ width: '60%' }"
+                               @click="SwiperData();mess('error')">
                 <img
                     :src="item['picUrl']"
                     alt="item.copywriter"
@@ -43,9 +44,9 @@
               <h3>每日推荐</h3>
             </div>
             <ul class="MusicUl-20">
-              <router-link @click="MusicHomeDetail('11071110','HomeRecommendedSongs')" to="/Home/HomeRecommendedSongs"
-                           class="MusicLi-48 MusicBackground tuiJan" style="border-radius: 5px;height: 10rem;"
-                           v-if="Login.MusicUname">
+              <router-link v-if="Login.MusicUname" class="MusicLi-48 MusicBackground tuiJan"
+                           style="border-radius: 5px;height: 10rem;" to="/Home/HomeRecommendedSongs"
+                           @click="MusicHomeDetail('11071110','HomeRecommendedSongs')">
                 <span
                     style="font-size: 30px; font-weight: 700; transform: translateX(20px) translateY(10px)">每日推荐歌曲</span>
               </router-link>
@@ -53,7 +54,7 @@
                 <span
                     style="font-size: 30px; font-weight: 700; transform: translateX(20px) translateY(10px)">每日推荐歌曲</span>
               </li>
-              <li style="border-radius: 5px;height: 10rem;" class="MusicLi-48 MusicBackground FM">
+              <li class="MusicLi-48 MusicBackground FM" style="border-radius: 5px;height: 10rem;">
                 <span
                     style="font-size: 30px; font-weight: 700; transform: translateX(20px) translateY(10px)">私人FM</span>
               </li>
@@ -83,7 +84,7 @@
                 </n-icon>
               </div>
             </div>
-            <router-link to="/Home/HomePlaylist" class="main-ul" style="left: 0">
+            <router-link class="main-ul" style="left: 0" to="/Home/HomePlaylist">
               <li v-for="items in Home.MusicRecommendData['playlists']" key="items.id" class="main-lis"
                   @click="MusicHomeDetail(items.id , 'HomePlaylist')">
                 <div class="main-lis-allBox">
@@ -99,11 +100,24 @@
               </li>
             </router-link>
           </div>
+          <div class="HomeHotSinger">
+            <div>
+              <h3>热门歌手</h3>
+            </div>
+            <router-link class="list-ul" to="/Home/HomeHotSinger">
+              <li v-for="item in Home.MusicHotSinger" :key="item.id" class="list-lis"
+                  @click="MusicHomeDetail(item.id ,'HomeHotSinger' )">
+                <div>
+                  <img v-lazy="item.img1v1Url + '?param=300y300'" class="flex-Music-radius-50">
+                </div>
+              </li>
+            </router-link>
+          </div>
           <div class="List">
             <div>
               <h3>排行榜</h3>
             </div>
-            <router-link to="/Home/HomeRankings" class="list-ul">
+            <router-link class="list-ul" to="/Home/HomeRankings">
               <li v-for="item in Home.MusicRankingData['list'].slice(0,14)" :key="item.id" class="list-lis"
                   @click="MusicHomeDetail(item['id'],'HomeRankings')">
                 <div>
@@ -116,7 +130,7 @@
             <div>
               <h3>最新专辑</h3>
             </div>
-            <router-link to="/Home/HomeAlbum" class="MusicUl-warp">
+            <router-link class="MusicUl-warp" to="/Home/HomeAlbum">
               <li v-for="item in Home.MusicLatestAlbum['albums'].slice(0,4)" :key="item.id" class="MusicLi-48"
                   @click="MusicHomeDetail(item['id'],'HomeAlbum')">
                 <div class="Music-img-15">
@@ -144,7 +158,7 @@ import '@/style/Home.sass'
 import '@/style/Skeleton/Home.sass'
 import '../../style/content.sass'
 import useStore from "../../stores/counter";
-import {left, right, MusicHomeDetail , SwiperData} from '../../uilt/VueIncident'
+import {left, MusicHomeDetail, right, SwiperData} from '../../uilt/VueIncident'
 import {useRoute} from "vue-router";
 import {mess} from "../../uilt/VueEvent";
 
@@ -152,10 +166,9 @@ const {Home, Start, Login} = useStore()
 const route = useRoute()
 
 
-
 </script>
 
-<style scoped lang="sass">
+<style lang="sass" scoped>
 .carousel-img
   margin: 0 auto
   width: 100%
