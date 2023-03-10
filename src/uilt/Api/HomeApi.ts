@@ -1,6 +1,6 @@
 import useStore from "../../stores/counter";
 import {publicGetFunction} from '../Axios'
-import {useAxios} from "../Api";
+import {useAxios} from "../AxiosInterface/ContentApi";
 
 
 export const HomeSwiperAxios = async (Api: string) => {

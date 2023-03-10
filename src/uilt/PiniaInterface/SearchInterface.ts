@@ -1,26 +1,4 @@
-//后续在pinia中增加新数据更改interface
-export interface usePiniaStore {
-    Home: useHome
-    Playlist: []
-    Singer: []
-    Detail: []
-    Login: []
-    Start: []
-    Audio: []
-    Mv: []
-    Search: useSearch
-}
-
-interface useHome {
-    MusicHotSinger: MusicHotSinger[]
-}
-
-interface MusicHotSinger {
-    id: string
-    img1v1Url: string
-}
-
-interface useSearch {
+export interface useSearch {
     HotSearchList: HotSearchList[],
     SearchHistory: SearchHistory[],
     SearchTheList: SearchTheList[]

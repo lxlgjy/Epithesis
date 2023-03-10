@@ -33,8 +33,8 @@
               <n-carousel-item v-for="item in Home.MusicSwiperData['result']" key="item.id" :style="{ width: '60%' }"
                                @click="SwiperData();mess('error')">
                 <img
-                    :src="item['picUrl']"
-                    alt="item.copywriter"
+                    :alt="item.copywriter"
+                    :src="item.picUrl"
                     class="carousel-img">
               </n-carousel-item>
             </n-carousel>
@@ -89,7 +89,7 @@
                   @click="MusicHomeDetail(items.id , 'HomePlaylist')">
                 <div class="main-lis-allBox">
                   <div class="main-lis-kiss">
-                    <img v-lazy="items['coverImgUrl'] + '?param=300y300'">
+                    <img v-lazy="items.coverImgUrl + '?param=300y300'">
                   </div>
                   <h4 class="main-lis-txt">
                 <span>
@@ -119,9 +119,9 @@
             </div>
             <router-link class="list-ul" to="/Home/HomeRankings">
               <li v-for="item in Home.MusicRankingData['list'].slice(0,14)" :key="item.id" class="list-lis"
-                  @click="MusicHomeDetail(item['id'],'HomeRankings')">
+                  @click="MusicHomeDetail(item.id,'HomeRankings')">
                 <div>
-                  <img v-lazy="item['coverImgUrl'] + '?param=300y300'">
+                  <img v-lazy="item.coverImgUrl + '?param=300y300'">
                 </div>
               </li>
             </router-link>
@@ -132,13 +132,13 @@
             </div>
             <router-link class="MusicUl-warp" to="/Home/HomeAlbum">
               <li v-for="item in Home.MusicLatestAlbum['albums'].slice(0,4)" :key="item.id" class="MusicLi-48"
-                  @click="MusicHomeDetail(item['id'],'HomeAlbum')">
+                  @click="MusicHomeDetail(item.id,'HomeAlbum')">
                 <div class="Music-img-15">
-                  <img v-lazy="item['picUrl'] + '?param=400y400'">
+                  <img v-lazy="item.picUrl + '?param=400y400'">
                 </div>
                 <div>
                   <span style="font-size: 18px;font-weight: 700">{{ item.name }}</span>
-                  <span style="font-size: 15px;color: var(--span-color)">{{ item['company'] }}</span>
+                  <span style="font-size: 15px;color: var(--span-color)">{{ item.company }}</span>
                 </div>
               </li>
             </router-link>

@@ -1,5 +1,6 @@
 import {defineStore} from "pinia";
-import {SearchHistory, usePiniaStore} from "../uilt/Pinia";
+import {usePiniaStore} from "../uilt/PiniaInterface/ContentPinia";
+import {SearchHistory} from '../uilt/PiniaInterface/SearchInterface'
 
 const useSearchStore = defineStore('Search', {
     state: () => {

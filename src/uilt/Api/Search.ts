@@ -1,6 +1,6 @@
 import {publicGetFunction} from "../Axios";
 import useStore from "../../stores/counter";
-import {useAxios} from '../Api'
+import {useAxios} from '../AxiosInterface/ContentApi'
 
 export const useSearchAxios = async (Api: string) => {
     const useHotSearchFetch = await publicGetFunction(Api) as useAxios['Search']['useHotSearchFetch']

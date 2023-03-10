@@ -7,8 +7,8 @@
           <div>
             <h3>歌手地区</h3>
           </div>
-          <div class="singer-address-list componentPage-sizing">
-            <div v-for="item in address">{{ item }}</div>
+          <div class="singer-address-list componentPage-sizing componentPage-flex">
+            <div v-for="item in address" class="SingerRegion">{{ item }}</div>
           </div>
         </div>
         <div class="singer-hot">
