@@ -102,6 +102,7 @@
               <ul v-show="MusicPlayerToggle === true" id="PlayLyricScroll" class="Player-lyric-list"
                   style="transform: translateY(500px);">
                 <li v-for="(item,index) in Audio.MusicLyric" :id="MusicI === index ? 'playing' : ''"
+                    :style="{fontSize:PageSetupApp.LyricSize}"
                     class=" PlayerLyric flex-Music-pointer flex-Music-radius-12 flex-Music-sizing"
                     @click="lyricSelect(item.time)">
                   {{ item.text }}
@@ -168,7 +169,7 @@ import {AudioLyric, mess} from "../uilt/VueEvent";
 import {usePlayerComponent} from '../uilt/vueComputed'
 
 
-const {Audio, Detail, Start} = useStore()
+const {Audio, Detail, Start, PageSetupApp} = useStore()
 const {PlayerImg, PlayerSongName, PlayerSingerName, PlayerFinalSongTime} = usePlayerComponent()
 const value = ref(100)
 

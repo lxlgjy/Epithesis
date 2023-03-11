@@ -38,7 +38,7 @@ import {DownloadSong} from "./Api/Download";
 import {MusicStore} from "../stores/Detail";
 import {MusicSongNow} from "../stores/Audio";
 import {useSearchAxios, useSearchSongListAxios} from "./Api/Search";
-import {SearchHistory} from "./Pinia";
+import {SearchHistory} from "./PiniaInterface/SearchInterface";
 
 export const LoginClickShow = () => {
     MusicLoginShow.value = true
@@ -536,6 +536,27 @@ export const MusicSpeed = () => {
     }
 }
 
+// 设置
+export const Setting = (value: string, title: string) => {
+    switch (title) {
+        case '语言切换':
+            useStore().Setting.setLanguage(value)
+            break
+        case '音乐品质':
+            useStore().Setting.setMusicQuality(value)
+            break
+        case '歌词大小':
+            useStore().Setting.setLyricSize(value)
+            useStore().PageSetupApp.setLyricSize(value)
+            break
+    }
+}
+
+export const themes = (value: Boolean) => {
+    console.log(value)
+    value === true ? useStore().PageSetupApp.setPageThemes('Dark') : useStore().PageSetupApp.setPageThemes('Light')
+
+}
 
 
 

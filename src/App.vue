@@ -3,8 +3,8 @@
 
   <!--  页面整体  -->
   <div v-show="Start.PageShow" id="Box">
-    <RightRibbon id="RightRibbon"></RightRibbon>
-    <left-display-area id="LeftDisplayArea"></left-display-area>
+    <RightRibbon id="RightRibbon" :class="PageSetupApp.PageThemes"></RightRibbon>
+    <left-display-area id="LeftDisplayArea" :class="PageSetupApp.PageThemes"></left-display-area>
   </div>
   <!-- 底部播放器 -->
   <play-audio v-show="Start.PageShow"></play-audio>
@@ -92,7 +92,7 @@ import {PlayListAxios, PlayListTitleAxios} from "./uilt/Api/PlaylistApi";
 import {nextTick, onMounted} from "vue";
 import PlayBack from "./components/PlayBack.vue";
 
-const {Audio, Start} = useStore()
+const {Audio, Start, PageSetupApp} = useStore()
 
 
 onMounted(async () => {

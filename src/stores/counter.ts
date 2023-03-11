@@ -7,7 +7,8 @@ import useStartStore from "./Initialstart";
 import useAudioStore from "./Audio";
 import useMvStore from "./Mv";
 import useSearchStore from "./Search";
-
+import useSettingStore from "./Setting";
+import useSetupStore from "./PageSetupApp";
 
 export default function useStore() {
     return {
@@ -19,7 +20,9 @@ export default function useStore() {
         Start: useStartStore(),
         Audio: useAudioStore(),
         Mv: useMvStore(),
-        Search: useSearchStore()
+        Search: useSearchStore(),
+        Setting: useSettingStore(),
+        PageSetupApp: useSetupStore()
     };
 }
 
