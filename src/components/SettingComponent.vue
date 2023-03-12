@@ -2,7 +2,6 @@
   <div>
     <div class="SettingTitle">
       <h3>{{ data.title }}</h3>
-      <hr/>
     </div>
     <div class="SettingContent componentPage-flex componentPage-flex-content">
       <span>{{ data.Introduce + ':' }}</span>
@@ -33,9 +32,9 @@ const data = defineProps({
 .SettingTitle {
   margin: 1rem 0;
 
-  hr {
-    height: .1px;
-    border-color: rgba(23, 34, 45, .2);
+  h3 {
+    border-bottom: 1px solid hsla(0, 0%, 50.2%, .18);
+    padding-bottom: 1rem;
   }
 }
 

@@ -8,40 +8,12 @@
     </div>
     <div class="Ribbon">
       <ul>
-        <router-link v-slot="{navigate , isActive}" custom to="/Home">
+        <router-link v-for="item in PageMusicData" v-slot="{navigate , isActive}" :to="item.router">
           <div :class="isActive ? 'music' : ''" class="li" @click="navigate">
-            <n-icon :class="isActive ? 'icon Home' :
-            'Home initialIcon' " size="20">
-              <HomeSharp/>
+            <n-icon class="Home" size="20">
+              <component :is="item.icon"></component>
             </n-icon>
-            <li>首页</li>
-          </div>
-        </router-link>
-        <router-link v-slot="{navigate ,isActive}" custom to="/Playlist">
-          <div :class="isActive ? 'music' : ''" class="li" @click="navigate">
-            <n-icon :class="isActive ? 'icon Home' :
-            'Home initialIcon' " size="20">
-              <ListCircle/>
-            </n-icon>
-            <li>歌单</li>
-          </div>
-        </router-link>
-        <router-link v-slot="{navigate , isActive}" custom to="/singer">
-          <div :class="isActive ? 'music' : ''" class="li" @click="navigate()">
-            <n-icon :class="isActive ? 'icon Home' :
-            'Home initialIcon' " size="20">
-              <Person/>
-            </n-icon>
-            <li>歌手</li>
-          </div>
-        </router-link>
-        <router-link v-slot="{navigate , isActive}" custom to="/MV">
-          <div :class="isActive ? 'music' : ''" class="li" @click="navigate">
-            <n-icon :class="isActive ? 'icon Home' :
-            'Home initialIcon' " size="20">
-              <CardSharp/>
-            </n-icon>
-            <li>MV</li>
+            <li>{{ item.notice }}</li>
           </div>
         </router-link>
       </ul>
@@ -51,41 +23,15 @@
     </div>
     <div class="Ribbon">
       <ul>
-        <router-link v-slot="{navigate , isActive}" custom to="/MusicThatILove">
+        <router-link v-for="item in PageRibbonData" v-slot="{navigate , isActive}" :to="item.router">
           <div :class="isActive ? 'music' : ''" class="li" @click="navigate">
-            <n-icon :class="isActive ? 'icon Home' :
-            'Home initialIcon' " size="20">
-              <HeartSharp/>
+            <n-icon class="Home" size="20">
+              <component :is="item.icon"></component>
             </n-icon>
-            <li>音乐库</li>
-          </div>
-        </router-link>
-        <router-link v-slot="{navigate , isActive}" custom to="/MyDownloads">
-          <div :class="isActive ? 'music' : ''" class="li" @click="navigate">
-            <n-icon :class="isActive ? 'icon Home' :
-            'Home initialIcon' " size="20">
-              <Archive/>
-            </n-icon>
-            <li>我的下载</li>
+            <li>{{ item.notice }}</li>
           </div>
         </router-link>
       </ul>
-    </div>
-    <div class="Attach">
-      <div class="setting">
-        <router-link v-slot="{navigate , isActive}" custom to="/Setting">
-          <div :class="isActive ? 'music' : ''" class="li" @click="navigate">
-            <li>设置</li>
-          </div>
-        </router-link>
-      </div>
-      <div class="agreement">
-        <router-link v-slot="{navigate , isActive}" custom to="/Agreement">
-          <div :class="isActive ? 'music' : ''" class="li" @click="navigate">
-            <li>协议</li>
-          </div>
-        </router-link>
-      </div>
     </div>
     <div class="text">
       <span>2022-2023毕业设计</span>
@@ -95,31 +41,26 @@
 
 <script lang="ts" setup>
 import '@/style/RightRibbon.sass'
-import {
-  Archive,
-  CardSharp,
-  CaretForwardCircleSharp,
-  HeartSharp,
-  HomeSharp,
-  ListCircle,
-  LogoDiscord,
-  LogoFlickr,
-  MusicalNotesSharp,
-  Person
-} from '@vicons/ionicons5'
+import {Archive, CardSharp, HeartSharp, HomeSharp, ListCircle, Person} from '@vicons/ionicons5'
+import useStore from "../stores/counter";
+
+const {Start} = useStore()
+const PageMusicData = [{router: '/Home', notice: '首页', icon: HomeSharp}, {
+  router: '/Playlist',
+  notice: '歌单',
+  icon: ListCircle
+}, {router: '/singer', notice: '歌手', icon: Person}, {router: '/MV', notice: 'MV', icon: CardSharp}]
+
+const PageRibbonData = [{router: '/MusicThatILove', notice: '音乐库', icon: HeartSharp}, {
+  router: '/MyDownloads',
+  notice: '我的下载',
+  icon: Archive
+}]
 </script>
 
 <style scoped>
 .music {
   background-color: #165dff;
   color: #fff;
-}
-
-.icon {
-  color: #fff
-}
-
-.initialIcon {
-  color: #000;
 }
 </style>

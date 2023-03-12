@@ -16,6 +16,7 @@
         </svg>
       </n-icon>
     </div>
+    <div class="Header-Top-DutyCycle"></div>
     <div class="Header-Top-Search">
       <div class="input" @click="headerTopInput">
         <span>搜索</span>
@@ -27,8 +28,8 @@
     <transition name="headerMenu">
       <div v-if="Start.LoginAvatar" class="header-menu">
         <ul>
-          <li v-for="item in data" :key="item"
-              class="componentPage-radius-2 componentPage-pointer componentPage-sizing">{{ item }}
+          <li v-for="item in data" :key="item" class="componentPage-radius-2 componentPage-pointer componentPage-sizing"
+              @click.stop="AvatarFunction(item)">{{ item }}
           </li>
         </ul>
       </div>
@@ -38,12 +39,12 @@
 
 <script lang="ts" setup>
 import '../style/AnimationEffects.sass'
-import {headerTopInput, headerTopLeft, headerTopRight} from "../uilt/VueIncident";
+import {AvatarFunction, headerTopInput, headerTopLeft, headerTopRight} from "../uilt/VueIncident";
 import {avatarToggle} from "../uilt/StateTransitions";
 import useStore from "../stores/counter";
 
 const {Login, Start} = useStore()
-const data = Start.LoginShow ? ['登录', '非vip', '关于', '查看版本'] : ['vip', '关于', '查看版本', '退出登录']
+const data = Start.LoginShow ? ['登录', '非vip', '关于', '查看版本', '设置', '协议'] : ['vip', '关于', '查看版本', '设置', '协议', '退出登录']
 
 </script>
 
@@ -54,24 +55,27 @@ const data = Start.LoginShow ? ['登录', '非vip', '关于', '查看版本'] : 
   z-index: 20;
   width: var(--page-width);
   display: flex;
-  border-bottom: 1px solid var(--border);
   padding: 5px 50px;
   box-sizing: border-box;
   color: rgba(23, 34, 56, .3);
   backdrop-filter: blur(5px);
-  background-color: rgba(255, 255, 255, .75);
 }
 
-.Header-Top-Router, .Header-Top-Search, .Header-Top-Image {
+.Header-Top-Router, .Header-Top-Search, .Header-Top-Image, .Header-Top-DutyCycle {
   background-color: transparent;
+  opacity: 1;
 }
 
 .Header-Top-Router {
   width: 10%;
 }
 
+.Header-Top-DutyCycle {
+  width: 70%;
+}
+
 .Header-Top-Search {
-  width: 80%;
+  width: 20%;
 }
 
 .Header-Top-Image {
@@ -98,7 +102,7 @@ const data = Start.LoginShow ? ['登录', '非vip', '关于', '查看版本'] : 
     }
 
     &:hover {
-      background-color: rgba(39, 46, 59, .18);
+      background-color: var(--header-active);
       color: initial;
       opacity: 1;
     }
@@ -111,15 +115,10 @@ const data = Start.LoginShow ? ['登录', '非vip', '关于', '查看版本'] : 
   .input {
     width: 100%;
     height: 1rem;
-    padding: 5px;
-    border-radius: 8px;
-    background-color: rgba(39, 46, 59, .08);
-    transform: translateY(.4rem);
+    padding: .5rem;
+    border-radius: 5px;
+    transform: translateY(.2rem);
     transition: background-color .4s;
-
-    &:hover {
-      background-color: rgba(39, 46, 59, .25);
-    }
 
     span {
       padding-left: 5px;
@@ -156,14 +155,14 @@ const data = Start.LoginShow ? ['登录', '非vip', '关于', '查看版本'] : 
   color: #000;
   box-shadow: 3px 0 8px rgba(34, 45, 67, .3);
 
-  &::after {
+  &::before {
     content: '';
     display: block;
     width: .5rem;
     height: .5rem;
     border-top: 1px solid rgba(34, 45, 67, .3);
     border-right: 1px solid rgba(34, 45, 67, .3);
-    transform: translateX(90px) translateY(-190px) rotate(-45deg);
+    transform: translateX(90px) translateY(-5px) rotate(-45deg);
     background-color: #fff;
     box-shadow: 1px -1px 2px rgba(34, 45, 67, .21);
   }

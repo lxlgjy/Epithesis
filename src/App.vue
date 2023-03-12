@@ -2,9 +2,9 @@
   <audio id="Audio" :hidden="true" :src="Audio.MusicSong['data'] ? Audio.MusicSong['data'][0]['url']  : null"></audio>
 
   <!--  页面整体  -->
-  <div v-show="Start.PageShow" id="Box">
-    <RightRibbon id="RightRibbon" :class="PageSetupApp.PageThemes"></RightRibbon>
-    <left-display-area id="LeftDisplayArea" :class="PageSetupApp.PageThemes"></left-display-area>
+  <div v-show="Start.PageShow" id="Box" :class="Setting.PageThemes">
+    <RightRibbon id="RightRibbon"></RightRibbon>
+    <left-display-area id="LeftDisplayArea"></left-display-area>
   </div>
   <!-- 底部播放器 -->
   <play-audio v-show="Start.PageShow"></play-audio>
@@ -60,6 +60,7 @@ import LeftDisplayArea from "@/views/LeftDisplayArea.vue";
 import '@/style/content.sass'
 import '@/style/main.sass'
 import '@/style/Flex/FlexLayout.sass'
+import '@/style/Themes.scss'
 import useStore from "./stores/counter";
 import PlayAudio from './components/Audio.vue'
 import Player from "./components/Player.vue";
@@ -92,7 +93,7 @@ import {PlayListAxios, PlayListTitleAxios} from "./uilt/Api/PlaylistApi";
 import {nextTick, onMounted} from "vue";
 import PlayBack from "./components/PlayBack.vue";
 
-const {Audio, Start, PageSetupApp} = useStore()
+const {Audio, Start, Setting} = useStore()
 
 
 onMounted(async () => {
@@ -130,4 +131,5 @@ document.onclick = () => {
     MusicPageCapabilities.value = false
   }
 }
+
 </script>

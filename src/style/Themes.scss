@@ -1,0 +1,116 @@
+//全局定义root
+:root {
+  // FinallyConfirmTheVersion
+  --opacity: 0;
+
+  //dark
+  --thems-dark-left-border: 1px solid rgba(255, 255, 255, .2);
+  --thems-dark-header-top: rgba(23, 23, 26, var(--opacity, .8));
+  --thems-dark-left-icon: #fff;
+  --thems-dark-left-search-background: rgba(223, 223, 223, .08);
+  --thems-dark-left-search-bgc-active: rgba(197, 197, 197, .16);
+
+  //light
+  --thems-light-left-border: 1px solid rgba(23, 34, 56, .1);
+  --thems-light-header-top: rgba(255, 255, 255, .5);
+  --thems-light-left-icon: #000;
+  --thems-light-left-search-background: rgba(23, 34, 45, .08);
+  --thems-light-left-search-bgc-active: rgba(23, 34, 45, .12);
+}
+
+// 主题切换-start
+#app {
+  .Light {
+    background-color: #fff;
+    color: #000;
+
+    i {
+      color: var(--thems-light-left-icon);
+
+    }
+
+    #RightRibbon {
+      border-right: var(--thems-light-left-border);
+
+    }
+
+    #LeftDisplayArea {
+      // 顶部搜索返回栏
+      #Header-Top {
+        background: var(--thems-light-header-top);
+        border-bottom: var(--thems-light-left-border);
+
+        .Header-Top-Search {
+          .input {
+            background-color: var(--thems-light-left-search-background);
+
+            &:hover {
+              background-color: var(--thems-light-left-search-bgc-active);
+            }
+
+          }
+        }
+      }
+    }
+
+    span {
+      color: #000;
+
+    }
+
+    li {
+      color: #000;
+
+    }
+  }
+}
+
+
+#app {
+  .Dark {
+    background-color: #222;
+    color: #fff;
+
+    i {
+      color: var(--thems-dark-left-icon);
+
+    }
+
+    #RightRibbon {
+      border-right: var(--thems-dark-left-border);
+
+    }
+
+    #LeftDisplayArea {
+      // 顶部搜索返回栏
+      #Header-Top {
+        background: var(--thems-dark-header-top);
+        border-bottom: var(--thems-dark-left-border);
+        --header-active: rgba(255, 255, 255, .2);
+
+        .Header-Top-Search {
+          .input {
+            background-color: var(--thems-dark-left-search-background);
+
+            &:hover {
+              background-color: var(--thems-dark-left-search-bgc-active);
+            }
+
+          }
+
+        }
+      }
+
+    }
+
+    span {
+      color: #fff;
+
+    }
+
+    li {
+      color: #fff;
+
+    }
+  }
+}

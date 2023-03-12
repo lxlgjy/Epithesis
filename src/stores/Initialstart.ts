@@ -15,7 +15,17 @@ const useStartStore = defineStore('Start', {
             AudioMode: 2 as number,
             AudioModeRandomList: [] as Array<number>,
             PlayListLoading: false as Boolean,
-            BackgroundIndex: 0 as number
+            BackgroundIndex: 0 as number,
+            ThemesBoolean: false, //主题
+            //信息
+            Language: '汉语', //语言
+            Topic: 'light', //主题
+            MusicQuality: '高', // 音乐品质
+            LyricSize: '16px', //歌词大小
+            DoubleClickThePlaybackMode: '单曲', //双击播放模式
+            PlayBackgroundCustomization: '', // 播放背景自定义
+            BackgroundBokeh: false, // 背景虚化
+            more: '' // 更多
         }
     },
     actions: {
@@ -70,7 +80,19 @@ const useStartStore = defineStore('Start', {
             } else {
                 return false
             }
-        }
+        },
+        setLanguage(value: string) {
+            this.Language = value
+        },
+        setMusicQuality(value: string) {
+            this.MusicQuality = value
+        },
+        setLyricSize(value: string) {
+            this.LyricSize = value
+        },
+        setDoubleClickThePlaybackMode(value: string) {
+            this.Language = value
+        },
 
     },
     persist: {
@@ -79,7 +101,7 @@ const useStartStore = defineStore('Start', {
             {
                 key: 'Start',
                 storage: window.localStorage,
-                paths: ['LoginShow', 'LoginAvatar']
+                paths: ['LoginShow', 'LoginAvatar', 'Language', 'MusicQuality', 'LyricSize', 'ThemesBoolean']
             },
             {
                 key: 'startSession',

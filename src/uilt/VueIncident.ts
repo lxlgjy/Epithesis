@@ -111,7 +111,7 @@ export const search = async (type?: string, value?: string) => {
 
         await useSearchSongListAxios(`/cloudsearch?keywords=${value}`)
 
-        routerPush('Search', 'Search', value)
+        routerPush('Search', value)
 
         MusicSearchInputShow.value = false
         backgroundAndloadingToggle()
@@ -127,7 +127,7 @@ export const search = async (type?: string, value?: string) => {
 
             await useSearchSongListAxios(`/cloudsearch?keywords=${searchInputValue.value}`)
 
-            routerPush('Search', 'Search', searchInputValue.value)
+            routerPush('Search', searchInputValue.value)
 
             MusicSearchInputShow.value = false
             backgroundAndloadingToggle()
@@ -147,6 +147,30 @@ const AddSearchHistory = (value: string) => {
 // 热搜
 export const HotSearch = async () => {
     await useSearchAxios('/search/hot/detail')
+}
+
+//
+export const AvatarFunction = (type: string) => {
+    console.log(type)
+    switch (type) {
+        case '登录' :
+            break
+        case 'vip' :
+            break
+        case '非vip' :
+            break
+        case '关于' :
+            break
+        case '查看版本' :
+            break
+        case '设置' :
+            routerPush('Setting', 'Setting')
+            break
+        case '协议' :
+            break
+        case '退出登录' :
+            break
+    }
 }
 
 //歌手请求
@@ -235,16 +259,13 @@ export const MusicAlbumDetail = async () => {
 }
 
 // 可以添加查看更多，进行路由跳转 - （路由跳转改为子路由嵌套）
-const routerPush = (name: string, type?: string, page?: string) => {
-
+const routerPush = (name: string, page?: string) => {
     router.push({
         name: name,
         query: {
             page: page
         }
     }).then()
-
-
 }
 //详情界面点击
 export const Player = async (id: string, item: object) => {
@@ -540,22 +561,20 @@ export const MusicSpeed = () => {
 export const Setting = (value: string, title: string) => {
     switch (title) {
         case '语言切换':
-            useStore().Setting.setLanguage(value)
+            useStore().Start.setLanguage(value)
             break
         case '音乐品质':
-            useStore().Setting.setMusicQuality(value)
+            useStore().Start.setMusicQuality(value)
             break
         case '歌词大小':
+            useStore().Start.setLyricSize(value)
             useStore().Setting.setLyricSize(value)
-            useStore().PageSetupApp.setLyricSize(value)
             break
     }
 }
 
 export const themes = (value: Boolean) => {
-    console.log(value)
-    value === true ? useStore().PageSetupApp.setPageThemes('Dark') : useStore().PageSetupApp.setPageThemes('Light')
-
+    value ? useStore().Setting.setPageThemes('Dark') : useStore().Setting.setPageThemes('Light')
 }
 
 
