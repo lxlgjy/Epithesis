@@ -92,6 +92,7 @@ import {SingerAxios} from "./uilt/Api/SingerApi";
 import {PlayListAxios, PlayListTitleAxios} from "./uilt/Api/PlaylistApi";
 import {nextTick, onMounted} from "vue";
 import PlayBack from "./components/PlayBack.vue";
+import i18n from "./i18n";
 
 const {Audio, Start, Setting} = useStore()
 
@@ -111,6 +112,11 @@ onMounted(async () => {
     PlayListAxios('/top/playlist?limit=35&order=hot&offset=1&cat=华语'),
   ])
   await Start.ToggleMusicData(true)
+
+  await nextTick(() => {
+    i18n.global.locale.value = Setting.Language
+  })
+  console.log(i18n.global.locale.value)
 })
 
 nextTick(() => {

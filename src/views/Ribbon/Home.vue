@@ -41,7 +41,7 @@
           </div>
           <div class="New-song-debut">
             <div>
-              <h3>每日推荐</h3>
+              <h3>{{ $t("msg.HomeRecommend") }}</h3>
             </div>
             <ul class="MusicUl-20">
               <router-link v-if="Login.MusicUname" class="MusicLi-48 MusicBackground tuiJan"
@@ -63,7 +63,7 @@
           <div class="HomeRecommendation">
             <div class="title">
               <div class="del">
-                <h3>歌单</h3>
+                <h3>{{ $t('msg.HomePLayList') }}</h3>
               </div>
               <div class="icon">
                 <n-icon color="#616060" size="19" @click="left">
@@ -102,7 +102,7 @@
           </div>
           <div class="HomeHotSinger">
             <div>
-              <h3>热门歌手</h3>
+              <h3>{{ $t('msg.HomeHotSinger') }}</h3>
             </div>
             <router-link class="list-ul" to="/Home/HomeHotSinger">
               <li v-for="item in Home.MusicHotSinger" :key="item.id" class="list-lis"
@@ -115,7 +115,7 @@
           </div>
           <div class="List">
             <div>
-              <h3>排行榜</h3>
+              <h3>{{ $t('msg.HomeList') }}</h3>
             </div>
             <router-link class="list-ul" to="/Home/HomeRankings">
               <li v-for="item in Home.MusicRankingData['list'].slice(0,14)" :key="item.id" class="list-lis"
@@ -128,7 +128,7 @@
           </div>
           <div class="Latest-album">
             <div>
-              <h3>最新专辑</h3>
+              <h3>{{ $t('msg.HomeAlbum') }}</h3>
             </div>
             <router-link class="MusicUl-warp" to="/Home/HomeAlbum">
               <li v-for="item in Home.MusicLatestAlbum['albums'].slice(0,4)" :key="item.id" class="MusicLi-48"
@@ -161,8 +161,10 @@ import useStore from "../../stores/counter";
 import {left, MusicHomeDetail, right, SwiperData} from '../../uilt/VueIncident'
 import {useRoute} from "vue-router";
 import {mess} from "../../uilt/VueEvent";
+import {useLanguageComputed} from "../../uilt/vueComputed";
 
-const {Home, Start, Login} = useStore()
+const {Home, Start, Login, Setting} = useStore()
+const {} = useLanguageComputed()
 const route = useRoute()
 
 

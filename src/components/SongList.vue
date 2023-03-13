@@ -1,19 +1,26 @@
 <template>
-  <div class="SongList componentPage-position componentPage-index-4">
+  <div :style="SongListBackground" class="SongList componentPage-position componentPage-index-4">
     <n-scrollbar :on-scroll="scorll">
       <div class="SongList-header componentPage-sizing componentPage-index-2">
         <div class="componentPage-flex" @click="SongListToggle">
           <span
-              class="componentPage-flex-between componentPage-center componentPage-pointer componentPage-sizing componentPage-font-weight componentPage-radius-2"
-              :id="MusicSongList ? 'SongListTap' : ''">播放列表</span>
+              :id="MusicSongList ? 'SongListTap' : ''"
+              class="componentPage-flex-between componentPage-center componentPage-pointer componentPage-sizing componentPage-font-weight componentPage-radius-2">{{
+              $t('msg.SongPlayList')
+            }}</span>
           <span
-              class="componentPage-flex-between componentPage-center componentPage-pointer componentPage-sizing componentPage-font-weight componentPage-radius-2"
-              :id="!MusicSongList ? 'SongListTap' : ''">播放历史</span>
+              :id="!MusicSongList ? 'SongListTap' : ''"
+              class="componentPage-flex-between componentPage-center componentPage-pointer componentPage-sizing componentPage-font-weight componentPage-radius-2">{{
+              $t('msg.SongPlayHistory')
+            }}</span>
         </div>
       </div>
       <div class="SongList-list componentPage-padding-0-1 ">
         <ul>
-          <li v-for="(item,index) in Audio.MusicSongNow" class="componentPage-pointer componentPage-radius-4" @contextmenu="Capabilities($event , item , 'SongList')" :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'SongList' : ''" @dblclick="SongListAudio(item)">
+          <li v-for="(item,index) in Audio.MusicSongNow"
+              :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'SongList' : ''"
+              class="componentPage-pointer componentPage-radius-4"
+              @contextmenu="Capabilities($event , item , 'SongList')" @dblclick="SongListAudio(item)">
             <div class="componentPage-flex componentPage-center componentPage-flex-items">
               <div>
                 <img v-lazy="item['al']['picUrl'] + '?param=50y50'">
@@ -33,29 +40,30 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import useStore from "../stores/counter";
-import {Time} from '../uilt/PageWidgets'
-import {SongListToggle, Capabilities , scorll ,SongListAudio} from '../uilt/VueIncident'
+import {Capabilities, scorll, SongListAudio, SongListToggle} from '../uilt/VueIncident'
 import {MusicSongList} from "../uilt/PublicStatus";
-import {CloseOutline, EllipsisVertical} from '@vicons/ionicons5'
+import {useSongListComputed} from '../uilt/vueComputed'
 
 const {Detail, Audio} = useStore()
-
+const {SongListBackground} = useSongListComputed()
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 #SongListTap {
   background-color: #165dff;
   color: #fff;
 }
 
 #SongList {
-  background-color: #3780ce;
+  background-color: var(--selected-background);
+
   .SongList-title {
     & span:nth-child(1) {
       color: #fff;
     }
+
     & span:nth-child(2) {
       color: #e4e1e1;
     }
@@ -67,14 +75,14 @@ const {Detail, Audio} = useStore()
   right: 0;
   width: 22rem;
   height: 89.8%;
-  background-color: #fff;
+  background-color: var(--background);
   box-shadow: 5px 1px 21px rgba(23, 34, 45, .3);
 }
 
 .SongList-header {
   position: sticky;
   top: 0;
-  background-color: #fff;
+  //background-color: var(--background);
   padding: 8px 1rem;
   box-shadow: 0 1px 7px 2px rgba(23, 34, 45, .3);
 
@@ -85,6 +93,7 @@ const {Detail, Audio} = useStore()
       height: 100%;
       line-height: 2rem;
       margin: 0 4px;
+      color: var(--color);
 
       &:hover {
         background-color: rgba(23, 34, 45, .1);
@@ -101,7 +110,7 @@ const {Detail, Audio} = useStore()
     margin: 5px 0;
 
     &:hover {
-      background-color: rgba(23, 34, 45, .1);
+      background-color: var(--active-background);
     }
 
     div {
@@ -112,12 +121,13 @@ const {Detail, Audio} = useStore()
 
       & div:nth-child(2) {
         flex: 4;
+
         &:nth-child(2) {
           font-weight: 700;
         }
       }
 
-      & div:nth-child(1) , &:nth-child(2) {
+      & div:nth-child(1), &:nth-child(2) {
         padding: 0 .5rem;
       }
     }
@@ -134,10 +144,12 @@ const {Detail, Audio} = useStore()
       &:nth-child(1) {
         font-size: 15px;
         padding: 0;
+        color: var(--color);
+
       }
 
       &:nth-child(2) {
-        color: rgba(23, 34, 45, .3);
+        color: var(--secondLight);
       }
     }
   }

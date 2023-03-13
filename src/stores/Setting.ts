@@ -1,10 +1,18 @@
 import {defineStore} from "pinia";
+import i18n from "../i18n";
+
+interface SettingState {
+    LyricSize: string
+    PageThemes: string
+    Language: 'zh' | 'en' // 更改类型
+}
 
 const useSettingStore = defineStore('Setting', {
-    state: () => {
+    state: (): SettingState => {
         return {
             LyricSize: '16px',
-            PageThemes: 'Light'
+            PageThemes: 'Light',
+            Language: 'zh'
         }
     },
     actions: {
@@ -13,6 +21,10 @@ const useSettingStore = defineStore('Setting', {
         },
         setPageThemes(value: string) {
             this.PageThemes = value
+        },
+        setLanguage(value: 'zh' | 'en') {
+            this.Language = value
+            i18n.global.locale.value = value
         }
     },
     persist: {
@@ -21,7 +33,7 @@ const useSettingStore = defineStore('Setting', {
             {
                 key: 'MusicSetting',
                 storage: window.localStorage,
-                paths: ['LyricSize', 'PageThemes']
+                paths: ['LyricSize', 'PageThemes', 'Language']
             }
         ]
     }

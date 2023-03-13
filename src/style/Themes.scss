@@ -1,8 +1,8 @@
-//全局定义root
+//全局定义root (可以优化更改，将一些属性更改为一个或全部优化，这里直观展示)
 :root {
   // FinallyConfirmTheVersion
+  // 更改例子在下方-headerTop-headerMenu
   --opacity: 0;
-
   //dark
   --thems-dark-left-border: 1px solid rgba(255, 255, 255, .2);
   --thems-dark-header-top: rgba(23, 23, 26, var(--opacity, .8));
@@ -23,15 +23,20 @@
   .Light {
     background-color: #fff;
     color: #000;
+    // 更改例子
+    --header-menu-background: #fff;
+    --header-menu-background-active: rgba(23, 34, 56, .1);
+    --header-menu-background-shadow: rgba(23, 34, 56, .1);
+    --capabilities-background: #fff;
+    --color: #000;
+    --active-background: rgba(23, 34, 45, .2);
 
     i {
       color: var(--thems-light-left-icon);
-
     }
 
     #RightRibbon {
       border-right: var(--thems-light-left-border);
-
     }
 
     #LeftDisplayArea {
@@ -53,15 +58,29 @@
       }
     }
 
-    span {
-      color: #000;
-
+    .detail-background {
+      &::after {
+        background: linear-gradient(0deg, #fff 0, hsla(0, 0%, 100%, .996) 8.1%, hsla(0, 0%, 100%, .983) 15.5%, hsla(0, 0%, 100%, .964) 22.5%, hsla(0, 0%, 100%, .939) 29%, hsla(0, 0%, 100%, .909) 35.3%, hsla(0, 0%, 100%, .877) 41.2%, hsla(0, 0%, 100%, .842) 47.1%, hsla(0, 0%, 100%, .808) 52.9%, hsla(0, 0%, 100%, .773) 58.8%, hsla(0, 0%, 100%, .741) 64.7%, hsla(0, 0%, 100%, .711) 71%, hsla(0, 0%, 100%, .686) 77.5%, hsla(0, 0%, 100%, .667) 84.5%, hsla(0, 0%, 100%, .654) 91.9%, hsla(0, 0%, 100%, .65));
+      }
     }
 
-    li {
-      color: #000;
-
+    .PlayList-page {
+      div {
+        background-color: var(--header-menu-background-active)
+      }
     }
+
+    .AudioDetail-play, .AudioDetail-add {
+      i, span {
+        color: #fff;
+      }
+    }
+
+
+    span, li, p {
+      color: #000;
+    }
+
   }
 }
 
@@ -70,15 +89,19 @@
   .Dark {
     background-color: #222;
     color: #fff;
+    --header-menu-background: #222;
+    --header-menu-background-active: rgba(255, 255, 255, .2);
+    --header-menu-background-shadow: rgba(255, 255, 255, .2);
+    --capabilities-background: #2a2a2b;
+    --color: #fff;
+    --active-background: rgba(255, 255, 255, .1);
 
     i {
       color: var(--thems-dark-left-icon);
-
     }
 
     #RightRibbon {
       border-right: var(--thems-dark-left-border);
-
     }
 
     #LeftDisplayArea {
@@ -97,20 +120,25 @@
             }
 
           }
-
         }
       }
 
+      .detail-background {
+        &::after {
+          background: linear-gradient(0deg, #18181b 0, rgba(24, 24, 27, .996) 8.1%, rgba(24, 24, 27, .983) 15.5%, rgba(24, 24, 27, .964) 22.5%, rgba(24, 24, 27, .939) 29%, rgba(24, 24, 27, .909) 35.3%, rgba(24, 24, 27, .877) 41.2%, rgba(24, 24, 27, .842) 47.1%, rgba(24, 24, 27, .808) 52.9%, rgba(24, 24, 27, .773) 58.8%, rgba(24, 24, 27, .741) 64.7%, rgba(24, 24, 27, .711) 71%, rgba(24, 24, 27, .686) 77.5%, rgba(24, 24, 27, .667) 84.5%, rgba(24, 24, 27, .654) 91.9%, rgba(24, 24, 27, .65));;
+        }
+      }
+
+      .PlayList-page {
+        div {
+          background-color: var(--header-menu-background-active)
+
+        }
+      }
     }
 
-    span {
+    span, li, p {
       color: #fff;
-
-    }
-
-    li {
-      color: #fff;
-
     }
   }
 }

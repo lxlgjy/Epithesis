@@ -159,11 +159,12 @@ export const AvatarFunction = (type: string) => {
             break
         case '非vip' :
             break
-        case '关于' :
+        case '关于' && 'Concerning' :
+            routerPush('Agreement', 'Agreement')
             break
         case '查看版本' :
             break
-        case '设置' :
+        case '设置' && 'SetUp' :
             routerPush('Setting', 'Setting')
             break
         case '协议' :
@@ -559,18 +560,29 @@ export const MusicSpeed = () => {
 
 // 设置
 export const Setting = (value: string, title: string) => {
+    console.log(value)
+    console.log(title)
     switch (title) {
         case '语言切换':
-            useStore().Start.setLanguage(value)
+            Language(value, '英文')
             break
-        case '音乐品质':
+        case 'LanguageSwitching':
+            Language(value, 'Chinese')
+            break
+        case '音乐品质' && 'MusicQuality':
             useStore().Start.setMusicQuality(value)
             break
-        case '歌词大小':
+        case '歌词大小' && 'LyricSize':
             useStore().Start.setLyricSize(value)
             useStore().Setting.setLyricSize(value)
             break
     }
+}
+
+const Language = (value: string, title: string) => {
+    console.log(value === title)
+    useStore().Start.setLanguage(value)
+    value === title ? useStore().Setting.setLanguage('en') : useStore().Setting.setLanguage('zh')
 }
 
 export const themes = (value: Boolean) => {

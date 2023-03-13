@@ -19,7 +19,7 @@
     <div class="Header-Top-DutyCycle"></div>
     <div class="Header-Top-Search">
       <div class="input" @click="headerTopInput">
-        <span>搜索</span>
+        <span>{{ $t('msg.Search') }}</span>
       </div>
     </div>
     <div class="Header-Top-Image componentPage-pointer" @click="avatarToggle">
@@ -42,9 +42,10 @@ import '../style/AnimationEffects.sass'
 import {AvatarFunction, headerTopInput, headerTopLeft, headerTopRight} from "../uilt/VueIncident";
 import {avatarToggle} from "../uilt/StateTransitions";
 import useStore from "../stores/counter";
+import i18n from "../i18n";
 
 const {Login, Start} = useStore()
-const data = Start.LoginShow ? ['登录', '非vip', '关于', '查看版本', '设置', '协议'] : ['vip', '关于', '查看版本', '设置', '协议', '退出登录']
+const data = Start.LoginShow ? [i18n.global.t('msg.Login'), i18n.global.t('msg.NonVIP'), i18n.global.t('msg.CheckTheVersion'), i18n.global.t('msg.SetUp'), i18n.global.t('msg.Concerning'), i18n.global.t('msg.Agreement')] : [i18n.global.t('msg.VIP'), i18n.global.t('msg.CheckTheVersion'), i18n.global.t('msg.SetUp'), i18n.global.t('msg.Concerning'), i18n.global.t('msg.Agreement'), i18n.global.t('msg.SignOut')]
 
 </script>
 
@@ -151,20 +152,19 @@ const data = Start.LoginShow ? ['登录', '非vip', '关于', '查看版本', '�
   position: absolute;
   right: 1rem;
   top: 4rem;
-  background-color: #fff;
+  background-color: var(--header-menu-background);
   color: #000;
-  box-shadow: 3px 0 8px rgba(34, 45, 67, .3);
+  border: 1px solid var(--header-menu-background-shadow);
 
   &::before {
     content: '';
     display: block;
     width: .5rem;
     height: .5rem;
-    border-top: 1px solid rgba(34, 45, 67, .3);
-    border-right: 1px solid rgba(34, 45, 67, .3);
+    border-top: 1px solid var(--header-menu-background-shadow);
+    border-right: 1px solid var(--header-menu-background-shadow);
     transform: translateX(90px) translateY(-5px) rotate(-45deg);
-    background-color: #fff;
-    box-shadow: 1px -1px 2px rgba(34, 45, 67, .21);
+    background-color: var(--header-menu-background);
   }
 
   li {
@@ -176,7 +176,7 @@ const data = Start.LoginShow ? ['登录', '非vip', '关于', '查看版本', '�
     padding-left: 3px;
 
     &:hover {
-      background-color: rgba(34, 45, 67, .13);
+      background-color: var(--header-menu-background-active)
     }
   }
 }

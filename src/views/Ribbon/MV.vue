@@ -1,30 +1,30 @@
 <template>
-  <n-scrollbar trigger="none" v-if="route.meta['MVShow']">
+  <n-scrollbar v-if="route.meta['MVShow']" trigger="none">
     <div>
-      <div class="Swiper RightHomeCss" v-if="Start.MusicData === false">
+      <div v-if="Start.MusicData === false" class="Swiper RightHomeCss">
         <n-space vertical>
-          <n-skeleton height="26px" width="100%" class="PlaylistTitle"/>
+          <n-skeleton class="PlaylistTitle" height="26px" width="100%"/>
           <div class="flex-Music-flex">
-            <n-skeleton height="240px" width="48%" :sharp="false" class="flex-Music-margin" v-for="item in 2"/>
+            <n-skeleton v-for="item in 2" :sharp="false" class="flex-Music-margin" height="240px" width="48%"/>
           </div>
-          <n-skeleton height="26px" width="100%" class="PlaylistTitleTwo"/>
+          <n-skeleton class="PlaylistTitleTwo" height="26px" width="100%"/>
           <div class="flex-Music-flex">
-            <n-skeleton height="270px" width="23%" class="flex-Music-margin" v-for="item in 8"/>
+            <n-skeleton v-for="item in 8" class="flex-Music-margin" height="270px" width="23%"/>
           </div>
         </n-space>
       </div>
-      <div class="Mv RightHomeCss" v-if="Start.MusicData">
+      <div v-if="Start.MusicData" class="Mv RightHomeCss">
         <div>
           <div>
-            <h3>最新MV</h3>
+            <h3>{{ $t('msg.LatestMV') }}</h3>
           </div>
           <div class="NewMv-list">
-            <router-link to="/MV/Film" class="MVUl">
+            <router-link class="MVUl" to="/MV/Film">
               <li v-for="item in Mv.MvList.newMv.data" :key="item.id" @click="FilmMovie(item.id)">
                 <div class="Mv-li">
                   <div class="Mv-image">
                     <div class="background"></div>
-                    <img :src="item['cover']" :alt="item.name">
+                    <img :alt="item.name" :src="item['cover']">
                   </div>
                   <div class="Mv-title">
                     <p>{{ item.name }}</p>
@@ -37,14 +37,14 @@
         </div>
         <div>
           <div>
-            <h3>网易出品</h3>
+            <h3>{{ $t('msg.ProducedByNetEase') }}</h3>
           </div>
           <div class="NewMv-list">
-            <router-link to="/MV/Film" class="MVUl">
+            <router-link class="MVUl" to="/MV/Film">
               <li v-for="item in Mv.MvList.WYMv.data" :key="item.id" style="width: 23%" @click="FilmMovie(item.id)">
                 <div class="Mv-li">
                   <div class="Mv-image">
-                    <img :src="item['cover']" :alt="item.name">
+                    <img :alt="item.name" :src="item['cover']">
                   </div>
                   <div class="Mv-title">
                     <p>{{ item.name }}</p>
@@ -61,24 +61,24 @@
   <router-view></router-view>
 </template>
 
-<script setup lang="ts">
-import {MvAxios} from "../../uilt/Api/MvApi";
+<script lang="ts" setup>
 import useStore from "../../stores/counter";
 import {FilmMovie} from '../../uilt/VueIncident'
 import {useRoute} from "vue-router";
 
-const {Mv  , Start} = useStore()
+const {Mv, Start} = useStore()
 const route = useRoute()
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .background {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(23,34,45,.1);
+  background: rgba(23, 34, 45, .1);
   z-index: 10;
 }
+
 .NewMv-list {
   overflow: hidden;
 
@@ -108,6 +108,7 @@ const route = useRoute()
             overflow: hidden;
             text-overflow: ellipsis;
           }
+
           p:nth-child(1) {
             font-size: 18px;
             font-weight: 700;

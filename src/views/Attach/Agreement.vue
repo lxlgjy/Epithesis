@@ -6,7 +6,8 @@
         <n-h3 style="text-align: center">
           协议
         </n-h3>
-        <n-tabs type="segment">
+        <n-tabs style="--n-color-segment: var(--capabilities-background);--n-tab-color-segment:var(--active-background)"
+                type="segment">
           <n-tab-pane name="chap1" tab="免责协议">
             <p>
               访问者在接受本网站服务之前，请务必仔细阅读本条款并同意本声明。访问者访问本网站的行为以及通过各类方式利用本网站的行为，都将被视作是对本声明全部内容的无异议的认可;如有异议，请立即跟本网站协商，并取得本网站的书面同意意见

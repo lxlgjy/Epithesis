@@ -8,7 +8,9 @@
     </div>
     <div class="Ribbon">
       <ul>
-        <router-link v-for="item in PageMusicData" v-slot="{navigate , isActive}" :to="item.router">
+        <router-link
+            v-for="item in [{router: '/Home', notice: $t('msg.LeftBoxHome'), icon: HomeSharp}, {router: '/Playlist',notice: $t('msg.HomePLayList'),icon: ListCircle}, {router: '/singer', notice: $t('msg.LeftBoxSinger'), icon: Person}, {router: '/MV',notice: $t('msg.LeftBoxMV'),icon: CardSharp}]"
+            v-slot="{navigate , isActive}" :to="item.router">
           <div :class="isActive ? 'music' : ''" class="li" @click="navigate">
             <n-icon class="Home" size="20">
               <component :is="item.icon"></component>
@@ -43,17 +45,17 @@
 import '@/style/RightRibbon.sass'
 import {Archive, CardSharp, HeartSharp, HomeSharp, ListCircle, Person} from '@vicons/ionicons5'
 import useStore from "../stores/counter";
+import i18n from "../i18n";
 
 const {Start} = useStore()
-const PageMusicData = [{router: '/Home', notice: '首页', icon: HomeSharp}, {
-  router: '/Playlist',
-  notice: '歌单',
-  icon: ListCircle
-}, {router: '/singer', notice: '歌手', icon: Person}, {router: '/MV', notice: 'MV', icon: CardSharp}]
 
-const PageRibbonData = [{router: '/MusicThatILove', notice: '音乐库', icon: HeartSharp}, {
+const PageRibbonData = [{
+  router: '/MusicThatILove',
+  notice: i18n.global.t('msg.LeftBoxMusicLibrary'),
+  icon: HeartSharp
+}, {
   router: '/MyDownloads',
-  notice: '我的下载',
+  notice: i18n.global.t('msg.LeftBoxDownload'),
   icon: Archive
 }]
 </script>

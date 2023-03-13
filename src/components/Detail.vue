@@ -1,19 +1,19 @@
 <template>
-  <n-scrollbar trigger="none" :on-scroll="scorll">
+  <n-scrollbar :on-scroll="scorll" trigger="none">
     <div>
-      <div class="Swiper RightHomeCss" v-if="Start.MusicData === false">
+      <div v-if="Start.MusicData === false" class="Swiper RightHomeCss">
         <n-space vertical>
-          <n-skeleton height="240px" width="100%" class="PlaylistTitle"/>
-          <n-skeleton height="40px" width="100%" class="flex-Music-flex"/>
+          <n-skeleton class="PlaylistTitle" height="240px" width="100%"/>
+          <n-skeleton class="flex-Music-flex" height="40px" width="100%"/>
           <div class="flex-Music-flex">
             <n-skeleton v-for="item in 8" class="flex-Music-flex flex-Music-margin-top" height="50px" width="100%"/>
           </div>
         </n-space>
       </div>
-      <div class="RightHomeCss" v-if="Start.MusicData">
+      <div v-if="Start.MusicData" class="RightHomeCss">
         <!--列表头部信息展示-->
         <div>
-          <div class="detail" v-show="route.name !== 'Search' ">
+          <div v-show="route.name !== 'Search' " class="detail">
             <BackgroundFilter></BackgroundFilter>
             <div class="detail-image">
               <img :src="DetailImg" alt="">
@@ -38,15 +38,15 @@
                 <div
                     class="AudioDetail-list flex-Music-sizing flex-Music-pointer delect-border-list componentPage-flex-color-fff"
                     @click="AudioListPush">
-                  <n-icon size="15" class="AudioDetail-icon">
+                  <n-icon class="AudioDetail-icon" size="15">
                     <Play/>
                   </n-icon>
                   <span
-                      class="componentPage-flex-color-fff">{{DetailMusicLength}}</span>
+                      class="componentPage-flex-color-fff">{{ DetailMusicLength }}</span>
                 </div>
                 <div class="AudioDetail-add delect-border-add componentPage-flex-color-fff flex-Music-pointer"
                      @click="AudioListPush('AddsAllSongsFromTheCurrentList')">
-                  <n-icon size="15" class="AudioDetail-icon">
+                  <n-icon class="AudioDetail-icon" size="15">
                     <AddSharp/>
                   </n-icon>
                 </div>
@@ -59,18 +59,20 @@
           <div class="song-list">
             <ul>
               <li></li>
-              <li>歌曲标题</li>
-              <li>专辑</li>
-              <li>时长</li>
+              <li>{{ $t('msg.SongTitle') }}</li>
+              <li>{{ $t('msg.SongAlbum') }}</li>
+              <li>{{ $t('msg.SongDuration') }}</li>
             </ul>
           </div>
-          <div style="margin-bottom: 100px" class="PageDetail">
+          <div class="PageDetail" style="margin-bottom: 100px">
             <ul>
               <li v-for="(item,index) in DetailSongList" key="item.id"
-                  @dblclick="Player(item['id'] , item)" @contextmenu="Capabilities($event , item)" class="componentPage-sizing">
+                  class="componentPage-sizing" @contextmenu="Capabilities($event , item)"
+                  @dblclick="Player(item['id'] , item)">
                 <!-- :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'Selected' : ''"-->
                 <div class="songs flex-Music-pointer componentPage-flex">
-                  <p v-if="route.meta['page'] !== 'HomeAlbum' && route.meta['page'] !== 'SongAlbum' " class="imageAndIndex">
+                  <p v-if="route.meta['page'] !== 'HomeAlbum' && route.meta['page'] !== 'SongAlbum' "
+                     class="imageAndIndex">
                     <img v-lazy="item['al'].picUrl + '?param=50y50' ">
                   </p>
                   <p v-else class="imageAndIndex">{{ index + 1 }}</p>
@@ -95,23 +97,26 @@ import BackgroundFilter from "./BackgroundFilter.vue";
 import {useRoute, useRouter} from "vue-router";
 import useStore from "../stores/counter";
 import {Time} from '../uilt/PageWidgets'
-import {Player, AudioListPush, Capabilities, scorll} from "../uilt/VueIncident";
-import {Play, AddSharp} from '@vicons/ionicons5'
-import { useDetailComputed} from '../uilt/vueComputed'
-import {mess} from "../uilt/VueEvent";
-import {MusicStore} from "../stores/Detail";
+import {AudioListPush, Capabilities, Player, scorll} from "../uilt/VueIncident";
+import {AddSharp, Play} from '@vicons/ionicons5'
+import {useDetailComputed} from '../uilt/vueComputed'
 
 const route = useRoute()
 const {Detail, Start, Audio} = useStore()
 const router = useRouter()
-console.log(route.matched.length !== 3)
-const {DetailImg , DetailTitle , DetailLabel , DetailBriefIntroduction , DetailMusicLength ,DetailSongList} = useDetailComputed()
-
+const {
+  DetailImg,
+  DetailTitle,
+  DetailLabel,
+  DetailBriefIntroduction,
+  DetailMusicLength,
+  DetailSongList
+} = useDetailComputed()
 
 
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 #Selected {
   background-color: #3780ce;
 
@@ -232,17 +237,21 @@ const {DetailImg , DetailTitle , DetailLabel , DetailBriefIntroduction , DetailM
     line-height: 30px;
     color: rgba(23, 34, 45, .4);
   }
+
   li:nth-of-type(1) {
     flex: .35;
-    margin:0 1rem;
+    margin: 0 1rem;
 
   }
+
   li:nth-of-type(2) {
     flex: 5;
   }
+
   li:nth-of-type(3) {
     flex: 3;
   }
+
   li:nth-of-type(4) {
     flex: 3;
     text-align: right;
@@ -257,25 +266,30 @@ const {DetailImg , DetailTitle , DetailLabel , DetailBriefIntroduction , DetailM
     li {
       height: 3.3rem;
       margin: 8px 0;
+
       &:hover {
-        background-color: rgba(242, 243, 245);
+        background-color: var(--active-background);
         border-radius: 5px;
       }
+
       .songs {
         div {
           flex: 5;
           transform: translateY(.3rem);
         }
+
         .imageAndIndex {
           flex: .35;
           height: 2.2rem;
-          margin:0 1rem;
+          margin: 0 1rem;
           transform: translateY(.6rem);
         }
+
         .AlbumAndTime {
           flex: 3;
           transform: translateY(1rem);
         }
+
         p:nth-of-type(3) {
           text-align: right;
           margin-right: 1rem;

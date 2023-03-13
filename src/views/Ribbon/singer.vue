@@ -5,7 +5,7 @@
       <div v-if="Start.MusicData" class="RightHomeCss">
         <div class="singer-address">
           <div>
-            <h3>歌手地区</h3>
+            <h3>{{ $t('msg.SingerRegion') }}</h3>
           </div>
           <div class="singer-address-list componentPage-sizing componentPage-flex">
             <div v-for="item in address" class="SingerRegion">{{ item }}</div>
@@ -13,7 +13,7 @@
         </div>
         <div class="singer-hot">
           <div>
-            <h3>热门歌手</h3>
+            <h3>{{ $t('msg.HotSinger') }}</h3>
           </div>
           <div class="singer-hot-list">
             <router-link class="SingerUl" to="/singer/SingerDetail">
@@ -31,7 +31,7 @@
         </div>
         <div class="singer-hot">
           <div>
-            <h3>歌手</h3>
+            <h3>{{ $t('msg.Singer') }}</h3>
           </div>
           <div class="singer-hot-list">
             <router-link class="SingerUl" to="/singer/SingerDetail">

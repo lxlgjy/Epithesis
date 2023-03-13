@@ -1,5 +1,5 @@
 <template>
-  <div id="Search">
+  <div id="Search" :style="searchBackground">
     <div class="Search-page">
       <div class="Search-top">
         <div>
@@ -7,12 +7,12 @@
         </div>
         <div class="Search-top-input">
           <input placeholder="搜索" type="text">
-          <button @click="search">搜索</button>
+          <button @click="search">{{ $t('msg.Search') }}</button>
         </div>
       </div>
       <div class="Search-bottom componentPage-flex-warp componentPage-sizing">
         <div class="SearchPopular componentPage-hidden componentPage-height-100">
-          <h3>热门搜索</h3>
+          <h3>{{ $t('msg.PopularSearches') }}</h3>
           <n-scrollbar trigger="hover">
             <div v-for="item in Search.HotSearchList"
                  class="SearchPopularList componentPage-pointer componentPage-sizing"
@@ -22,10 +22,11 @@
           </n-scrollbar>
         </div>
         <div class="SearchHistory">
-          <h3>搜索历史</h3>
+          <h3>{{ $t('msg.SearchHistory') }}</h3>
           <n-scrollbar trigger="hover">
             <div v-for="item in Search.SearchHistory" v-if="Search.SearchHistory.length"
-                 class="SearchHistoryList componentPage-sizing" @click="search('Hot',item.SearchForAValue)">
+                 class="SearchHistoryList componentPage-sizing componentPage-pointer"
+                 @click="search('Hot',item.SearchForAValue)">
               {{ item.SearchForAValue }}
             </div>
             <div v-else class="TheSearchHistoryIsEmpty">搜索历史为空</div>
@@ -40,8 +41,10 @@
 <script lang="ts" setup>
 import {search} from '../uilt/VueIncident'
 import useStore from "../stores/counter";
+import {useSearchComputed} from '../uilt/vueComputed'
 
 const {Search} = useStore()
+const {searchBackground} = useSearchComputed()
 </script>
 
 <style lang="scss" scoped>
@@ -51,11 +54,12 @@ const {Search} = useStore()
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
   width: 35rem;
-  height: 40rem;
+  height: 30rem;
   z-index: 120;
+  background: var(--search-background);
+
 
   .Search-page {
-    background-color: #fff;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -63,7 +67,7 @@ const {Search} = useStore()
     .Search-top {
       width: 100%;
       height: 5rem;
-      border-bottom: 1px solid rgba(23, 45, 67, .3);
+      border-bottom: 1px solid var(--active);
 
       .Search-top-input {
         padding: 5px 20px;
@@ -75,10 +79,12 @@ const {Search} = useStore()
           height: 4rem;
           border: none;
           outline: none;
+          background: var(--search-background);
+          color: var(--color);
         }
 
         button {
-          color: rgba(24, 34, 43, 0.8);
+          color: var(--color);
 
           &:hover {
             cursor: pointer
@@ -97,7 +103,6 @@ const {Search} = useStore()
         h3 {
           text-align: center;
           margin-bottom: .3rem;
-
         }
       }
 
@@ -109,8 +114,7 @@ const {Search} = useStore()
         }
 
         .SearchPopularList:hover {
-          background-color: rgba(34, 45, 56, .15);
-          //background-color: #3780ce;
+          background-color: var(--active);
         }
       }
 
@@ -124,7 +128,7 @@ const {Search} = useStore()
           padding: .5rem;
           border-radius: 3px;
           margin: .2rem .3rem;
-          background-color: rgba(23, 34, 45, .1);
+          background-color: var(--history);
         }
 
         .TheSearchHistoryIsEmpty {

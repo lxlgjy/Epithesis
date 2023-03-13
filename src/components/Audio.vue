@@ -1,16 +1,16 @@
 <template>
-  <div
-      class="audio componentPage-position componentPage-width-100 componentPage-background-fff componentPage-padding-0-3 componentPage-sizing"
-      v-if="Start.AudioShow && Audio.MusicSongNow.length > 0">
+  <div v-if="Start.AudioShow && Audio.MusicSongNow.length > 0"
+       :style="AudioBackground"
+       class="audio componentPage-position componentPage-width-100 componentPage-padding-0-3 componentPage-sizing">
     <div class="audio-box componentPage-flex">
       <div class="left componentPage-width-30 componentPage-flex" @click="playerAudioShow">
         <div class="left-box componentPage-flex componentPage-height-100">
           <div class="left-img componentPage-radius-50 componentPage-hidden">
-            <img :src="Audio.MusicSongNow.length > 1 ? (Start.AudioMode === 1 ? Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['al']['picUrl'] :(Start.AudioMode === 0 ? Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['al']['picUrl'] : Audio.MusicSongNow[Start.AudioSongIndex]['al']['picUrl'] ))  : Audio.MusicSongNow[Start.AudioSongIndex]['al']['picUrl']  " alt="">
+            <img :src="AudioImg" alt="">
           </div>
           <div class="left-title">
-            <span class="componentPage-block">{{ Audio.MusicSongNow.length > 1 ? (Start.AudioMode === 1 ? Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['name'] : (Start.AudioMode === 0 ? Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['name'] :Audio.MusicSongNow[Start.AudioSongIndex]['name'] ) ) : Audio.MusicSongNow[Start.AudioSongIndex]['name'] }}</span>
-            <span class="componentPage-block">{{Audio.MusicSongNow.length > 1 ? (Start.AudioMode === 1  ? Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['ar'][0]['name'] : (Start.AudioMode === 0 ? Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['ar'][0]['name'] :Audio.MusicSongNow[Start.AudioSongIndex]['ar'][0]['name']  ) ) : Audio.MusicSongNow[Start.AudioSongIndex]['ar'][0]['name']  }}</span>
+            <span class="componentPage-block">{{ AudioName }}</span>
+            <span class="componentPage-block">{{ AudioSinger }}</span>
           </div>
         </div>
         <div></div>
@@ -23,59 +23,65 @@
           <div class="componentPage-flex">
             <div class="componentPage-center componentPage-flex-between">
               <button @click.prevent="NextAndPrevious('Previous');mess('warning')">
-                <n-icon size="35" color="#000">
+                <n-icon size="35">
                   <PlaySkipBack/>
                 </n-icon>
               </button>
               <button v-show="MusicPlayer === false" @click="PlayerAudio()">
-                <n-icon size="40" color="#000">
+                <n-icon size="40">
                   <Play/>
                 </n-icon>
               </button>
               <button v-show="MusicPlayer === true" @click="PlayerAudio()">
-                <n-icon size="40" color="#000">
+                <n-icon size="40">
                   <PauseSharp/>
                 </n-icon>
               </button>
               <button class="middle-information-btn-bw-last" @click.prevent="NextAndPrevious('Next');mess('warning')">
-                <n-icon size="35" color="#000">
+                <n-icon size="35">
                   <PlaySkipForward/>
                 </n-icon>
               </button>
             </div>
           </div>
-          <div class="componentPage-flex">
+          <div class="AudioProgressBar componentPage-flex">
             <span>{{ currentTime(MusicSongTime) }}</span>
-            <n-space vertical class="Audio-Select">
-              <n-slider :value="AudioValue(Audio.MusicSongNow[Start.AudioSongIndex]['dt'],MusicPlayerTime)" :step="0.1" style="--n-fill-color:#165dff;--n-fill-color-hover: #165dff;--n-handle-size:8px;--n-handle-color:#165dff;"
-                        @update-value="AudioProgress($event)"  :tooltip="false"/>
+            <n-space class="Audio-Select" vertical>
+              <n-slider :step="0.1" :tooltip="false"
+                        :value="AudioValue(Audio.MusicSongNow[Start.AudioSongIndex]['dt'],MusicPlayerTime)"
+                        style="--n-fill-color:#165dff;--n-fill-color-hover: #165dff;--n-handle-size:8px;--n-handle-color:#165dff;"
+                        @update-value="AudioProgress($event)"/>
             </n-space>
-            <span>{{Start.AudioMode === 1 ? Time(Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['dt']) : Time(Audio.MusicSongNow[Start.AudioSongIndex]['dt'])}}</span>
+            <span>{{
+                Start.AudioMode === 1 ? Time(Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['dt']) : Time(Audio.MusicSongNow[Start.AudioSongIndex]['dt'])
+              }}</span>
           </div>
         </div>
       </div>
       <div class="right componentPage-width-30 componentPage-flex componentPage-pointer">
-        <transition name="SpeedAnimate" mode="out-in">
-          <div v-if="MusicSpeedIndex === 1" class="AudioSpeed componentPage-width-25 componentPage-height-100" @click="MusicSpeed">
-            <span>{{'1x'}}</span>
+        <transition mode="out-in" name="SpeedAnimate">
+          <div v-if="MusicSpeedIndex === 1" class="AudioSpeed componentPage-width-25 componentPage-height-100"
+               @click="MusicSpeed">
+            <span>{{ '1x' }}</span>
           </div>
-          <div v-else-if="MusicSpeedIndex === 2" class="AudioSpeed componentPage-width-25 componentPage-height-100" @click="MusicSpeed">
-            <span>{{'2x'}}</span>
+          <div v-else-if="MusicSpeedIndex === 2" class="AudioSpeed componentPage-width-25 componentPage-height-100"
+               @click="MusicSpeed">
+            <span>{{ '2x' }}</span>
           </div>
           <div v-else class="AudioSpeed componentPage-width-25 componentPage-height-100" @click="MusicSpeed">
-            <span>{{'3x'}}</span>
+            <span>{{ '3x' }}</span>
           </div>
         </transition>
 
         <div class="AudioPlayMode componentPage-width-25 componentPage-height-100 ">
           <div class="alignLeft componentPage-center" @click="PlaybackModeSwitching();mess('success')">
-            <n-icon size="30" color="#000" class="center" v-show="MusicPlayMode === 3 ">
+            <n-icon v-show="MusicPlayMode === 3 " class="center" size="30">
               <RepeatOutline/>
             </n-icon>
-            <n-icon size="30" color="#000" class="center" v-show="MusicPlayMode === 2">
+            <n-icon v-show="MusicPlayMode === 2" class="center" size="30">
               <Shuffle/>
             </n-icon>
-            <n-icon size="30" color="#000" class="center" v-show="MusicPlayMode === 1">
+            <n-icon v-show="MusicPlayMode === 1" class="center" size="30">
               <ReloadOutline/>
             </n-icon>
           </div>
@@ -83,7 +89,7 @@
         <div class="AudioVolume componentPage-width-25 componentPage-height-100 ">
           <div class="AudioVolume-res componentPage-hidden  componentPage-center
 componentPage-width-100 componentPage-height-100 componentPage-position-re">
-            <n-space vertical class="Audio-volume-text">
+            <n-space class="Audio-volume-text" vertical>
               <n-slider v-model:value="value" :step="1" style="--n-fill-color:#165dff;--n-fill-color-hover: #165dff;"
                         @update-value="AudioVolumeMouseMove(value)"/>
             </n-space>
@@ -101,38 +107,37 @@ componentPage-width-100 componentPage-height-100 componentPage-position-re">
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import '../style/Flex/FlexComponents.sass'
 import {
+  PauseSharp,
   Play,
   PlaySkipBack,
   PlaySkipForward,
-  PauseSharp,
-  SyncSharp,
-  ReorderFour,
   ReloadOutline,
-  Shuffle ,
-  RepeatOutline
+  ReorderFour,
+  RepeatOutline,
+  Shuffle
 } from '@vicons/ionicons5'
 import useStore from "../stores/counter";
-import {Time, currentTime, progress, AudioValue} from '../uilt/PageWidgets'
-import {MusicPlayerTime, MusicSongTime, MusicPlayer, MusicSpeedIndex , MusicPlayMode} from '../uilt/PublicStatus'
+import {AudioValue, currentTime, Time} from '../uilt/PageWidgets'
+import {MusicPlayer, MusicPlayerTime, MusicPlayMode, MusicSongTime, MusicSpeedIndex} from '../uilt/PublicStatus'
 import {
-  playerAudioShow,
-  PlayerAudio,
-  AudioVolumeMouseMove,
   AudioProgress,
-  AudioToggle,
-  SongListShowToggle,
-  NextAndPrevious, PlaybackModeSwitching
+  AudioVolumeMouseMove,
+  MusicSpeed,
+  NextAndPrevious,
+  PlaybackModeSwitching,
+  PlayerAudio,
+  playerAudioShow,
+  SongListShowToggle
 } from '../uilt/VueIncident'
-import {computed, onMounted, ref} from "vue";
+import {onMounted, ref} from "vue";
 import {mess} from "../uilt/VueEvent";
-import {MusicSpeed} from '../uilt/VueIncident'
-import Element from "../uilt/Element";
+import {useAudioComputed} from '../uilt/vueComputed'
 
 const {Audio, Start} = useStore()
-
+const {AudioImg, AudioName, AudioSinger, AudioBackground} = useAudioComputed()
 const value = ref(100)
 
 onMounted(() => {
@@ -140,11 +145,12 @@ onMounted(() => {
 })
 
 </script>
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .audio {
   bottom: 0;
   height: 6.25rem;
   box-shadow: 10px 3px 6px #000;
+  background-color: var(--capabilities-background);
 
   .audio-box {
     height: 100px;
@@ -160,6 +166,13 @@ onMounted(() => {
       height: 4rem;
       margin-right: 1rem;
     }
+
+    .left-title {
+      span {
+        color: var(--color);
+
+      }
+    }
   }
 }
 
@@ -172,6 +185,15 @@ onMounted(() => {
       height: 4rem;
       margin-right: 1rem;
 
+      i {
+        color: var(--color)
+      }
+    }
+
+    .AudioProgressBar {
+      span {
+        color: var(--color);
+      }
     }
   }
 
@@ -187,23 +209,25 @@ onMounted(() => {
 .right {
   .AudioSpeed {
     text-align: center;
+
     span {
       transform: translateY(2.5rem);
+      color: var(--color);
     }
+
     .SpeedSelect {
       width: 2rem;
       height: 12rem;
       transform: translateX(2.3rem) translateY(-12rem);
       border: 1px solid #000;
 
-      .SpeedSelect-Control {}
+      .SpeedSelect-Control {
+      }
     }
 
 
-
-
-
   }
+
   .AudioVolume, .AudioListOfSongs, .AudioPlayMode {
     justify-content: center;
     align-items: center;
@@ -212,9 +236,13 @@ onMounted(() => {
       width: 3rem;
       transform: translateX(30px) translateY(2.5rem);
 
+      i {
+        color: var(--color);
+      }
+
       &:hover {
         border-radius: 10px;
-        background-color: #eee;
+        background-color: var(--active);
       }
     }
 

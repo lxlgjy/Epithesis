@@ -55,7 +55,11 @@ export const usePlayerComponent = () => {
 
     })
 
-    return {PlayerImg, PlayerSongName, PlayerSingerName, PlayerFinalSongTime}
+    const PlayerThemesStyle = computed(() => {
+        return useStore().Start.ThemesBoolean ? '--n-color:#222;--n-title-text-color:#fff' : '--n-color:#fff;--n-title-text-color:#000'
+    })
+
+    return {PlayerImg, PlayerSongName, PlayerSingerName, PlayerFinalSongTime, PlayerThemesStyle}
 }
 
 //capabilities
@@ -63,6 +67,51 @@ export const useCapabilitiesComputed = () => {
     const IsLove = computed(() => {
         return useStore().Detail.MusicLoveListId.indexOf(useStore().Detail.MusicCapabilities.id) !== -1
     })
+    const background = computed(() => {
+        return useStore().Start.ThemesBoolean ? '--capabilities-background:#242424;--color:#fff;' : '--capabilities-background:#fff;--color:#000'
+    })
 
-    return {IsLove}
+    return {IsLove, background}
+}
+
+export const useSearchComputed = () => {
+    const searchBackground = computed(() => {
+        return useStore().Start.ThemesBoolean ? '--search-background: #242424;color:#fff;--active:rgba(255, 255, 255, .1);--history:rgba(255,255,255,.2);--color:#fff;' : '--search-background: #fff;color:#000;--active:rgba(23,34,45,.2);--history:rgba(23, 34, 45, .1);--color:#000'
+    })
+
+    return {searchBackground}
+}
+
+export const useAudioComputed = () => {
+    const AudioImg = computed(() => {
+        // @ts-ignore
+        return useStore().Audio.MusicSongNow.length > 1 ? (useStore().Start.AudioMode === 1 ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['al']['picUrl'] : (useStore().Start.AudioMode === 0 ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['al']['picUrl'] : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['al']['picUrl'])) : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['al']['picUrl']
+    })
+    const AudioName = computed(() => {
+        // @ts-ignore
+        return useStore().Audio.MusicSongNow.length > 1 ? (useStore().Start.AudioMode === 1 ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['name'] : (useStore().Start.AudioMode === 0 ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['name'] : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['name'])) : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['name']
+
+    })
+    const AudioSinger = computed(() => {
+        // @ts-ignore
+        return useStore().Audio.MusicSongNow.length > 1 ? (useStore().Start.AudioMode === 1 ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['ar'][0]['name'] : (useStore().Start.AudioMode === 0 ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['ar'][0]['name'] : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['ar'][0]['name'])) : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['ar'][0]['name']
+
+    })
+    const AudioBackground = computed(() => {
+        return useStore().Start.ThemesBoolean ? '--capabilities-background:#242424;--color:#fff;--active:rgba(255, 255, 255, .1);' : '--capabilities-background:#fff;color:#000;'
+    })
+
+    return {AudioImg, AudioName, AudioSinger, AudioBackground}
+}
+
+export const useSongListComputed = () => {
+    const SongListBackground = computed(() => {
+        return useStore().Start.ThemesBoolean ? '--background:#202020; --active-background:rgba(255,255,255,.1);--color:#fff;--secondLight: #7e7d7d;--selected-background:rgba(255,255,255,.2)' : ''
+    })
+    return {SongListBackground}
+}
+
+export const useLanguageComputed = () => {
+
+    return {}
 }
