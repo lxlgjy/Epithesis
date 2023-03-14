@@ -116,7 +116,6 @@ onMounted(async () => {
   await nextTick(() => {
     i18n.global.locale.value = Setting.Language
   })
-  console.log(i18n.global.locale.value)
 })
 
 nextTick(() => {

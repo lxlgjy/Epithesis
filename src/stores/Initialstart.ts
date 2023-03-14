@@ -20,7 +20,7 @@ const useStartStore = defineStore('Start', {
             //信息
             Language: '汉语', //语言
             Topic: 'light', //主题
-            MusicQuality: '高', // 音乐品质
+            MusicQuality: 'standard', // 音乐品质
             LyricSize: '16px', //歌词大小
             DoubleClickThePlaybackMode: '单曲', //双击播放模式
             PlayBackgroundCustomization: '', // 播放背景自定义

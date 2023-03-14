@@ -19,7 +19,7 @@
         </n-space>
       </div>
       <div v-if="Start.MusicData" class="RightHomeCss">
-        <div id="main-box">
+        <div id="main-box" class="Music-relative Music-sizing">
           <!-- 首页轮播展示 -->
           <div class="swiper">
             <n-carousel
@@ -60,7 +60,7 @@
               </li>
             </ul>
           </div>
-          <div class="HomeRecommendation">
+          <div class="HomeRecommendation Music-relative">
             <div class="title">
               <div class="del">
                 <h3>{{ $t('msg.HomePLayList') }}</h3>
@@ -84,11 +84,11 @@
                 </n-icon>
               </div>
             </div>
-            <router-link class="main-ul" style="left: 0" to="/Home/HomePlaylist">
-              <li v-for="items in Home.MusicRecommendData['playlists']" key="items.id" class="main-lis"
+            <router-link class="main-ul Music-relative Music-flex" style="left: 0" to="/Home/HomePlaylist">
+              <li v-for="items in Home.MusicRecommendData['playlists']" key="items.id" class="main-lis Music-hidden"
                   @click="MusicHomeDetail(items.id , 'HomePlaylist')">
                 <div class="main-lis-allBox">
-                  <div class="main-lis-kiss">
+                  <div class="main-lis-kiss Music-hidden">
                     <img v-lazy="items.coverImgUrl + '?param=300y300'">
                   </div>
                   <h4 class="main-lis-txt">
@@ -154,7 +154,7 @@
 </template>
 
 <script lang="ts" setup>
-import '@/style/Home.sass'
+import '@/style/Home.scss'
 import '@/style/Skeleton/Home.sass'
 import '../../style/content.sass'
 import useStore from "../../stores/counter";

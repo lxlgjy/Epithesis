@@ -44,6 +44,7 @@
       #Header-Top {
         background: var(--thems-light-header-top);
         border-bottom: var(--thems-light-left-border);
+        --header-active: rgba(25, 25, 25, .2);
 
         .Header-Top-Search {
           .input {

@@ -28,7 +28,8 @@
     <transition name="headerMenu">
       <div v-if="Start.LoginAvatar" class="header-menu">
         <ul>
-          <li v-for="item in data" :key="item" class="componentPage-radius-2 componentPage-pointer componentPage-sizing"
+          <li v-for="item in Start.LoginShow ? [$t('msg.Login'), $t('msg.NonVIP'), $t('msg.CheckTheVersion'), $t('msg.SetUp'),$t('msg.Concerning'), $t('msg.Agreement')] : [$t('msg.VIP'), $t('msg.CheckTheVersion'), $t('msg.SetUp'), $t('msg.Concerning'), $t('msg.Agreement'), $t('msg.SignOut')]"
+              :key="item" class="componentPage-radius-2 componentPage-pointer componentPage-sizing"
               @click.stop="AvatarFunction(item)">{{ item }}
           </li>
         </ul>
@@ -42,10 +43,9 @@ import '../style/AnimationEffects.sass'
 import {AvatarFunction, headerTopInput, headerTopLeft, headerTopRight} from "../uilt/VueIncident";
 import {avatarToggle} from "../uilt/StateTransitions";
 import useStore from "../stores/counter";
-import i18n from "../i18n";
 
 const {Login, Start} = useStore()
-const data = Start.LoginShow ? [i18n.global.t('msg.Login'), i18n.global.t('msg.NonVIP'), i18n.global.t('msg.CheckTheVersion'), i18n.global.t('msg.SetUp'), i18n.global.t('msg.Concerning'), i18n.global.t('msg.Agreement')] : [i18n.global.t('msg.VIP'), i18n.global.t('msg.CheckTheVersion'), i18n.global.t('msg.SetUp'), i18n.global.t('msg.Concerning'), i18n.global.t('msg.Agreement'), i18n.global.t('msg.SignOut')]
+
 
 </script>
 
@@ -99,7 +99,6 @@ const data = Start.LoginShow ? [i18n.global.t('msg.Login'), i18n.global.t('msg.N
 
     svg {
       transform: translateX(-0.1rem) translateY(0.5rem);
-
     }
 
     &:hover {

@@ -159,12 +159,14 @@ export const AvatarFunction = (type: string) => {
             break
         case '非vip' :
             break
-        case '关于' && 'Concerning' :
+        case '关于' :
+        case 'Concerning' :
             routerPush('Agreement', 'Agreement')
             break
         case '查看版本' :
             break
-        case '设置' && 'SetUp' :
+        case '设置' :
+        case 'SetUp' :
             routerPush('Setting', 'Setting')
             break
         case '协议' :
@@ -560,29 +562,43 @@ export const MusicSpeed = () => {
 
 // 设置
 export const Setting = (value: string, title: string) => {
-    console.log(value)
-    console.log(title)
     switch (title) {
         case '语言切换':
-            Language(value, '英文')
+            Language(value, '汉语')
             break
         case 'LanguageSwitching':
-            Language(value, 'Chinese')
+            Language(value, '英语')
             break
-        case '音乐品质' && 'MusicQuality':
+        case '音乐品质':
             useStore().Start.setMusicQuality(value)
             break
-        case '歌词大小' && 'LyricSize':
+        case 'MusicQuality':
+            useStore().Start.setMusicQuality(value)
+            break
+        case '歌词大小' :
+        case 'LyricSize':
             useStore().Start.setLyricSize(value)
             useStore().Setting.setLyricSize(value)
             break
     }
 }
 
-const Language = (value: string, title: string) => {
-    console.log(value === title)
-    useStore().Start.setLanguage(value)
-    value === title ? useStore().Setting.setLanguage('en') : useStore().Setting.setLanguage('zh')
+const Language = (value: string, language: string) => {
+    if (language === '汉语') {
+        if (value === '汉语') {
+            return false
+        } else if (value === '英文') {
+            useStore().Setting.setLanguage('en')
+            useStore().Start.setLanguage('English')
+        }
+    } else if (language === '英语') {
+        if (value === 'Chinese') {
+            useStore().Setting.setLanguage('zh')
+            useStore().Start.setLanguage('汉语')
+        } else if (value === 'English') {
+            return false
+        }
+    }
 }
 
 export const themes = (value: Boolean) => {

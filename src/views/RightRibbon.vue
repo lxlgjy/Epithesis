@@ -25,7 +25,9 @@
     </div>
     <div class="Ribbon">
       <ul>
-        <router-link v-for="item in PageRibbonData" v-slot="{navigate , isActive}" :to="item.router">
+        <router-link
+            v-for="item in [{router: '/MusicThatILove',notice: $t('msg.LeftBoxMusicLibrary'),icon: HeartSharp}, {router: '/MyDownloads',notice: $t('msg.LeftBoxDownload'),icon: Archive}]"
+            v-slot="{navigate , isActive}" :to="item.router">
           <div :class="isActive ? 'music' : ''" class="li" @click="navigate">
             <n-icon class="Home" size="20">
               <component :is="item.icon"></component>

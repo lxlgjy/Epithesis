@@ -1,0 +1,83 @@
+#main-box {
+  width: 100%
+
+}
+
+.swiper {
+  // swiper 轮播css属性
+  .n-carousel__dot {
+    background-color: #d6d4d4;
+  }
+
+  .n-carousel__dot--active {
+    background-color: #616060;
+  }
+
+  .n-carousel__arrow {
+    color: #616060;
+  }
+}
+
+.HomeRecommendation {
+  margin-top: 40px;
+
+  .main-ul {
+    width: 1250%;
+    display: flex;
+    height: auto;
+    transition: all .8s;
+
+    .main-lis-kiss {
+      height: 140px;
+      margin-bottom: 10px;
+      border-radius: 3px;
+    }
+
+    li {
+      flex: 10;
+      height: auto;
+      margin-right: 10px;
+
+      img {
+        border-radius: 3px;
+        overflow: hidden;
+        transition: all .4s;
+
+        &:hover {
+          transform: scale(1.1);
+          border-radius: 3px;
+        }
+      }
+
+      .main-lis-txt {
+        margin: 0;
+        height: 44px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        display: -moz-box;
+        -moz-line-clamp: 2;
+        -moz-box-orient: vertical;
+        word-wrap: break-word;
+        word-break: break-all;
+        white-space: normal;
+      }
+
+    }
+
+  }
+}
+
+.HomeHotSinger {
+  margin-top: 20px;
+
+  .list-ul {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 5%;
+  }
+
+}

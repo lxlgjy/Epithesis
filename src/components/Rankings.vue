@@ -46,10 +46,10 @@ import {useRoute} from "vue-router";
 import {Time} from '../uilt/PageWidgets'
 import {Player} from '../uilt/VueIncident'
 
-const {Detail, Home , Start} = useStore()
+const {Detail, Home, Start} = useStore()
 const route = useRoute()
 
-const image = (item:any) => {
+const image = (item: any) => {
   let arr = []
   for (let i = 0; i < item.length; i++) {
     // @ts-ignore
@@ -132,7 +132,7 @@ const image = (item:any) => {
             border-radius: 3px;
 
             &:hover {
-              background-color: rgba(23, 34, 45, .15);
+              background-color: var(--header-menu-background-active);
               cursor: pointer;
             }
 
@@ -145,7 +145,7 @@ const image = (item:any) => {
 
               &:nth-child(1) {
                 text-align: left;
-                padding:0 8px;
+                padding: 0 8px;
                 width: 2.4rem;
                 height: 2.4rem;
                 transform: translateY(6px);
@@ -167,6 +167,7 @@ const image = (item:any) => {
         display: flex;
         flex-wrap: wrap;
       }
+
       img:nth-child(1) {
         width: 100%;
         height: 12.5rem;
@@ -175,7 +176,7 @@ const image = (item:any) => {
       }
 
 
-      img:nth-child(2), img:nth-child(3) , img:nth-child(4) , img:nth-child(5) {
+      img:nth-child(2), img:nth-child(3), img:nth-child(4), img:nth-child(5) {
         width: 48%;
         height: 10rem;
         padding: 7px;
