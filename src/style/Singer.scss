@@ -1,0 +1,17 @@
+.singer-address {
+
+}
+
+.singer-hot {
+  .singer-hot-list {
+    .SingerUl {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 15px;
+    }
+
+    .SingerTextUl {
+      grid-template-columns: repeat(8, 1fr);
+      gap: 20px;
+    }
+  }
+}

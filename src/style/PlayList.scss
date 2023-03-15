@@ -1,0 +1,22 @@
+.PlayList {
+
+}
+
+.PlayListTest {
+  a {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+  }
+}
+
+.PlayList-page {
+  height: 32px;
+  margin: 12px 0;
+
+  .pagination {
+    width: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px;
+  }
+}

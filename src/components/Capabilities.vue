@@ -1,19 +1,19 @@
 <template>
-  <div id="capabilities" :style="background" class="capabilities componentPage-radius-4 componentPage-index-5"
+  <div id="capabilities" :style="background" class="capabilities component-radius-4 component-index-5"
   >
     <div class="capabilities-image-title">
-      <div class="componentPage-flex">
+      <div class="component-flex">
         <div class="capabilities-image">
           <img :src="Detail.MusicCapabilities['al']['picUrl']" alt="">
         </div>
-        <div class="componentPage-flex capabilities-title">
+        <div class="component-flex capabilities-title">
           <span>{{ Detail.MusicCapabilities.name }}</span>
           <span>{{ Detail.MusicCapabilities['ar'][0].name }}</span>
         </div>
       </div>
     </div>
     <div>
-      <ul class="capabilities-ul componentPage-left componentPage-pointer componentPage-flex-text componentPage-hidden ">
+      <ul class="capabilities-ul component-left component-pointer component-flex-text component-hidden ">
         <router-link to="/MusicThatILove/LoveDetail/SongAlbum">
           <li @click="MusicAlbumDetail">
             <n-icon size="20">

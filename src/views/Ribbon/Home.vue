@@ -60,7 +60,7 @@
               </li>
             </ul>
           </div>
-          <div class="HomeRecommendation Music-relative">
+          <div class="HomeRecommendation Music-relative Music-hidden">
             <div class="title">
               <div class="del">
                 <h3>{{ $t('msg.HomePLayList') }}</h3>
@@ -85,18 +85,17 @@
               </div>
             </div>
             <router-link class="main-ul Music-relative Music-flex" style="left: 0" to="/Home/HomePlaylist">
-              <li v-for="items in Home.MusicRecommendData['playlists']" key="items.id" class="main-lis Music-hidden"
+              <li v-for="items in Home.MusicRecommendData['playlists']" key="items.id"
+                  class="main-lis Music-flex"
                   @click="MusicHomeDetail(items.id , 'HomePlaylist')">
-                <div class="main-lis-allBox">
-                  <div class="main-lis-kiss Music-hidden">
-                    <img v-lazy="items.coverImgUrl + '?param=300y300'">
-                  </div>
-                  <h4 class="main-lis-txt">
+                <div class="main-lis-kiss Music-hidden">
+                  <img v-lazy="items.coverImgUrl + '?param=300y300'">
+                </div>
+                <h4 class="Music-font-MultiLine-hidden">
                 <span>
                     {{ items.name }}
                 </span>
-                  </h4>
-                </div>
+                </h4>
               </li>
             </router-link>
           </div>
@@ -104,21 +103,21 @@
             <div>
               <h3>{{ $t('msg.HomeHotSinger') }}</h3>
             </div>
-            <router-link class="list-ul" to="/Home/HomeHotSinger">
-              <li v-for="item in Home.MusicHotSinger" :key="item.id" class="list-lis"
+            <router-link class="HomeListUl Music-grid " to="/Home/HomeHotSinger">
+              <li v-for="item in Home.MusicHotSinger" :key="item.id" class="HomeListLi "
                   @click="MusicHomeDetail(item.id ,'HomeHotSinger' )">
-                <div>
-                  <img v-lazy="item.img1v1Url + '?param=300y300'" class="flex-Music-radius-50">
+                <div class="Music-radius-50">
+                  <img v-lazy="item.img1v1Url + '?param=300y300'" class="Music-radius-50">
                 </div>
               </li>
             </router-link>
           </div>
-          <div class="List">
+          <div class="HomeList">
             <div>
               <h3>{{ $t('msg.HomeList') }}</h3>
             </div>
-            <router-link class="list-ul" to="/Home/HomeRankings">
-              <li v-for="item in Home.MusicRankingData['list'].slice(0,14)" :key="item.id" class="list-lis"
+            <router-link class="HomeListUl Music-grid" to="/Home/HomeRankings">
+              <li v-for="item in Home.MusicRankingData['list'].slice(0,16)" :key="item.id" class="HomeListLi"
                   @click="MusicHomeDetail(item.id,'HomeRankings')">
                 <div>
                   <img v-lazy="item.coverImgUrl + '?param=300y300'">
@@ -126,12 +125,12 @@
               </li>
             </router-link>
           </div>
-          <div class="Latest-album">
+          <div class="HomeAlbum">
             <div>
               <h3>{{ $t('msg.HomeAlbum') }}</h3>
             </div>
-            <router-link class="MusicUl-warp" to="/Home/HomeAlbum">
-              <li v-for="item in Home.MusicLatestAlbum['albums'].slice(0,4)" :key="item.id" class="MusicLi-48"
+            <router-link class="HomeAlbumUl Music-grid" to="/Home/HomeAlbum">
+              <li v-for="item in Home.MusicLatestAlbum['albums'].slice(0,8)" :key="item.id" class="HomeListLi"
                   @click="MusicHomeDetail(item.id,'HomeAlbum')">
                 <div class="Music-img-15">
                   <img v-lazy="item.picUrl + '?param=400y400'">

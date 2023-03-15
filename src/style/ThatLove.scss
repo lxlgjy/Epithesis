@@ -1,0 +1,73 @@
+.MusicLove {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.MyLove, .MyPlayList {
+  margin-top: 20px;
+}
+
+.MyLove {
+  .MyLove-left {
+    flex: 2;
+    height: 300px;
+    background-color: #6270e7;
+    margin-top: 8px;
+
+    .MyLove-text {
+      top: 20px;
+    }
+
+    .MyLove-left-text {
+      bottom: 20px;
+      width: 100%;
+
+      .MyLove-btn-native {
+        flex: 7;
+
+        span:nth-of-type(1) {
+          font-size: 24px;
+        }
+      }
+
+      .MyLove-btn-play {
+        flex: 3;
+
+        i {
+          width: 30px;
+          height: 30px;
+          padding: 8px;
+          background-color: #041073
+        }
+
+      }
+    }
+  }
+
+  .MyLove-right {
+    flex: 5;
+    margin-top: 8px;
+
+    .MyLoveUl {
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(4, 67px);
+      gap: 10px;
+
+      .MyLoveLi {
+        .MyLoveLiBox {
+          flex-direction: row;
+
+          .MyLove-img {
+            flex: 1;
+            height: 50px;
+          }
+
+          .MyLove-title {
+            flex: 5;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+  }
+}

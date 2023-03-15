@@ -35,7 +35,6 @@ import {
 import Element from "./Element";
 import {AudioProgressToggle, BackgroundImage} from './PageWidgets'
 import {DownloadSong} from "./Api/Download";
-import {MusicStore} from "../stores/Detail";
 import {MusicSongNow} from "../stores/Audio";
 import {useSearchAxios, useSearchSongListAxios} from "./Api/Search";
 import {SearchHistory} from "./PiniaInterface/SearchInterface";
@@ -272,6 +271,7 @@ const routerPush = (name: string, page?: string) => {
 }
 //详情界面点击
 export const Player = async (id: string, item: object) => {
+    console.log(1)
     await MusicSongAndLyric(id)
     useStore().Start.AudioSongIndex = 0
 
@@ -516,7 +516,7 @@ export const MusicDownload = (id: string, name: string, singer: string) => {
 }
 
 //右击显示小功能
-export const Capabilities = (e: Event, data: MusicStore['MusicCapabilities'], type?: string) => {
+export const Capabilities = (e: Event, data: any, type?: string) => {
 
     MusicPageCapabilities.value = true
     MusicListNoticeShow.value = type === 'SongList'

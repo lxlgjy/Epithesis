@@ -31,12 +31,12 @@
                   </li>
                 </ul>
               </div>
-              <div class="margin-lineHeight componentPage-flex-text-web">
+              <div class="margin-lineHeight component-flex-text-web">
                 {{ DetailBriefIntroduction }}
               </div>
-              <div class="AudioDetail-play componentPage-flex componentPage-position">
+              <div class="AudioDetail-play component-flex component-absolute component-pointer">
                 <div
-                    class="AudioDetail-list flex-Music-sizing flex-Music-pointer delect-border-list componentPage-flex-color-fff"
+                    class="AudioDetail-list flex-Music-sizing flex-Music-pointer delect-border-list component-flex-color-fff"
                     @click="AudioListPush">
                   <n-icon class="AudioDetail-icon" size="15">
                     <Play/>
@@ -44,7 +44,7 @@
                   <span
                       class="componentPage-flex-color-fff">{{ DetailMusicLength }}</span>
                 </div>
-                <div class="AudioDetail-add delect-border-add componentPage-flex-color-fff flex-Music-pointer"
+                <div class="AudioDetail-add delect-border-add component-flex-color-fff flex-Music-pointer"
                      @click="AudioListPush('AddsAllSongsFromTheCurrentList')">
                   <n-icon class="AudioDetail-icon" size="15">
                     <AddSharp/>
@@ -57,32 +57,30 @@
         <!--列表展示 -->
         <div>
           <div class="song-list">
-            <ul>
+            <ul class="TitleUl component-flex component-sizing">
               <li></li>
               <li>{{ $t('msg.SongTitle') }}</li>
               <li>{{ $t('msg.SongAlbum') }}</li>
-              <li>{{ $t('msg.SongDuration') }}</li>
+              <li class="Time">{{ $t('msg.SongDuration') }}</li>
             </ul>
           </div>
           <div class="PageDetail" style="margin-bottom: 100px">
-            <ul>
+            <ul class="DetailUl component-grid">
               <li v-for="(item,index) in DetailSongList" key="item.id"
-                  class="componentPage-sizing" @contextmenu="Capabilities($event , item)"
+                  class="DetailLi component-flex component-sizing component-pointer component-radius-4"
+                  @contextmenu="Capabilities($event , item)"
                   @dblclick="Player(item['id'] , item)">
-                <!-- :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'Selected' : ''"-->
-                <div class="songs flex-Music-pointer componentPage-flex">
-                  <p v-if="route.meta['page'] !== 'HomeAlbum' && route.meta['page'] !== 'SongAlbum' "
-                     class="imageAndIndex">
-                    <img v-lazy="item['al'].picUrl + '?param=50y50' ">
-                  </p>
-                  <p v-else class="imageAndIndex">{{ index + 1 }}</p>
-                  <div>
-                    <p>{{ item['name'] }}</p>
-                    <p>{{ item['ar'][0]['name'] }}</p>
-                  </div>
-                  <p class="AlbumAndTime">{{ item['al']['name'] }}</p>
-                  <p class="AlbumAndTime">{{ Time(item['dt']) }}</p>
+                <p v-if="route.meta['page'] !== 'HomeAlbum' && route.meta['page'] !== 'SongAlbum' "
+                   class="imageAndIndex">
+                  <img v-lazy="item['al'].picUrl + '?param=50y50' ">
+                </p>
+                <p v-else class="imageAndIndex index">{{ index + 1 }}</p>
+                <div>
+                  <p>{{ item['name'] }}</p>
+                  <p>{{ item['ar'][0]['name'] }}</p>
                 </div>
+                <p class="AlbumAndTime">{{ item['al']['name'] }}</p>
+                <p class="AlbumAndTime Time">{{ Time(item['dt']) }}</p>
               </li>
             </ul>
           </div>
@@ -190,7 +188,7 @@ const {
     }
 
     .AudioDetail-list {
-      width: 8rem;
+      width: 120px;
       padding: 0 4px;
 
       & i:nth-child(1) {
@@ -227,73 +225,63 @@ const {
 
 
 .song-list {
-  ul {
-    display: flex;
+  .TitleUl {
+    padding: 8px;
+
+    li:nth-of-type(1) {
+      flex: 1;
+      margin-right: 10px;
+    }
+
+    li:nth-of-type(2) {
+      flex: 13;
+    }
+
+    li:nth-of-type(3), li:nth-of-type(4) {
+      flex: 5;
+    }
+
+    .Time {
+      text-align: right;
+      margin-right: 10px;
+    }
   }
-
-  li {
-    height: 30px;
-    padding: 5px 0;
-    line-height: 30px;
-    color: rgba(23, 34, 45, .4);
-  }
-
-  li:nth-of-type(1) {
-    flex: .35;
-    margin: 0 1rem;
-
-  }
-
-  li:nth-of-type(2) {
-    flex: 5;
-  }
-
-  li:nth-of-type(3) {
-    flex: 3;
-  }
-
-  li:nth-of-type(4) {
-    flex: 3;
-    text-align: right;
-    margin-right: 1rem;
-
-  }
-
 }
 
 .PageDetail {
-  ul {
-    li {
-      height: 3.3rem;
-      margin: 8px 0;
+  .DetailUl {
+    grid-template-rows: repeat(auto-fill, auto);
 
-      &:hover {
-        background-color: var(--active-background);
-        border-radius: 5px;
+    .DetailLi {
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px;
+
+      .index {
+        transform: translateY(12px);
       }
 
-      .songs {
-        div {
-          flex: 5;
-          transform: translateY(.3rem);
-        }
+      &:hover {
+        background-color: var(--header-menu-background-active);
+      }
 
-        .imageAndIndex {
-          flex: .35;
-          height: 2.2rem;
-          margin: 0 1rem;
-          transform: translateY(.6rem);
-        }
+      .imageAndIndex:nth-of-type(1) {
+        flex: 1;
+        height: 50px;
+        margin-right: 10px;
+      }
 
-        .AlbumAndTime {
-          flex: 3;
-          transform: translateY(1rem);
-        }
+      div:nth-of-type(1) {
+        flex: 13;
+      }
 
-        p:nth-of-type(3) {
-          text-align: right;
-          margin-right: 1rem;
-        }
+      .AlbumAndTime {
+        flex: 5;
+      }
+
+      .Time {
+        text-align: right;
+        margin-right: 10px;
       }
     }
   }

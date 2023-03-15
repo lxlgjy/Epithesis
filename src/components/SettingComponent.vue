@@ -3,7 +3,7 @@
     <div class="SettingTitle">
       <h3>{{ data.title }}</h3>
     </div>
-    <div class="SettingContent componentPage-flex componentPage-flex-content">
+    <div class="SettingContent component-flex component-content">
       <span>{{ data.Introduce + ':' }}</span>
       <slot v-if="slotTrue"></slot>
       <n-popselect v-else :options="Notice" :value="Select" trigger="click"
@@ -40,6 +40,7 @@ const data = defineProps({
 
 .SettingContent {
   padding: 0 1.5rem;
+
 
   span {
     margin-right: 2rem;

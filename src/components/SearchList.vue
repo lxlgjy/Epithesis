@@ -16,9 +16,9 @@
         <div class="ListInformation">
           <ul>
             <li v-for="(item,index) in Search.SearchTheList" :key="item.id"
-                class="componentPage-sizing componentPage-pointer" @contextmenu="Capabilities($event , item)"
+                class="component-sizing component-pointer" @contextmenu="Capabilities($event , item)"
                 @dblclick="Player(item['id'] , item)">
-              <p class="SearchImg componentPage-sizing">
+              <p class="SearchImg component-sizing">
                 <img v-lazy="item.al.picUrl + '?param=50y50' ">
               </p>
               <div class="SearchNotice">

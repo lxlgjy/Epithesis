@@ -1,7 +1,6 @@
 <template>
   <n-scrollbar v-if="route.meta['SingerShow']" trigger="none">
     <div>
-
       <div v-if="Start.MusicData" class="RightHomeCss">
         <div class="singer-address">
           <div>
@@ -16,13 +15,13 @@
             <h3>{{ $t('msg.HotSinger') }}</h3>
           </div>
           <div class="singer-hot-list">
-            <router-link class="SingerUl" to="/singer/SingerDetail">
+            <router-link class="SingerUl Music-grid" to="/singer/SingerDetail">
               <li v-for="item in Singer.MusicSingerArtists['list']['artists'].slice(0,12)" key="item"
-                  @click="MusicSinger(item['id'])">
-                <div>
-                  <img v-lazy="item['img1v1Url'] + '?param=150y150'">
+                  class="SingerLi " @click="MusicSinger(item['id'])">
+                <div class="Music-radius-50">
+                  <img v-lazy="item['img1v1Url'] + '?param=300y300'" class="Music-radius-50">
                 </div>
-                <div class="title">
+                <div class="Music-center">
                   <p>{{ item['name'] }}</p>
                 </div>
               </li>
@@ -34,11 +33,11 @@
             <h3>{{ $t('msg.Singer') }}</h3>
           </div>
           <div class="singer-hot-list">
-            <router-link class="SingerUl" to="/singer/SingerDetail">
+            <router-link class="SingerTextUl Music-grid" to="/singer/SingerDetail">
               <li v-for="(item , index) in Singer.MusicSingerArtists['list']['artists']" v-show="index > 12"
                   key="item.id"
-                  @click="MusicSinger(item.id)">
-                <div class="title">
+                  class="SingerTextLi" @click="MusicSinger(item.id)">
+                <div class="title Music-center">
                   <p>{{ item.name }}</p>
                 </div>
               </li>
@@ -52,7 +51,7 @@
 </template>
 
 <script lang="ts" setup>
-import '@/style/Singer.sass'
+import '@/style/Singer.scss'
 import '../../style/Skeleton/Home.sass'
 import useStore from "../../stores/counter";
 import {useRoute} from "vue-router";

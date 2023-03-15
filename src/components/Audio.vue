@@ -1,27 +1,27 @@
 <template>
   <div v-if="Start.AudioShow && Audio.MusicSongNow.length > 0"
        :style="AudioBackground"
-       class="audio componentPage-position componentPage-width-100 componentPage-padding-0-3 componentPage-sizing">
-    <div class="audio-box componentPage-flex">
-      <div class="left componentPage-width-30 componentPage-flex" @click="playerAudioShow">
-        <div class="left-box componentPage-flex componentPage-height-100">
-          <div class="left-img componentPage-radius-50 componentPage-hidden">
+       class="audio component-absolute component-width-100 component-padding-0-3 component-sizing">
+    <div class="audio-box component-flex">
+      <div class="left component-width-30 component-flex" @click="playerAudioShow">
+        <div class="left-box component-flex component-height-100">
+          <div class="left-img component-radius-50 component-hidden">
             <img :src="AudioImg" alt="">
           </div>
           <div class="left-title">
-            <span class="componentPage-block">{{ AudioName }}</span>
-            <span class="componentPage-block">{{ AudioSinger }}</span>
+            <span class="component-block">{{ AudioName }}</span>
+            <span class="component-block">{{ AudioSinger }}</span>
           </div>
         </div>
         <div></div>
       </div>
-      <div class="middle componentPage-position-re componentPage-width-40">
-        <div class="componentPage-position">
+      <div class="middle component-position-re component-width-40">
+        <div class="component-position">
 
         </div>
-        <div class="middle-information componentPage-flex componentPage-height-100">
-          <div class="componentPage-flex">
-            <div class="componentPage-center componentPage-flex-between">
+        <div class="middle-information component-flex component-height-100">
+          <div class="component-flex">
+            <div class="component-center component-flex-between">
               <button @click.prevent="NextAndPrevious('Previous');mess('warning')">
                 <n-icon size="35">
                   <PlaySkipBack/>
@@ -44,7 +44,7 @@
               </button>
             </div>
           </div>
-          <div class="AudioProgressBar componentPage-flex">
+          <div class="AudioProgressBar component-flex">
             <span>{{ currentTime(MusicSongTime) }}</span>
             <n-space class="Audio-Select" vertical>
               <n-slider :step="0.1" :tooltip="false"
@@ -58,23 +58,23 @@
           </div>
         </div>
       </div>
-      <div class="right componentPage-width-30 componentPage-flex componentPage-pointer">
+      <div class="right component-width-30 component-flex component-pointer">
         <transition mode="out-in" name="SpeedAnimate">
-          <div v-if="MusicSpeedIndex === 1" class="AudioSpeed componentPage-width-25 componentPage-height-100"
+          <div v-if="MusicSpeedIndex === 1" class="AudioSpeed component-width-25 component-height-100"
                @click="MusicSpeed">
             <span>{{ '1x' }}</span>
           </div>
-          <div v-else-if="MusicSpeedIndex === 2" class="AudioSpeed componentPage-width-25 componentPage-height-100"
+          <div v-else-if="MusicSpeedIndex === 2" class="AudioSpeed component-width-25 component-height-100"
                @click="MusicSpeed">
             <span>{{ '2x' }}</span>
           </div>
-          <div v-else class="AudioSpeed componentPage-width-25 componentPage-height-100" @click="MusicSpeed">
+          <div v-else class="AudioSpeed component-width-25 component-height-100" @click="MusicSpeed">
             <span>{{ '3x' }}</span>
           </div>
         </transition>
 
-        <div class="AudioPlayMode componentPage-width-25 componentPage-height-100 ">
-          <div class="alignLeft componentPage-center" @click="PlaybackModeSwitching();mess('success')">
+        <div class="AudioPlayMode component-width-25 component-height-100 ">
+          <div class="alignLeft component-center" @click="PlaybackModeSwitching();mess('success')">
             <n-icon v-show="MusicPlayMode === 3 " class="center" size="30">
               <RepeatOutline/>
             </n-icon>
@@ -86,17 +86,17 @@
             </n-icon>
           </div>
         </div>
-        <div class="AudioVolume componentPage-width-25 componentPage-height-100 ">
-          <div class="AudioVolume-res componentPage-hidden  componentPage-center
-componentPage-width-100 componentPage-height-100 componentPage-position-re">
+        <div class="AudioVolume component-width-25 component-height-100 ">
+          <div class="AudioVolume-res component-hidden  component-center
+component-width-100 component-height-100 component-position-re">
             <n-space class="Audio-volume-text" vertical>
               <n-slider v-model:value="value" :step="1" style="--n-fill-color:#165dff;--n-fill-color-hover: #165dff;"
                         @update-value="AudioVolumeMouseMove(value)"/>
             </n-space>
           </div>
         </div>
-        <div class="AudioListOfSongs componentPage-width-25 componentPage-height-100">
-          <div class="alignLeft componentPage-center" @click="SongListShowToggle">
+        <div class="AudioListOfSongs component-width-25 component-height-100">
+          <div class="alignLeft component-center" @click="SongListShowToggle">
             <n-icon size="30">
               <ReorderFour/>
             </n-icon>

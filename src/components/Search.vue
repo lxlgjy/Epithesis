@@ -10,12 +10,12 @@
           <button @click="search">{{ $t('msg.Search') }}</button>
         </div>
       </div>
-      <div class="Search-bottom componentPage-flex-warp componentPage-sizing">
-        <div class="SearchPopular componentPage-hidden componentPage-height-100">
+      <div class="Search-bottom component-warp component-sizing">
+        <div class="SearchPopular component-hidden component-height-100">
           <h3>{{ $t('msg.PopularSearches') }}</h3>
           <n-scrollbar trigger="hover">
             <div v-for="item in Search.HotSearchList"
-                 class="SearchPopularList componentPage-pointer componentPage-sizing"
+                 class="SearchPopularList component-pointer component-sizing"
                  @click="search('Hot',item.searchWord)">
               {{ item.searchWord }}
             </div>
@@ -25,7 +25,7 @@
           <h3>{{ $t('msg.SearchHistory') }}</h3>
           <n-scrollbar trigger="hover">
             <div v-for="item in Search.SearchHistory" v-if="Search.SearchHistory.length"
-                 class="SearchHistoryList componentPage-sizing componentPage-pointer"
+                 class="SearchHistoryList component-sizing component-pointer"
                  @click="search('Hot',item.SearchForAValue)">
               {{ item.SearchForAValue }}
             </div>

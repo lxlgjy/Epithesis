@@ -1,28 +1,28 @@
 <template>
-  <div class="componentPage-position AudioModeShow componentPage-index-5">
+  <div class="component-position AudioModeShow component-index-5">
     <div class="AudioMode-box">
-      <div class="componentPage-width-100 AudioMode-title componentPage-font-weight">
-        <span class="componentPage-sizing componentPage-span-padding componentPage-font-18">播放设置</span>
+      <div class="component-width-100 AudioMode-title component-font-weight">
+        <span class="component-sizing component-span-padding component-font-18">播放设置</span>
       </div>
       <div class="AudioMode-speed">
         <div>
-          <span class="componentPage-span-padding componentPage-sizing">播放速率</span>
+          <span class="component-span-padding component-sizing">播放速率</span>
         </div>
-        <div class="componentPage-flex">
-          <div v-for="item in dataSpeed" class="componentPage-flex-between" @click="AudioSpeed(item.speed)">
+        <div class="component-flex">
+          <div v-for="item in dataSpeed" class="component-flex-between" @click="AudioSpeed(item.speed)">
             <input :checked="item.checked" name="speed" type="radio">
             <span>{{ item.speed + 'x' }}</span>
           </div>
         </div>
       </div>
-      <div class=" AudioMode-mode componentPage-sizing">
-        <div class="componentPage-span-padding componentPage-sizing">
+      <div class=" AudioMode-mode component-sizing">
+        <div class="component-span-padding component-sizing">
           <span>播放模式</span>
         </div>
-        <div class="componentPage-flex">
+        <div class="component-flex">
           <div v-for="(item) in AudioModeNotice" :key="item.ModeId"
                :class="Start.AudioMode === item.ModeId ? 'AudioModeHandoff' : ''"
-               class="componentPage-flex-between componentPage-sizing AudioMode-mode-box"
+               class="component-flex-between component-sizing AudioMode-mode-box"
                @click.stop="AudioMode(item.ModeId);mess('success')">
             <n-icon :size="item.ModeSize">
               <component :is="item.ModeComponent"/>
@@ -31,7 +31,7 @@
           </div>
         </div>
       </div>
-      <div class="AudioMode-close componentPage-width-100 componentPage-pointer" @click="AudioToggle">
+      <div class="AudioMode-close component-width-100 component-pointer" @click="AudioToggle">
         <div>关闭</div>
       </div>
     </div>
@@ -75,7 +75,7 @@ const AudioModeNotice = [
 ]
 
 onMounted(() => {
-  document.querySelectorAll('.componentPage-flex-between')
+  document.querySelectorAll('.component-flex-between')
 })
 
 </script>
@@ -83,7 +83,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 // 播放模式切换样式
 
-.AudioMode-mode .componentPage-flex .AudioModeHandoff {
+.AudioMode-mode .component-flex .AudioModeHandoff {
   background: #165dff;
   color: #fff;
 
@@ -133,11 +133,11 @@ onMounted(() => {
     z-index: -1;
   }
 
-  .componentPage-span-padding {
+  .component-span-padding {
     text-align: left;
   }
 
-  .componentPage-flex-between {
+  .component-flex-between {
     height: 100%;
 
     span {
@@ -160,7 +160,7 @@ onMounted(() => {
     cursor: pointer;
   }
 
-  .componentPage-span-padding {
+  .component-span-padding {
     text-align: left;
   }
 }

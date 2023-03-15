@@ -1,38 +1,37 @@
 <template>
-  <div v-if="Start.LoginShow" class="RightHomeCss MusicLove">
+  <div v-if="Start.LoginShow" class="RightHomeCss MusicLove Music-relative">
     <Information></Information>
   </div>
   <div v-if="route.meta['ThatLoveShow']" class="RightHomeCss">
-    <div class="MyLove flex-Music-sizing">
+    <div class="MyLove Music-sizing">
       <h2>{{ $t('msg.MusicThatILove') }}</h2>
-      <div class="flex-Music-flexWarped">
-        <router-link class="MyLove-left flex-Music-radius-10 flex-Music-res" to="/MusicThatILove/LoveDetail">
-          <span class="flex-Music-padding-title-List flex-Music-sizing flex-Music-position">在这个音乐的世界里，你可以随心所欲地倾听你最喜爱的艺术家和音乐类型。从轻松的流行曲到古典音乐，我们的音乐库中拥有无数的歌曲和专辑等待着你来发现和欣赏。</span>
-          <div
-              class="MyLove-left-text flex-Music-position  flex-Music-flex flex-Music-padding-title-List flex-Music-sizing">
-            <div class="">
+      <div class="Music-flex">
+        <router-link class="MyLove-left Music-radius-10 Music-relative" to="/MusicThatILove/LoveDetail">
+          <span class=" MyLove-text Music-padding-title-List Music-sizing Music-absolute">在这个音乐的世界里，你可以随心所欲地倾听你最喜爱的艺术家和音乐类型。从轻松的流行曲到古典音乐，我们的音乐库中拥有无数的歌曲和专辑等待着你来发现和欣赏。</span>
+          <div class="MyLove-left-text Music-absolute Music-flex Music-padding-title-List Music-sizing">
+            <div class="MyLove-btn-native">
               <span>我喜欢的音乐</span>
               <span>{{ Detail.MusicSongsDetailList.DetailSong.length + '首歌' }}</span>
             </div>
-            <div class="MyLove-left-play flex-Music-radius-50 flex-Music-radius-50"
+            <div class="MyLove-btn-play Music-center"
                  @click.stop.prevent="AudioListPush()">
-              <n-icon color="#fff" size="30">
+              <n-icon class="Music-radius-50" color="#fff" size="30">
                 <play/>
               </n-icon>
             </div>
           </div>
         </router-link>
         <div class="MyLove-right">
-          <ul class="flex-Music-flex">
+          <ul class="MyLoveUl Music-grid">
             <li v-for="item in Detail.MusicSongsDetailList.DetailSong.slice(0,12)"
                 :id="Audio.MusicSong.length === 0 ? '' : (Audio.MusicSong.data[0]['id'] === item['id'] ? 'MyLoveSelect' : '') "
-                class="flex-Music-sizing flex-Music-padding-title-HomeRecommendation flex-Music-radius-3 flex-Music-pointer"
+                class="MyLoveLi Music-sizing Music-padding-title-HomeRecommendation Music-radius-3 Music-pointer"
                 @dblclick="Player(item['id'] , item)">
-              <div class="flex-Music-flex">
-                <div>
-                  <img v-lazy="item['al']['picUrl'] + '?param=400y400'">
+              <div class="MyLoveLiBox Music-flex">
+                <div class="MyLove-img">
+                  <img v-lazy="item['al']['picUrl'] + '?param=400y400'" class="Music-radius-3">
                 </div>
-                <div>
+                <div class="MyLove-title">
                   <span class="flex-Music-font-hidden">{{ item['name'] }}</span>
                   <span class="flex-Music-font-hidden">{{ item['ar'][0]['name'] }}</span>
                 </div>
@@ -56,7 +55,7 @@
 </template>
 
 <script lang="ts" setup>
-import '../../style/ThatLove.sass'
+import '../../style/ThatLove.scss'
 import Information from '../../components/TextInformation.vue'
 import {Play} from '@vicons/ionicons5'
 import {AudioListPush, Player} from '../../uilt/VueIncident'

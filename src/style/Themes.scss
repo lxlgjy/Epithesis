@@ -65,12 +65,6 @@
       }
     }
 
-    .PlayList-page {
-      div {
-        background-color: var(--header-menu-background-active)
-      }
-    }
-
     .AudioDetail-play, .AudioDetail-add {
       i, span {
         color: #fff;
@@ -127,13 +121,6 @@
       .detail-background {
         &::after {
           background: linear-gradient(0deg, #18181b 0, rgba(24, 24, 27, .996) 8.1%, rgba(24, 24, 27, .983) 15.5%, rgba(24, 24, 27, .964) 22.5%, rgba(24, 24, 27, .939) 29%, rgba(24, 24, 27, .909) 35.3%, rgba(24, 24, 27, .877) 41.2%, rgba(24, 24, 27, .842) 47.1%, rgba(24, 24, 27, .808) 52.9%, rgba(24, 24, 27, .773) 58.8%, rgba(24, 24, 27, .741) 64.7%, rgba(24, 24, 27, .711) 71%, rgba(24, 24, 27, .686) 77.5%, rgba(24, 24, 27, .667) 84.5%, rgba(24, 24, 27, .654) 91.9%, rgba(24, 24, 27, .65));;
-        }
-      }
-
-      .PlayList-page {
-        div {
-          background-color: var(--header-menu-background-active)
-
         }
       }
     }

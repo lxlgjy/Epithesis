@@ -1,36 +1,36 @@
 <template>
-  <div :style="SongListBackground" class="SongList componentPage-position componentPage-index-4">
+  <div :style="SongListBackground" class="SongList component-absolute component-index-4">
     <n-scrollbar :on-scroll="scorll">
-      <div class="SongList-header componentPage-sizing componentPage-index-2">
-        <div class="componentPage-flex" @click="SongListToggle">
+      <div class="SongList-header component-sizing component-index-2">
+        <div class="component-flex" @click="SongListToggle">
           <span
               :id="MusicSongList ? 'SongListTap' : ''"
-              class="componentPage-flex-between componentPage-center componentPage-pointer componentPage-sizing componentPage-font-weight componentPage-radius-2">{{
+              class="component-flex-between component-center component-pointer component-sizing component-font-weight component-radius-2">{{
               $t('msg.SongPlayList')
             }}</span>
           <span
               :id="!MusicSongList ? 'SongListTap' : ''"
-              class="componentPage-flex-between componentPage-center componentPage-pointer componentPage-sizing componentPage-font-weight componentPage-radius-2">{{
+              class="component-flex-between component-center component-pointer component-sizing component-font-weight component-radius-2">{{
               $t('msg.SongPlayHistory')
             }}</span>
         </div>
       </div>
-      <div class="SongList-list componentPage-padding-0-1 ">
+      <div class="SongList-list component-padding-0-1 ">
         <ul>
           <li v-for="(item,index) in Audio.MusicSongNow"
               :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'SongList' : ''"
-              class="componentPage-pointer componentPage-radius-4"
+              class="component-pointer component-radius-4"
               @contextmenu="Capabilities($event , item , 'SongList')" @dblclick="SongListAudio(item)">
-            <div class="componentPage-flex componentPage-center componentPage-flex-items">
+            <div class="component-flex component-center component-flex-items">
               <div>
                 <img v-lazy="item['al']['picUrl'] + '?param=50y50'">
               </div>
-              <div class="SongList-title componentPage-sizing">
-                <span class="componentPage-flex-text">{{ item.name }}</span>
-                <span class="componentPage-flex-text">{{ item['ar'][0].name }}</span>
+              <div class="SongList-title component-sizing">
+                <span class="component-flex-text">{{ item.name }}</span>
+                <span class="component-flex-text">{{ item['ar'][0].name }}</span>
               </div>
               <!--       专辑（要需要自行添加）       -->
-              <!--<span class="componentPage-flex-text">{{item['al'].name}}</span>-->
+              <!--<span class="component-flex-text">{{item['al'].name}}</span>-->
               <!--       歌词时间舍弃       -->
             </div>
           </li>

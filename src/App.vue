@@ -105,7 +105,7 @@ onMounted(async () => {
     HomeRecommendAxios('/top/playlist/highquality?limit=35'),
     HomeRankingAxios('/toplist'),
     HomeLatestAlbum('/album/newest'),
-    HomeHotSinger('/top/artists?limit=7'),
+    HomeHotSinger('/top/artists?limit=8'),
     MvAxios(),
     SingerAxios('/toplist/artist?type=1'),
     PlayListTitleAxios('/playlist/hot'),

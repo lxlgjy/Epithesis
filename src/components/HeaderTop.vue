@@ -22,14 +22,14 @@
         <span>{{ $t('msg.Search') }}</span>
       </div>
     </div>
-    <div class="Header-Top-Image componentPage-pointer" @click="avatarToggle">
+    <div class="Header-Top-Image component-pointer" @click="avatarToggle">
       <img :src="Login.MusicUname.avatarUrl">
     </div>
     <transition name="headerMenu">
       <div v-if="Start.LoginAvatar" class="header-menu">
         <ul>
           <li v-for="item in Start.LoginShow ? [$t('msg.Login'), $t('msg.NonVIP'), $t('msg.CheckTheVersion'), $t('msg.SetUp'),$t('msg.Concerning'), $t('msg.Agreement')] : [$t('msg.VIP'), $t('msg.CheckTheVersion'), $t('msg.SetUp'), $t('msg.Concerning'), $t('msg.Agreement'), $t('msg.SignOut')]"
-              :key="item" class="componentPage-radius-2 componentPage-pointer componentPage-sizing"
+              :key="item" class="component-radius-2 component-pointer component-sizing"
               @click.stop="AvatarFunction(item)">{{ item }}
           </li>
         </ul>
@@ -86,10 +86,13 @@ const {Login, Start} = useStore()
 }
 
 .Header-Top-Router {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
   .icon {
     border-radius: var(--border-round);
-    width: 2.3rem;
-    height: 2.3rem;
+    width: 34px;
+    height: 34px;
     text-align: center;
     margin-right: 10px;
     box-sizing: border-box;
