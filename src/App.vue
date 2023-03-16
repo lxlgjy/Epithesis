@@ -2,7 +2,7 @@
   <audio id="Audio" :hidden="true" :src="Audio.MusicSong['data'] ? Audio.MusicSong['data'][0]['url']  : null"></audio>
 
   <!--  页面整体  -->
-  <div v-show="Start.PageShow" id="Box" :class="Setting.PageThemes">
+  <div id="Box" :class="Setting.PageThemes">
     <RightRibbon id="RightRibbon"></RightRibbon>
     <left-display-area id="LeftDisplayArea"></left-display-area>
   </div>

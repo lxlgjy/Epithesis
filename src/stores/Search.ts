@@ -17,6 +17,9 @@ const useSearchStore = defineStore('Search', {
         getSearchHistory(data: SearchHistory) {
             this.SearchHistory.unshift(data)
         },
+        setSearchHistory(data: usePiniaStore['Search']['SearchHistory']) {
+            this.SearchHistory = data
+        },
         getSearchTheList(data: usePiniaStore['Search']['SearchTheList']) {
             this.SearchTheList = data
         }

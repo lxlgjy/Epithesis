@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <!--  背景颜色  -->
-    <!--    <canvas class="Player-BackgroundImage"></canvas>-->
+  <div class="component-sticky component-index-4">
     <div class="Player-BackgroundImage"></div>
     <div class="Player component-relative component-sizing">
       <div class="Player-flex component-grid component-index-2  component-sizing component-center component-justify">
@@ -99,8 +97,7 @@
         <div v-show="MusicPlayerToggle === true" class="Player-lyric">
           <transition mode="out-in" name="player">
             <ul id="PlayLyricScroll"
-                class="Player-lyric-list component-height-100"
-                style="transform: translateY(500px);">
+                class="Player-lyric-list component-height-100">
               <li v-for="(item,index) in Audio.MusicLyric" :id="MusicI === index ? 'playing' : ''"
                   :style="{fontSize:Setting.LyricSize}"
                   class=" PlayerLyric component-pointer component-radius-8 component-sizing component-sizing component-height-100"
@@ -177,7 +174,6 @@ onMounted(() => {
   BackgroundImage()
 
   AudioLyric()
-
 })
 
 </script>

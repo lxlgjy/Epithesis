@@ -51,7 +51,7 @@ const audioAnimateUpdate = () => {
         for (let i = 0; i < LyricLength.length; i++) {
             if (MusicPlayerTime.value >= LyricLength[i].time) {
                 MusicI.value = i
-                LyricULBox.style.transform = `translateY(${500 - (lyricLineHeight * (i + 1))}px)`
+                LyricULBox.style.transform = `translateY(${-(lyricLineHeight * (i + 1) + 10)}px)`
             }
         }
     }
@@ -60,6 +60,7 @@ const audioAnimateUpdate = () => {
 
     HomeAudio.addEventListener('timeupdate', timeupdate)
 }
+
 
 const ended = async () => {
     console.log(MusicPlayerTime.value)

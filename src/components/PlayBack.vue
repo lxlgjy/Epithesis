@@ -1,5 +1,5 @@
 <template>
-  <div class="Player-back">
+  <div class="Player-back component-index-5">
     <button @click="playerAudioShow">
       <n-icon size="40" color="#fff">
         <ChevronDownSharp/>
@@ -10,10 +10,7 @@
 
 <script setup lang="ts">
 import {playerAudioShow} from "../uilt/VueIncident";
-import {
-  ChevronDownSharp
-} from '@vicons/ionicons5'
-</script>
+import {ChevronDownSharp} from '@vicons/ionicons5'</script>
 
 <style scoped lang="scss">
 .Player-back {
@@ -21,6 +18,7 @@ import {
   right: 60px;
   top: 50px;
   padding: 20px;
+
   button {
     width: 100px;
     height: 100px;
@@ -32,7 +30,6 @@ import {
 
   }
 }
-
 
 
 </style>

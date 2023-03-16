@@ -1,5 +1,5 @@
 <template>
-  <div class="RightHomeCss recommend" v-if="Start.MusicData">
+  <div v-if="Start.MusicData" class="RightHomeCss recommend component-grid">
     <div class="recommend-playlist">
       <BackgroundFilter></BackgroundFilter>
       <div class="image">
@@ -10,12 +10,14 @@
         <span>{{ Detail.MusicSongsDetailList.DetailTitle.BriefIntroduction }}</span>
       </div>
     </div>
-    <div class="recommend-songs-recommend">
+    <div class="recommend-songs-list component-grid">
       <div class="recommend-songs">
         <div class="recommend-songs-list">
-          <n-scrollbar trigger="hover" style="max-height: 100%">
+          <n-scrollbar :on-scroll="scorll" trigger="hover">
             <ul>
               <li v-for="(item,index) in Detail.MusicSongsDetailList.DetailSong"
+                  :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'SelectChange' : '' "
+                  @contextmenu="Capabilities($event , item)"
                   @dblclick="Player(item['id'] , item)">
                 <span>
                   <img v-lazy="item['al']['picUrl'] + '?param=50y50'">
@@ -30,8 +32,9 @@
         </div>
       </div>
       <div class="recommend-recommend">
-        <div>
-          <img :src="item['coverImgUrl']" alt="" v-for="item in image(Home.MusicRankingData['list'])">
+        <div class="component-grid">
+          <img v-for="item in image(Home.MusicRankingData['list'])" :src="item['coverImgUrl']" alt=""
+               @click="MusicPlayList(item)">
         </div>
       </div>
     </div>
@@ -44,16 +47,16 @@ import BackgroundFilter from '../components/BackgroundFilter.vue'
 import useStore from "../stores/counter";
 import {useRoute} from "vue-router";
 import {Time} from '../uilt/PageWidgets'
-import {Player} from '../uilt/VueIncident'
+import {Capabilities, MusicPlayList, Player, scorll} from '../uilt/VueIncident'
 
-const {Detail, Home, Start} = useStore()
+const {Detail, Home, Start, Audio} = useStore()
 const route = useRoute()
 
 const image = (item: any) => {
   let arr = []
   for (let i = 0; i < item.length; i++) {
     // @ts-ignore
-    if (item[i]['id'] !== parseInt(Detail.MusicSongsDetailList.DetailSong[i]['id'])) {
+    if (item[i]['name'] !== Detail.MusicSongsDetailList.DetailTitle['title']) {
       arr.push(item[i])
     }
   }
@@ -65,129 +68,108 @@ const image = (item: any) => {
 .recommend {
   width: 100%;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
+  grid-template-rows: repeat(2, 25vh 59vh);
+  grid-row-gap: 20px;
   overflow-y: hidden;
+}
 
-  .recommend-playlist {
-    flex: 1;
+.recommend-playlist {
+  position: relative;
+  display: flex;
+  z-index: 2;
+  box-shadow: -2px 1px 5px rgba(0, 0, 0, .1);
+
+  .image {
+    width: 15.3rem;
+    height: 100%;
   }
 
-  .recommend-playlist {
-    position: relative;
-    height: 20%;
+  .title {
     display: flex;
-    z-index: 2;
-    box-shadow: -2px 1px 5px rgba(0, 0, 0, .1);
+    flex-direction: column;
+    padding: 0 0 10px 20px;
+    box-sizing: border-box;
 
-    .image {
-      width: 15.3rem;
-      height: 100%;
+    span:nth-child(1) {
+      font-size: 24px;
+      font-weight: 700;
     }
 
-    .title {
-      display: flex;
-      flex-direction: column;
-      padding: 0 0 10px 20px;
-      box-sizing: border-box;
-
-      span:nth-child(1) {
-        font-size: 24px;
-        font-weight: 700;
-      }
-
-      span:nth-child(2) {
-        font-size: 18px;
-        color: rgba(23, 34, 56, .7);
-      }
+    span:nth-child(2) {
+      font-size: 18px;
+      color: rgba(23, 34, 56, .7);
     }
   }
+}
 
-  .recommend-songs-recommend {
-    display: flex;
-    margin: 20px 0 0 5px;
-    height: 80%;
+.recommend-songs-list {
+  grid-template-columns: repeat(1, 3fr 2fr);
+  grid-column-gap: 5px;
+  margin-left: 5px;
 
-    .recommend-songs, .recommend-recommend {
-      flex: 1;
-    }
+  .recommend-songs, .recommend-recommend {
+    height: 56.5vh;
+  }
 
-    .recommend-songs {
-      width: 100%;
+  .recommend-songs {
+    .recommend-songs-list {
       height: 100%;
 
-      .recommend-songs-list, .recommend-songs-list ul {
-        height: 100%;
-      }
+      ul {
+        height: 50%;
 
-      .recommend-songs-list {
-        ul {
-          height: 50%;
+        li {
+          display: flex;
+          height: 3rem;
+          line-height: 3rem;
+          transition: background .5s;
+          border-radius: 3px;
+          margin: 4px 0;
 
-          li {
-            display: flex;
-            height: 3rem;
-            line-height: 3rem;
-            transition: background .5s;
-            border-radius: 3px;
-
-            &:hover {
-              background-color: var(--header-menu-background-active);
-              cursor: pointer;
-            }
-
-            span {
-              overflow: hidden;
-              white-space: nowrap;
-              text-overflow: ellipsis;
-              font-weight: 700;
-
-
-              &:nth-child(1) {
-                text-align: left;
-                padding: 0 8px;
-                width: 2.4rem;
-                height: 2.4rem;
-                transform: translateY(6px);
-              }
-
-              &:nth-child(2), &:nth-child(3), &:nth-child(4), &:nth-child(5) {
-                flex: 1;
-                text-align: center;
-              }
-            }
-
+          &:hover {
+            background-color: var(--header-menu-background-active);
+            cursor: pointer;
           }
+
+          span {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-weight: 700;
+
+
+            &:nth-child(1) {
+              text-align: left;
+              padding: 0 8px;
+              width: 2.4rem;
+              height: 2.4rem;
+              transform: translateY(6px);
+            }
+
+            &:nth-child(2), &:nth-child(3), &:nth-child(4), &:nth-child(5) {
+              flex: 1;
+              text-align: center;
+            }
+          }
+
         }
       }
     }
-
-    .recommend-recommend {
-      div {
-        display: flex;
-        flex-wrap: wrap;
-      }
-
-      img:nth-child(1) {
-        width: 100%;
-        height: 12.5rem;
-        padding: 0 7px;
-        box-sizing: border-box;
-      }
-
-
-      img:nth-child(2), img:nth-child(3), img:nth-child(4), img:nth-child(5) {
-        width: 48%;
-        height: 10rem;
-        padding: 7px;
-      }
-
-      img {
-        border-radius: 3px;
-      }
-
-    }
   }
 
+  .recommend-recommend {
+    div {
+      height: 56.5vh;
+      grid-template-rows: repeat(3, 30%);
+      grid-template-columns:repeat(2, 1fr);
+      gap: 5px;
+
+      & > :first-child {
+        grid-column: span 2;
+      }
+    }
+
+  }
 }
+
 </style>

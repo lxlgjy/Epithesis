@@ -112,8 +112,9 @@
 }
 
 .Player-lyric {
+
   .Player-lyric-list {
-    transition: all .3s;
+    transition: all .3s ease;
 
     .PlayerLyric {
       font-size: 25px;
@@ -129,4 +130,12 @@
       }
     }
   }
+}
+
+.Player-BackgroundImage {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  z-index: -1;
 }

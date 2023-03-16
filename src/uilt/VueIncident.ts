@@ -38,6 +38,7 @@ import {DownloadSong} from "./Api/Download";
 import {MusicSongNow} from "../stores/Audio";
 import {useSearchAxios, useSearchSongListAxios} from "./Api/Search";
 import {SearchHistory} from "./PiniaInterface/SearchInterface";
+import {usePiniaStore} from "./PiniaInterface/ContentPinia";
 
 export const LoginClickShow = () => {
     MusicLoginShow.value = true
@@ -113,6 +114,7 @@ export const search = async (type?: string, value?: string) => {
         routerPush('Search', value)
 
         MusicSearchInputShow.value = false
+
         backgroundAndloadingToggle()
 
         AddSearchHistory(typeof value === "string" ? value : 'error')
@@ -139,6 +141,13 @@ export const search = async (type?: string, value?: string) => {
 const AddSearchHistory = (value: string) => {
     if (value && value !== 'error') {
         let search: SearchHistory = {SearchForAValue: value}
+        let searchList: usePiniaStore['Search']['SearchHistory'] = []
+        useStore().Search.SearchHistory.forEach((item: any) => {
+            if (item.SearchForAValue !== value) {
+                searchList.push(item)
+            }
+        })
+        useStore().Search.setSearchHistory(searchList)
 
         useStore().Search.getSearchHistory(search)
     }
@@ -240,6 +249,14 @@ export const MusicHomeDetail = async (id: string, routerType?: string) => {
 
     await useStore().Start.ToggleMusicData(true)
 
+}
+
+export const MusicPlayList = async (data: any) => {
+    backgroundAndloadingToggle()
+
+    await DetailHomeAxios(`/playlist/detail?id=${data.id}`, data.id, 'DoNotGetTheSongsDirectly')
+
+    backgroundAndloadingToggle()
 }
 
 export const MusicPlayListDetail = async (id: string) => {
