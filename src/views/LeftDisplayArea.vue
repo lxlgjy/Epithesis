@@ -1,15 +1,14 @@
 <template>
-<div>
-  <header-top></header-top>
-    <router-view>
-
+  <div>
+    <header-top></header-top>
+    <router-view v-slot="{Component , route}">
+      <transition :name="route.meta.transition || 'fade' " mode="out-in">
+        <component :is="Component" :key="$route.path"/>
+      </transition>
     </router-view>
-</div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import '../style/AnimationEffects.sass'
-import HeaderTop from "../components/HeaderTop.vue";
-// import {useStore} from "../stores/counter";
-// const store = useStore()
-</script>
+import HeaderTop from "../components/HeaderTop.vue";</script>

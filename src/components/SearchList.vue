@@ -2,9 +2,14 @@
   <n-scrollbar :on-scroll="scorll" trigger="hover">
     <div class="RightHomeCss">
       <div class="SearchBox">
-        <input type="text">
+        <span class="Search component-grid">
+          <input class="SearchAgain component-sizing" placeholder="搜索" type="text">
+          <n-icon class="component-pointer" size="20" @click="SearchAgain">
+            <SearchOutline/>
+          </n-icon>
+        </span>
       </div>
-      <div class="AListOfSearchResults">
+      <div v-show="!Start.PlayListLoading" class="AListOfSearchResults">
         <div class="song-list">
           <ul class="TitleUl component-flex component-sizing">
             <li></li>
@@ -32,6 +37,11 @@
           </ul>
         </div>
       </div>
+      <div v-show="Start.PlayListLoading">
+        <n-space class="SearchLoading component-relative" style="background: transparent;display:block;">
+          <n-spin :show="true" size="small" stroke="#6270e7"/>
+        </n-space>
+      </div>
     </div>
   </n-scrollbar>
 </template>
@@ -39,19 +49,41 @@
 <script lang="ts" setup>
 import useStore from "../stores/counter";
 import {Time} from '../uilt/PageWidgets'
-import {Capabilities, Player, scorll} from '../uilt/VueIncident'
+import {Capabilities, Player, scorll, SearchAgain} from '../uilt/VueIncident'
+import {SearchOutline} from '@vicons/ionicons5'
 
-const {Search} = useStore()
+const {Search, Start} = useStore()
 </script>
 
 <style lang="scss" scoped>
 .SearchBox {
   text-align: center;
 
-  input {
-    width: 30rem;
-    height: 1.5rem;
+  .Search {
+    position: sticky;
+    top: 0;
+    width: 550px;
+    height: 30px;
+    background-color: var(--search-background);
+    left: 50%;
+    transform: translateX(-50%);
+    grid-template-columns: repeat(1, 15fr 1fr);
+    align-content: center;
+
+    input {
+      outline: none;
+      background: none;
+      color: #fff;
+      border: none;
+      padding: 4px;
+    }
+
+    i {
+      padding-left: 5px;
+    }
   }
+
+
 }
 
 .AListOfSearchResults {
@@ -117,5 +149,13 @@ const {Search} = useStore()
       }
     }
   }
+}
+
+.SearchLoading {
+  width: 50px;
+  height: 50px;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 </style>

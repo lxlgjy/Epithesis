@@ -121,7 +121,7 @@ export const search = async (type?: string, value?: string) => {
 
 
     } else {
-        let searchInputValue = document.querySelector('.Search-top-input input') as HTMLInputElement
+        const {searchInputValue} = Element()
 
         if (searchInputValue.value !== '') {
             backgroundAndloadingToggle()
@@ -155,6 +155,16 @@ const AddSearchHistory = (value: string) => {
 // 热搜
 export const HotSearch = async () => {
     await useSearchAxios('/search/hot/detail')
+}
+
+//搜索界面再次搜索
+export const SearchAgain = async () => {
+    const {SearchAgain} = Element()
+    useStore().Start.PlayListLoading = true
+    if (SearchAgain.value !== '') {
+        await useSearchSongListAxios(`/cloudsearch?keywords=${SearchAgain.value}`)
+    }
+    useStore().Start.PlayListLoading = false
 }
 
 //

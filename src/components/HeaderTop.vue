@@ -22,7 +22,7 @@
         <span>{{ $t('msg.Search') }}</span>
       </div>
     </div>
-    <div class="Header-Top-Image component-pointer" @click="avatarToggle">
+    <div class="Header-Top-Image component-pointer" @click.stop="avatarToggle">
       <img :src="Login.MusicUname.avatarUrl">
     </div>
     <transition name="headerMenu">
@@ -51,7 +51,7 @@ const {Login, Start} = useStore()
 
 <style lang="scss" scoped>
 #Header-Top {
-  position: absolute;
+  position: sticky;
   top: 0;
   z-index: 20;
   width: var(--page-width);

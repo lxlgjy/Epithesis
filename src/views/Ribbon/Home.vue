@@ -1,23 +1,23 @@
 <template>
-  <n-scrollbar v-if="route.meta['HomeShow']" trigger="none">
-    <div>
-      <div v-if="Start.MusicData === false" class="Swiper RightHomeCss">
-        <n-space vertical>
-          <n-skeleton class="flex-Music-margin" height="240px" width="100%"/>
-          <n-skeleton class="flex-Music-margin" height="26px" width="100%"/>
-          <div class="flex-Music-flex">
-            <n-skeleton v-for="item in 2" :sharp="false" class="flex-Music-margin" height="170px" width="48%"/>
-          </div>
-          <n-skeleton class="flex-Music-margin" height="26px" width="100%"/>
-          <div class="flex-Music-flex flex-Music-padding-title-HomeRecommendation">
-            <n-skeleton v-for="item in 7" :sharp="false" class="flex-Music-margin" height="194px" width="177px"/>
-          </div>
-          <n-skeleton class="flex-Music-margin" height="26px" width="100%"/>
-          <div class="flex-Music-flex flex-Music-padding-title-List">
-            <n-skeleton v-for="item in 7" class="flex-Music-margin" height="170px" width="170px"/>
-          </div>
-        </n-space>
-      </div>
+  <div>
+    <!--    <div v-if="Start.MusicData === false" class="Swiper RightHomeCss">-->
+    <!--      <n-space vertical>-->
+    <!--        <n-skeleton class="flex-Music-margin" height="240px" width="100%"/>-->
+    <!--        <n-skeleton class="flex-Music-margin" height="26px" width="100%"/>-->
+    <!--        <div class="flex-Music-flex">-->
+    <!--          <n-skeleton v-for="item in 2" :sharp="false" class="flex-Music-margin" height="170px" width="48%"/>-->
+    <!--        </div>-->
+    <!--        <n-skeleton class="flex-Music-margin" height="26px" width="100%"/>-->
+    <!--        <div class="flex-Music-flex flex-Music-padding-title-HomeRecommendation">-->
+    <!--          <n-skeleton v-for="item in 7" :sharp="false" class="flex-Music-margin" height="194px" width="177px"/>-->
+    <!--        </div>-->
+    <!--        <n-skeleton class="flex-Music-margin" height="26px" width="100%"/>-->
+    <!--        <div class="flex-Music-flex flex-Music-padding-title-List">-->
+    <!--          <n-skeleton v-for="item in 7" class="flex-Music-margin" height="170px" width="170px"/>-->
+    <!--        </div>-->
+    <!--      </n-space>-->
+    <!--    </div>-->
+    <scroll v-show="$route.meta['HomeShow']" v-slot>
       <div v-if="Start.MusicData" class="RightHomeCss">
         <div id="main-box" class="Music-relative Music-sizing">
           <!-- 首页轮播展示 -->
@@ -144,12 +144,9 @@
           </div>
         </div>
       </div>
-    </div>
-  </n-scrollbar>
-
-  <router-view>
-
-  </router-view>
+    </scroll>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -158,13 +155,10 @@ import '@/style/Skeleton/Home.sass'
 import '../../style/content.sass'
 import useStore from "../../stores/counter";
 import {left, MusicHomeDetail, right, SwiperData} from '../../uilt/VueIncident'
-import {useRoute} from "vue-router";
 import {mess} from "../../uilt/VueEvent";
-import {useLanguageComputed} from "../../uilt/vueComputed";
+import Scroll from '../../components/MusicScroll.vue'
 
-const {Home, Start, Login, Setting} = useStore()
-const {} = useLanguageComputed()
-const route = useRoute()
+const {Home, Start, Login} = useStore()
 
 
 </script>

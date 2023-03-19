@@ -135,6 +135,9 @@ document.onclick = () => {
   if (MusicPageCapabilities.value) {
     MusicPageCapabilities.value = false
   }
+  if (useStore().Start.LoginAvatar) {
+    useStore().Start.ToggleLoginAvatar(false)
+  }
 }
 
 </script>

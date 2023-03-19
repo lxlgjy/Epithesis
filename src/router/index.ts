@@ -20,7 +20,8 @@ const router = createRouter({
                     name: 'HomeSwiper',
                     meta: {
                         HomeShow: false,
-                        page: 'HomeSwiper'
+                        page: 'HomeSwiper',
+                        transition: 'slide-right'
                     },
                     component: () => import('@/components/Detail.vue')
                 },
@@ -29,7 +30,8 @@ const router = createRouter({
                     name: 'HomeRecommendedSongs',
                     meta: {
                         HomeShow: false,
-                        page: 'HomeRecommendedSongs'
+                        page: 'HomeRecommendedSongs',
+                        transition: 'slide-right'
                     },
                     component: () => import('@/components/Detail.vue')
                 },
@@ -38,7 +40,8 @@ const router = createRouter({
                     name: 'HomePlaylist',
                     meta: {
                         HomeShow: false,
-                        page: 'HomePlaylist'
+                        page: 'HomePlaylist',
+                        transition: 'slide-right'
                     },
                     component: () => import('@/components/Detail.vue')
                 },
@@ -47,7 +50,8 @@ const router = createRouter({
                     name: 'HomeRankings',
                     meta: {
                         HomeShow: false,
-                        page: 'HomeRankings'
+                        page: 'HomeRankings',
+                        transition: 'slide-right'
                     },
                     component: () => import('@/components/Rankings.vue')
                 },
@@ -56,7 +60,8 @@ const router = createRouter({
                     name: 'HomeHotSinger',
                     meta: {
                         HomeShow: false,
-                        page: 'HomeHotSinger'
+                        page: 'HomeHotSinger',
+                        transition: 'slide-right'
                     },
                     component: () => import('@/components/Detail.vue')
                 },
@@ -65,7 +70,8 @@ const router = createRouter({
                     name: 'HomeAlbum',
                     meta: {
                         HomeShow: false,
-                        page: 'HomeAlbum'
+                        page: 'HomeAlbum',
+                        transition: 'slide-right'
                     },
                     component: () => import('@/components/Detail.vue')
                 }
@@ -162,11 +168,6 @@ const router = createRouter({
             path: '/MyDownloads',
             name: 'MyDownloads',
             component: () => import('@/views/Music/MyDownloads.vue')
-        },
-        {
-            path: '/RecentlyPlayed',
-            name: 'RecentlyPlayed',
-            component: () => import('@/views/Music/RecentlyPlayed.vue')
         },
         {
             path: '/Setting',

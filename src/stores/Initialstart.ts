@@ -17,7 +17,7 @@ const useStartStore = defineStore('Start', {
             PlayListLoading: false as Boolean,
             BackgroundIndex: 0 as number,
             ThemesBoolean: false, //主题
-            //信息
+            //设置信息
             Language: '汉语', //语言
             Topic: 'light', //主题
             MusicQuality: 'standard', // 音乐品质
