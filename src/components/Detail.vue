@@ -1,6 +1,6 @@
 <template>
-  <scroll>
-    <div v-if="Start.MusicData" class="RightHomeCss">
+  <scroll @scroll="scorll">
+    <div class="RightHomeCss">
       <!--列表头部信息展示-->
       <div>
         <div v-show="route.name !== 'Search' " class="detail">
@@ -84,7 +84,7 @@ import BackgroundFilter from "./BackgroundFilter.vue";
 import {useRoute, useRouter} from "vue-router";
 import useStore from "../stores/counter";
 import {Time} from '../uilt/PageWidgets'
-import {AudioListPush, Capabilities, Player} from "../uilt/VueIncident";
+import {AudioListPush, Capabilities, Player, scorll} from "../uilt/VueIncident";
 import {AddSharp, Play} from '@vicons/ionicons5'
 import {useDetailComputed} from '../uilt/vueComputed'
 import Scroll from '../components/MusicScroll.vue'

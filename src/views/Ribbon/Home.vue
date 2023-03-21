@@ -1,24 +1,7 @@
 <template>
   <div>
-    <!--    <div v-if="Start.MusicData === false" class="Swiper RightHomeCss">-->
-    <!--      <n-space vertical>-->
-    <!--        <n-skeleton class="flex-Music-margin" height="240px" width="100%"/>-->
-    <!--        <n-skeleton class="flex-Music-margin" height="26px" width="100%"/>-->
-    <!--        <div class="flex-Music-flex">-->
-    <!--          <n-skeleton v-for="item in 2" :sharp="false" class="flex-Music-margin" height="170px" width="48%"/>-->
-    <!--        </div>-->
-    <!--        <n-skeleton class="flex-Music-margin" height="26px" width="100%"/>-->
-    <!--        <div class="flex-Music-flex flex-Music-padding-title-HomeRecommendation">-->
-    <!--          <n-skeleton v-for="item in 7" :sharp="false" class="flex-Music-margin" height="194px" width="177px"/>-->
-    <!--        </div>-->
-    <!--        <n-skeleton class="flex-Music-margin" height="26px" width="100%"/>-->
-    <!--        <div class="flex-Music-flex flex-Music-padding-title-List">-->
-    <!--          <n-skeleton v-for="item in 7" class="flex-Music-margin" height="170px" width="170px"/>-->
-    <!--        </div>-->
-    <!--      </n-space>-->
-    <!--    </div>-->
-    <scroll v-show="$route.meta['HomeShow']" v-slot>
-      <div v-if="Start.MusicData" class="RightHomeCss">
+    <scroll v-show="$route.meta.HomeShow">
+      <div class="RightHomeCss">
         <div id="main-box" class="Music-relative Music-sizing">
           <!-- 首页轮播展示 -->
           <div class="swiper">
@@ -145,7 +128,7 @@
         </div>
       </div>
     </scroll>
-    <router-view></router-view>
+    <secondary-routing-page/>
   </div>
 </template>
 
@@ -157,10 +140,19 @@ import useStore from "../../stores/counter";
 import {left, MusicHomeDetail, right, SwiperData} from '../../uilt/VueIncident'
 import {mess} from "../../uilt/VueEvent";
 import Scroll from '../../components/MusicScroll.vue'
+import {useRouter} from "vue-router";
+import SecondaryRoutingPage from "../../components/SecondaryRoutingPage.vue";
 
 const {Home, Start, Login} = useStore()
+const router = useRouter()
 
+let toDepth = 0
+let fromDepth = 0
 
+router.afterEach((to, from) => {
+  toDepth = to.path.split('/').length
+  fromDepth = from.path.split('/').length
+})
 </script>
 
 <style lang="sass" scoped>

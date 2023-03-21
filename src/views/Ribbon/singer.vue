@@ -1,8 +1,8 @@
 <template>
   <div>
-    <scroll>
+    <scroll v-show="$route.meta.SingerShow">
       <div>
-        <div v-if="Start.MusicData" class="RightHomeCss">
+        <div class="RightHomeCss">
           <div class="singer-address">
             <div>
               <h3>{{ $t('msg.SingerRegion') }}</h3>
@@ -48,7 +48,7 @@
         </div>
       </div>
     </scroll>
-    <router-view></router-view>
+    <secondary-routing-page/>
   </div>
 
 </template>
@@ -60,6 +60,8 @@ import useStore from "../../stores/counter";
 import {useRoute} from "vue-router";
 import {MusicSinger} from '../../uilt/VueIncident'
 import Scroll from '../../components/MusicScroll.vue'
+import SecondaryRoutingPage from "../../components/SecondaryRoutingPage.vue";
+
 
 const {Singer, Start} = useStore()
 const route = useRoute()

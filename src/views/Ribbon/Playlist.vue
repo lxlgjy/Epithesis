@@ -1,8 +1,8 @@
 <template>
   <div>
-    <scroll>
+    <scroll v-show="$route.meta.PlayList">
       <div>
-        <div v-if="Start.MusicData" class="PlayList RightHomeCss">
+        <div class="PlayList RightHomeCss">
           <n-card :style="PlayerThemesStyle" :title="$t('msg.PlayList')"
                   style="margin-bottom: 16px;--n-border-color:none;">
             <n-tabs animated
@@ -10,11 +10,11 @@
                     type="line"
                     @click.stop="Playlist_Cat($event)">
               <n-tab-pane v-for="(item,index) in Playlist.MusicPlayListTitle" key="item.id" :name="index"
-                          :tab="item.name">
+                          :tab="item.name" @click.stop="MusicPlayListDetail(item.id)">
                 <div class="PlayListTest">
                   <router-link class="Music-grid" to="/Playlist/PlayListDetail">
-                    <li v-for="item in Playlist.MusicPlayList" key="item.id"
-                        class="PlayListLI Music-hidden Music-radius-3" @click.stop="MusicPlayListDetail(item.id)">
+                    <li v-for="item in Playlist.MusicPlayList"
+                        class="PlayListLI Music-hidden Music-radius-3">
                       <div>
                         <img v-lazy="item['coverImgUrl'] + '?param=400y400'">
                       </div>
@@ -41,21 +41,20 @@
         </div>
       </div>
     </scroll>
-    <router-view></router-view>
+    <secondary-routing-page/>
   </div>
 </template>
 
 <script lang="ts" setup>
 import '@/style/PlayList.scss'
-import {useRoute} from "vue-router";
 import useStore from "../../stores/counter";
 import {MusicPlayListDetail, Playlist_Cat, PlayListToggle} from '../../uilt/VueIncident'
 import {usePlayerComponent} from '../../uilt/vueComputed'
 import Scroll from '../../components/MusicScroll.vue'
+import SecondaryRoutingPage from "../../components/SecondaryRoutingPage.vue";
 
 const {Playlist, Start} = useStore()
 const {PlayerThemesStyle} = usePlayerComponent()
-const route = useRoute()
 
 </script>
 

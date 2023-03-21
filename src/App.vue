@@ -6,6 +6,7 @@
     <RightRibbon id="RightRibbon"></RightRibbon>
     <left-display-area id="LeftDisplayArea"></left-display-area>
   </div>
+
   <!-- 底部播放器 -->
   <play-audio v-show="Start.PageShow"></play-audio>
 
@@ -93,6 +94,7 @@ import {PlayListAxios, PlayListTitleAxios} from "./uilt/Api/PlaylistApi";
 import {nextTick, onMounted} from "vue";
 import PlayBack from "./components/PlayBack.vue";
 import i18n from "./i18n";
+import {CancelsTheListDisplay} from "./uilt/VueIncident";
 
 const {Audio, Start, Setting} = useStore()
 
@@ -137,6 +139,9 @@ document.onclick = () => {
   }
   if (useStore().Start.LoginAvatar) {
     useStore().Start.ToggleLoginAvatar(false)
+  }
+  if (MusicSongListShow.value) {
+    CancelsTheListDisplay()
   }
 }
 

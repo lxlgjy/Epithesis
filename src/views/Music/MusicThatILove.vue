@@ -52,7 +52,7 @@
         <h2>数据已在DetailApi中进行选择存储，如有需要，请去该文件中添加</h2>
       </div>
     </div>
-    <router-view></router-view>
+    <secondary-routing-page/>
   </div>
 </template>
 
@@ -65,6 +65,7 @@ import useStore from "../../stores/counter";
 import {DetailThatLove} from "../../uilt/Api/DetailApi";
 import {nextTick, onMounted} from "vue";
 import {useRoute} from "vue-router";
+import SecondaryRoutingPage from "../../components/SecondaryRoutingPage.vue";
 
 const {Start, Detail, Audio} = useStore()
 const route = useRoute()

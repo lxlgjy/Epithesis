@@ -11,7 +11,7 @@ const router = createRouter({
             path: '/Home',
             name: 'Home',
             meta: {
-                HomeShow: true
+                HomeShow: true,
             },
             component: () => import('@/views/Ribbon/Home.vue'),
             children: [
@@ -21,7 +21,7 @@ const router = createRouter({
                     meta: {
                         HomeShow: false,
                         page: 'HomeSwiper',
-                        transition: 'slide-right'
+
                     },
                     component: () => import('@/components/Detail.vue')
                 },
@@ -31,7 +31,7 @@ const router = createRouter({
                     meta: {
                         HomeShow: false,
                         page: 'HomeRecommendedSongs',
-                        transition: 'slide-right'
+
                     },
                     component: () => import('@/components/Detail.vue')
                 },
@@ -41,7 +41,7 @@ const router = createRouter({
                     meta: {
                         HomeShow: false,
                         page: 'HomePlaylist',
-                        transition: 'slide-right'
+
                     },
                     component: () => import('@/components/Detail.vue')
                 },
@@ -51,7 +51,7 @@ const router = createRouter({
                     meta: {
                         HomeShow: false,
                         page: 'HomeRankings',
-                        transition: 'slide-right'
+
                     },
                     component: () => import('@/components/Rankings.vue')
                 },
@@ -61,7 +61,7 @@ const router = createRouter({
                     meta: {
                         HomeShow: false,
                         page: 'HomeHotSinger',
-                        transition: 'slide-right'
+
                     },
                     component: () => import('@/components/Detail.vue')
                 },
@@ -71,7 +71,7 @@ const router = createRouter({
                     meta: {
                         HomeShow: false,
                         page: 'HomeAlbum',
-                        transition: 'slide-right'
+
                     },
                     component: () => import('@/components/Detail.vue')
                 }
@@ -195,6 +195,13 @@ const router = createRouter({
             component: () => import('@/components/Film.vue')
         }
     ],
+})
+
+router.afterEach((to, from) => {
+    const toDepth = to.path.split('/').length
+    const fromDepth = from.path.split('/').length
+
+    to.meta.transition = toDepth === fromDepth ? 'animate__animated animate__bounceInUp' : (toDepth > fromDepth ? 'animate__animated animate__bounceInRight' : 'animate__animated animate__bounceInLeft')
 })
 
 export default router

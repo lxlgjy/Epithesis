@@ -1,8 +1,8 @@
 <template>
   <div>
     <header-top></header-top>
-    <router-view v-slot="{Component , route}">
-      <transition :name="route.meta.transition || 'fade' " mode="out-in">
+    <router-view v-slot="{Component}">
+      <transition :enter-active-class="$route.meta.transition" mode="out-in">
         <component :is="Component" :key="$route.path"/>
       </transition>
     </router-view>

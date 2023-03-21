@@ -15,6 +15,7 @@ import {
     MusicPlayerToggle,
     MusicPlayMode,
     MusicSearchInputShow,
+    MusicSongListShow,
     MusicSpeedIndex
 } from './PublicStatus'
 import {
@@ -64,11 +65,11 @@ export const headerTopRight = () => {
     router.go(1)
 }
 // 搜索
-export const headerTopInput = () => {
+export const headerTopInput = async () => {
     MusicSearchInputShow.value = true
     MusicLoginBackgroundShow.value = true
 
-    HotSearch()
+    await HotSearch()
 }
 //遮罩
 export const allPageBackground = () => {
@@ -196,12 +197,10 @@ export const AvatarFunction = (type: string) => {
 
 //歌手请求
 export const MusicSinger = async (id: string) => {
-    await useStore().Start.ToggleMusicData(false)
+
     backgroundAndloadingToggle()
 
     await DetailSingerAxios(`/artist/detail?id=${id}`, `/artists?id=${id}`)
-
-    await useStore().Start.ToggleMusicData(true)
 
     backgroundAndloadingToggle()
 
@@ -221,7 +220,6 @@ export const FilmMovie = async (id: string) => {
 }
 // 首页home 请求
 export const MusicHomeDetail = async (id: string, routerType?: string) => {
-    await useStore().Start.ToggleMusicData(false)
     backgroundAndloadingToggle()
 
     if (routerType === 'HomeSwiper') {
@@ -270,17 +268,11 @@ export const MusicPlayList = async (data: any) => {
 }
 
 export const MusicPlayListDetail = async (id: string) => {
-    await useStore().Start.ToggleMusicData(false)
-
     backgroundAndloadingToggle()
 
     await DetailPlaylistAxios(`/playlist/detail?id=${id}`, id)
 
-
     backgroundAndloadingToggle()
-
-    await useStore().Start.ToggleMusicData(true)
-
 }
 
 export const MusicAlbumDetail = async () => {
@@ -448,6 +440,10 @@ export const SongListShowToggle = () => {
     MusicSongListShowToggle()
 }
 
+export const CancelsTheListDisplay = () => {
+    MusicSongListShow.value = !MusicSongListShow.value
+}
+
 //添加音乐到播放列表
 export const AudioListPush = async (type?: string) => {
     MusicAudioShow()
@@ -559,7 +555,6 @@ export const Capabilities = (e: Event, data: any, type?: string) => {
         Capabilities.style.top = e.clientY + 'px'
         Capabilities.style.left = e.clientX + 'px'
     }
-
 }
 
 //监听组件是否滚动
@@ -631,7 +626,6 @@ const Language = (value: string, language: string) => {
 export const themes = (value: Boolean) => {
     value ? useStore().Setting.setPageThemes('Dark') : useStore().Setting.setPageThemes('Light')
 }
-
 
 
 

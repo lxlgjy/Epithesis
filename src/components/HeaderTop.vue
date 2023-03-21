@@ -1,14 +1,14 @@
 <template>
-  <div id="Header-Top">
+  <div id="Header-Top" class="component-grid">
     <div class="Header-Top-Router">
-      <n-icon class="icon" size="20" @click="headerTopLeft">
+      <n-icon class="icon component-radius-50" size="20" @click="headerTopLeft">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <path d="M15 6l-6 6l6 6" fill="none" stroke="currentColor" stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"></path>
         </svg>
       </n-icon>
-      <n-icon class="icon" size="20" @click="headerTopRight">
+      <n-icon class="icon component-radius-50" size="20" @click="headerTopRight">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <path d="M9 6l6 6l-6 6" fill="none" stroke="currentColor" stroke-linecap="round"
                 stroke-linejoin="round"
@@ -23,18 +23,19 @@
       </div>
     </div>
     <div class="Header-Top-Image component-pointer" @click.stop="avatarToggle">
-      <img :src="Login.MusicUname.avatarUrl">
+      <img :src="Login.MusicUname.avatarUrl" class="component-radius-50">
+      <transition name="headerMenu">
+        <div v-if="Start.LoginAvatar" class="header-menu">
+          <ul>
+            <li v-for="item in Start.LoginShow ? [$t('msg.Login'), $t('msg.NonVIP'), $t('msg.CheckTheVersion'), $t('msg.SetUp'),$t('msg.Concerning'), $t('msg.Agreement')] : [$t('msg.VIP'), $t('msg.CheckTheVersion'), $t('msg.SetUp'), $t('msg.Concerning'), $t('msg.Agreement'), $t('msg.SignOut')]"
+                :key="item" class="component-radius-2 component-pointer component-sizing"
+                @click.stop="AvatarFunction(item)">{{ item }}
+            </li>
+          </ul>
+        </div>
+      </transition>
     </div>
-    <transition name="headerMenu">
-      <div v-if="Start.LoginAvatar" class="header-menu">
-        <ul>
-          <li v-for="item in Start.LoginShow ? [$t('msg.Login'), $t('msg.NonVIP'), $t('msg.CheckTheVersion'), $t('msg.SetUp'),$t('msg.Concerning'), $t('msg.Agreement')] : [$t('msg.VIP'), $t('msg.CheckTheVersion'), $t('msg.SetUp'), $t('msg.Concerning'), $t('msg.Agreement'), $t('msg.SignOut')]"
-              :key="item" class="component-radius-2 component-pointer component-sizing"
-              @click.stop="AvatarFunction(item)">{{ item }}
-          </li>
-        </ul>
-      </div>
-    </transition>
+
   </div>
 </template>
 
@@ -54,12 +55,12 @@ const {Login, Start} = useStore()
   position: sticky;
   top: 0;
   z-index: 20;
-  width: var(--page-width);
-  display: flex;
+  height: 55px;
   padding: 5px 50px;
   box-sizing: border-box;
   color: rgba(23, 34, 56, .3);
   backdrop-filter: blur(5px);
+  grid-template-columns: repeat(1, 1fr 4fr 3fr 1.5fr);
 }
 
 .Header-Top-Router, .Header-Top-Search, .Header-Top-Image, .Header-Top-DutyCycle {
@@ -68,29 +69,11 @@ const {Login, Start} = useStore()
 }
 
 .Header-Top-Router {
-  width: 10%;
-}
-
-.Header-Top-DutyCycle {
-  width: 70%;
-}
-
-.Header-Top-Search {
-  width: 20%;
-}
-
-.Header-Top-Image {
-  width: 2.6%;
-  height: 2.3rem;
-  padding-left: 80px;
-}
-
-.Header-Top-Router {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 
   .icon {
-    border-radius: var(--border-round);
+    position: relative;
     width: 34px;
     height: 34px;
     text-align: center;
@@ -99,6 +82,8 @@ const {Login, Start} = useStore()
     transition: background-color .7s;
     color: initial;
     opacity: .8;
+    top: 50%;
+    transform: translateY(-50%);
 
     svg {
       transform: translateX(-0.1rem) translateY(0.5rem);
@@ -116,11 +101,9 @@ const {Login, Start} = useStore()
 
 .Header-Top-Search {
   .input {
-    width: 100%;
-    height: 1rem;
-    padding: .5rem;
+    padding: 8px;
     border-radius: 5px;
-    transform: translateY(.2rem);
+    transform: translateY(3px);
     transition: background-color .4s;
 
     span {
@@ -136,24 +119,21 @@ const {Login, Start} = useStore()
     }
 
   }
-
 }
 
 .Header-Top-Image {
-  width: 2.4rem;
-  height: 2.4rem;
-
-  img {
-    border-radius: 50%;
-
-  }
+  position: relative;
+  width: 45px;
+  height: 45px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 
 .header-menu {
   position: absolute;
-  right: 1rem;
-  top: 4rem;
+  left: -75px;
+  top: 70px;
   background-color: var(--header-menu-background);
   color: #000;
   border: 1px solid var(--header-menu-background-shadow);
@@ -161,8 +141,8 @@ const {Login, Start} = useStore()
   &::before {
     content: '';
     display: block;
-    width: .5rem;
-    height: .5rem;
+    width: 8px;
+    height: 8px;
     border-top: 1px solid var(--header-menu-background-shadow);
     border-right: 1px solid var(--header-menu-background-shadow);
     transform: translateX(90px) translateY(-5px) rotate(-45deg);
@@ -170,11 +150,11 @@ const {Login, Start} = useStore()
   }
 
   li {
-    width: 11rem;
-    height: 2.5rem;
+    width: 170px;
+    height: 40px;
     margin: 5px 4px;
     box-sizing: border-box;
-    line-height: 2.5rem;
+    line-height: 40px;
     padding-left: 3px;
 
     &:hover {

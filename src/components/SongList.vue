@@ -1,5 +1,5 @@
 <template>
-  <div :style="SongListBackground" class="SongList component-absolute component-index-4">
+  <div :style="SongListBackground" class="SongList component-absolute component-index-4" @click.stop>
     <n-scrollbar :on-scroll="scorll">
       <div class="SongList-header component-sizing component-index-2">
         <div class="component-flex" @click="SongListToggle">
@@ -20,7 +20,7 @@
           <li v-for="(item,index) in Audio.MusicSongNow"
               :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'SongList' : ''"
               class="component-pointer component-radius-4"
-              @contextmenu="Capabilities($event , item , 'SongList')" @dblclick="SongListAudio(item)">
+              @contextmenu="Capabilities($event , item , 'SongList')" @dblclick.stop="SongListAudio(item)">
             <div class="component-flex component-center component-flex-items">
               <div>
                 <img v-lazy="item['al']['picUrl'] + '?param=50y50'">

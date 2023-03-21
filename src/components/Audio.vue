@@ -96,7 +96,7 @@ component-width-100 component-height-100 component-position-re">
           </div>
         </div>
         <div class="AudioListOfSongs component-width-25 component-height-100">
-          <div class="alignLeft component-center" @click="SongListShowToggle">
+          <div class="alignLeft component-center" @click.stop="SongListShowToggle">
             <n-icon size="30">
               <ReorderFour/>
             </n-icon>

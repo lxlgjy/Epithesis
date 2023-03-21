@@ -1,20 +1,8 @@
 <template>
   <div>
-    <scroll>
+    <scroll v-show="$route.meta.MVShow">
       <div>
-        <div v-if="Start.MusicData === false" class="Swiper RightHomeCss">
-          <n-space vertical>
-            <n-skeleton class="PlaylistTitle" height="26px" width="100%"/>
-            <div class="flex-Music-flex">
-              <n-skeleton v-for="item in 2" :sharp="false" class="flex-Music-margin" height="240px" width="48%"/>
-            </div>
-            <n-skeleton class="PlaylistTitleTwo" height="26px" width="100%"/>
-            <div class="flex-Music-flex">
-              <n-skeleton v-for="item in 8" class="flex-Music-margin" height="270px" width="23%"/>
-            </div>
-          </n-space>
-        </div>
-        <div v-if="Start.MusicData" class="MV RightHomeCss">
+        <div class="MV RightHomeCss">
           <div class="LatestMV">
             <div>
               <h3>{{ $t('msg.LatestMV') }}</h3>
@@ -58,7 +46,7 @@
         </div>
       </div>
     </scroll>
-    <router-view></router-view>
+    <secondary-routing-page/>
   </div>
 </template>
 
@@ -68,6 +56,7 @@ import useStore from "../../stores/counter";
 import {FilmMovie} from '../../uilt/VueIncident'
 import {useRoute} from "vue-router";
 import Scroll from '../../components/MusicScroll.vue'
+import SecondaryRoutingPage from "../../components/SecondaryRoutingPage.vue";
 
 const {Mv, Start} = useStore()
 const route = useRoute()
