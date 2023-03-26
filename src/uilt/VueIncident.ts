@@ -27,6 +27,7 @@ import {
     timeupdate
 } from "./VueEvent";
 import {
+    avatarToggle,
     backgroundAndloadingToggle,
     MusicAudioModeToggle,
     MusicAudioShow,
@@ -193,6 +194,8 @@ export const AvatarFunction = (type: string) => {
         case '退出登录' :
             break
     }
+
+    avatarToggle()
 }
 
 //歌手请求
@@ -328,6 +331,7 @@ export const PlayerAudio = (type?: string) => {
 export const playerAudioShow = () => {
     useStore().Start.TogglePageShow(!useStore().Start.PageShow)
     MusicPlayerShow.value = !MusicPlayerShow.value
+    BackgroundImage()
 }
 
 export const PlayToggle = (Toggle: boolean) => {
@@ -600,7 +604,7 @@ export const Setting = (value: string, title: string) => {
         case '歌词大小' :
         case 'LyricSize':
             useStore().Start.setLyricSize(value)
-            useStore().Setting.setLyricSize(value)
+            value === '16px' ? useStore().Setting.setLyricSize('font-size-small') : (value === '32px' ? useStore().Setting.setLyricSize('font-size-big') : useStore().Setting.setLyricSize('font-size-middle'))
             break
     }
 }

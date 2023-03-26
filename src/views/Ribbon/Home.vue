@@ -120,7 +120,7 @@
                 </div>
                 <div>
                   <span style="font-size: 18px;font-weight: 700">{{ item.name }}</span>
-                  <span style="font-size: 15px;color: var(--span-color)">{{ item.company }}</span>
+                  <span style="font-size: 15px;color: rgba(23, 34, 45, .3)">{{ item.company }}</span>
                 </div>
               </li>
             </router-link>

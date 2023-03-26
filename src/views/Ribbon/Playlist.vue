@@ -10,19 +10,20 @@
                     type="line"
                     @click.stop="Playlist_Cat($event)">
               <n-tab-pane v-for="(item,index) in Playlist.MusicPlayListTitle" key="item.id" :name="index"
-                          :tab="item.name" @click.stop="MusicPlayListDetail(item.id)">
-                <div class="PlayListTest">
-                  <router-link class="Music-grid" to="/Playlist/PlayListDetail">
-                    <li v-for="item in Playlist.MusicPlayList"
-                        class="PlayListLI Music-hidden Music-radius-3">
+                          :tab="item.name">
+                <div class="PlayListTest Music-grid">
+                  <li v-for="item in Playlist.MusicPlayList"
+                      class=" Music-hidden Music-radius-3">
+                    <router-link class="PlayListLI" to="/Playlist/PlayListDetail"
+                                 @click.stop="MusicPlayListDetail(item.id)">
                       <div>
                         <img v-lazy="item['coverImgUrl'] + '?param=400y400'">
                       </div>
                       <div>
                         <p class="Music-font-MultiLine-hidden">{{ item.name }}</p>
                       </div>
-                    </li>
-                  </router-link>
+                    </router-link>
+                  </li>
                 </div>
                 <div v-show="!Start.PlayListLoading" class="PlayList-page Music-relative Music-center"
                      @click.stop="PlayListToggle(item.name)">

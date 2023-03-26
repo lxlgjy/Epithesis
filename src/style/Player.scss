@@ -112,18 +112,19 @@
 }
 
 .Player-lyric {
+  margin-right: 100px;
 
   .Player-lyric-list {
     transition: all .3s ease;
+    transform: translateY(400px);
 
     .PlayerLyric {
-      font-size: 25px;
       color: #fff;
       opacity: .3;
       height: auto;
       line-height: 40px;
-      padding: 8px;
-      margin-top: 10px;
+      padding: 20px 25px;
+      margin-right: 25px;
 
       &:hover {
         background-color: rgba(255, 255, 255, .3);

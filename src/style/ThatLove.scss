@@ -54,17 +54,26 @@
       gap: 7px;
 
       .MyLoveLi {
+        height: 40px;
+        transform: translateY(12px);
+
         .MyLoveLiBox {
           flex-direction: row;
 
           .MyLove-img {
-            flex: 1;
-            height: 50px;
+            padding-left: 10px;
+            flex: .8;
+            height: 40px;
+            transform: translateY(1px);
           }
 
           .MyLove-title {
             flex: 5;
             margin-left: 5px;
+          }
+
+          &:hover {
+            background: var(--header-menu-background-active);
           }
         }
       }

@@ -99,8 +99,8 @@
             <ul id="PlayLyricScroll"
                 class="Player-lyric-list component-height-100">
               <li v-for="(item,index) in Audio.MusicLyric" :id="MusicI === index ? 'playing' : ''"
-                  :style="{fontSize:Setting.LyricSize}"
                   class=" PlayerLyric component-pointer component-radius-8 component-sizing component-sizing component-height-100"
+                  :class="Setting.LyricSize"
                   @click="lyricSelect(item.time)">
                 {{ item.text }}
               </li>
@@ -150,7 +150,7 @@ import {
 } from '@vicons/ionicons5'
 import {MusicI, MusicPlayer, MusicPlayerTime, MusicPlayerToggle, MusicSongTime,} from '../uilt/PublicStatus'
 import useStore from "../stores/counter";
-import {AudioValue, BackgroundImage, currentTime,} from "../uilt/PageWidgets";
+import {AudioValue, currentTime,} from "../uilt/PageWidgets";
 import {
   AudioProgress,
   AudioToggle,
@@ -170,9 +170,6 @@ const {PlayerImg, PlayerSongName, PlayerSingerName, PlayerFinalSongTime} = usePl
 const value = ref(100)
 
 onMounted(() => {
-
-  BackgroundImage()
-
   AudioLyric()
 })
 
@@ -181,7 +178,7 @@ onMounted(() => {
 <style scoped>
 #playing {
   transition-duration: 500ms;
-  font-size: 32px;
+  /*font-size: 42px;*/
   color: #fff;
   opacity: 1;
 }

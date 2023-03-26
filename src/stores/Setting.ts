@@ -10,7 +10,7 @@ interface SettingState {
 const useSettingStore = defineStore('Setting', {
     state: (): SettingState => {
         return {
-            LyricSize: '16px',
+            LyricSize: 'font-size-middle',
             PageThemes: 'Light',
             Language: 'zh'
         }
