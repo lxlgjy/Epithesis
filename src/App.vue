@@ -1,57 +1,57 @@
 <template oncontextmenu="stop()">
-  <audio id="Audio" :hidden="true" :src="Audio.MusicSong['data'] ? Audio.MusicSong['data'][0]['url']  : null"></audio>
+    <audio id="Audio" :hidden="true" :src="Audio.MusicSong['data'] ? Audio.MusicSong['data'][0]['url']  : null"></audio>
 
   <!--  页面整体  -->
-  <div id="Box" :class="Setting.PageThemes">
-    <RightRibbon id="RightRibbon"></RightRibbon>
-    <left-display-area id="LeftDisplayArea"></left-display-area>
-  </div>
+    <div id="Box" :class="Setting.PageThemes">
+        <RightRibbon id="RightRibbon"></RightRibbon>
+        <left-display-area id="LeftDisplayArea"></left-display-area>
+    </div>
 
   <!-- 底部播放器 -->
-  <play-audio v-show="Start.PageShow"></play-audio>
+    <play-audio v-show="Start.PageShow"></play-audio>
 
   <!-- 完整播放器 -->
-  <transition name="PlayActive">
-    <Player v-show="Start.PageShow === false"></Player>
-  </transition>
+    <transition name="PlayActive">
+        <Player v-show="Start.PageShow === false"></Player>
+    </transition>
 
   <!-- 控制播放器隐藏（完整） -->
-  <PlayBack v-show="Start.PageShow === false"></PlayBack>
+    <PlayBack v-show="Start.PageShow === false"></PlayBack>
 
   <!-- 搜索界面 -->
-  <transition name="Search">
-    <Search v-if="MusicSearchInputShow"></Search>
-  </transition>
+    <transition name="Search">
+        <Search v-if="MusicSearchInputShow"></Search>
+    </transition>
 
   <!-- 整个界面遮罩 -->
-  <Background v-if="MusicLoginBackgroundShow"></Background>
+    <Background v-if="MusicLoginBackgroundShow"></Background>
 
   <!-- 登录 -->
-  <Logon v-if="MusicLoginShow"></Logon>
+    <Logon v-if="MusicLoginShow"></Logon>
 
   <!-- 右击小菜单 -->
-  <capabilities v-show="MusicPageCapabilities"></capabilities>
+    <capabilities v-show="MusicPageCapabilities"></capabilities>
 
   <!-- 播放模式 -->
-  <transition name="AudioMode">
-    <AudioMode v-if="MusicAudioModeShow"></AudioMode>
-  </transition>
+    <transition name="AudioMode">
+        <AudioMode v-if="MusicAudioModeShow"></AudioMode>
+    </transition>
 
   <!-- 右侧播放列表 -->
-  <transition name="SongList">
-    <SongList v-if="MusicSongListShow"></SongList>
-  </transition>
+    <transition name="SongList">
+        <SongList v-if="MusicSongListShow"></SongList>
+    </transition>
 
   <!-- 加载条 -->
-  <n-space v-if="MusicLoadingShow"
-           style="position:absolute;top:50%;left:50%;transform: translateX(-50%) translateY(-50%);">
-    <n-spin size="small" stroke="blue"/>
-  </n-space>
+    <n-space v-if="MusicLoadingShow"
+             style="position:absolute;top:50%;left:50%;transform: translateX(-50%) translateY(-50%);">
+        <n-spin size="small" stroke="blue"/>
+    </n-space>
 
   <!-- 页面大体提示信息 -->
-  <n-message-provider>
-    <Notice/>
-  </n-message-provider>
+    <n-message-provider>
+        <Notice/>
+    </n-message-provider>
 
 </template>
 
@@ -73,20 +73,20 @@ import SongList from "./components/SongList.vue";
 import Notice from "./components/Notice.vue";
 import Capabilities from "./components/Capabilities.vue";
 import {
-  MusicAudioModeShow,
-  MusicLoadingShow,
-  MusicLoginBackgroundShow,
-  MusicLoginShow,
-  MusicPageCapabilities,
-  MusicSearchInputShow,
-  MusicSongListShow,
+    MusicAudioModeShow,
+    MusicLoadingShow,
+    MusicLoginBackgroundShow,
+    MusicLoginShow,
+    MusicPageCapabilities,
+    MusicSearchInputShow,
+    MusicSongListShow,
 } from './uilt/PublicStatus'
 import {
-  HomeHotSinger,
-  HomeLatestAlbum,
-  HomeRankingAxios,
-  HomeRecommendAxios,
-  HomeSwiperAxios
+    HomeHotSinger,
+    HomeLatestAlbum,
+    HomeRankingAxios,
+    HomeRecommendAxios,
+    HomeSwiperAxios
 } from "./uilt/Api/HomeApi";
 import {MvAxios} from "./uilt/Api/MvApi";
 import {SingerAxios} from "./uilt/Api/SingerApi";
@@ -98,26 +98,25 @@ import {CancelsTheListDisplay} from "./uilt/VueIncident";
 
 const {Audio, Start, Setting} = useStore()
 
-
 onMounted(async () => {
 
-  await Start.ToggleMusicData(false)
-  await Promise.all([
-    HomeSwiperAxios('/personalized/privatecontent/list?limit=10&offset=0'),
-    HomeRecommendAxios('/top/playlist/highquality?limit=35'),
-    HomeRankingAxios('/toplist'),
-    HomeLatestAlbum('/album/newest'),
-    HomeHotSinger('/top/artists?limit=8'),
-    MvAxios(),
-    SingerAxios('/toplist/artist?type=1'),
-    PlayListTitleAxios('/playlist/hot'),
-    PlayListAxios('/top/playlist?limit=35&order=hot&offset=1&cat=华语'),
-  ])
-  await Start.ToggleMusicData(true)
+    await Start.ToggleMusicData(false)
+    await Promise.all([
+        HomeSwiperAxios('/personalized/privatecontent/list?limit=10&offset=0'),
+        HomeRecommendAxios('/top/playlist/highquality?limit=35'),
+        HomeRankingAxios('/toplist'),
+        HomeLatestAlbum('/album/newest'),
+        HomeHotSinger('/top/artists?limit=8'),
+        MvAxios(),
+        SingerAxios('/toplist/artist?type=1'),
+        PlayListTitleAxios('/playlist/hot'),
+        PlayListAxios('/top/playlist?limit=35&order=hot&offset=1&cat=华语'),
+    ])
+    await Start.ToggleMusicData(true)
 
-  await nextTick(() => {
-    i18n.global.locale.value = Setting.Language
-  })
+    await nextTick(() => {
+        i18n.global.locale.value = Setting.Language
+    })
 })
 
 nextTick(() => {
@@ -126,23 +125,23 @@ nextTick(() => {
 
 
 document.oncontextmenu = () => {
-  return false
+    return false
 }
 
 document.onselectstart = () => {
-  return false;
+    return false;
 }
 
 document.onclick = () => {
-  if (MusicPageCapabilities.value) {
-    MusicPageCapabilities.value = false
-  }
-  if (useStore().Start.LoginAvatar) {
-    useStore().Start.ToggleLoginAvatar(false)
-  }
-  if (MusicSongListShow.value) {
-    CancelsTheListDisplay()
-  }
+    if (MusicPageCapabilities.value) {
+        MusicPageCapabilities.value = false
+    }
+    if (useStore().Start.LoginAvatar) {
+        useStore().Start.ToggleLoginAvatar(false)
+    }
+    if (MusicSongListShow.value) {
+        CancelsTheListDisplay()
+    }
 }
 
 </script>

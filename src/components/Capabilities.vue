@@ -1,60 +1,61 @@
 <template>
-  <div id="capabilities" :style="background" class="capabilities component-radius-4 component-index-5"
-  >
-    <div class="capabilities-image-title">
-      <div class="component-flex">
-        <div class="capabilities-image">
-          <img :src="Detail.MusicCapabilities['al']['picUrl']" alt="">
+    <div id="capabilities" :style="background" class="capabilities component-radius-4 component-index-5"
+         v-if="Detail.MusicCapabilities.id"
+    >
+        <div class="capabilities-image-title">
+            <div class="component-flex">
+                <div class="capabilities-image">
+                    <img :src="Detail.MusicCapabilities['al']['picUrl']" alt="">
+                </div>
+                <div class="component-flex capabilities-title">
+                    <span>{{ Detail.MusicCapabilities.name }}</span>
+                    <span>{{ Detail.MusicCapabilities['ar'][0].name }}</span>
+                </div>
+            </div>
         </div>
-        <div class="component-flex capabilities-title">
-          <span>{{ Detail.MusicCapabilities.name }}</span>
-          <span>{{ Detail.MusicCapabilities['ar'][0].name }}</span>
+        <div>
+            <ul class="capabilities-ul component-left component-pointer component-flex-text component-hidden ">
+                <router-link to="/MusicThatILove/LoveDetail/SongAlbum">
+                    <li @click="MusicAlbumDetail">
+                        <n-icon size="20">
+                            <MusicalNotesSharp/>
+                        </n-icon>
+                        <p class="">{{ Detail.MusicCapabilities.al.name }}</p>
+                    </li>
+                </router-link>
+                <li v-show="!IsLove" @click.prevent="Like('true');mess('success')">
+                    <n-icon size="20px">
+                        <HeartSharp/>
+                    </n-icon>
+                    <p>{{ $t('msg.AddWhatILike') }}</p>
+                </li>
+                <li v-show="IsLove" @click.prevent="Like('false');mess('success')">
+                    <n-icon size="20px">
+                        <HeartSharp/>
+                    </n-icon>
+                    <p>{{ $t('msg.MoveOutOfTheListILike') }}</p>
+                </li>
+                <li v-if="!MusicListNoticeShow" @click="AudioListPush('AddASelectedSingle');mess('success')">
+                    <n-icon size="20px">
+                        <ReorderFour/>
+                    </n-icon>
+                    <p>{{ $t('msg.AddToPlaylist') }}</p>
+                </li>
+                <li v-else @click="AudioListPush('MoveOutOfThePlaylist');mess('success')">
+                    <n-icon size="20px">
+                        <ReorderFour/>
+                    </n-icon>
+                    <p>{{ $t('msg.RemoveAPlaylist') }}</p>
+                </li>
+                <li @click.prevent="MusicDownload(Detail.MusicCapabilities['id'] , Detail.MusicCapabilities['name'] , Detail.MusicCapabilities['ar'][0]['name']);mess('success')">
+                    <n-icon size="20px">
+                        <Archive/>
+                    </n-icon>
+                    <p>{{ $t('msg.Download') }}</p>
+                </li>
+            </ul>
         </div>
-      </div>
     </div>
-    <div>
-      <ul class="capabilities-ul component-left component-pointer component-flex-text component-hidden ">
-        <router-link to="/MusicThatILove/LoveDetail/SongAlbum">
-          <li @click="MusicAlbumDetail">
-            <n-icon size="20">
-              <MusicalNotesSharp/>
-            </n-icon>
-            <p class="">{{ Detail.MusicCapabilities.al.name }}</p>
-          </li>
-        </router-link>
-        <li v-show="!IsLove" @click.prevent="Like('true');mess('success')">
-          <n-icon size="20px">
-            <HeartSharp/>
-          </n-icon>
-          <p>{{ $t('msg.AddWhatILike') }}</p>
-        </li>
-        <li v-show="IsLove" @click.prevent="Like('false');mess('success')">
-          <n-icon size="20px">
-            <HeartSharp/>
-          </n-icon>
-          <p>{{ $t('msg.MoveOutOfTheListILike') }}</p>
-        </li>
-        <li v-if="!MusicListNoticeShow" @click="AudioListPush('AddASelectedSingle');mess('success')">
-          <n-icon size="20px">
-            <ReorderFour/>
-          </n-icon>
-          <p>{{ $t('msg.AddToPlaylist') }}</p>
-        </li>
-        <li v-else @click="AudioListPush('MoveOutOfThePlaylist');mess('success')">
-          <n-icon size="20px">
-            <ReorderFour/>
-          </n-icon>
-          <p>{{ $t('msg.RemoveAPlaylist') }}</p>
-        </li>
-        <li @click.prevent="MusicDownload(Detail.MusicCapabilities['id'] , Detail.MusicCapabilities['name'] , Detail.MusicCapabilities['ar'][0]['name']);mess('success')">
-          <n-icon size="20px">
-            <Archive/>
-          </n-icon>
-          <p>{{ $t('msg.Download') }}</p>
-        </li>
-      </ul>
-    </div>
-  </div>
 </template>
 
 <script lang="ts" setup>

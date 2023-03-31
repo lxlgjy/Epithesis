@@ -1,82 +1,82 @@
 <template>
-  <scroll @scroll="scorll">
-    <div class="RightHomeCss">
-      <!--列表头部信息展示-->
-      <div>
-        <div v-show="route.name !== 'Search' " class="detail">
-          <BackgroundFilter></BackgroundFilter>
-          <div class="detail-image">
-            <img :src="DetailImg" alt="">
-          </div>
-          <div class="detail-title">
-            <div class="margin-lineHeight">
-              <h3>
-                {{ DetailTitle }}
-              </h3>
+    <scroll @scroll="scorll">
+        <div class="RightHomeCss">
+            <!--列表头部信息展示-->
+            <div>
+                <div v-show="route.name !== 'Search' " class="detail">
+                    <BackgroundFilter></BackgroundFilter>
+                    <div class="detail-image">
+                        <img :src="DetailImg" alt="">
+                    </div>
+                    <div class="detail-title">
+                        <div class="margin-lineHeight">
+                            <h3>
+                                {{ DetailTitle }}
+                            </h3>
+                        </div>
+                        <div class="detail-title-ul margin-lineHeight" style="height: 2rem">
+                            <ul>
+                                <li v-for="item in DetailLabel">
+                                    {{ item }}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="margin-lineHeight component-flex-text-web">
+                            {{ DetailBriefIntroduction }}
+                        </div>
+                        <div class="AudioDetail-play component-flex component-absolute component-pointer">
+                            <div
+                                    class="AudioDetail-list flex-Music-sizing flex-Music-pointer delect-border-list component-flex-color-fff"
+                                    @click="AudioListPush">
+                                <n-icon class="AudioDetail-icon" size="15">
+                                    <Play/>
+                                </n-icon>
+                                <span
+                                        class="component-flex-color-fff">{{ DetailMusicLength }}</span>
+                            </div>
+                            <div class="AudioDetail-add delect-border-add component-flex-color-fff flex-Music-pointer"
+                                 @click="AudioListPush('AddsAllSongsFromTheCurrentList')">
+                                <n-icon class="AudioDetail-icon" size="15">
+                                    <AddSharp/>
+                                </n-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="detail-title-ul margin-lineHeight" style="height: 2rem">
-              <ul>
-                <li v-for="item in DetailLabel">
-                  {{ item }}
-                </li>
-              </ul>
+            <!--列表展示 -->
+            <div>
+                <div class="song-list">
+                    <ul class="TitleUl component-flex component-sizing">
+                        <li></li>
+                        <li>{{ $t('msg.SongTitle') }}</li>
+                        <li>{{ $t('msg.SongAlbum') }}</li>
+                        <li class="Time">{{ $t('msg.SongDuration') }}</li>
+                    </ul>
+                </div>
+                <div class="PageDetail" style="margin-bottom: 100px">
+                    <ul class="DetailUl component-grid">
+                        <li v-for="(item,index) in DetailSongList" key="item.id"
+                            class="DetailLi component-flex component-sizing component-pointer component-radius-4"
+                            @contextmenu="Capabilities($event , item)"
+                            @dblclick="Player(item['id'] , item)">
+                            <p v-if="route.meta['page'] !== 'HomeAlbum' && route.meta['page'] !== 'SongAlbum' "
+                               class="imageAndIndex">
+                                <img v-lazy="item['al'].picUrl + '?param=50y50' ">
+                            </p>
+                            <p v-else class="imageAndIndex index">{{ index + 1 }}</p>
+                            <div>
+                                <p>{{ item['name'] }}</p>
+                                <p>{{ item['ar'][0]['name'] }}</p>
+                            </div>
+                            <p class="AlbumAndTime">{{ item['al']['name'] }}</p>
+                            <p class="AlbumAndTime Time">{{ Time(item['dt']) }}</p>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="margin-lineHeight component-flex-text-web">
-              {{ DetailBriefIntroduction }}
-            </div>
-            <div class="AudioDetail-play component-flex component-absolute component-pointer">
-              <div
-                  class="AudioDetail-list flex-Music-sizing flex-Music-pointer delect-border-list component-flex-color-fff"
-                  @click="AudioListPush">
-                <n-icon class="AudioDetail-icon" size="15">
-                  <Play/>
-                </n-icon>
-                <span
-                    class="componentPage-flex-color-fff">{{ DetailMusicLength }}</span>
-              </div>
-              <div class="AudioDetail-add delect-border-add component-flex-color-fff flex-Music-pointer"
-                   @click="AudioListPush('AddsAllSongsFromTheCurrentList')">
-                <n-icon class="AudioDetail-icon" size="15">
-                  <AddSharp/>
-                </n-icon>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-      <!--列表展示 -->
-      <div>
-        <div class="song-list">
-          <ul class="TitleUl component-flex component-sizing">
-            <li></li>
-            <li>{{ $t('msg.SongTitle') }}</li>
-            <li>{{ $t('msg.SongAlbum') }}</li>
-            <li class="Time">{{ $t('msg.SongDuration') }}</li>
-          </ul>
-        </div>
-        <div class="PageDetail" style="margin-bottom: 100px">
-          <ul class="DetailUl component-grid">
-            <li v-for="(item,index) in DetailSongList" key="item.id"
-                class="DetailLi component-flex component-sizing component-pointer component-radius-4"
-                @contextmenu="Capabilities($event , item)"
-                @dblclick="Player(item['id'] , item)">
-              <p v-if="route.meta['page'] !== 'HomeAlbum' && route.meta['page'] !== 'SongAlbum' "
-                 class="imageAndIndex">
-                <img v-lazy="item['al'].picUrl + '?param=50y50' ">
-              </p>
-              <p v-else class="imageAndIndex index">{{ index + 1 }}</p>
-              <div>
-                <p>{{ item['name'] }}</p>
-                <p>{{ item['ar'][0]['name'] }}</p>
-              </div>
-              <p class="AlbumAndTime">{{ item['al']['name'] }}</p>
-              <p class="AlbumAndTime Time">{{ Time(item['dt']) }}</p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </scroll>
+    </scroll>
 </template>
 
 <script lang="ts" setup>
@@ -93,12 +93,12 @@ const route = useRoute()
 const {Detail, Start, Audio} = useStore()
 const router = useRouter()
 const {
-  DetailImg,
-  DetailTitle,
-  DetailLabel,
-  DetailBriefIntroduction,
-  DetailMusicLength,
-  DetailSongList
+    DetailImg,
+    DetailTitle,
+    DetailLabel,
+    DetailBriefIntroduction,
+    DetailMusicLength,
+    DetailSongList
 } = useDetailComputed()
 
 

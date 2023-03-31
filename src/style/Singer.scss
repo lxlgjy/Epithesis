@@ -1,5 +1,24 @@
-.singer-address {
+.singer-address, .singer-hot {
 
+}
+
+.singer-address {
+  .singer-address-list {
+    height: 40px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 50px;
+    text-align: center;
+    line-height: 40px;
+
+    .SingerRegion {
+      height: 100%;
+      padding: 0 60px;
+
+      &:hover {
+        background: var(--header-menu-background-active);
+      }
+    }
+  }
 }
 
 .singer-hot {
