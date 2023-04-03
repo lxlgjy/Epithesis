@@ -23,7 +23,10 @@
       </div>
     </div>
     <div class="Header-Top-Image component-pointer" @click.stop="avatarToggle">
-      <img :src="Login.MusicUname.avatarUrl" class="component-radius-50">
+      <img :src="Login.MusicUname.avatarUrl" class="component-radius-50" v-if="!Start.LoginShow" />
+        <n-icon size="43" color="#eee" v-else>
+            <person/>
+        </n-icon>
       <transition name="headerMenu">
         <div v-if="Start.LoginAvatar" class="header-menu">
           <ul>
@@ -41,6 +44,7 @@
 
 <script lang="ts" setup>
 import '../style/AnimationEffects.sass'
+import {Person} from '@vicons/ionicons5'
 import {AvatarFunction, headerTopInput, headerTopLeft, headerTopRight} from "../uilt/VueIncident";
 import {avatarToggle} from "../uilt/StateTransitions";
 import useStore from "../stores/counter";

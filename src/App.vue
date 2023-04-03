@@ -12,11 +12,11 @@
 
   <!-- 完整播放器 -->
     <transition name="PlayActive">
-        <Player v-show="Start.PageShow === false"></Player>
+        <Player v-show="!Start.PageShow"></Player>
     </transition>
 
   <!-- 控制播放器隐藏（完整） -->
-    <PlayBack v-show="Start.PageShow === false"></PlayBack>
+    <PlayBack v-show="!Start.PageShow"></PlayBack>
 
   <!-- 搜索界面 -->
     <transition name="Search">

@@ -11,3 +11,7 @@ export const AudioLyricAxios = async(Api:string) => {
     const MusicLyric =await lyric(fetch)
     useStore().Audio.getMusicLyric(MusicLyric)
 }
+
+const NotCookieAxios = async () => {
+
+}
