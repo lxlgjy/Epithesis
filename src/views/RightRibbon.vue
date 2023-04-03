@@ -51,15 +51,6 @@ import i18n from "../i18n";
 
 const {Start} = useStore()
 
-const PageRibbonData = [{
-  router: '/MusicThatILove',
-  notice: i18n.global.t('msg.LeftBoxMusicLibrary'),
-  icon: HeartSharp
-}, {
-  router: '/MyDownloads',
-  notice: i18n.global.t('msg.LeftBoxDownload'),
-  icon: Archive
-}]
 </script>
 
 <style scoped>

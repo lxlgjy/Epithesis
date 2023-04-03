@@ -1,15 +1,14 @@
 <template>
-  <div id="login">
-    <img src="" alt="" id="qrImg">
-  </div>
+    <div id="login">
+        <img src="" alt="" id="qrImg">
+    </div>
 </template>
 <script setup lang="ts">
-
 import {LoginAxios} from '../uilt/Api/LoginApi'
 import {onMounted} from "vue";
 
 onMounted(() => {
-  LoginAxios()
+    LoginAxios()
 })
 
 </script>
@@ -24,6 +23,7 @@ onMounted(() => {
   height: 300px;
   background-color: #fff;
   z-index: 1000;
+
   img {
     position: relative;
     left: 50%;

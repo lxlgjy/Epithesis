@@ -109,11 +109,12 @@ export const Love = (id: string) => {
     let ids = useStore().Detail.MusicLoveListId as Array<any>
     return ids.indexOf(id) !== -1
 }
-
+//登陆（cookie请求）
 export const MusicSongAndLyric = async (id: string) => {
     await AudioSongAxios(`/song/url?id=${id}`)
     await AudioLyricAxios(`/lyric?id=${id}`)
 }
+
 
 // 页面提示
 export const mess = (type: string) => {

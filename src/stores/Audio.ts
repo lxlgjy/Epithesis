@@ -1,39 +1,31 @@
 import {defineStore} from "pinia";
-
-export interface MusicSongNow {
-    id:string
-}
-
-interface useAudioStore {
-    MusicSong:[]
-    MusicLyric:[]
-    MusicSongNow:MusicSongNow[]
-}
+import {usePiniaStore} from '../uilt/PiniaInterface/ContentPinia'
+import {MusicSongNow} from "../uilt/PiniaInterface/Audiointerace";
 
 const useAudioStore = defineStore('Audio', {
     state: () => {
         return {
-            MusicSong: [] as useAudioStore['MusicSong'],
-            MusicLyric: [] as useAudioStore['MusicLyric'],
-            MusicSongNow: [] as useAudioStore['MusicSongNow']
+            MusicSong: [] as usePiniaStore['Audio']['MusicSong'],
+            MusicLyric: [] as usePiniaStore['Audio']['MusicLyric'],
+            MusicSongNow: [] as usePiniaStore['Audio']['MusicSongNow']
         }
     },
     actions: {
-        getMusicSong(data: useAudioStore['MusicSong']) {
+        getMusicSong(data: usePiniaStore['Audio']['MusicSong']) {
             this.MusicSong = data
         },
-        getMusicLyric(data: useAudioStore['MusicLyric']) {
+        getMusicLyric(data: usePiniaStore['Audio']['MusicLyric']) {
             this.MusicLyric = data
         },
-        getMusicSongNow(data: MusicSongNow) {
+        getMusicSongNow(data: MusicSongNow ) {
             this.MusicSongNow.push(data)
         },
-        replaceMusicSongNow(data: MusicSongNow) {
-            let SongList: useAudioStore['MusicSongNow'] = []
+        replaceMusicSongNow(data: MusicSongNow ) {
+            let SongList: usePiniaStore['Audio']['MusicSongNow']  = []
             SongList.push(data)
             this.MusicSongNow = SongList
         },
-        replaceMusicSongNowListPush(data: useAudioStore['MusicSongNow']) {
+        replaceMusicSongNowListPush(data: usePiniaStore['Audio']['MusicSongNow'] ) {
             this.MusicSongNow = data
         },
     },

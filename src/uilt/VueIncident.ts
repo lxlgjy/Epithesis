@@ -37,7 +37,7 @@ import {
 import Element from "./Element";
 import {AudioProgressToggle, BackgroundImage} from './PageWidgets'
 import {DownloadSong} from "./Api/Download";
-import {MusicSongNow} from "../stores/Audio";
+import {MusicSongNow} from "./PiniaInterface/Audiointerace";
 import {useSearchAxios, useSearchSongListAxios} from "./Api/Search";
 import {SearchHistory} from "./PiniaInterface/SearchInterface";
 import {usePiniaStore} from "./PiniaInterface/ContentPinia";
@@ -299,7 +299,6 @@ export const Player = async (id: string, item: object) => {
 
 
     useStore().Audio.replaceMusicSongNow(<MusicSongNow>item)
-    // await Axios(`/check/music?id=${id}`, 'VerifyThatTheMusicIsAvailable') 是否可以播放
 
     DetailSelect()
 

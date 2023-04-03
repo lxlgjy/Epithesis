@@ -27,7 +27,7 @@
               <h3>{{ $t("msg.HomeRecommend") }}</h3>
             </div>
             <ul class="MusicUl-20">
-              <router-link v-if="Login.MusicUname" class="MusicLi-48 MusicBackground tuiJan"
+              <router-link v-if="!Start.LoginShow" class="MusicLi-48 MusicBackground tuiJan"
                            style="border-radius: 5px;height: 10rem;" to="/Home/HomeRecommendedSongs"
                            @click="MusicHomeDetail('11071110','HomeRecommendedSongs')">
                 <span
@@ -145,7 +145,8 @@ import SecondaryRoutingPage from "../../components/SecondaryRoutingPage.vue";
 
 const {Home, Start, Login} = useStore()
 const router = useRouter()
-
+// https://img.paulzzh.tech/touhou/random
+// two
 let toDepth = 0
 let fromDepth = 0
 

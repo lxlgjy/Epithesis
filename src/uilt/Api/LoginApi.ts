@@ -31,6 +31,11 @@ export const LoginAxios = async () => {
             let MusicUname = await getLoginStatus(statusRes.cookie)
             useStore().Login.getMusicUname(MusicUname.data.profile)
         }
+        if(MusicLoginShow.value) {
+            return false
+        } else {
+            clearInterval(timer)
+        }
     }, 3000)
 }
 
