@@ -9,7 +9,7 @@ export default defineConfig({
   server:{
     open:true,
     port:8080,
-    hmr:true
+    hmr:true,
   },
   plugins: [vue()],
   resolve: {

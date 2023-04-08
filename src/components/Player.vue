@@ -72,12 +72,12 @@
                                             <PlaySkipBack/>
                                         </n-icon>
                                     </button>
-                                    <button v-show="MusicPlayer === false" @click.stop="PlayerAudio()">
+                                    <button v-show="!MusicPlayer" @click.stop="PlayerAudio()">
                                         <n-icon color="#fff" size="45">
                                             <Play/>
                                         </n-icon>
                                     </button>
-                                    <button v-show="MusicPlayer === true " @click.stop="PlayerAudio()">
+                                    <button v-show="MusicPlayer " @click.stop="PlayerAudio()">
                                         <n-icon color="#fff" size="45">
                                             <PauseSharp/>
                                         </n-icon>
@@ -97,23 +97,29 @@
                         </div>
                     </div>
                 </div>
-                <div v-show="MusicPlayerToggle === true" class="Player-lyric">
+                <div v-show="MusicPlayerToggle" class="Player-lyric">
                     <transition mode="out-in" name="player">
-                        <ul id="PlayLyricScroll"
-                            class="Player-lyric-list component-height-100">
-                            <li v-for="(item,index) in Audio.MusicLyric" :id="MusicI === index ? 'playing' : ''"
-                                :class="Setting.LyricSize"
-                                class=" PlayerLyric component-pointer component-radius-8 component-sizing component-sizing component-height-100"
-                                @click="lyricSelect(item.time)">
-                                {{ item.text }}
-                            </li>
-                        </ul>
+                        <div>
+                            <div class="player-header-obscure"></div>
+                            <ul id="PlayLyricScroll"
+                                class="Player-lyric-list component-height-100">
+                                <li v-for="(item,index) in Audio.MusicLyric"
+                                    :class="Setting.LyricSize"
+                                    :id="MusicI === index ? 'playingLi' : ''"
+                                    class=" PlayerLyric component-pointer component-radius-8 component-sizing component-sizing component-height-100"
+                                    @click="lyricSelect(item.time)">
+                                    <p :id="MusicI === index ? 'playing' :''" class="component-sizing component-hidden">{{ item.text }}</p>
+                                </li>
+                            </ul>
+                            <div class="player-footer-obscure"></div>
+                        </div>
+
                     </transition>
                 </div>
-                <div v-show="MusicPlayerToggle === false" class="Player-SongList">
+                <div v-show="!MusicPlayerToggle" class="Player-SongList">
                     <n-scrollbar>
                         <transition mode="out-in" name="player">
-                            <ul v-show="MusicPlayerToggle === false" style="transform: translateY(70px)">
+                            <ul v-show="!MusicPlayerToggle" style="transform: translateY(70px)">
                                 <li v-for="(item,index) in Audio.MusicSongNow"
                                     :id=" item.id === Audio.MusicSong['data'][0]['id'] ? 'player-lyric-song': '' "
                                     class="Music-sizing Music-pointer" @dblclick="SongListAudio(item)">
@@ -188,10 +194,13 @@ onMounted(() => {
 $lyric-animation-select-down: cubic-bezier(0.65, 0, 0.35, 1);
 
 #playing {
-  transition-duration: 500ms;
-  /*font-size: 42px;*/
+  transition-duration: 250ms;
   color: #fff;
   opacity: 1;
+  transform: scale(1.3);
+}
+#playingLi {
+    opacity: 1;
 }
 
 #lyric-select {
@@ -199,14 +208,6 @@ $lyric-animation-select-down: cubic-bezier(0.65, 0, 0.35, 1);
   transition: all 600ms $lyric-animation-select-down;
 }
 
-@keyframes lyric-animation {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-50px);
-  }
-}
 
 #player-lyric-song {
   color: #fff;
@@ -214,7 +215,15 @@ $lyric-animation-select-down: cubic-bezier(0.65, 0, 0.35, 1);
   background-color: rgba(255, 255, 255, .4);
 }
 
-span {
+//.player-header-obscure , .player-footer-obscure {
+//    width: 100%;
+//    height: 12.5vh;
+//    filter: blur(5px);
+//    background-color: #fff;
+//    opacity: .1;
+//}
+
+span, p {
   color: #fff;
 }
 </style>

@@ -30,7 +30,7 @@
       <transition name="headerMenu">
         <div v-if="Start.LoginAvatar" class="header-menu">
           <ul>
-            <li v-for="item in Start.LoginShow ? [$t('msg.Login'), $t('msg.NonVIP'), $t('msg.CheckTheVersion'), $t('msg.SetUp'),$t('msg.Concerning'), $t('msg.Agreement')] : [$t('msg.VIP'), $t('msg.CheckTheVersion'), $t('msg.SetUp'), $t('msg.Concerning'), $t('msg.Agreement'), $t('msg.SignOut')]"
+            <li v-for="item in Start.LoginShow ? [$t('msg.Login'), $t('msg.SetUp')] : [ $t('msg.SetUp'), $t('msg.SignOut')]"
                 :key="item" class="component-radius-2 component-pointer component-sizing"
                 @click.stop="AvatarFunction(item)">{{ item }}
             </li>

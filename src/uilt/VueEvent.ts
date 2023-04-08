@@ -47,18 +47,15 @@ const audioAnimateUpdate = () => {
         const LyricLength: any = useStore().Audio.MusicLyric
         MusicSongTime.value = parseInt(HomeAudio.currentTime.toString())
         MusicPlayerTime.value = (<HTMLAudioElement>e.target).currentTime
-        for (let i = 0; i < PlayerLyric.length; i++) {
-            PlayerLyric[i].setAttribute('id', 'lyric-select')
-        }
         for (let i = 0; i < LyricLength.length; i++) {
             if (MusicPlayerTime.value >= LyricLength[i].time) {
                 MusicI.value = i
+                // for (let i = 0; i < PlayerLyric.length; i++) {
+                //     PlayerLyric[i].setAttribute('id', 'lyric-select') // lyric setting
+                // }
                 LyricULBox.style.transform = `translateY(${500 - (lyricLineHeight * (i + 1) + 10)}px)`
             }
         }
-        PlayerLyric[MusicI.value].setAttribute('id', 'playing')
-        
-
     }
 
     HomeAudio.removeEventListener('timeupdate', timeupdate)

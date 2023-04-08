@@ -143,9 +143,9 @@ import Scroll from '../../components/MusicScroll.vue'
 import {useRouter} from "vue-router";
 import SecondaryRoutingPage from "../../components/SecondaryRoutingPage.vue";
 
+
 const {Home, Start, Login} = useStore()
 const router = useRouter()
-// https://img.paulzzh.tech/touhou/random
 // two
 let toDepth = 0
 let fromDepth = 0

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <n-scrollbar trigger="hover">
+    <scorll>
       <div class="RightHomeCss Setting">
         <h2>{{ $t('msg.SetUp') }}</h2>
         <setting-component :Introduce="$t('msg.PageThemeSwitching')" :Notice="[]" :Select="''" :slotTrue="true"
@@ -27,15 +27,16 @@
                            :slotTrue="false"
                            :title="$t('msg.LyricSize')"></Setting-component>
       </div>
-    </n-scrollbar>
+    </scorll>
   </div>
-
 </template>
 
 <script lang="ts" setup>
 import useStore from "../../stores/counter";
 import SettingComponent from "../../components/SettingComponent.vue";
 import {themes} from '../../uilt/VueIncident'
+import Scorll from '../../components/MusicScroll.vue'
+
 
 const {Audio, Start} = useStore()
 const LyricSize = [{label: '16px', value: '16px'}, {label: '22px', value: '22px'}, {label: '32px', value: '32px'}]
@@ -47,6 +48,6 @@ const Quality = [{label: 'standard', value: 'standard'}, {label: 'higher', value
 
 <style lang="scss" scoped>
 .Setting {
-  padding: 2rem 25rem;
+  padding: 16px 200px;
 }
 </style>
