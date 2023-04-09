@@ -17,6 +17,7 @@ const useStartStore = defineStore('Start', {
             PlayListLoading: false as Boolean,
             BackgroundIndex: 0 as number,
             ThemesBoolean: false, //主题
+            SkeletonShow:false as boolean,
             //设置信息
             Language: '汉语', //语言
             Topic: 'light', //主题
@@ -93,6 +94,9 @@ const useStartStore = defineStore('Start', {
         setDoubleClickThePlaybackMode(value: string) {
             this.Language = value
         },
+        ToggleSkeleton(boolean:boolean) {
+            this.SkeletonShow = boolean
+        }
 
     },
     persist: {
@@ -106,7 +110,7 @@ const useStartStore = defineStore('Start', {
             {
                 key: 'startSession',
                 storage: window.sessionStorage,
-                paths: ['HomeDetail', 'AudioShow', 'PageShow', 'AudioSongIndex', 'PlayList', 'AudioMode', 'AudioModeRandomList', 'AudioMode', 'BackgroundIndex']
+                paths: ['HomeDetail', 'AudioShow', 'PageShow', 'AudioSongIndex', 'PlayList', 'AudioMode', 'AudioModeRandomList', 'AudioMode', 'BackgroundIndex','SkeletonShow']
             }
         ]
     }

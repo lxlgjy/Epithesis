@@ -159,6 +159,8 @@ export const DetailThatLove = async () => {
     }
 
     await useStore().Detail.getMusicSongsDetailList({DetailTitle: fetchTitle, DetailSong: fetchSongs.songs})
+    useStore().Start.ToggleSkeleton(true)
+
 }
 
 // 添加喜欢

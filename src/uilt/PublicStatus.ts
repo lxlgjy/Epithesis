@@ -21,7 +21,6 @@ const PublicStart = reactive({
     MusicSpeedIndex: 1, // 倍速
     PlayMode: 3,// 播放模式切换（独立）
     PlayerShow: false,
-
 })
 
 export const MusicSearchInputShow = toRef(PublicStart, 'searchInputShow')

@@ -12,7 +12,7 @@
 
   <!-- 完整播放器 -->
     <transition name="PlayActive">
-        <Player v-show="!Start.PageShow"></Player>
+        <Player v-if="!Start.PageShow"></Player>
     </transition>
 
   <!-- 控制播放器隐藏（完整） -->

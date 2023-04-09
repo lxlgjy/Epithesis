@@ -1,6 +1,7 @@
 <template>
     <scroll @scroll="scorll">
-        <div class="RightHomeCss">
+        <skeleton v-show="!Start.SkeletonShow" :imageWidth="'240px'" :imageHeight="'240px'"/>
+        <div class="RightHomeCss" v-show="Start.SkeletonShow">
             <!--列表头部信息展示-->
             <div>
                 <div v-show="route.name !== 'Search' " class="detail">
@@ -59,7 +60,7 @@
                         <li v-for="(item,index) in DetailSongList" key="item.id"
                             class="DetailLi component-flex component-sizing component-pointer component-radius-4"
                             @contextmenu="Capabilities($event , item)"
-                            @dblclick="Player(item['id'] , item)">
+                            @dblclick="Player(<string>item['id'] , item)">
                             <p v-if="route.meta['page'] !== 'HomeAlbum' && route.meta['page'] !== 'SongAlbum' "
                                class="imageAndIndex">
                                 <img v-lazy="item['al'].picUrl + '?param=50y50' ">
@@ -88,6 +89,7 @@ import {AudioListPush, Capabilities, Player, scorll} from "../uilt/VueIncident";
 import {AddSharp, Play} from '@vicons/ionicons5'
 import {useDetailComputed} from '../uilt/vueComputed'
 import Scroll from '../components/MusicScroll.vue'
+import Skeleton from "./Skeleton.vue";
 
 const route = useRoute()
 const {Detail, Start, Audio} = useStore()
@@ -130,8 +132,8 @@ const {
 
 
 .detail-image {
-  width: 15rem;
-  height: 15rem;
+  width: 240px;
+  height: 240px;
   border-radius: 5px;
   overflow: hidden;
 }

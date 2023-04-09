@@ -24,6 +24,7 @@ export const publicPostFunction = (params:string) => {
             }
         }).then(data => {
             resolve(data.data)
+
         })
     })
 }

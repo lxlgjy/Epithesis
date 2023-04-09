@@ -115,3 +115,12 @@ export const useLanguageComputed = () => {
 
     return {}
 }
+
+export const useSkeletonComputed = () => {
+    const route = useRoute()
+
+    const SkeletonShow = computed(() => {
+        return route.meta['HomeRecommendedSongs'] || route.meta['HomePlaylist'] || route.meta['HomeAlbum'] || route.meta['HomeHotSinger'] || route.meta.page === 'PlayListDetail' || route.meta.page === 'SingerDetail' || route.path === '/MusicThatILove/LoveDetail' || route.path === '/MusicThatILove/LoveDetail/SongAlbum'
+    })
+    return {SkeletonShow}
+}

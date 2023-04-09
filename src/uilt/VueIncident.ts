@@ -200,12 +200,11 @@ export const AvatarFunction = (type: string) => {
 
 //歌手请求
 export const MusicSinger = async (id: string) => {
-
-    backgroundAndloadingToggle()
+    useStore().Start.ToggleSkeleton(false)
 
     await DetailSingerAxios(`/artist/detail?id=${id}`, `/artists?id=${id}`)
 
-    backgroundAndloadingToggle()
+    useStore().Start.ToggleSkeleton(true)
 
 }
 
@@ -223,9 +222,12 @@ export const FilmMovie = async (id: string) => {
 }
 // 首页home 请求
 export const MusicHomeDetail = async (id: string, routerType?: string) => {
+    useStore().Start.ToggleSkeleton(false)
+
     backgroundAndloadingToggle()
 
     if (routerType === 'HomeSwiper') {
+        return false
 
     } else if (routerType === 'HomeRecommendedSongs') {
 
@@ -258,8 +260,8 @@ export const MusicHomeDetail = async (id: string, routerType?: string) => {
         return false
     }
 
-    await useStore().Start.ToggleMusicData(true)
-
+    useStore().Start.ToggleMusicData(true)
+    useStore().Start.ToggleSkeleton(true)
 }
 
 export const MusicPlayList = async (data: any) => {
@@ -271,15 +273,19 @@ export const MusicPlayList = async (data: any) => {
 }
 
 export const MusicPlayListDetail = async (id: string) => {
-    backgroundAndloadingToggle()
+    useStore().Start.ToggleSkeleton(false)
 
     await DetailPlaylistAxios(`/playlist/detail?id=${id}`, id)
 
-    backgroundAndloadingToggle()
+    useStore().Start.ToggleSkeleton(true)
+
 }
 
 export const MusicAlbumDetail = async () => {
+    useStore().Start.ToggleSkeleton(false)
     await MusicHomeDetail(useStore().Detail.MusicCapabilities.al.id, 'HomeAlbum')
+    useStore().Start.ToggleSkeleton(true)
+
 }
 
 // 可以添加查看更多，进行路由跳转 - （路由跳转改为子路由嵌套）
