@@ -97,23 +97,18 @@
                         </div>
                     </div>
                 </div>
-                <div v-show="MusicPlayerToggle" class="Player-lyric">
+                <div v-show="MusicPlayerToggle" class="Player-lyric" style="transform: translateY(400px)">
                     <transition mode="out-in" name="player">
-                        <div>
-                            <div class="player-header-obscure"></div>
+                        <div class="component-height-100">
                             <ul id="PlayLyricScroll"
-                                class="Player-lyric-list component-height-100">
+                                class="Player-lyric-list">
                                 <li v-for="(item,index) in Audio.MusicLyric"
                                     :class="Setting.LyricSize"
-                                    :id="MusicI === index ? 'playingLi' : ''"
                                     class=" PlayerLyric component-pointer component-radius-8 component-sizing component-sizing component-height-100"
-                                    @click="lyricSelect(item.time)">
-                                    <p :id="MusicI === index ? 'playing' :''" class="component-sizing component-hidden">{{ item.text }}</p>
+                                    @click="lyricSelect(item.time)">{{item.text}}
                                 </li>
                             </ul>
-                            <div class="player-footer-obscure"></div>
                         </div>
-
                     </transition>
                 </div>
                 <div v-show="!MusicPlayerToggle" class="Player-SongList">
@@ -159,7 +154,7 @@ import {
 } from '@vicons/ionicons5'
 import {MusicI, MusicPlayer, MusicPlayerTime, MusicPlayerToggle, MusicSongTime,} from '../uilt/PublicStatus'
 import useStore from "../stores/counter";
-import {AudioValue, currentTime,} from "../uilt/PageWidgets";
+import {AudioValue, BackgroundImage, currentTime,} from "../uilt/PageWidgets";
 import {
     AudioProgress,
     AudioToggle,
@@ -186,43 +181,12 @@ const value = ref(100)
 
 onMounted(() => {
     AudioLyric()
+    BackgroundImage()
 })
 
 </script>
 
 <style lang="scss" scoped>
-$lyric-animation-select-down: cubic-bezier(0.65, 0, 0.35, 1);
-
-#playing {
-  transition-duration: 250ms;
-  color: #fff;
-  opacity: 1;
-  transform: scale(1.3);
-}
-#playingLi {
-    opacity: 1;
-}
-
-#lyric-select {
-  animation: lyric-animation 600ms both;
-  transition: all 600ms $lyric-animation-select-down;
-}
-
-
-#player-lyric-song {
-  color: #fff;
-  opacity: 1;
-  background-color: rgba(255, 255, 255, .4);
-}
-
-//.player-header-obscure , .player-footer-obscure {
-//    width: 100%;
-//    height: 12.5vh;
-//    filter: blur(5px);
-//    background-color: #fff;
-//    opacity: .1;
-//}
-
 span, p {
   color: #fff;
 }

@@ -336,7 +336,6 @@ export const PlayerAudio = (type?: string) => {
 export const playerAudioShow = () => {
     useStore().Start.TogglePageShow(!useStore().Start.PageShow)
     MusicPlayerShow.value = !MusicPlayerShow.value
-    BackgroundImage()
 }
 
 export const PlayToggle = (Toggle: boolean) => {
@@ -378,10 +377,10 @@ export const AudioToggle = () => {
     MusicAudioModeToggle()
 }
 
-//外部模式切换 （MusicPlayMode 可以替换为pinia useStore.Start.AudioMode）
+//外部模式切换
 export const PlaybackModeSwitching = async () => {
-    MusicPlayMode.value > 1 ? MusicPlayMode.value-- : MusicPlayMode.value = 3
-    await AudioMode(MusicPlayMode.value - 1)
+    useStore().Start.AudioMode > 0 ? useStore().Start.ReviseAudioMode() : useStore().Start.ToggleAudioMode(2)
+    await AudioMode(useStore().Start.AudioMode)
 }
 
 export const AudioMode = async (index: number) => {

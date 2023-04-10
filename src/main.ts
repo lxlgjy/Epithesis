@@ -19,10 +19,10 @@ app.use(naive)
 app.use(VueLazyload)
 app.use(i18n)
 
-app.config.errorHandler = (err: any, instance, info) => {
-    console.log(err.message)
-    console.log(instance!.$.type)
-}
+// app.config.errorHandler = (err: any, instance, info) => {
+//     console.log(err.message)
+//     console.log(instance!.$.type)
+// }
 pinia.use(piniaPLuginPersist)
 
 const store = useStore()

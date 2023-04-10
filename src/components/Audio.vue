@@ -27,12 +27,12 @@
                   <PlaySkipBack/>
                 </n-icon>
               </button>
-              <button v-show="MusicPlayer === false" @click="PlayerAudio()">
+              <button v-show="!MusicPlayer" @click="PlayerAudio()">
                 <n-icon size="40">
                   <Play/>
                 </n-icon>
               </button>
-              <button v-show="MusicPlayer === true" @click="PlayerAudio()">
+              <button v-show="MusicPlayer" @click="PlayerAudio()">
                 <n-icon size="40">
                   <PauseSharp/>
                 </n-icon>
@@ -53,7 +53,7 @@
                         @update-value="AudioProgress($event)"/>
             </n-space>
             <span>{{
-                Start.AudioMode === 1 ? Time(Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['dt']) : Time(Audio.MusicSongNow[Start.AudioSongIndex]['dt'])
+                Start.AudioMode === 1 ? (Audio.MusicSongNow.length > 1 ? Time(Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['dt']) : '' ) : Time(Audio.MusicSongNow[Start.AudioSongIndex]['dt'])
               }}</span>
           </div>
         </div>
@@ -61,27 +61,27 @@
       <div class="right component-width-30 component-flex component-pointer">
         <transition mode="out-in" name="SpeedAnimate">
           <div v-if="MusicSpeedIndex === 1" class="AudioSpeed component-width-25 component-height-100"
-               @click="MusicSpeed">
+               @click.stop="MusicSpeed">
             <span>{{ '1x' }}</span>
           </div>
           <div v-else-if="MusicSpeedIndex === 2" class="AudioSpeed component-width-25 component-height-100"
-               @click="MusicSpeed">
+               @click.stop="MusicSpeed">
             <span>{{ '2x' }}</span>
           </div>
-          <div v-else class="AudioSpeed component-width-25 component-height-100" @click="MusicSpeed">
+          <div v-else class="AudioSpeed component-width-25 component-height-100" @click.stop="MusicSpeed">
             <span>{{ '3x' }}</span>
           </div>
         </transition>
 
         <div class="AudioPlayMode component-width-25 component-height-100 ">
-          <div class="alignLeft component-center" @click="PlaybackModeSwitching();mess('success')">
-            <n-icon v-show="MusicPlayMode === 3 " class="center" size="30">
+          <div class="alignLeft component-center" @click.stop="PlaybackModeSwitching();mess('success')">
+            <n-icon v-show="Start.AudioMode === 2 " class="center" size="30">
               <RepeatOutline/>
             </n-icon>
-            <n-icon v-show="MusicPlayMode === 2" class="center" size="30">
+            <n-icon v-show="Start.AudioMode=== 1" class="center" size="30">
               <Shuffle/>
             </n-icon>
-            <n-icon v-show="MusicPlayMode === 1" class="center" size="30">
+            <n-icon v-show="Start.AudioMode === 0" class="center" size="30">
               <ReloadOutline/>
             </n-icon>
           </div>
@@ -140,9 +140,6 @@ const {Audio, Start} = useStore()
 const {AudioImg, AudioName, AudioSinger, AudioBackground} = useAudioComputed()
 const value = ref(100)
 
-onMounted(() => {
-
-})
 
 </script>
 <style lang="scss" scoped>

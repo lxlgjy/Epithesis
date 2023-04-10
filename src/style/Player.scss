@@ -11,6 +11,7 @@
 
 .Player-show, .Player-lyric, .Player-SongList {
   position: relative;
+  z-index: 10;
 }
 
 .Player-show {
@@ -113,21 +114,24 @@
 
 .Player-lyric {
   margin-right: 100px;
+  //height: 100vh;
 
   .Player-lyric-list {
-    transform: translateY(400px);
+    height: 100%;
 
     .PlayerLyric {
       color: #fff;
-      opacity: .3;
+      opacity: .5;
       height: auto;
       line-height: 40px;
       padding: 20px 25px;
       margin-right: 25px;
 
-
-      &:hover {
-        background-color: rgba(255, 255, 255, .3);
+      p {
+        &:hover {
+          color: rgba(255, 255, 255);
+          opacity: .5;
+        }
       }
     }
   }

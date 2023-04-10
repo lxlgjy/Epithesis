@@ -1,6 +1,7 @@
 // 页面时间转换 与 歌词转换
 import useStore from "../stores/counter";
 import Element from './Element'
+import {MusicPlayerShow} from "./PublicStatus";
 
 export const Time = (time: any) => {
     let Time = time / 1000
@@ -52,7 +53,6 @@ export const lyric = (item: object) => {
 }
 
 export const BackgroundImage = () => {
-
     const {Background} = Element()
 
     let backgroundArr = [

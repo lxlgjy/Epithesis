@@ -63,6 +63,9 @@ const useStartStore = defineStore('Start', {
         ToggleAudioMode(data: number) {
             this.AudioMode = data
         },
+        ReviseAudioMode() {
+            this.AudioMode--
+        },
         reviseAudioModeRandomList(data: Array<number>) {
             this.AudioModeRandomList = data
         },
