@@ -13,7 +13,6 @@ import {
     MusicPlayer,
     MusicPlayerShow,
     MusicPlayerToggle,
-    MusicPlayMode,
     MusicSearchInputShow,
     MusicSongListShow,
     MusicSpeedIndex
