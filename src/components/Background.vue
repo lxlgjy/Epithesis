@@ -15,4 +15,5 @@ import {allPageBackground} from '../uilt/VueIncident'
   height: 100%;
   background-color: rgba(29,33,41,.6);
 }
+
 </style>

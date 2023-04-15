@@ -16,15 +16,15 @@
                                 </div>
                                 <div class="Player-VolumeWithLikes component-flex">
                                     <div class="Player-volume component-flex">
-                                        <n-icon v-if="value < 20" class="component-Player-translateY-icon" color="#fff"
+                                        <n-icon v-if="value < 20" class="component-Player-translateY-icon" color="#000"
                                                 size="20">
                                             <VolumeOffOutline/>
                                         </n-icon>
                                         <n-icon v-else-if="value < 90" class="component-Player-translateY-icon"
-                                                color="#fff" size="20">
+                                                color="#000" size="20">
                                             <VolumeLowOutline/>
                                         </n-icon>
-                                        <n-icon v-else class="component-Player-translateY-icon" color="#fff" size="20">
+                                        <n-icon v-else class="component-Player-translateY-icon" color="#000" size="20">
                                             <VolumeMediumOutline/>
                                         </n-icon>
                                         <n-space
@@ -32,7 +32,7 @@
                                                 style="height: 4px"
                                                 vertical>
                                             <n-slider v-model:value="value" :step="1"
-                                                      style="--n-fill-color:#fff;--n-fill-color-hover: #fff;--n-handle-size:0px;--n-rail-color:rgb(219, 219, 223,.2);--n-rail-color-hover:rgb(219, 219, 223,.2);"
+                                                      style="--n-fill-color:#000;--n-fill-color-hover: #000;--n-handle-size:0px;--n-rail-color:rgb(219, 219, 223,.2);--n-rail-color-hover:rgb(219, 219, 223,.2);"
                                                       @update-value="AudioVolumeMouseMove(value)"/>
                                         </n-space>
                                     </div>
@@ -54,7 +54,7 @@
                                                   :step="0.1"
                                                   :tooltip="false"
                                                   :value="AudioValue(Audio.MusicSongNow[Start.AudioSongIndex]['dt'],MusicPlayerTime)"
-                                                  style="--n-fill-color:#fff;--n-fill-color-hover: #fff;--n-handle-size:0px;--n-rail-color:rgb(219, 219, 223,.2);--n-rail-color-hover:rgb(219, 219, 223,.2);"
+                                                  style="--n-fill-color:#000;--n-fill-color-hover: #000;--n-handle-size:0px;--n-rail-color:rgb(219, 219, 223,.2);--n-rail-color-hover:rgb(219, 219, 223,.2);"
                                                   @update-value="AudioProgress($event)"/>
                                     </n-space>
                                     <span>{{ PlayerFinalSongTime }}</span>
