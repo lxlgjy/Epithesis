@@ -4,17 +4,13 @@ import {MusicLoginBackgroundShow, MusicLoginShow} from "../PublicStatus";
 
 
 export const LoginAxios = async () => {
-    let timer: NodeJS.Timer
-    let timestamp = Date.now()
-    const cookie = localStorage.getItem('cookie')
-
     const res = await publicGetFunction(`/login/qr/key?timerstamp=${Date.now()}`) as any
     const key = res.data.unikey
     const res2 = await publicGetFunction(`/login/qr/create?key=${key}&qrimg=true&timerstamp=${Date.now()}`) as any
     let img = document.querySelector('#qrImg') as HTMLImageElement
     img.src = res2.data.qrimg
 
-    timer = setInterval(async () => {
+    let timer = setInterval(async () => {
         const statusRes = await checkStatus(key)
         if (statusRes.code === 800) {
             alert('二维码已过期,请重新获取')

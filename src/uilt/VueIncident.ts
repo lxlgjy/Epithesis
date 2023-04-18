@@ -15,7 +15,6 @@ import {
     MusicPlayerToggle,
     MusicSearchInputShow,
     MusicSongListShow,
-    MusicSpeedIndex
 } from './PublicStatus'
 import {
     DetailSelect,
@@ -28,7 +27,6 @@ import {
 import {
     avatarToggle,
     backgroundAndloadingToggle,
-    MusicAudioModeToggle,
     MusicAudioShow,
     MusicSongListShowToggle,
     MusicSongListToggle
@@ -364,18 +362,6 @@ export const AudioProgress = async (e: Event) => {
     HomeAudio.currentTime = AudioProgressToggle(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['dt'], e)
 }
 
-// 提供倍速 （歌曲播放完恢复1.0x）
-export const AudioSpeed = (speed: number) => {
-    const {HomeAudio} = Element()
-    HomeAudio.playbackRate = speed
-    AudioToggle()
-}
-
-
-export const AudioToggle = () => {
-    MusicAudioModeToggle()
-}
-
 //外部模式切换
 export const PlaybackModeSwitching = async () => {
     useStore().Start.AudioMode > 0 ? useStore().Start.ReviseAudioMode() : useStore().Start.ToggleAudioMode(2)
@@ -577,17 +563,6 @@ export const PlayListToggle = async (title: string) => {
     useStore().Start.TogglePlayListLoading(false)
 }
 
-export const MusicSpeed = () => {
-    const {HomeAudio} = Element()
-
-    MusicSpeedIndex.value++
-    if (MusicSpeedIndex.value < 4) {
-        HomeAudio.playbackRate = MusicSpeedIndex.value
-    } else {
-        MusicSpeedIndex.value = 1
-        HomeAudio.playbackRate = MusicSpeedIndex.value
-    }
-}
 
 // 设置
 export const Setting = (value: string, title: string) => {

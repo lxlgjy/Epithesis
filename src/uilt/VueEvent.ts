@@ -63,7 +63,7 @@ const audioAnimateUpdate = () => {
                     LyricSelect(PlayerLyric , lyricNum , bodyHeight,LyricULBox)
                 }
 
-                //first lyric select
+                // 无任何特效滚动，浏览器性能差的机器
                 // LyricULBox.style.transform = `translateY(${500 - (lyricLineHeight * (i + 1) + 10)}px)`
             }
         }

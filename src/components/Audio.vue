@@ -59,20 +59,6 @@
         </div>
       </div>
       <div class="right component-width-30 component-flex component-pointer">
-        <transition mode="out-in" name="SpeedAnimate">
-          <div v-if="MusicSpeedIndex === 1" class="AudioSpeed component-width-25 component-height-100"
-               @click.stop="MusicSpeed">
-            <span>{{ '1x' }}</span>
-          </div>
-          <div v-else-if="MusicSpeedIndex === 2" class="AudioSpeed component-width-25 component-height-100"
-               @click.stop="MusicSpeed">
-            <span>{{ '2x' }}</span>
-          </div>
-          <div v-else class="AudioSpeed component-width-25 component-height-100" @click.stop="MusicSpeed">
-            <span>{{ '3x' }}</span>
-          </div>
-        </transition>
-
         <div class="AudioPlayMode component-width-25 component-height-100 ">
           <div class="alignLeft component-center" @click.stop="PlaybackModeSwitching();mess('success')">
             <n-icon v-show="Start.AudioMode === 2 " class="center" size="30">
@@ -121,21 +107,19 @@ import {
 } from '@vicons/ionicons5'
 import useStore from "../stores/counter";
 import {AudioValue, currentTime, Time} from '../uilt/PageWidgets'
-import {MusicPlayer, MusicPlayerTime, MusicPlayMode, MusicSongTime, MusicSpeedIndex} from '../uilt/PublicStatus'
+import {MusicPlayer, MusicPlayerTime, MusicSongTime} from '../uilt/PublicStatus'
 import {
   AudioProgress,
   AudioVolumeMouseMove,
-  MusicSpeed,
   NextAndPrevious,
   PlaybackModeSwitching,
   PlayerAudio,
   playerAudioShow,
   SongListShowToggle
 } from '../uilt/VueIncident'
-import {onMounted, ref} from "vue";
+import {ref} from "vue";
 import {mess} from "../uilt/VueEvent";
 import {useAudioComputed} from '../uilt/vueComputed'
-
 const {Audio, Start} = useStore()
 const {AudioImg, AudioName, AudioSinger, AudioBackground} = useAudioComputed()
 const value = ref(100)
@@ -204,26 +188,6 @@ const value = ref(100)
 }
 
 .right {
-  .AudioSpeed {
-    text-align: center;
-
-    span {
-      transform: translateY(2.5rem);
-      color: var(--color);
-    }
-
-    .SpeedSelect {
-      width: 2rem;
-      height: 12rem;
-      transform: translateX(2.3rem) translateY(-12rem);
-      border: 1px solid #000;
-
-      .SpeedSelect-Control {
-      }
-    }
-
-
-  }
 
   .AudioVolume, .AudioListOfSongs, .AudioPlayMode {
     justify-content: center;

@@ -55,11 +55,12 @@ export const usePlayerComponent = () => {
 
     })
 
+
     const PlayerThemesStyle = computed(() => {
         return useStore().Start.ThemesBoolean ? '--n-color:#222;--n-title-text-color:#fff' : '--n-color:#fff;--n-title-text-color:#000'
     })
 
-    return {PlayerImg, PlayerSongName, PlayerSingerName, PlayerFinalSongTime, PlayerThemesStyle}
+    return {PlayerImg, PlayerSongName, PlayerSingerName, PlayerFinalSongTime, PlayerThemesStyle }
 }
 
 //capabilities

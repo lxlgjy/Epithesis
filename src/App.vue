@@ -2,8 +2,8 @@
     <audio id="Audio" :hidden="true" :src="Audio.MusicSong['data'] ? Audio.MusicSong['data'][0]['url']  : null"></audio>
 
   <!--  页面整体  -->
-    <div id="Box" :class="Setting.PageThemes">
-        <RightRibbon id="RightRibbon"></RightRibbon>
+    <div id="Box" :class="Setting.PageThemes"  v-show="Start.PageShow">
+        <RightRibbon id="RightRibbon" ></RightRibbon>
         <left-display-area id="LeftDisplayArea"></left-display-area>
     </div>
 
@@ -31,11 +31,6 @@
 
   <!-- 右击小菜单 -->
     <capabilities v-show="MusicPageCapabilities"></capabilities>
-
-  <!-- 播放模式 -->
-    <transition name="AudioMode">
-        <AudioMode v-if="MusicAudioModeShow"></AudioMode>
-    </transition>
 
   <!-- 右侧播放列表 -->
     <transition name="SongList">
@@ -68,7 +63,6 @@ import Player from "./components/Player.vue";
 import Search from './components/Search.vue'
 import Background from "./components/Background.vue";
 import Logon from './components/Logon.vue'
-import AudioMode from "./components/AudioMode.vue";
 import SongList from "./components/SongList.vue";
 import Notice from "./components/Notice.vue";
 import Capabilities from "./components/Capabilities.vue";

@@ -19,7 +19,7 @@ const Element = () => {
         Background,
         PlayerLyric,
         searchInputValue,
-        SearchAgain
+        SearchAgain,
     }
 }
 

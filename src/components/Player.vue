@@ -1,6 +1,8 @@
 <template>
     <div class="component-sticky component-index-4">
-        <div class="Player-BackgroundImage"></div>
+        <!--        <div class="Player-BackgroundImage"></div>-->
+        <div class="backgroundColor"
+             :style="'background:url(' + PlayerImg + ') no-repeat 110% 90% /cover fixed' "></div>
         <div class="Player component-relative component-sizing">
             <div class="Player-flex component-grid component-index-2  component-sizing component-center component-justify">
                 <div class="Player-show component-flex">
@@ -60,36 +62,36 @@
                                     <span>{{ PlayerFinalSongTime }}</span>
                                 </div>
                             </div>
-                            <div class="Player-button  component-flex" @click.stop="AudioToggle">
+                            <div class="Player-button  component-flex">
                                 <button>
-                                    <n-icon color="#fff" size="40">
+                                    <n-icon color="#000" size="25">
                                         <SyncSharp/>
                                     </n-icon>
                                 </button>
                                 <div class="Player-Play component-flex">
                                     <button @click.stop="NextAndPrevious('Previous');mess('warning')">
-                                        <n-icon color="#fff" size="40">
+                                        <n-icon color="#000" size="30">
                                             <PlaySkipBack/>
                                         </n-icon>
                                     </button>
                                     <button v-show="!MusicPlayer" @click.stop="PlayerAudio()">
-                                        <n-icon color="#fff" size="45">
+                                        <n-icon color="#000" size="35">
                                             <Play/>
                                         </n-icon>
                                     </button>
                                     <button v-show="MusicPlayer " @click.stop="PlayerAudio()">
-                                        <n-icon color="#fff" size="45">
+                                        <n-icon color="#000" size="35">
                                             <PauseSharp/>
                                         </n-icon>
                                     </button>
                                     <button @click.stop="NextAndPrevious('Next');mess('warning')">
-                                        <n-icon color="#fff" size="40">
+                                        <n-icon color="#000" size="30">
                                             <PlaySkipForward/>
                                         </n-icon>
                                     </button>
                                 </div>
                                 <button @click.stop="PlayToggle(MusicPlayerToggle)">
-                                    <n-icon color="#fff" size="40">
+                                    <n-icon color="#000" size="25">
                                         <ListSharp/>
                                     </n-icon>
                                 </button>
@@ -97,40 +99,43 @@
                         </div>
                     </div>
                 </div>
-                <div v-show="MusicPlayerToggle" class="Player-lyric" style="transform: translateY(400px)">
-                    <transition mode="out-in" name="player">
-                        <div class="component-height-100">
-                            <ul id="PlayLyricScroll"
-                                class="Player-lyric-list">
-                                <li v-for="(item,index) in Audio.MusicLyric"
-                                    :class="Setting.LyricSize"
-                                    class=" PlayerLyric component-pointer component-radius-8 component-sizing component-sizing component-height-100"
-                                    @click="lyricSelect(item.time)">{{item.text}}
-                                </li>
-                            </ul>
+                <div v-show="MusicPlayerToggle" class="Player-lyric component-index-3"
+                     style="transform: translateY(400px)">
+                    <div class="component-height-100">
+                        <ul id="PlayLyricScroll"
+                            class="Player-lyric-list">
+                            <li v-for="(item,index) in Audio.MusicLyric"
+                                :class="Setting.LyricSize"
+                                class=" PlayerLyric component-pointer component-radius-8 component-sizing component-sizing component-height-100"
+                                @click="lyricSelect(item.time)">{{ item.text }}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <transition mode="out-in" enter-active-class="animate__animated animate__bounceInUp"
+                            leave-active-class="animate__animated animate__bounceInUp">
+                    <div v-show="!MusicPlayerToggle">
+                        <div class="Player-SongList">
+                            <scroll :hidden="true">
+                                <ul class="player-songList-ul component-grid ">
+                                    <li v-for="(item,index) in Audio.MusicSongNow"
+                                        :id=" item.id === Audio.MusicSong['data'][0]['id'] ? 'player-lyric-song': '' "
+                                        class="Music-sizing Music-pointer" @dblclick="SongListAudio(item)">
+                                        <div class="player-songList-li component-flex Player-lyric-songs-list Music-flexWarped">
+                                            <div class="songList-img Music-sizing">
+                                                <img v-lazy="item['al']['picUrl']" alt=""/>
+                                            </div>
+                                            <div class="songList-title Music-font-hidden">
+                                                <span>{{ item['name'] }}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </scroll>
                         </div>
-                    </transition>
-                </div>
-                <div v-show="!MusicPlayerToggle" class="Player-SongList">
-                    <n-scrollbar>
-                        <transition mode="out-in" name="player">
-                            <ul v-show="!MusicPlayerToggle" style="transform: translateY(70px)">
-                                <li v-for="(item,index) in Audio.MusicSongNow"
-                                    :id=" item.id === Audio.MusicSong['data'][0]['id'] ? 'player-lyric-song': '' "
-                                    class="Music-sizing Music-pointer" @dblclick="SongListAudio(item)">
-                                    <div class="Player-lyric-songs-list Music-flexWarped">
-                                        <div class="Music-sizing">
-                                            <img v-lazy="item['al']['picUrl']" alt=""/>
-                                        </div>
-                                        <div class="Music-font-hidden">
-                                            <span>{{ item['name'] }}</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </transition>
-                    </n-scrollbar>
-                </div>
+                    </div>
+                </transition>
             </div>
         </div>
     </div>
@@ -152,12 +157,11 @@ import {
     VolumeMediumOutline,
     VolumeOffOutline
 } from '@vicons/ionicons5'
-import {MusicI, MusicPlayer, MusicPlayerTime, MusicPlayerToggle, MusicSongTime,} from '../uilt/PublicStatus'
+import {MusicPlayer, MusicPlayerTime, MusicPlayerToggle, MusicSongTime,} from '../uilt/PublicStatus'
 import useStore from "../stores/counter";
 import {AudioValue, BackgroundImage, currentTime,} from "../uilt/PageWidgets";
 import {
     AudioProgress,
-    AudioToggle,
     AudioVolumeMouseMove,
     lyricSelect,
     NextAndPrevious,
@@ -167,20 +171,16 @@ import {
 } from '../uilt/VueIncident'
 import {AudioLyric, mess} from "../uilt/VueEvent";
 import {usePlayerComponent} from '../uilt/vueComputed'
+import Scroll from '../components/MusicScroll.vue'
 
 
 const {Audio, Detail, Start, Setting} = useStore()
 const {PlayerImg, PlayerSongName, PlayerSingerName, PlayerFinalSongTime} = usePlayerComponent()
 const value = ref(100)
 
-/*
-歌词向上滚动弹簧参数
-  cubic-bezier（0.65,0,0.35,1）
-  keyfremes translateY 0 =》  to =》 translateY -50
-* */
 
 onMounted(() => {
-    AudioLyric()
+    // AudioLyric()
     BackgroundImage()
 })
 

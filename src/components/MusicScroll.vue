@@ -1,12 +1,20 @@
 <template>
-  <div class="scroll">
-    <slot></slot>
-  </div>
+    <div :class="data.hidden ? 'scrollHidden' : 'scroll'" >
+        <slot></slot>
+    </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import {defineProps} from 'vue'
+
+const data = defineProps({
+    hidden: Boolean || undefined
+})
+
+</script>
 <style lang="scss" scoped>
-.scroll {
+
+.scroll, .scrollHidden {
   position: absolute;
   right: 0;
   width: 100%;
@@ -21,6 +29,12 @@
     background: rgba(255, 255, 255, .3);
     border-radius: 5px;
   }
+}
 
+
+.scrollHidden {
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 </style>
