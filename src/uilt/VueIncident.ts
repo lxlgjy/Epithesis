@@ -17,6 +17,7 @@ import {
     MusicSongListShow,
 } from './PublicStatus'
 import {
+    AudioLyric,
     DetailSelect,
     MusicAudioModeModule,
     MusicAudioPlayAll,
@@ -360,6 +361,7 @@ export const AudioProgress = async (e: Event) => {
     const {HomeAudio} = Element()
     // @ts-ignore
     HomeAudio.currentTime = AudioProgressToggle(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['dt'], e)
+    AudioLyric()
 }
 
 //外部模式切换
@@ -375,25 +377,12 @@ export const AudioMode = async (index: number) => {
                 const AudioSlice = await newAudioList() as Array<number>
                 useStore().Start.reviseAudioModeRandomList(AudioSlice)
                 NoticeMusicTooleMode(index)
-                // @ts-ignore
-                await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['id'])
-                useStore().Start.ToggleAudioMode(index)
                 break
             case 2:
                 NoticeMusicTooleMode(index)
-
-                // @ts-ignore
-                await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
-                useStore().Start.ToggleAudioMode(index)
                 break
             default:
-                const {HomeAudio} = Element()
-                useStore().Start.ToggleAudioMode(index)
                 NoticeMusicTooleMode(index)
-
-                HomeAudio.currentTime = 0
-                await HomeAudio.play()
-                console.log('循环')
                 break
         }
     } else {
@@ -408,7 +397,6 @@ export const AudioMode = async (index: number) => {
                 break
             default:
                 NoticeMusicTooleMode(index)
-                useStore().Start.ToggleAudioMode(index)
                 break
         }
     }
@@ -504,21 +492,23 @@ export const NextAndPrevious = async (type?: string) => {
 
     } else {
         if (type === 'Next') {
-            if (useStore().Start.AudioSongIndex < useStore().Audio.MusicSongNow.length - 1) {
-                useStore().Start.AddAudioIndex()
+            if (useStore().Start.AudioSongIndex < useStore().Audio.MusicSongNow.length - 1 && useStore().Start.AudioSongIndex >= 0) {
 
                 await MusicAudioModeModule('Next')
                 useStore().Start.ToggleBackgroundIndex('add')
                 BackgroundImage()
+            } else {
+                useStore().Start.setAudioIndex(0)
             }
-        } else {
-            if (useStore().Start.AudioSongIndex > 0) {
-                useStore().Start.subtractAudioIndex()
+        } else if(type === 'Previous') {
+            if (useStore().Start.AudioSongIndex > 0 && useStore().Start.AudioSongIndex < useStore().Audio.MusicSongNow.length - 1) {
 
                 await MusicAudioModeModule('Previous')
                 useStore().Start.ToggleBackgroundIndex('sub')
                 BackgroundImage()
             }
+        } else {
+            return false
         }
 
     }

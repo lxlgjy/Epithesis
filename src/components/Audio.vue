@@ -52,25 +52,13 @@
                         style="--n-fill-color:#165dff;--n-fill-color-hover: #165dff;--n-handle-size:8px;--n-handle-color:#165dff;"
                         @update-value="AudioProgress($event)"/>
             </n-space>
-            <span>{{
-                Start.AudioMode === 1 ? (Audio.MusicSongNow.length > 1 ? Time(Audio.MusicSongNow[Start.AudioModeRandomList[Start.AudioSongIndex]]['dt']) : '' ) : Time(Audio.MusicSongNow[Start.AudioSongIndex]['dt'])
-              }}</span>
+            <span>{{AudioLastTime}}</span>
           </div>
         </div>
       </div>
       <div class="right component-width-30 component-flex component-pointer">
         <div class="AudioPlayMode component-width-25 component-height-100 ">
-          <div class="alignLeft component-center" @click.stop="PlaybackModeSwitching();mess('success')">
-            <n-icon v-show="Start.AudioMode === 2 " class="center" size="30">
-              <RepeatOutline/>
-            </n-icon>
-            <n-icon v-show="Start.AudioMode=== 1" class="center" size="30">
-              <Shuffle/>
-            </n-icon>
-            <n-icon v-show="Start.AudioMode === 0" class="center" size="30">
-              <ReloadOutline/>
-            </n-icon>
-          </div>
+          <music-mode :size="30"></music-mode>
         </div>
         <div class="AudioVolume component-width-25 component-height-100 ">
           <div class="AudioVolume-res component-hidden  component-center
@@ -100,19 +88,15 @@ import {
   Play,
   PlaySkipBack,
   PlaySkipForward,
-  ReloadOutline,
   ReorderFour,
-  RepeatOutline,
-  Shuffle
 } from '@vicons/ionicons5'
 import useStore from "../stores/counter";
-import {AudioValue, currentTime, Time} from '../uilt/PageWidgets'
+import {AudioValue, currentTime} from '../uilt/PageWidgets'
 import {MusicPlayer, MusicPlayerTime, MusicSongTime} from '../uilt/PublicStatus'
 import {
   AudioProgress,
   AudioVolumeMouseMove,
   NextAndPrevious,
-  PlaybackModeSwitching,
   PlayerAudio,
   playerAudioShow,
   SongListShowToggle
@@ -120,8 +104,10 @@ import {
 import {ref} from "vue";
 import {mess} from "../uilt/VueEvent";
 import {useAudioComputed} from '../uilt/vueComputed'
+import MusicMode from "./MusicMode.vue";
+
 const {Audio, Start} = useStore()
-const {AudioImg, AudioName, AudioSinger, AudioBackground} = useAudioComputed()
+const {AudioImg, AudioName, AudioSinger, AudioBackground , AudioLastTime} = useAudioComputed()
 const value = ref(100)
 
 
@@ -129,7 +115,7 @@ const value = ref(100)
 <style lang="scss" scoped>
 .audio {
   bottom: 0;
-  height: 6.25rem;
+  height: 100px;
   box-shadow: 10px 3px 6px #000;
   background-color: var(--capabilities-background);
 
@@ -143,9 +129,9 @@ const value = ref(100)
     align-items: center;
 
     .left-img {
-      width: 4rem;
-      height: 4rem;
-      margin-right: 1rem;
+      width: 64px;
+      height: 64px;
+      margin-right: 16px;
     }
 
     .left-title {
@@ -162,9 +148,9 @@ const value = ref(100)
     flex-direction: column;
 
     button {
-      width: 4rem;
-      height: 4rem;
-      margin-right: 1rem;
+      width: 64px;
+      height: 64px;
+      margin-right: 16px;
 
       i {
         color: var(--color)
@@ -187,25 +173,30 @@ const value = ref(100)
 
 }
 
-.right {
+.alignLeft {
+  width: 48px;
+  height: 48px;
+  transform: translateX(30px) translateY(34px);
+  align-items: center;
+  display: flex;
+  justify-content: center;
 
+  i {
+    color: var(--color);
+  }
+
+  &:hover {
+    //border-radius: 10px;
+    background-color: var(--active);
+    border-radius: 50%;
+  }
+}
+
+.right {
+  align-items: center;
   .AudioVolume, .AudioListOfSongs, .AudioPlayMode {
     justify-content: center;
     align-items: center;
-
-    .alignLeft {
-      width: 3rem;
-      transform: translateX(30px) translateY(2.5rem);
-
-      i {
-        color: var(--color);
-      }
-
-      &:hover {
-        border-radius: 10px;
-        background-color: var(--active);
-      }
-    }
 
     .AudioVolume-res {
       .Audio-volume-text {

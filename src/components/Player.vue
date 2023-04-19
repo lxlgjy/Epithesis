@@ -2,19 +2,19 @@
     <div class="component-sticky component-index-4">
         <!--        <div class="Player-BackgroundImage"></div>-->
         <div class="backgroundColor"
-             :style="'background:url(' + PlayerImg + ') no-repeat 110% 90% /cover fixed' "></div>
+             :style="'background:url(' + AudioImg + ') no-repeat 110% 90% /cover fixed' "></div>
         <div class="Player component-relative component-sizing">
             <div class="Player-flex component-grid component-index-2  component-sizing component-center component-justify">
                 <div class="Player-show component-flex">
                     <div class="PlayerBox">
                         <div class="Player-image">
-                            <img :src="PlayerImg" alt="" class="component-radius-4">
+                            <img :src="AudioImg" alt="" class="component-radius-4">
                         </div>
                         <div class="Player-notice component-flex">
                             <div class="Player-title component-flex">
                                 <div class="Player-SongTitleAndSinger component-left">
-                                    <span class="component-flex-text">{{ PlayerSongName }}</span>
-                                    <span class="component-flex-text">{{ PlayerSingerName }}</span>
+                                    <span class="component-flex-text">{{ AudioName }}</span>
+                                    <span class="component-flex-text">{{ AudioSinger }}</span>
                                 </div>
                                 <div class="Player-VolumeWithLikes component-flex">
                                     <div class="Player-volume component-flex">
@@ -55,22 +55,18 @@
                                         <n-slider id="ProgressBar"
                                                   :step="0.1"
                                                   :tooltip="false"
-                                                  :value="AudioValue(Audio.MusicSongNow[Start.AudioSongIndex]['dt'],MusicPlayerTime)"
+                                                  :value="AudioValue(playerTime,MusicPlayerTime)"
                                                   style="--n-fill-color:#000;--n-fill-color-hover: #000;--n-handle-size:0px;--n-rail-color:rgb(219, 219, 223,.2);--n-rail-color-hover:rgb(219, 219, 223,.2);"
                                                   @update-value="AudioProgress($event)"/>
                                     </n-space>
-                                    <span>{{ PlayerFinalSongTime }}</span>
+                                    <span>{{ AudioLastTime }}</span>
                                 </div>
                             </div>
                             <div class="Player-button  component-flex">
-                                <button>
-                                    <n-icon color="#000" size="25">
-                                        <SyncSharp/>
-                                    </n-icon>
-                                </button>
+                                <music-mode :size="25" style="align-items: center;display: flex;"></music-mode>
                                 <div class="Player-Play component-flex">
                                     <button @click.stop="NextAndPrevious('Previous');mess('warning')">
-                                        <n-icon color="#000" size="30">
+                                        <n-icon color="#000" size="25">
                                             <PlaySkipBack/>
                                         </n-icon>
                                     </button>
@@ -85,7 +81,7 @@
                                         </n-icon>
                                     </button>
                                     <button @click.stop="NextAndPrevious('Next');mess('warning')">
-                                        <n-icon color="#000" size="30">
+                                        <n-icon color="#000" size="25">
                                             <PlaySkipForward/>
                                         </n-icon>
                                     </button>
@@ -152,7 +148,6 @@ import {
     Play,
     PlaySkipBack,
     PlaySkipForward,
-    SyncSharp,
     VolumeLowOutline,
     VolumeMediumOutline,
     VolumeOffOutline
@@ -170,17 +165,19 @@ import {
     SongListAudio
 } from '../uilt/VueIncident'
 import {AudioLyric, mess} from "../uilt/VueEvent";
-import {usePlayerComponent} from '../uilt/vueComputed'
+import {useAudioComputed , usePlayerComponent} from '../uilt/vueComputed'
 import Scroll from '../components/MusicScroll.vue'
+import MusicMode from "./MusicMode.vue";
 
 
 const {Audio, Detail, Start, Setting} = useStore()
-const {PlayerImg, PlayerSongName, PlayerSingerName, PlayerFinalSongTime} = usePlayerComponent()
+const {AudioImg,AudioName,AudioSinger,AudioLastTime} = useAudioComputed()
+const {playerTime} = usePlayerComponent()
 const value = ref(100)
 
 
 onMounted(() => {
-    // AudioLyric()
+    AudioLyric()
     BackgroundImage()
 })
 

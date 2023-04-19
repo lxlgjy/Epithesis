@@ -26,7 +26,9 @@ const useStartStore = defineStore('Start', {
             DoubleClickThePlaybackMode: '单曲', //双击播放模式
             PlayBackgroundCustomization: '', // 播放背景自定义
             BackgroundBokeh: false, // 背景虚化
-            more: '' // 更多
+            more: '' , // 更多
+            //播放模式
+            ModeToggle:true as boolean
         }
     },
     actions: {
@@ -60,7 +62,7 @@ const useStartStore = defineStore('Start', {
         addPlayList(index: number) {
             this.PlayList = index
         },
-        ToggleAudioMode(data: number) {
+        ToggleAudioMode(data: number) { //
             this.AudioMode = data
         },
         ReviseAudioMode() {
@@ -99,8 +101,16 @@ const useStartStore = defineStore('Start', {
         },
         ToggleSkeleton(boolean:boolean) {
             this.SkeletonShow = boolean
+        },
+        ModeToggleTrue() {
+            this.ModeToggle = true
+        },
+        ModeToggleFalse() {
+            this.ModeToggle = false
+        },
+        setAudioIndex(value:number) {
+            this.AudioSongIndex = value
         }
-
     },
     persist: {
         enabled: true,
@@ -113,7 +123,7 @@ const useStartStore = defineStore('Start', {
             {
                 key: 'startSession',
                 storage: window.sessionStorage,
-                paths: ['HomeDetail', 'AudioShow', 'PageShow', 'AudioSongIndex', 'PlayList', 'AudioMode', 'AudioModeRandomList', 'AudioMode', 'BackgroundIndex','SkeletonShow']
+                paths: ['HomeDetail', 'AudioShow', 'PageShow', 'AudioSongIndex', 'PlayList', 'AudioMode', 'AudioModeRandomList', 'AudioMode', 'BackgroundIndex','SkeletonShow','ModeToggle']
             }
         ]
     }

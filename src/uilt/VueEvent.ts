@@ -8,11 +8,13 @@ import anime from "animejs";
 export const AudioLyric = () => {
     const {HomeAudio} = Element()
 
-    requestAnimationFrame(audioAnimateUpdate)
-
     HomeAudio.removeEventListener('ended', ended)
 
     HomeAudio.addEventListener('ended', ended)
+
+    requestAnimationFrame(audioAnimateUpdate)
+
+
 }
 
 export const newAudioList = () => {
@@ -44,11 +46,17 @@ const AudioExchange = (AudioArray: Array<number>, index: number, random: number)
 const audioAnimateUpdate = () => {
     const {HomeAudio, LyricULBox, PlayerLyric} = Element()
 
+    HomeAudio.removeEventListener('timeupdate', timeupdate)
+
+
+    HomeAudio.addEventListener('timeupdate', timeupdate)
+
     // 仿苹果歌词滚动。借鉴BlurLyric
     let lyricNum = 0
     const bodyHeight = document.body.offsetHeight;
     let s = 0
-    const timeupdate = (e: Event) => {
+
+    function timeupdate(e: Event) {
         const LyricLength: any = useStore().Audio.MusicLyric
         MusicSongTime.value = parseInt(HomeAudio.currentTime.toString())
         MusicPlayerTime.value = (<HTMLAudioElement>e.target).currentTime
@@ -57,10 +65,10 @@ const audioAnimateUpdate = () => {
                 //
                 MusicI.value = i
 
-                if(MusicI.value > s) {
+                if (MusicI.value > s) {
                     s = MusicI.value
                     lyricNum++
-                    LyricSelect(PlayerLyric , lyricNum , bodyHeight,LyricULBox)
+                    LyricSelect(PlayerLyric, lyricNum, bodyHeight, LyricULBox)
                 }
 
                 // 无任何特效滚动，浏览器性能差的机器
@@ -70,13 +78,9 @@ const audioAnimateUpdate = () => {
     }
 
 
-    HomeAudio.removeEventListener('timeupdate', timeupdate)
-
-
-    HomeAudio.addEventListener('timeupdate', timeupdate)
 }
 
-const LyricSelect = (lis:NodeListOf<HTMLLIElement> , lyricNum:number , bodyHeight:number,lyrics:HTMLUListElement) => {
+const LyricSelect = (lis: NodeListOf<HTMLLIElement>, lyricNum: number, bodyHeight: number, lyrics: HTMLUListElement) => {
     anime({
         easing: 'cubicBezier(.3, .5, .2, 1)', //弹簧参数  .3, .5, .2, 1
         targets: lis, // 根元素
@@ -85,37 +89,37 @@ const LyricSelect = (lis:NodeListOf<HTMLLIElement> , lyricNum:number , bodyHeigh
         delay: (el, i) => {
             return Fun.funcDelay(i - lyricNum)
         },
-        filter: (el:HTMLElement, i:number) => {
+        filter: (el: HTMLElement, i: number) => {
             return Fun.funcBlur(i, lyricNum)
         },
-        color: (el:HTMLElement, i:number) => {
+        color: (el: HTMLElement, i: number) => {
             let offset = i - lyricNum
             // if (i == lyricNum) return 'rgb(0,0,0,.9)'
             //
             // return 'rgb(0,0,0,' + (0.6 * (0.5 ** Math.abs(offset))) + ')'
             return (i == lyricNum) ? 'rgb(0,0,0,0.7)' : ('rgb(0,0,0,' + (0.25 * (0.65 ** Math.abs(i -
                 lyricNum))) + ')')
-        },translateY: () => {
-            return Math.floor(lyrics.offsetTop - lis[lyricNum].offsetTop  + (
+        }, translateY: () => {
+            return Math.floor(lyrics.offsetTop - lis[lyricNum].offsetTop + (
                 bodyHeight * 0.04))
         }
     })
 }
 
 const Fun = {
-    funcBlur(i:number, lyricNum:number) {
+    funcBlur(i: number, lyricNum: number) {
         // let offset = i - lyricNum
         // return 'blur(' + (1 - .9 ** Math.abs(offset)) + 'vh)'
         let offset = i - lyricNum
         if (offset == 0) return 'blur(0vh)';
         let value = (0.7 - (0.5 ** Math.abs(offset)))
-        if(value<0.5){
+        if (value < 0.5) {
             return 'blur(' + value + 'vh)'
-        }else{
+        } else {
             return 'blur(' + 0.5 + 'vh)'
         }
     },
-    funcDelay(offset:number) {
+    funcDelay(offset: number) {
         // return Math.floor(40 * (offset * (0.9 ** Math.abs(offset)) ));
         if (offset < -2 || offset > 7) return 0
         return 64 * (offset + 2);
@@ -126,6 +130,7 @@ const Fun = {
 const ended = async () => {
     if (useStore().Audio.MusicSongNow.length > 1) {
         await MusicAudioModeModule()
+        await useStore().Start.ModeToggleFalse()
     } else {
         if (useStore().Start.AudioMode === 0) {
             await MusicAudioModeModule()
@@ -188,7 +193,7 @@ export const mess = (type: string) => {
 
     }
 }
-
+// 问题 播放
 export const MusicAudioPlayAll = async (id: string) => {
     const {HomeAudio} = Element()
 
@@ -204,16 +209,15 @@ export const MusicAudioPlayAll = async (id: string) => {
 
 export const MusicAudioModeModule = async (type?: string) => {
     if (useStore().Start.AudioMode === 1) {
-        type === undefined ? useStore().Start.AddAudioIndex() : false
+        type === 'Next' ? useStore().Start.AddAudioIndex() : (type === 'Previous' ? useStore().Start.subtractAudioIndex() : useStore().Start.AddAudioIndex())
         // @ts-ignore
         await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['id'])
-
     } else if (useStore().Start.AudioMode === 0) {
         const {HomeAudio} = Element()
         HomeAudio.currentTime = 0
         await HomeAudio.play()
     } else if (useStore().Start.AudioMode === 2) {
-        type === undefined ? useStore().Start.AddAudioIndex() : false
+        type === 'Next' ? useStore().Start.AddAudioIndex() : (type === 'Previous' ? useStore().Start.subtractAudioIndex() : useStore().Start.AddAudioIndex())
         // @ts-ignore
         await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
     } else {

@@ -36,31 +36,17 @@ export const useDetailComputed = () => {
 
 //Player
 export const usePlayerComponent = () => {
-    const PlayerImg = computed(() => {
-        // @ts-ignore
-        return useStore().Start.AudioMode === 1 ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['al']['picUrl'] : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['al']['picUrl']
-    })
-    const PlayerSongName = computed(() => {
-        // @ts-ignore
-        return useStore().Start.AudioMode === 1 ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['name'] : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['name']
-    })
-    const PlayerSingerName = computed(() => {
-        // @ts-ignore
-        return useStore().Start.AudioMode === 1 ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['ar'][0]['name'] : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['ar'][0]['name']
+    const playerTime = computed(() => {
+        //@ts-ignore
+        return useStore().Audio.MusicSongNow.length > 1 ? (useStore().Start.AudioMode === 1 && useStore().Start.ModeToggle === false ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['dt'] : (useStore().Start.AudioMode === 0 && useStore().Start.ModeToggle ===false ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['dt'] : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['dt'] )) : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['dt']
 
     })
-    const PlayerFinalSongTime = computed(() => {
-        // @ts-ignore
-        return useStore().Start.AudioMode === 1 ? Time(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['dt']) : Time(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['dt'])
-
-    })
-
 
     const PlayerThemesStyle = computed(() => {
         return useStore().Start.ThemesBoolean ? '--n-color:#222;--n-title-text-color:#fff' : '--n-color:#fff;--n-title-text-color:#000'
     })
 
-    return {PlayerImg, PlayerSongName, PlayerSingerName, PlayerFinalSongTime, PlayerThemesStyle }
+    return {PlayerThemesStyle , playerTime}
 }
 
 //capabilities
@@ -86,23 +72,29 @@ export const useSearchComputed = () => {
 export const useAudioComputed = () => {
     const AudioImg = computed(() => {
         // @ts-ignore
-        return useStore().Audio.MusicSongNow.length > 1 ? (useStore().Start.AudioMode === 1 ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['al']['picUrl'] : (useStore().Start.AudioMode === 0 ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['al']['picUrl'] : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['al']['picUrl'])) : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['al']['picUrl']
+        return useStore().Audio.MusicSongNow.length > 1 ? (useStore().Start.AudioMode === 1 && useStore().Start.ModeToggle === false ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['al']['picUrl'] : (useStore().Start.AudioMode === 0 && useStore().Start.ModeToggle ===false ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['al']['picUrl'] : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['al']['picUrl'])) : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['al']['picUrl']
     })
     const AudioName = computed(() => {
         // @ts-ignore
-        return useStore().Audio.MusicSongNow.length > 1 ? (useStore().Start.AudioMode === 1 ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['name'] : (useStore().Start.AudioMode === 0 ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['name'] : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['name'])) : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['name']
+        return useStore().Audio.MusicSongNow.length > 1 ? (useStore().Start.AudioMode === 1 && useStore().Start.ModeToggle === false  ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['name'] : (useStore().Start.AudioMode === 0 && useStore().Start.ModeToggle ===false ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['name'] : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['name'])) : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['name']
 
     })
     const AudioSinger = computed(() => {
         // @ts-ignore
-        return useStore().Audio.MusicSongNow.length > 1 ? (useStore().Start.AudioMode === 1 ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['ar'][0]['name'] : (useStore().Start.AudioMode === 0 ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['ar'][0]['name'] : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['ar'][0]['name'])) : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['ar'][0]['name']
+        return useStore().Audio.MusicSongNow.length > 1 ? (useStore().Start.AudioMode === 1 && useStore().Start.ModeToggle === false  ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['ar'][0]['name'] : (useStore().Start.AudioMode === 0 && useStore().Start.ModeToggle ===false ? useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['ar'][0]['name'] : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['ar'][0]['name'])) : useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['ar'][0]['name']
 
     })
     const AudioBackground = computed(() => {
         return useStore().Start.ThemesBoolean ? '--capabilities-background:#242424;--color:#fff;--active:rgba(255, 255, 255, .1);' : '--capabilities-background:#fff;color:#000;'
     })
 
-    return {AudioImg, AudioName, AudioSinger, AudioBackground}
+    const AudioLastTime = computed(() => {
+        // @ts-ignore
+        return useStore().Audio.MusicSongNow.length > 1 ? (useStore().Start.AudioMode === 1 && useStore().Start.ModeToggle === false ? Time(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['dt']) : (useStore().Start.AudioMode === 0 && useStore().Start.ModeToggle ===false ? Time(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['dt']) : Time(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['dt']) )) : Time(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['dt'])
+        // return useStore().Start.AudioMode === 1 && useStore().Start.ModeToggle === false ? (useStore().Audio.MusicSongNow.length > 1   ? Time(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['dt']) : '') : Time(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['dt'])
+    })
+
+    return {AudioImg, AudioName, AudioSinger, AudioBackground ,AudioLastTime}
 }
 
 export const useSongListComputed = () => {
