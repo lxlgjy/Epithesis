@@ -119,6 +119,7 @@ export const search = async (type?: string, value?: string) => {
 
         AddSearchHistory(typeof value === "string" ? value : 'error')
 
+        MusicLoginBackgroundShow.value = false
 
     } else {
         const {searchInputValue} = Element()
@@ -134,6 +135,8 @@ export const search = async (type?: string, value?: string) => {
             backgroundAndloadingToggle()
 
             AddSearchHistory(searchInputValue.value)
+            MusicLoginBackgroundShow.value = false
+
         }
     }
 }
@@ -419,6 +422,14 @@ export const SongListToggle = () => {
 
 export const SongListShowToggle = () => {
     MusicSongListShowToggle()
+    if(MusicSongListShow.value) {
+        const {SongList ,Audio} = Element()
+        const WindowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+        SongList.style.height = WindowHeight - Audio.offsetHeight  + 'px'
+    } else {
+        return false
+    }
+
 }
 
 export const CancelsTheListDisplay = () => {

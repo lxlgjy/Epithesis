@@ -5,14 +5,10 @@
         <div class="component-flex" @click="SongListToggle">
           <span
               :id="MusicSongList ? 'SongListTap' : ''"
-              class="component-flex-between component-center component-pointer component-sizing component-font-weight component-radius-2">{{
-              $t('msg.SongPlayList')
-            }}</span>
+              class="component-flex-between component-center component-pointer component-sizing component-font-weight component-radius-2">{{$t('msg.SongPlayList') }}</span>
           <span
               :id="!MusicSongList ? 'SongListTap' : ''"
-              class="component-flex-between component-center component-pointer component-sizing component-font-weight component-radius-2">{{
-              $t('msg.SongPlayHistory')
-            }}</span>
+              class="component-flex-between component-center component-pointer component-sizing component-font-weight component-radius-2">{{$t('msg.SongPlayHistory') }}</span>
         </div>
       </div>
       <div class="SongList-list component-padding-0-1 ">
@@ -73,8 +69,8 @@ const {SongListBackground} = useSongListComputed()
 .SongList {
   top: 0;
   right: 0;
-  width: 22rem;
-  height: 89.8%;
+  width: 352px;
+  //height: 89.8%;
   background-color: var(--background);
   box-shadow: 5px 1px 21px rgba(23, 34, 45, .3);
 }
@@ -83,15 +79,15 @@ const {SongListBackground} = useSongListComputed()
   position: sticky;
   top: 0;
   //background-color: var(--background);
-  padding: 8px 1rem;
+  padding: 8px 16px;
   box-shadow: 0 1px 7px 2px rgba(23, 34, 45, .3);
 
   div {
-    height: 2rem;
+    height: 32px;
 
     span {
       height: 100%;
-      line-height: 2rem;
+      line-height: 32px;
       margin: 0 4px;
       color: var(--color);
 
@@ -106,7 +102,7 @@ const {SongListBackground} = useSongListComputed()
   margin-top: 10px;
 
   li {
-    height: 3rem;
+    height: 48px;
     margin: 5px 0;
 
     &:hover {
@@ -116,7 +112,7 @@ const {SongListBackground} = useSongListComputed()
     div {
       & div:nth-child(1) {
         flex: 1;
-        height: 2rem;
+        height: 32px;
       }
 
       & div:nth-child(2) {
@@ -128,13 +124,13 @@ const {SongListBackground} = useSongListComputed()
       }
 
       & div:nth-child(1), &:nth-child(2) {
-        padding: 0 .5rem;
+        padding: 0 8px;
       }
     }
   }
 
   .SongList-title {
-    width: 5rem;
+    width: 80px;
     text-align: left;
     padding-left: 12px;
 

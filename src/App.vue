@@ -34,7 +34,7 @@
 
   <!-- 右侧播放列表 -->
     <transition name="SongList">
-        <SongList v-if="MusicSongListShow"></SongList>
+        <SongList v-show="MusicSongListShow"></SongList>
     </transition>
 
   <!-- 加载条 -->

@@ -31,7 +31,6 @@
             </div>
             <div v-else class="TheSearchHistoryIsEmpty">搜索历史为空</div>
           </n-scrollbar>
-
         </div>
       </div>
     </div>
@@ -53,8 +52,8 @@ const {searchBackground} = useSearchComputed()
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
-  width: 35rem;
-  height: 30rem;
+  width: 560px;
+  height: 480px;
   z-index: 120;
   background: var(--search-background);
 
@@ -66,7 +65,7 @@ const {searchBackground} = useSearchComputed()
 
     .Search-top {
       width: 100%;
-      height: 5rem;
+      height: 80px;
       border-bottom: 1px solid var(--active);
 
       .Search-top-input {
@@ -76,7 +75,7 @@ const {searchBackground} = useSearchComputed()
 
         input {
           width: 100%;
-          height: 4rem;
+          height: 64px;
           border: none;
           outline: none;
           background: var(--search-background);
@@ -94,23 +93,23 @@ const {searchBackground} = useSearchComputed()
     }
 
     .Search-bottom {
-      height: 25rem;
-      padding: .5rem 2rem;
+      height: 400px;
+      padding: 8px 32px;
 
       .SearchHistory, .SearchPopular {
         width: 50%;
 
         h3 {
           text-align: center;
-          margin-bottom: .3rem;
+          margin-bottom: 4.8px;
         }
       }
 
       .SearchPopular {
 
         .SearchPopularList {
-          width: 12rem;
-          padding: .2rem .6rem;
+          width: 192px;
+          padding: 3.2px 9.6px;
         }
 
         .SearchPopularList:hover {
@@ -127,7 +126,7 @@ const {searchBackground} = useSearchComputed()
           display: inline-block;
           padding: .5rem;
           border-radius: 3px;
-          margin: .2rem .3rem;
+          margin: 8px 4.8px;
           background-color: var(--history);
         }
 

@@ -8,6 +8,8 @@ const Element = () => {
     let PlayerLyric = document.querySelectorAll('.PlayerLyric') as NodeListOf<HTMLLIElement> //歌词每行高度
     let searchInputValue = document.querySelector('.Search-top-input input') as HTMLInputElement // 搜索
     let SearchAgain = document.querySelector('.SearchAgain') as HTMLInputElement // 再次搜索
+    let SongList = document.querySelector('.SongList') as HTMLDivElement // 列表
+    let Audio = document.querySelector('.audio') as HTMLDivElement //
 
 
     return {
@@ -20,6 +22,8 @@ const Element = () => {
         PlayerLyric,
         searchInputValue,
         SearchAgain,
+        SongList,
+        Audio
     }
 }
 

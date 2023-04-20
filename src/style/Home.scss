@@ -13,7 +13,7 @@
   }
 
   .n-carousel__arrow {
-    color: #616060;
+    color: var(--color);
   }
 }
 
@@ -27,6 +27,29 @@
     grid-column-gap: 10px;
     grid-row-gap: 10px;
   }
+}
+
+.Recommended-PrivateMV {
+  font-size: 30px;
+  font-weight: 700;
+  transform: translateX(20px) translateY(10px)
+}
+
+.RecommendedDaily , .PrivateMV {
+  border-radius: 5px;
+  height: 160px;
+}
+
+.RecommendedDaily {
+  background: url("../../../public/1.png") no-repeat;
+  background-size: cover;
+
+}
+
+.PrivateMV {
+  background: url('../../../public/4.jpg') no-repeat;
+  background-size: cover;
+
 }
 
 

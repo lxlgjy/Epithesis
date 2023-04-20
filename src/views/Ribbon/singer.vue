@@ -8,10 +8,7 @@
                             <h3>{{ $t('msg.SingerRegion') }}</h3>
                         </div>
                         <div class="singer-address-list component-sizing component-grid">
-                            <div v-for="item in address" class="SingerRegion component-radius-4 component-pointer">{{
-                                item
-                                }}
-                            </div>
+                            <div v-for="item in address" class="SingerRegion component-radius-4 component-pointer">{{item}}</div>
                         </div>
                     </div>
                     <div class="singer-hot">
@@ -69,5 +66,4 @@ import SecondaryRoutingPage from "../../components/SecondaryRoutingPage.vue";
 
 const {Singer, Start} = useStore()
 const route = useRoute()
-const address = ['华语', '欧美', '韩国', '日本']
 </script>

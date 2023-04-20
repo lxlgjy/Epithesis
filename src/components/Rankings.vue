@@ -80,7 +80,7 @@ const image = (item: any) => {
   box-shadow: -2px 1px 5px rgba(0, 0, 0, .1);
 
   .image {
-    width: 15.3rem;
+    width: 244.8px;
     height: 100%;
   }
 
@@ -120,8 +120,8 @@ const image = (item: any) => {
 
         li {
           display: flex;
-          height: 3rem;
-          line-height: 3rem;
+          height: 48px;
+          line-height: 48px;
           transition: background .5s;
           border-radius: 3px;
           margin: 4px 0;
@@ -141,8 +141,8 @@ const image = (item: any) => {
             &:nth-child(1) {
               text-align: left;
               padding: 0 8px;
-              width: 2.4rem;
-              height: 2.4rem;
+              width: 38.4px;
+              height: 38.4px;
               transform: translateY(6px);
             }
 

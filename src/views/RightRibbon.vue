@@ -15,7 +15,7 @@
             <n-icon class="Home" size="20">
               <component :is="item.icon"></component>
             </n-icon>
-            <li>{{ item.notice }}</li>
+            <p>{{ item.notice }}</p>
           </div>
         </router-link>
       </ul>

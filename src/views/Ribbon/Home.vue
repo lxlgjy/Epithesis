@@ -28,20 +28,17 @@
                             <h3>{{ $t("msg.HomeRecommend") }}</h3>
                         </div>
                         <ul class="MusicUl-20">
-                            <router-link v-if="!Start.LoginShow" class="MusicLi-48 MusicBackground tuiJan"
-                                         style="border-radius: 5px;height: 10rem;" to="/Home/HomeRecommendedSongs"
+                            <router-link v-if="!Start.LoginShow"
+                                         class="MusicLi-48 MusicBackground tuiJan RecommendedDaily"
+                                         to="/Home/HomeRecommendedSongs"
                                          @click="MusicHomeDetail('11071110','HomeRecommendedSongs')">
-                <span
-                        style="font-size: 30px; font-weight: 700; transform: translateX(20px) translateY(10px)">每日推荐歌曲</span>
+                                <span class="Recommended-PrivateMV">每日推荐歌曲</span>
                             </router-link>
-                            <li v-else class="MusicLi-48 MusicBackground tuiJan"
-                                style="border-radius: 5px;height: 10rem;">
-                <span
-                        style="font-size: 30px; font-weight: 700; transform: translateX(20px) translateY(10px)">每日推荐歌曲</span>
+                            <li v-else class="MusicLi-48 MusicBackground tuiJan RecommendedDaily">
+                                <span class="Recommended-PrivateMV">每日推荐歌曲</span>
                             </li>
-                            <li class="MusicLi-48 MusicBackground FM" style="border-radius: 5px;height: 10rem;">
-                <span
-                        style="font-size: 30px; font-weight: 700; transform: translateX(20px) translateY(10px)">私人FM</span>
+                            <li class=" PrivateMV MusicLi-48 MusicBackground FM">
+                                <span class="Recommended-PrivateMV">私人FM</span>
                             </li>
                         </ul>
                     </div>
