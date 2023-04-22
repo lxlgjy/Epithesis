@@ -27,7 +27,7 @@
                                 </div>
                                 <div v-show="!Start.PlayListLoading" class="PlayList-page Music-relative Music-center"
                                      @click.stop="PlayListToggle(item.name)">
-                                    <div class="pagination Music-absolute Music-radius-3">
+                                    <div class="pagination Music-absolute Music-radius-3 Music-pointer">
                                         <span>{{ $t('msg.PlayListMore') }}</span>
                                     </div>
                                 </div>

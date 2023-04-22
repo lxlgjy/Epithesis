@@ -1,6 +1,6 @@
 <template>
   <div class="Player-back component-index-5">
-    <button @click="playerAudioShow">
+    <button @click.stop="playerAudioShow">
       <n-icon size="40" color="#fff">
         <ChevronDownSharp/>
       </n-icon>

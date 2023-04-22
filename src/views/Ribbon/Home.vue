@@ -34,10 +34,10 @@
                                          @click="MusicHomeDetail('11071110','HomeRecommendedSongs')">
                                 <span class="Recommended-PrivateMV">每日推荐歌曲</span>
                             </router-link>
-                            <li v-else class="MusicLi-48 MusicBackground tuiJan RecommendedDaily">
+                            <li v-else class="MusicLi-48 MusicBackground tuiJan RecommendedDaily" @click="MRTJ();mess('warning')">
                                 <span class="Recommended-PrivateMV">每日推荐歌曲</span>
                             </li>
-                            <li class=" PrivateMV MusicLi-48 MusicBackground FM">
+                            <li class=" PrivateMV MusicLi-48 MusicBackground FM" @click="SRMV();mess('warning')">
                                 <span class="Recommended-PrivateMV">私人FM</span>
                             </li>
                         </ul>
@@ -139,7 +139,7 @@ import '@/style/Home.scss'
 import '@/style/Skeleton/Home.sass'
 import '../../style/content.sass'
 import useStore from "../../stores/counter";
-import {left, MusicHomeDetail, right, SwiperData} from '../../uilt/VueIncident'
+import {left, MusicHomeDetail, right, SwiperData, SRMV, MRTJ} from '../../uilt/VueIncident'
 import {mess} from "../../uilt/VueEvent";
 import Scroll from '../../components/MusicScroll.vue'
 import {useRouter} from "vue-router";

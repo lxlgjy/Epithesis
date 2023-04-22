@@ -1,39 +1,44 @@
 <template>
-  <div :style="SongListBackground" class="SongList component-absolute component-index-4" @click.stop>
-    <n-scrollbar :on-scroll="scorll">
-      <div class="SongList-header component-sizing component-index-2">
-        <div class="component-flex" @click="SongListToggle">
+    <div :style="SongListBackground" class="SongList component-absolute component-index-4" @click.stop>
+        <n-scrollbar :on-scroll="scorll">
+            <div class="SongList-header component-sizing component-index-2">
+                <div class="component-flex" @click="SongListToggle">
           <span
-              :id="MusicSongList ? 'SongListTap' : ''"
-              class="component-flex-between component-center component-pointer component-sizing component-font-weight component-radius-2">{{$t('msg.SongPlayList') }}</span>
-          <span
-              :id="!MusicSongList ? 'SongListTap' : ''"
-              class="component-flex-between component-center component-pointer component-sizing component-font-weight component-radius-2">{{$t('msg.SongPlayHistory') }}</span>
-        </div>
-      </div>
-      <div class="SongList-list component-padding-0-1 ">
-        <ul>
-          <li v-for="(item,index) in Audio.MusicSongNow"
-              :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'SongList' : ''"
-              class="component-pointer component-radius-4"
-              @contextmenu="Capabilities($event , item , 'SongList')" @dblclick.stop="SongListAudio(item)">
-            <div class="component-flex component-center component-flex-items">
-              <div>
-                <img v-lazy="item['al']['picUrl'] + '?param=50y50'">
-              </div>
-              <div class="SongList-title component-sizing">
-                <span class="component-flex-text">{{ item.name }}</span>
-                <span class="component-flex-text">{{ item['ar'][0].name }}</span>
-              </div>
-              <!--       专辑（要需要自行添加）       -->
-              <!--<span class="component-flex-text">{{item['al'].name}}</span>-->
-              <!--       歌词时间舍弃       -->
+                  :id="MusicSongList ? 'SongListTap' : ''"
+                  class="component-flex-between component-center component-pointer component-sizing component-font-weight component-radius-2">{{
+              $t('msg.SongPlayList')
+              }}</span>
+                    <span
+                            :id="!MusicSongList ? 'SongListTap' : ''"
+                            class="component-flex-between component-center component-pointer component-sizing component-font-weight component-radius-2">{{
+                        $t('msg.SongPlayHistory')
+                        }}</span>
+                </div>
             </div>
-          </li>
-        </ul>
-      </div>
-    </n-scrollbar>
-  </div>
+            <div class="SongList-list component-padding-0-1 ">
+                <transition-group name="list" tag="ul" >
+                    <li v-for="(item,index) in Audio.MusicSongNow"
+                        :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'SongList' : ''"
+                        class="component-pointer component-radius-4"
+                        @contextmenu="Capabilities($event , item , 'SongList')" @dblclick.stop="SongListAudio(item)"
+                        :key="item.id">
+                        <div class="component-flex component-center component-flex-items">
+                            <div>
+                                <img v-lazy="item['al']['picUrl'] + '?param=50y50'">
+                            </div>
+                            <div class="SongList-title component-sizing">
+                                <span class="component-flex-text">{{ item.name }}</span>
+                                <span class="component-flex-text">{{ item['ar'][0].name }}</span>
+                            </div>
+                            <!--       专辑（要需要自行添加）       -->
+                            <!--<span class="component-flex-text">{{item['al'].name}}</span>-->
+                            <!--       歌词时间舍弃       -->
+                        </div>
+                    </li>
+                </transition-group>
+            </div>
+        </n-scrollbar>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -81,6 +86,7 @@ const {SongListBackground} = useSongListComputed()
   //background-color: var(--background);
   padding: 8px 16px;
   box-shadow: 0 1px 7px 2px rgba(23, 34, 45, .3);
+  backdrop-filter: blur(10px);
 
   div {
     height: 32px;

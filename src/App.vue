@@ -2,21 +2,23 @@
     <audio id="Audio" :hidden="true" :src="Audio.MusicSong['data'] ? Audio.MusicSong['data'][0]['url']  : null"></audio>
 
   <!--  页面整体  -->
-    <div id="Box" :class="Setting.PageThemes"  v-show="Start.PageShow">
-        <RightRibbon id="RightRibbon" ></RightRibbon>
-        <left-display-area id="LeftDisplayArea"></left-display-area>
-    </div>
+    <transition name="Box" mode="in-out">
+        <div id="Box" :class="Setting.PageThemes"  v-if="Start.PageShow">
+            <RightRibbon id="RightRibbon" ></RightRibbon>
+            <left-display-area id="LeftDisplayArea"></left-display-area>
+        </div>
+    </transition>
 
   <!-- 底部播放器 -->
-    <play-audio v-show="Start.PageShow"></play-audio>
+    <play-audio v-if="Start.PageShow"></play-audio>
 
   <!-- 完整播放器 -->
-    <transition name="PlayActive">
-        <Player v-show="!Start.PageShow"></Player>
+    <transition name="PlayActive" mode="in-out">
+        <Player v-if="!Start.PageShow"></Player>
     </transition>
 
   <!-- 控制播放器隐藏（完整） -->
-    <PlayBack v-show="!Start.PageShow"></PlayBack>
+    <PlayBack v-if="!Start.PageShow"></PlayBack>
 
   <!-- 搜索界面 -->
     <transition name="Search">
@@ -30,7 +32,9 @@
     <Logon v-if="MusicLoginShow"></Logon>
 
   <!-- 右击小菜单 -->
-    <capabilities v-show="MusicPageCapabilities"></capabilities>
+    <transition>
+        <capabilities v-show="MusicPageCapabilities"></capabilities>
+    </transition>
 
   <!-- 右侧播放列表 -->
     <transition name="SongList">
@@ -113,9 +117,6 @@ onMounted(async () => {
     })
 })
 
-nextTick(() => {
-
-})
 
 
 document.oncontextmenu = () => {

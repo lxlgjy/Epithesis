@@ -129,8 +129,10 @@ const Fun = {
 
 const ended = async () => {
     if (useStore().Audio.MusicSongNow.length > 1) {
-        await MusicAudioModeModule()
         await useStore().Start.ModeToggleFalse()
+
+        await MusicAudioModeModule()
+        await useStore().Start.ModeToggleTrue()
     } else {
         if (useStore().Start.AudioMode === 0) {
             await MusicAudioModeModule()
@@ -209,20 +211,22 @@ export const MusicAudioPlayAll = async (id: string) => {
 
 export const MusicAudioModeModule = async (type?: string) => {
     if (useStore().Start.AudioMode === 1) {
-        type === 'Next' ? useStore().Start.AddAudioIndex() : (type === 'Previous' ? useStore().Start.subtractAudioIndex() : useStore().Start.AddAudioIndex())
+        type === 'Next' ? useStore().Start.AddAudioIndex() : (type === 'Previous' ? useStore().Start.subtractAudioIndex() :  (type === 'SongList' ? false : useStore().Start.AddAudioIndex()))
         // @ts-ignore
         await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioModeRandomList[useStore().Start.AudioSongIndex]]['id'])
     } else if (useStore().Start.AudioMode === 0) {
         const {HomeAudio} = Element()
         HomeAudio.currentTime = 0
         await HomeAudio.play()
+        MusicPlayer.value = true
     } else if (useStore().Start.AudioMode === 2) {
-        type === 'Next' ? useStore().Start.AddAudioIndex() : (type === 'Previous' ? useStore().Start.subtractAudioIndex() : useStore().Start.AddAudioIndex())
+        type === 'Next' ? useStore().Start.AddAudioIndex() : (type === 'Previous' ? useStore().Start.subtractAudioIndex() : (type === 'SongList' ? false :  useStore().Start.AddAudioIndex()))
         // @ts-ignore
         await MusicAudioPlayAll(useStore().Audio.MusicSongNow[useStore().Start.AudioSongIndex]['id'])
     } else {
         return false
     }
+
     AudioLyric()
 
 }

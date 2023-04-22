@@ -175,24 +175,22 @@ export const AvatarFunction = (type: string) => {
     console.log(type)
     switch (type) {
         case '登录' :
+            LoginClickShow()
             break
-        case 'vip' :
-            break
-        case '非vip' :
-            break
-        case '关于' :
-        case 'Concerning' :
-            routerPush('Agreement', 'Agreement')
-            break
-        case '查看版本' :
+        case 'Login' :
+            LoginClickShow()
             break
         case '设置' :
+            routerPush('Setting', 'Setting')
+            break
         case 'SetUp' :
             routerPush('Setting', 'Setting')
             break
-        case '协议' :
-            break
         case '退出登录' :
+            RollOutLogin()
+            break
+        case 'SignOut' :
+            RollOutLogin()
             break
     }
 
@@ -337,6 +335,7 @@ export const PlayerAudio = (type?: string) => {
 export const playerAudioShow = () => {
     useStore().Start.TogglePageShow(!useStore().Start.PageShow)
     MusicPlayerShow.value = !MusicPlayerShow.value
+    AudioLyric()
 }
 
 export const PlayToggle = (Toggle: boolean) => {
@@ -379,13 +378,6 @@ export const AudioMode = async (index: number) => {
             case 1:
                 const AudioSlice = await newAudioList() as Array<number>
                 useStore().Start.reviseAudioModeRandomList(AudioSlice)
-                NoticeMusicTooleMode(index)
-                break
-            case 2:
-                NoticeMusicTooleMode(index)
-                break
-            default:
-                NoticeMusicTooleMode(index)
                 break
         }
     } else {
@@ -399,16 +391,11 @@ export const AudioMode = async (index: number) => {
                 useStore().Start.reviseMusicNotice('列表只有一首歌曲，无法进行列表播放，请添加音乐')
                 break
             default:
-                NoticeMusicTooleMode(index)
                 break
         }
     }
 }
 
-const NoticeMusicTooleMode = (index: number) => {
-    MusicPageNoticeShow.value = true
-    useStore().Start.reviseMusicNotice(`播放模式已切换（${index === 0 ? '单曲循环' : (index === 1 ? '随机播放' : '列表循环')}）`)
-}
 
 const NoticeMusicRevise = (notice: string) => {
     MusicPageNoticeShow.value = true
@@ -536,7 +523,7 @@ export const MusicDownload = (id: string, name: string, singer: string) => {
 export const Capabilities = (e: Event, data: any, type?: string) => {
 
     MusicPageCapabilities.value = true
-    MusicListNoticeShow.value = type === 'SongList'
+    MusicListNoticeShow.value = (type === 'SongList')
 
     useStore().Detail.getMusicCapabilities(data)
 
@@ -609,6 +596,24 @@ const Language = (value: string, language: string) => {
 export const themes = (value: Boolean) => {
     value ? useStore().Setting.setPageThemes('Dark') : useStore().Setting.setPageThemes('Light')
 }
+
+const RollOutLogin = () => {
+    localStorage.removeItem('cookie')
+    localStorage.removeItem('MusicLogin')
+    useStore().Start.ToggleLoginShow(true)
+}
+
+export const SRMV = () => {
+    MusicPageNoticeShow.value = true
+    useStore().Start.reviseMusicNotice('该模块未完成')
+}
+
+export const MRTJ = () => {
+    MusicPageNoticeShow.value = true
+    useStore().Start.reviseMusicNotice('请登录查看')
+}
+
+
 
 
 

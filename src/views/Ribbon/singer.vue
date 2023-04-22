@@ -66,4 +66,5 @@ import SecondaryRoutingPage from "../../components/SecondaryRoutingPage.vue";
 
 const {Singer, Start} = useStore()
 const route = useRoute()
+const address = ['华语', '欧美', '韩国', '日本']
 </script>

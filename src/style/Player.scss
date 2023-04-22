@@ -73,15 +73,27 @@
             }
           }
 
-          .Player-unit {
+          .Player-unit , .Player-unit-love {
             width: 20px;
             height: 20px;
             padding: 5px;
             margin: 6px 4px 0 6px;
-            background-color: rgba(23, 34, 45, .2);
+            transition: all 400ms;
+
+
+
+            &:hover {
+              transform: scale(1.2);
+            }
 
             button {
               line-height: 30px;
+            }
+          }
+
+          .Player-unit {
+            i {
+              color: rgba(255,255,255,.3);
             }
           }
 

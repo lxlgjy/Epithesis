@@ -52,8 +52,7 @@ export const lyric = (item: object) => {
     })
 }
 
-export const BackgroundImage = () => {
-    const {Background} = Element()
+export const BackgroundImage = (background?:HTMLDivElement) => {
 
     let backgroundArr = [
         {left: '8D7B68', top: 'A4907C'},
@@ -70,7 +69,14 @@ export const BackgroundImage = () => {
         {left: '1C3879', top: '607EAA'},
     ]
 
-    Background.style.background = `linear-gradient(to left top, #${backgroundArr[useStore().Start.BackgroundIndex].left}, #${backgroundArr[useStore().Start.BackgroundIndex].top})`
+    if(background === undefined || null) {
+        const {Background} = Element()
+
+        Background.style.background = `linear-gradient(to left top, #${backgroundArr[useStore().Start.BackgroundIndex].left}, #${backgroundArr[useStore().Start.BackgroundIndex].top})`
+    } else {
+        background.style.background = `linear-gradient(to left top, #${backgroundArr[useStore().Start.BackgroundIndex].left}, #${backgroundArr[useStore().Start.BackgroundIndex].top})`
+    }
+
 }
 
 export const currentTime = (time: number) => {

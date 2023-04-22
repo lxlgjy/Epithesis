@@ -37,8 +37,6 @@ const {SkeletonShow} = useSkeletonComputed()
 
 const route = useRoute()
 
-console.log(route.meta)
-console.log(route.path)
 </script>
 
 <style lang="scss" scoped>

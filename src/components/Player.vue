@@ -38,10 +38,20 @@
                                                       @update-value="AudioVolumeMouseMove(value)"/>
                                         </n-space>
                                     </div>
-                                    <div class="Player-unit component-radius-50 ">
-                                        <button class="component-sizing ">
-                                            <n-icon color="#fff" size="20">
-                                                <EllipsisHorizontal/>
+                                    <!--喜欢-->
+                                    <div class="Player-unit component-radius-50" v-if="!IsLove">
+                                        <button class="component-sizing component-pointer "
+                                                @click.stop="Like('true');mess('success')">
+                                            <n-icon size="20">
+                                                <HeartSharp/>
+                                            </n-icon>
+                                        </button>
+                                    </div>
+                                    <div class="Player-unit-love component-radius-50 " v-else>
+                                        <button class="component-sizing component-pointer "
+                                                @click.stop="Like('false');mess('success')">
+                                            <n-icon color="red" size="20">
+                                                <HeartSharp/>
                                             </n-icon>
                                         </button>
                                     </div>
@@ -140,9 +150,9 @@
 <script lang="ts" setup>
 import '@/style/Player.scss'
 import '../style/AnimationEffects.sass'
-import {onMounted, ref} from "vue";
+import {nextTick, onMounted, ref} from "vue";
 import {
-    EllipsisHorizontal,
+    HeartSharp,
     ListSharp,
     PauseSharp,
     Play,
@@ -157,7 +167,7 @@ import useStore from "../stores/counter";
 import {AudioValue, BackgroundImage, currentTime,} from "../uilt/PageWidgets";
 import {
     AudioProgress,
-    AudioVolumeMouseMove,
+    AudioVolumeMouseMove, Like,
     lyricSelect,
     NextAndPrevious,
     PlayerAudio,
@@ -165,20 +175,33 @@ import {
     SongListAudio
 } from '../uilt/VueIncident'
 import {AudioLyric, mess} from "../uilt/VueEvent";
-import {useAudioComputed , usePlayerComponent} from '../uilt/vueComputed'
+import {useAudioComputed, useCapabilitiesComputed, usePlayerComponent} from '../uilt/vueComputed'
+import Element from "../uilt/Element";
 import Scroll from '../components/MusicScroll.vue'
 import MusicMode from "./MusicMode.vue";
 
 
 const {Audio, Detail, Start, Setting} = useStore()
-const {AudioImg,AudioName,AudioSinger,AudioLastTime} = useAudioComputed()
+const {AudioImg, AudioName, AudioSinger, AudioLastTime} = useAudioComputed()
+const {IsLove} = useCapabilitiesComputed()
 const {playerTime} = usePlayerComponent()
 const value = ref(100)
 
 
 onMounted(() => {
     AudioLyric()
-    BackgroundImage()
+
+    nextTick(() => {
+        const {PlayerLyric} = Element()
+
+        for(let i = 1 ; i <= 10 ; i ++) {
+            PlayerLyric[i].style.color = 'rgba(0,0,0,' + (0.8 - (0.45 * i)) + ')'
+        }
+
+        let Background = document.querySelector('.Player-BackgroundImage') as HTMLDivElement //背景
+        BackgroundImage(Background)
+    })
+
 })
 
 </script>
