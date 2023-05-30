@@ -1,83 +1,86 @@
 <template>
-    <scroll @scroll="scorll">
-        <skeleton v-show="!Start.SkeletonShow" :imageWidth="'240px'" :imageHeight="'240px'"/>
-        <div class="RightHomeCss" v-show="Start.SkeletonShow">
-            <!--列表头部信息展示-->
-            <div>
-                <div v-show="route.name !== 'Search' " class="detail">
-                    <BackgroundFilter></BackgroundFilter>
-                    <div class="detail-image">
-                        <img :src="DetailImg" alt="">
-                    </div>
-                    <div class="detail-title">
-                        <div class="margin-lineHeight">
-                            <h3>
-                                {{ DetailTitle }}
-                            </h3>
+    <div>
+        <scroll @scroll="scorll">
+            <skeleton v-show="!Start.SkeletonShow" :imageWidth="'240px'" :imageHeight="'240px'"/>
+            <div class="RightHomeCss" v-show="Start.SkeletonShow">
+                <!--列表头部信息展示-->
+                <div>
+                    <div v-show="route.name !== 'Search' " class="detail">
+                        <BackgroundFilter></BackgroundFilter>
+                        <div class="detail-image" v-if="Start.status">
+                            <img :src="DetailImg" alt="">
                         </div>
-                        <div class="detail-title-ul margin-lineHeight" style="height: 2rem">
-                            <ul>
-                                <li v-for="item in DetailLabel">
-                                    {{ item }}
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="margin-lineHeight component-flex-text-web">
-                            {{ DetailBriefIntroduction }}
-                        </div>
-                        <div class="AudioDetail-play component-flex component-absolute component-pointer">
-                            <div
+                        <div class="detail-title" v-if="Start.status">
+                            <div class="margin-lineHeight">
+                                <h3>
+                                    {{ DetailTitle }}
+                                </h3>
+                            </div>
+                            <div class="detail-title-ul margin-lineHeight" style="height: 2rem">
+                                <ul>
+                                    <li v-for="item in DetailLabel">
+                                        {{ item }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="margin-lineHeight component-flex-text-web">
+                                {{ DetailBriefIntroduction }}
+                            </div>
+                            <div class="AudioDetail-play component-flex component-absolute component-pointer">
+                                <div
                                     class="AudioDetail-list flex-Music-sizing flex-Music-pointer delect-border-list component-flex-color-fff"
                                     @click="AudioListPush">
-                                <n-icon class="AudioDetail-icon" size="15">
-                                    <Play/>
-                                </n-icon>
-                                <span
+                                    <n-icon class="AudioDetail-icon" size="15">
+                                        <Play/>
+                                    </n-icon>
+                                    <span
                                         class="component-flex-color-fff">{{ DetailMusicLength }}</span>
-                            </div>
-                            <div class="AudioDetail-add delect-border-add component-flex-color-fff flex-Music-pointer"
-                                 @click="AudioListPush('AddsAllSongsFromTheCurrentList')">
-                                <n-icon class="AudioDetail-icon" size="15">
-                                    <AddSharp/>
-                                </n-icon>
+                                </div>
+                                <div class="AudioDetail-add delect-border-add component-flex-color-fff flex-Music-pointer"
+                                     @click="AudioListPush('AddsAllSongsFromTheCurrentList')">
+                                    <n-icon class="AudioDetail-icon" size="15">
+                                        <AddSharp/>
+                                    </n-icon>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!--列表展示 -->
-            <div>
-                <div class="song-list">
-                    <ul class="TitleUl component-flex component-sizing">
-                        <li></li>
-                        <li>{{ $t('msg.SongTitle') }}</li>
-                        <li>{{ $t('msg.SongAlbum') }}</li>
-                        <li class="Time">{{ $t('msg.SongDuration') }}</li>
-                    </ul>
+                <!--列表展示 -->
+                <div>
+                    <div class="song-list">
+                        <ul class="TitleUl component-flex component-sizing">
+                            <li></li>
+                            <li>{{ $t('msg.SongTitle') }}</li>
+                            <li>{{ $t('msg.SongAlbum') }}</li>
+                            <li class="Time">{{ $t('msg.SongDuration') }}</li>
+                        </ul>
+                    </div>
+                    <div class="PageDetail">
+                        <ul class="DetailUl component-grid" v-if="Start.status">
+                            <li v-for="(item,index) in DetailSongList" key="item.id"
+                                class="DetailLi component-flex component-sizing component-pointer component-radius-4"
+                                @contextmenu="Capabilities($event , item)"
+                                @dblclick="Player(<string>item['id'] , item)">
+                                <p v-if="route.meta['page'] !== 'HomeAlbum' && route.meta['page'] !== 'SongAlbum' "
+                                   class="imageAndIndex">
+                                    <img v-lazy="item['al'].picUrl + '?param=50y50' ">
+                                </p>
+                                <p v-else class="imageAndIndex index">{{ index + 1 }}</p>
+                                <div>
+                                    <p>{{ item['name'] }}</p>
+                                    <p>{{ item['ar'][0]['name'] }}</p>
+                                </div>
+                                <p class="AlbumAndTime">{{ item['al']['name'] }}</p>
+                                <p class="AlbumAndTime Time">{{ Time(item['dt']) }}</p>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="PageDetail" style="margin-bottom: 100px">
-                    <ul class="DetailUl component-grid">
-                        <li v-for="(item,index) in DetailSongList" key="item.id"
-                            class="DetailLi component-flex component-sizing component-pointer component-radius-4"
-                            @contextmenu="Capabilities($event , item)"
-                            @dblclick="Player(<string>item['id'] , item)">
-                            <p v-if="route.meta['page'] !== 'HomeAlbum' && route.meta['page'] !== 'SongAlbum' "
-                               class="imageAndIndex">
-                                <img v-lazy="item['al'].picUrl + '?param=50y50' ">
-                            </p>
-                            <p v-else class="imageAndIndex index">{{ index + 1 }}</p>
-                            <div>
-                                <p>{{ item['name'] }}</p>
-                                <p>{{ item['ar'][0]['name'] }}</p>
-                            </div>
-                            <p class="AlbumAndTime">{{ item['al']['name'] }}</p>
-                            <p class="AlbumAndTime Time">{{ Time(item['dt']) }}</p>
-                        </li>
-                    </ul>
-                </div>
             </div>
-        </div>
-    </scroll>
+        </scroll>
+    </div>
+
 </template>
 
 <script lang="ts" setup>
@@ -140,7 +143,7 @@ const {
 
 .margin-lineHeight {
   margin-top: 10px;
-  height: 3rem;
+  height: 48px;
 }
 
 .detail-title {
@@ -169,8 +172,8 @@ const {
     top: 200px;
 
     .AudioDetail-add, .AudioDetail-list {
-      height: 2rem;
-      line-height: 2rem;
+      height: 32px;
+      line-height: 32px;
       border-radius: 16px;
       background-color: #2d53c4;
     }
@@ -248,6 +251,7 @@ const {
       justify-content: space-between;
       align-items: center;
       padding: 8px;
+      transition: all 400ms;
 
       .index {
         transform: translateY(12px);
@@ -258,13 +262,14 @@ const {
       }
 
       .imageAndIndex:nth-of-type(1) {
-        flex: 1;
-        height: 50px;
-        margin-right: 10px;
+        width: 48px;
+        height: 48px;
       }
 
       div:nth-of-type(1) {
         flex: 13;
+        margin-left: 10px;
+
       }
 
       .AlbumAndTime {

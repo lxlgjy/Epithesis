@@ -1,6 +1,5 @@
 <template>
     <div class="component-sticky component-index-4">
-        <!--        <div class="Player-BackgroundImage"></div>-->
         <div class="backgroundColor"
              :style="'background:url(' + AudioImg + ') no-repeat 110% 90% /cover fixed' "></div>
         <div class="Player component-relative component-sizing">
@@ -164,7 +163,7 @@ import {
 } from '@vicons/ionicons5'
 import {MusicPlayer, MusicPlayerTime, MusicPlayerToggle, MusicSongTime,} from '../uilt/PublicStatus'
 import useStore from "../stores/counter";
-import {AudioValue, BackgroundImage, currentTime,} from "../uilt/PageWidgets";
+import {AudioValue, currentTime,} from "../uilt/PageWidgets";
 import {
     AudioProgress,
     AudioVolumeMouseMove, Like,
@@ -197,9 +196,6 @@ onMounted(() => {
         for(let i = 1 ; i <= 10 ; i ++) {
             PlayerLyric[i].style.color = 'rgba(0,0,0,' + (0.8 - (0.45 * i)) + ')'
         }
-
-        let Background = document.querySelector('.Player-BackgroundImage') as HTMLDivElement //背景
-        BackgroundImage(Background)
     })
 
 })

@@ -29,7 +29,7 @@
                         <div class="MyLove-right">
                             <ul class="MyLoveUl Music-grid">
                                 <li v-for="item in Detail.MusicSongsDetailList.DetailSong.slice(0,12)"
-                                    :id="Audio.MusicSong.length === 0 ? '' : (Audio.MusicSong.data[0]['id'] === item['id'] ? 'MyLoveSelect' : '') "
+                                    :id="Audio.MusicSong ? '' :(Audio.MusicSong.data[0]['id'] === item['id'] ? 'MyLoveSelect' : '') "
                                     class="MyLoveLi Music-sizing Music-padding-title-HomeRecommendation Music-radius-3 Music-pointer"
                                     @dblclick="Player(item['id'] , item)">
                                     <div class="MyLoveLiBox Music-flex">
@@ -38,8 +38,8 @@
                                                  class="Music-radius-3">
                                         </div>
                                         <div class="MyLove-title">
-                                            <span class="flex-Music-font-hidden">{{ item['name'] }}</span>
-                                            <span class="flex-Music-font-hidden">{{ item['ar'][0]['name'] }}</span>
+                                            <span class="Music-font-hidden">{{ item['name'] }}</span>
+                                            <span class="Music-font-hidden">{{ item['ar'][0]['name'] }}</span>
                                         </div>
                                     </div>
                                 </li>
@@ -47,12 +47,6 @@
                         </div>
                     </div>
                     <div></div>
-                </div>
-                <div class="MyPlayList flex-Music-sizing">
-                    <h2>{{ $t('msg.MyPlaylist') }}</h2>
-                    <!--      <div>可在在这里进行标题修改</div>-->
-                    <!--      <div>数据已在DetailApi中进行选择存储如有需要，请去该文件中添加</div>-->
-                    <h2>数据已在DetailApi中进行选择存储，如有需要，请去该文件中添加</h2>
                 </div>
             </div>
         </div>
@@ -75,12 +69,15 @@ import Skeleton from "../../components/Skeleton.vue";
 const {Start, Detail, Audio} = useStore()
 const route = useRoute()
 
+if (route.matched.length === 2 || route.matched.length === 1) {
+    DetailThatLove()
+}
+
 onMounted(() => {
     if (window.localStorage.getItem('cookie')) {
         Start.ToggleSkeleton(false)
         nextTick(() => {
             if (route.matched.length === 2 || route.matched.length === 1) {
-                DetailThatLove()
                 let SongsListId: Array<any> = []
                 for (let i = 0; i < Detail.MusicSongsDetailList.DetailSong.length; i++) {
                     SongsListId.push(Detail.MusicSongsDetailList.DetailSong[i].id)

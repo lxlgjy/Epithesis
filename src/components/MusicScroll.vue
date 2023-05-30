@@ -1,5 +1,5 @@
 <template>
-    <div :class="data.hidden ? 'scrollHidden' : 'scroll'" >
+    <div :class="data.hidden ? 'scrollHidden' : 'scroll'">
         <slot></slot>
     </div>
 </template>
@@ -15,11 +15,10 @@ const data = defineProps({
 <style lang="scss" scoped>
 
 .scroll, .scrollHidden {
-  position: absolute;
-  right: 0;
   width: 100%;
-  height: 100vh;
+  height: 82.5vh;
   overflow: scroll;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar {
     width: 8px;

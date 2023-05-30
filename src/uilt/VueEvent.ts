@@ -94,9 +94,7 @@ const LyricSelect = (lis: NodeListOf<HTMLLIElement>, lyricNum: number, bodyHeigh
         },
         color: (el: HTMLElement, i: number) => {
             let offset = i - lyricNum
-            // if (i == lyricNum) return 'rgb(0,0,0,.9)'
-            //
-            // return 'rgb(0,0,0,' + (0.6 * (0.5 ** Math.abs(offset))) + ')'
+
             return (i == lyricNum) ? 'rgb(0,0,0,0.7)' : ('rgb(0,0,0,' + (0.25 * (0.65 ** Math.abs(i -
                 lyricNum))) + ')')
         }, translateY: () => {
@@ -195,6 +193,7 @@ export const mess = (type: string) => {
 
     }
 }
+
 // 问题 播放
 export const MusicAudioPlayAll = async (id: string) => {
     const {HomeAudio} = Element()

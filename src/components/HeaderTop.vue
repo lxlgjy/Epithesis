@@ -59,7 +59,7 @@ const {Login, Start} = useStore()
   position: sticky;
   top: 0;
   z-index: 20;
-  height: 55px;
+  height: 7.5vh;
   padding: 5px 50px;
   box-sizing: border-box;
   color: rgba(23, 34, 56, .3);
@@ -104,10 +104,13 @@ const {Login, Start} = useStore()
 
 
 .Header-Top-Search {
+  display: flex;
+  align-items: center;
   .input {
+    width: 100%;
     padding: 8px;
     border-radius: 5px;
-    transform: translateY(3px);
+    //transform: translateY(3px);
     transition: background-color .4s;
 
     span {
@@ -130,7 +133,8 @@ const {Login, Start} = useStore()
   width: 45px;
   height: 45px;
   left: 50%;
-  transform: translateX(-50%);
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 
 

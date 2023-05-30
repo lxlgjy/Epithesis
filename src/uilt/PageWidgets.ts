@@ -52,33 +52,6 @@ export const lyric = (item: object) => {
     })
 }
 
-export const BackgroundImage = (background?:HTMLDivElement) => {
-
-    let backgroundArr = [
-        {left: '8D7B68', top: 'A4907C'},
-        {left: '2E4F4F', top: '0E8388'},
-        {left: '4C4B16', top: '898121'},
-        {left: '635985', top: '443C68'},
-        {left: 'F1DBBF', top: 'AA5656'},
-        {left: '7B8FA1', top: '567189'},
-        {left: 'DFD3C3', top: 'D0B8A8'},
-        {left: '227C70', top: '88A47C'},
-        {left: '735F32', top: 'C69749'},
-        {left: '624F82', top: '9F73AB'},
-        {left: '3D8361', top: 'D6CDA4'},
-        {left: '1C3879', top: '607EAA'},
-    ]
-
-    if(background === undefined || null) {
-        const {Background} = Element()
-
-        Background.style.background = `linear-gradient(to left top, #${backgroundArr[useStore().Start.BackgroundIndex].left}, #${backgroundArr[useStore().Start.BackgroundIndex].top})`
-    } else {
-        background.style.background = `linear-gradient(to left top, #${backgroundArr[useStore().Start.BackgroundIndex].left}, #${backgroundArr[useStore().Start.BackgroundIndex].top})`
-    }
-
-}
-
 export const currentTime = (time: number) => {
     const h = parseInt((time / 3600).toString())
     const minute = parseInt((time / 60 % 60).toString())

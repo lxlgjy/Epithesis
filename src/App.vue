@@ -1,5 +1,5 @@
 <template oncontextmenu="stop()">
-    <audio id="Audio" :hidden="true" :src="Audio.MusicSong['data'] ? Audio.MusicSong['data'][0]['url']  : null"></audio>
+    <audio id="Audio" :hidden="true" :src="Audio.MusicSong.data ? Audio.MusicSong.data[0].url  : '为有音乐链接'"></audio>
 
   <!--  页面整体  -->
     <transition name="Box" mode="in-out">
@@ -7,10 +7,7 @@
             <RightRibbon id="RightRibbon" ></RightRibbon>
             <left-display-area id="LeftDisplayArea"></left-display-area>
         </div>
-    </transition>
-
-  <!-- 底部播放器 -->
-    <play-audio v-if="Start.PageShow"></play-audio>
+    </transition>    
 
   <!-- 完整播放器 -->
     <transition name="PlayActive" mode="in-out">
@@ -20,16 +17,10 @@
   <!-- 控制播放器隐藏（完整） -->
     <PlayBack v-if="!Start.PageShow"></PlayBack>
 
-  <!-- 搜索界面 -->
-    <transition name="Search">
-        <Search v-if="MusicSearchInputShow"></Search>
-    </transition>
 
   <!-- 整个界面遮罩 -->
     <Background v-if="MusicLoginBackgroundShow"></Background>
 
-  <!-- 登录 -->
-    <Logon v-if="MusicLoginShow"></Logon>
 
   <!-- 右击小菜单 -->
     <transition>
@@ -62,21 +53,15 @@ import '@/style/main.sass'
 import '@/style/Flex/FlexLayout.sass'
 import '@/style/Themes.scss'
 import useStore from "./stores/counter";
-import PlayAudio from './components/Audio.vue'
 import Player from "./components/Player.vue";
-import Search from './components/Search.vue'
 import Background from "./components/Background.vue";
-import Logon from './components/Logon.vue'
 import SongList from "./components/SongList.vue";
 import Notice from "./components/Notice.vue";
 import Capabilities from "./components/Capabilities.vue";
 import {
-    MusicAudioModeShow,
     MusicLoadingShow,
     MusicLoginBackgroundShow,
-    MusicLoginShow,
     MusicPageCapabilities,
-    MusicSearchInputShow,
     MusicSongListShow,
 } from './uilt/PublicStatus'
 import {
@@ -89,16 +74,16 @@ import {
 import {MvAxios} from "./uilt/Api/MvApi";
 import {SingerAxios} from "./uilt/Api/SingerApi";
 import {PlayListAxios, PlayListTitleAxios} from "./uilt/Api/PlaylistApi";
-import {nextTick, onMounted} from "vue";
+import {nextTick, onBeforeMount, onMounted} from "vue";
 import PlayBack from "./components/PlayBack.vue";
 import i18n from "./i18n";
 import {CancelsTheListDisplay} from "./uilt/VueIncident";
+import router from "./router";
 
-const {Audio, Start, Setting} = useStore()
+const {Audio, Start, Setting , Login} = useStore()
 
-onMounted(async () => {
-
-    await Start.ToggleMusicData(false)
+onBeforeMount(async() => {
+    Start.ToggleMusicData(false)
     await Promise.all([
         HomeSwiperAxios('/personalized/privatecontent/list?limit=10&offset=0'),
         HomeRecommendAxios('/top/playlist/highquality?limit=35'),
@@ -110,13 +95,16 @@ onMounted(async () => {
         PlayListTitleAxios('/playlist/hot'),
         PlayListAxios('/top/playlist?limit=35&order=hot&offset=1&cat=华语'),
     ])
-    await Start.ToggleMusicData(true)
+    Start.ToggleMusicData(true)
 
     await nextTick(() => {
         i18n.global.locale.value = Setting.Language
     })
 })
 
+onMounted(() => {
+    router.push('/')
+})
 
 
 document.oncontextmenu = () => {
@@ -131,9 +119,11 @@ document.onclick = () => {
     if (MusicPageCapabilities.value) {
         MusicPageCapabilities.value = false
     }
+    
     if (useStore().Start.LoginAvatar) {
         useStore().Start.ToggleLoginAvatar(false)
     }
+
     if (MusicSongListShow.value) {
         CancelsTheListDisplay()
     }

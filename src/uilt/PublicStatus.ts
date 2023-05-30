@@ -2,6 +2,7 @@ import {reactive, toRef} from "vue";
 
 const PublicStart = reactive({
     searchInputShow: false,  // 搜索
+    argNoticeShow: false , // 关于，协议
     loginShow: false, //登录
     loginBackgroundShow: false, //遮罩
     PlayerToggle: true,
@@ -22,6 +23,8 @@ const PublicStart = reactive({
 })
 
 export const MusicSearchInputShow = toRef(PublicStart, 'searchInputShow')
+
+export const MusicArgNoticeShow = toRef(PublicStart , 'argNoticeShow')
 export const MusicLoginShow = toRef(PublicStart, 'loginShow')
 export const MusicLoginBackgroundShow = toRef(PublicStart, 'loginBackgroundShow')
 export const MusicPlayerToggle = toRef(PublicStart, 'PlayerToggle')

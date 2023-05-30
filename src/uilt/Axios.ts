@@ -1,4 +1,5 @@
 import axios from "axios";
+import useStore from "../stores/counter";
 
 export const publicGetFunction = (params:string) => {
     return new Promise(resolve => {
@@ -10,6 +11,8 @@ export const publicGetFunction = (params:string) => {
             }
         }).then(data => {
             resolve(data.data)
+            useStore().Start.ToggleStatus(true)
+
         })
     })
 }
@@ -24,6 +27,7 @@ export const publicPostFunction = (params:string) => {
             }
         }).then(data => {
             resolve(data.data)
+            useStore().Start.ToggleStatus(true)
 
         })
     })

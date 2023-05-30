@@ -1,22 +1,23 @@
 <template>
-    <div :style="SongListBackground" class="SongList component-absolute component-index-4" @click.stop>
+    <div :style="SongListBackground" class="SongList component-absolute component-index-4" @click.stop >
         <n-scrollbar :on-scroll="scorll">
             <div class="SongList-header component-sizing component-index-2">
-                <div class="component-flex" @click="SongListToggle">
+                <div class="component-flex">
           <span
                   :id="MusicSongList ? 'SongListTap' : ''"
+                  @click="SongListToggle('playingList')"
                   class="component-flex-between component-center component-pointer component-sizing component-font-weight component-radius-2">{{
               $t('msg.SongPlayList')
               }}</span>
-                    <span
-                            :id="!MusicSongList ? 'SongListTap' : ''"
-                            class="component-flex-between component-center component-pointer component-sizing component-font-weight component-radius-2">{{
+                    <span :id="!MusicSongList ? 'SongListTap' : ''"
+                          @click="SongListToggle('playingHistory')"
+                          class="component-flex-between component-center component-pointer component-sizing component-font-weight component-radius-2">{{
                         $t('msg.SongPlayHistory')
                         }}</span>
                 </div>
             </div>
-            <div class="SongList-list component-padding-0-1 ">
-                <transition-group name="list" tag="ul" >
+            <div class="SongList-list component-padding-0-1 " v-if="MusicSongList">
+                <transition-group name="list" tag="ul">
                     <li v-for="(item,index) in Audio.MusicSongNow"
                         :id="Audio.MusicSong['data'][0]['id'] === item['id'] ? 'SongList' : ''"
                         class="component-pointer component-radius-4"
@@ -30,12 +31,27 @@
                                 <span class="component-flex-text">{{ item.name }}</span>
                                 <span class="component-flex-text">{{ item['ar'][0].name }}</span>
                             </div>
-                            <!--       专辑（要需要自行添加）       -->
-                            <!--<span class="component-flex-text">{{item['al'].name}}</span>-->
-                            <!--       歌词时间舍弃       -->
                         </div>
                     </li>
                 </transition-group>
+            </div>
+            <div class="SongList-list component-padding-0-1 " v-else>
+                <ul>
+                    <li v-for="(item,index) in Playlist.MusicPlayHistory"
+                        :id="Audio.MusicSong['data'] ? (Audio.MusicSong['data'][0]['id'] === item['id'] ? 'SongList' : '' ) : ''"
+                        class="component-pointer component-radius-4"
+                        @contextmenu="Capabilities($event , item.data , 'SongList')" @dblclick.stop="SongListAudio(item.data)">
+                        <div class="component-flex component-center component-flex-items">
+                            <div>
+                                <img v-lazy="item['data']['al']['picUrl'] + '?param=50y50'">
+                            </div>
+                            <div class="SongList-title component-sizing">
+                                <span class="component-flex-text">{{ item.data.name }}</span>
+                                <span class="component-flex-text">{{ item['data']['ar'][0].name }}</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </n-scrollbar>
     </div>
@@ -46,9 +62,13 @@ import useStore from "../stores/counter";
 import {Capabilities, scorll, SongListAudio, SongListToggle} from '../uilt/VueIncident'
 import {MusicSongList} from "../uilt/PublicStatus";
 import {useSongListComputed} from '../uilt/vueComputed'
+import {PlayHistory} from "../uilt/Api/PlaylistApi";
 
-const {Detail, Audio} = useStore()
+const {Detail, Audio , Playlist} = useStore()
 const {SongListBackground} = useSongListComputed()
+
+PlayHistory('/record/recent/song')
+
 </script>
 
 <style lang="scss" scoped>
@@ -58,7 +78,8 @@ const {SongListBackground} = useSongListComputed()
 }
 
 #SongList {
-  background-color: var(--selected-background);
+  //background-color: var(--selected-background);
+  background-color: #165dff;
 
   .SongList-title {
     & span:nth-child(1) {
@@ -83,7 +104,6 @@ const {SongListBackground} = useSongListComputed()
 .SongList-header {
   position: sticky;
   top: 0;
-  //background-color: var(--background);
   padding: 8px 16px;
   box-shadow: 0 1px 7px 2px rgba(23, 34, 45, .3);
   backdrop-filter: blur(10px);
@@ -117,7 +137,7 @@ const {SongListBackground} = useSongListComputed()
 
     div {
       & div:nth-child(1) {
-        flex: 1;
+        width: 32px;
         height: 32px;
       }
 

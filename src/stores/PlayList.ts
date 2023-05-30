@@ -9,7 +9,8 @@ interface MusicPLayListAdd {
 }
 interface MusicPlayList {
     MusicPlayList:MusicPLayListAdd[],
-    MusicPlayListTitle:[]
+    MusicPlayListTitle:[],
+    MusicPlayHistory:[]
 }
 
 export interface MusicStore {
@@ -21,6 +22,7 @@ const usePlayListStore = defineStore('Playlist', {
         return {
             MusicPlayList: [] as MusicStore['MusicStore']['MusicPlayList'],
             MusicPlayListTitle: [] as MusicStore['MusicStore']['MusicPlayListTitle'],
+            MusicPlayHistory:[] as MusicStore['MusicStore']['MusicPlayHistory']
         }
     },
     actions: {
@@ -32,7 +34,11 @@ const usePlayListStore = defineStore('Playlist', {
         },
         AddMusicPlayList(data:ApiPlayList['AllMusicListData']['AddPlayList']) {
             this.MusicPlayList.push(data)
+        },
+        setMusicPlayHistory(data:MusicStore['MusicStore']['MusicPlayHistory']) {
+            this.MusicPlayHistory = data
         }
+
     },
     persist: {
         enabled: true,

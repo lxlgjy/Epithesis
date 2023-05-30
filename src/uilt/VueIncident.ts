@@ -4,6 +4,7 @@ import useStore from "../stores/counter";
 import {PLayListAddAxios, PlayListAxios} from './Api/PlaylistApi'
 import {DetailHomeAxios, DetailMVAxios, DetailPlaylistAxios, DetailSingerAxios, LoveSongs} from "./Api/DetailApi";
 import {
+    MusicArgNoticeShow,
     MusicListNoticeShow,
     MusicLoginBackgroundShow,
     MusicLoginShow,
@@ -13,14 +14,13 @@ import {
     MusicPlayer,
     MusicPlayerShow,
     MusicPlayerToggle,
-    MusicSearchInputShow,
+    MusicSearchInputShow, MusicSongList,
     MusicSongListShow,
 } from './PublicStatus'
 import {
     AudioLyric,
     DetailSelect,
     MusicAudioModeModule,
-    MusicAudioPlayAll,
     MusicSongAndLyric,
     newAudioList,
     timeupdate
@@ -33,12 +33,13 @@ import {
     MusicSongListToggle
 } from './StateTransitions'
 import Element from "./Element";
-import {AudioProgressToggle, BackgroundImage} from './PageWidgets'
+import {AudioProgressToggle} from './PageWidgets'
 import {DownloadSong} from "./Api/Download";
 import {MusicSongNow} from "./PiniaInterface/Audiointerace";
 import {useSearchAxios, useSearchSongListAxios} from "./Api/Search";
 import {SearchHistory} from "./PiniaInterface/SearchInterface";
 import {usePiniaStore} from "./PiniaInterface/ContentPinia";
+import {SingerAxios} from "./Api/SingerApi";
 
 export const LoginClickShow = () => {
     MusicLoginShow.value = true
@@ -74,6 +75,7 @@ export const headerTopInput = async () => {
 export const allPageBackground = () => {
     MusicSearchInputShow.value = false
     MusicLoginBackgroundShow.value = false
+    MusicArgNoticeShow.value = false
     MusicLoginShow.value = false
 }
 //首页左右滑动 - （横向轮播-无自动滚动）
@@ -170,7 +172,7 @@ export const SearchAgain = async () => {
     useStore().Start.PlayListLoading = false
 }
 
-//
+//设置
 export const AvatarFunction = (type: string) => {
     console.log(type)
     switch (type) {
@@ -205,6 +207,11 @@ export const MusicSinger = async (id: string) => {
 
     useStore().Start.ToggleSkeleton(true)
 
+}
+
+//歌手地区
+export const SingerAddress = async (address: number) => {
+    await SingerAxios(`/toplist/artist?type=${address}`)
 }
 
 // mv请求
@@ -333,9 +340,12 @@ export const PlayerAudio = (type?: string) => {
 
 // 进入播放界面时隐藏其他界面
 export const playerAudioShow = () => {
-    useStore().Start.TogglePageShow(!useStore().Start.PageShow)
-    MusicPlayerShow.value = !MusicPlayerShow.value
-    AudioLyric()
+    if (Object.keys(useStore().Audio.MusicSong).length) {
+        useStore().Start.TogglePageShow(!useStore().Start.PageShow)
+        MusicPlayerShow.value = !MusicPlayerShow.value
+        AudioLyric()
+    }
+
 }
 
 export const PlayToggle = (Toggle: boolean) => {
@@ -344,12 +354,21 @@ export const PlayToggle = (Toggle: boolean) => {
 
 //添加喜欢列表
 export const Like = (type: string) => {
-    let id = useStore().Detail.MusicCapabilities.id
+    if (useStore().Detail.MusicCapabilities.name !== undefined) {
+        like(type, useStore().Detail.MusicCapabilities.id, useStore().Detail.MusicCapabilities.name)
+    } else {
+        //@ts-ignore
+        like(type, useStore().Audio.MusicSongNow[0].id, useStore().Audio.MusicSongNow[0].name)
+    }
+
+}
+
+const like = (type: string, id: string, name: string) => {
     if (type === 'true') {
-        NoticeMusicRevise('添加' + useStore().Detail.MusicCapabilities.name + '到我喜欢的列表')
+        NoticeMusicRevise('添加' + name + '到我喜欢的列表')
         LoveSongs(`/like?id=${id}&timestamp=${Date.now()}`, id, type).then()
     } else {
-        NoticeMusicRevise('已将' + useStore().Detail.MusicCapabilities.name + '移除我喜欢的列表')
+        NoticeMusicRevise('已将' + name + '移除我喜欢的列表')
         LoveSongs(`/like?id=${id}&like=false&timestamp=${Date.now()}`, id, type).then()
     }
 }
@@ -403,16 +422,18 @@ const NoticeMusicRevise = (notice: string) => {
 }
 
 //播放列表（左侧滑动出现）
-export const SongListToggle = () => {
-    MusicSongListToggle()
+export const SongListToggle = (Notice: string) => {
+    MusicSongListToggle(Notice)
+    console.log(MusicSongList.value)
+
 }
 
 export const SongListShowToggle = () => {
     MusicSongListShowToggle()
-    if(MusicSongListShow.value) {
-        const {SongList ,Audio} = Element()
+    if (MusicSongListShow.value) {
+        const {SongList, Audio} = Element()
         const WindowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-        SongList.style.height = WindowHeight - Audio.offsetHeight  + 'px'
+        SongList.style.height = WindowHeight - Audio.offsetHeight + 'px'
     } else {
         return false
     }
@@ -494,16 +515,14 @@ export const NextAndPrevious = async (type?: string) => {
 
                 await MusicAudioModeModule('Next')
                 useStore().Start.ToggleBackgroundIndex('add')
-                BackgroundImage()
             } else {
                 useStore().Start.setAudioIndex(0)
             }
-        } else if(type === 'Previous') {
+        } else if (type === 'Previous') {
             if (useStore().Start.AudioSongIndex > 0 && useStore().Start.AudioSongIndex < useStore().Audio.MusicSongNow.length - 1) {
 
                 await MusicAudioModeModule('Previous')
                 useStore().Start.ToggleBackgroundIndex('sub')
-                BackgroundImage()
             }
         } else {
             return false
@@ -521,13 +540,13 @@ export const MusicDownload = (id: string, name: string, singer: string) => {
 
 //右击显示小功能
 export const Capabilities = (e: Event, data: any, type?: string) => {
+    const {Capabilities} = Element()
 
     MusicPageCapabilities.value = true
     MusicListNoticeShow.value = (type === 'SongList')
 
     useStore().Detail.getMusicCapabilities(data)
 
-    const {Capabilities} = Element()
 
     if (type === 'SongList') {
         Capabilities.style.top = e.clientY + 'px'
@@ -552,7 +571,7 @@ export const PlayListToggle = async (title: string) => {
 }
 
 
-// 设置
+// 具体设置
 export const Setting = (value: string, title: string) => {
     switch (title) {
         case '语言切换':
@@ -575,6 +594,15 @@ export const Setting = (value: string, title: string) => {
     }
 }
 
+export const OtherSettings = (type: string) => {
+    MusicLoginBackgroundShow.value = true
+    MusicArgNoticeShow.value = true
+
+    useStore().Start.setOtherSetting(type)
+
+}
+
+// 语言设置
 const Language = (value: string, language: string) => {
     if (language === '汉语') {
         if (value === '汉语') {

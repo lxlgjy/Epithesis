@@ -13,6 +13,7 @@
     .SingerRegion {
       height: 100%;
       padding: 0 60px;
+      transition: all 300ms;
 
       &:hover {
         background: var(--header-menu-background-active);

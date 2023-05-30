@@ -14,6 +14,12 @@ interface ApiList {
         id:string,
         name:string
     }
+    playHistory:{
+        data:{
+            list:[]
+        }
+    }
+
 }
 
 export interface ApiPlayList {
@@ -36,5 +42,10 @@ export const PLayListAddAxios = async (Api: string) => {
     fetch.playlists.forEach((item:ApiPlayList['AllMusicListData']['AddPlayList']) => {
         useStore().Playlist.AddMusicPlayList(item)
     })
+}
+
+export const PlayHistory = async(Api:string) => {
+    const fetch = await publicGetFunction(Api) as ApiPlayList['AllMusicListData']['playHistory']
+    useStore().Playlist.setMusicPlayHistory(fetch.data.list)
 }
 

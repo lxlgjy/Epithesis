@@ -12,12 +12,21 @@ interface MusicSwiperData {
 }
 
 interface MusicRecommendData {
-    id: string
-    coverImgUrl: string
-    name: string
+    playlists:playlists[]
+}
+
+interface playlists {
+    id: string,
+    coverImgUrl: string,
+    name: string,
 }
 
 interface MusicRankingData {
+    list:list[]
+
+}
+
+interface list {
     id: string
     coverImgUrl: string
 }

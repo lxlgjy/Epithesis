@@ -5,9 +5,10 @@ import {MusicSongNow} from "../uilt/PiniaInterface/Audiointerace";
 const useAudioStore = defineStore('Audio', {
     state: () => {
         return {
-            MusicSong: [] as usePiniaStore['Audio']['MusicSong'],
+            MusicSong: {} as usePiniaStore['Audio']['MusicSong'],
             MusicLyric: [] as usePiniaStore['Audio']['MusicLyric'],
-            MusicSongNow: [] as usePiniaStore['Audio']['MusicSongNow']
+            MusicSongNow: [] as usePiniaStore['Audio']['MusicSongNow'],
+            PlayHistory: [] as usePiniaStore['Audio']['PlayHistory']
         }
     },
     actions: {
@@ -27,6 +28,9 @@ const useAudioStore = defineStore('Audio', {
         },
         replaceMusicSongNowListPush(data: usePiniaStore['Audio']['MusicSongNow'] ) {
             this.MusicSongNow = data
+        },
+        setPlayHistory(data:usePiniaStore['Audio']['PlayHistory']) {
+            this.PlayHistory = data
         },
     },
     persist: {

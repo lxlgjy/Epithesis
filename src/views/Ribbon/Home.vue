@@ -13,7 +13,7 @@
                                 prev-slide-style="transform: translateX(-150%) translateZ(-800px);"
                                 style="height: 240px"
                         >
-                            <n-carousel-item v-for="item in Home.MusicSwiperData['result']" key="item.id"
+                            <n-carousel-item v-for="item in MusicSwiperData" key="item.id"
                                              :style="{ width: '60%' }"
                                              @click="SwiperData();mess('error')">
                                 <img
@@ -67,8 +67,8 @@
                                 </n-icon>
                             </div>
                         </div>
-                        <router-link class="main-ul Music-relative Music-flex" style="left: 0" to="/Home/HomePlaylist">
-                            <li v-for="items in Home.MusicRecommendData['playlists']" key="items.id"
+                        <router-link class="main-ul Music-relative Music-flex" style="left: 0" to="/Home/HomePlaylist" v-if="Start.status">
+                            <li v-for="items in MusicRecommendData" key="items.id"
                                 class="main-lis Music-flex"
                                 @click="MusicHomeDetail(items.id , 'HomePlaylist')">
                                 <div class="main-lis-kiss Music-hidden">
@@ -86,8 +86,8 @@
                         <div>
                             <h3>{{ $t('msg.HomeHotSinger') }}</h3>
                         </div>
-                        <router-link class="HomeListUl Music-grid " to="/Home/HomeHotSinger">
-                            <li v-for="item in Home.MusicHotSinger" :key="item.id" class="HomeListLi "
+                        <router-link class="HomeListUl Music-grid " to="/Home/HomeHotSinger" v-if="Start.status">
+                            <li v-for="item in MusicHotSinger" :key="item.id" class="HomeListLi "
                                 @click="MusicHomeDetail(item.id ,'HomeHotSinger' )">
                                 <div class="Music-radius-50">
                                     <img v-lazy="item.img1v1Url + '?param=300y300'" class="Music-radius-50">
@@ -99,8 +99,8 @@
                         <div>
                             <h3>{{ $t('msg.HomeList') }}</h3>
                         </div>
-                        <router-link class="HomeListUl Music-grid" to="/Home/HomeRankings">
-                            <li v-for="item in Home.MusicRankingData['list'].slice(0,16)" :key="item.id"
+                        <router-link class="HomeListUl Music-grid" to="/Home/HomeRankings" v-if="Start.status">
+                            <li v-for="item in MusicRankingData" :key="item.id"
                                 class="HomeListLi"
                                 @click="MusicHomeDetail(item.id,'HomeRankings')">
                                 <div>
@@ -113,8 +113,8 @@
                         <div>
                             <h3>{{ $t('msg.HomeAlbum') }}</h3>
                         </div>
-                        <router-link class="HomeAlbumUl Music-grid" to="/Home/HomeAlbum">
-                            <li v-for="item in Home.MusicLatestAlbum['albums'].slice(0,8)" :key="item.id"
+                        <router-link class="HomeAlbumUl Music-grid" to="/Home/HomeAlbum" v-if="Start.status">
+                            <li v-for="item in MusicLatestAlbum" :key="item.id"
                                 class="HomeListLi"
                                 @click="MusicHomeDetail(item.id,'HomeAlbum')">
                                 <div class="Music-img-15">
@@ -144,10 +144,12 @@ import {mess} from "../../uilt/VueEvent";
 import Scroll from '../../components/MusicScroll.vue'
 import {useRouter} from "vue-router";
 import SecondaryRoutingPage from "../../components/SecondaryRoutingPage.vue";
-
+import {useHomeComputed} from "../../uilt/vueComputed";
 
 const {Home, Start, Login} = useStore()
 const router = useRouter()
+const {MusicSwiperData ,MusicRankingData , MusicRecommendData , MusicHotSinger , MusicLatestAlbum} = useHomeComputed()
+
 // two
 let toDepth = 0
 let fromDepth = 0

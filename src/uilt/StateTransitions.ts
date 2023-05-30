@@ -28,8 +28,8 @@ export const MusicAudioModeToggle = () => {
     MusicAudioModeShow.value = !MusicAudioModeShow.value
 }
 
-export const MusicSongListToggle = () => {
-    MusicSongList.value = !MusicSongList.value
+export const MusicSongListToggle = (Notice:string) => {
+    Notice === 'playingList' ? MusicSongList.value = true : MusicSongList.value = false
 }
 
 export const MusicSongListShowToggle = () => {

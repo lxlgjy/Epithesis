@@ -5,6 +5,7 @@ const router = createRouter({
     routes: [
         {
             path: '/',
+            name:'main',
             redirect: '/Home'
         },
         {
@@ -165,19 +166,9 @@ const router = createRouter({
             ]
         },
         {
-            path: '/MyDownloads',
-            name: 'MyDownloads',
-            component: () => import('@/views/Music/MyDownloads.vue')
-        },
-        {
             path: '/Setting',
             name: 'Setting',
             component: () => import('@/views/Attach/Setting.vue')
-        },
-        {
-            path: '/Agreement',
-            name: 'Agreement',
-            component: () => import('@/views/Attach/Agreement.vue')
         },
         {
             path: '/Player',
@@ -197,11 +188,11 @@ const router = createRouter({
     ],
 })
 
-router.afterEach((to, from) => {
+router.beforeEach((to, from) => {
     const toDepth = to.path.split('/').length
     const fromDepth = from.path.split('/').length
 
-    to.meta.transition = toDepth === fromDepth ? 'animate__animated animate__bounceInUp' : (toDepth > fromDepth ? 'animate__animated animate__bounceInRight' : 'animate__animated animate__bounceInLeft')
+    to.meta.transitions = toDepth === fromDepth ? 'animate__animated animate__bounceInUp' : (toDepth > fromDepth ? 'animate__animated animate__bounceInRight' : 'animate__animated animate__bounceInLeft')
 })
 
 export default router

@@ -8,7 +8,7 @@
                             <h3>{{ $t('msg.SingerRegion') }}</h3>
                         </div>
                         <div class="singer-address-list component-sizing component-grid">
-                            <div v-for="item in address" class="SingerRegion component-radius-4 component-pointer">{{item}}</div>
+                            <div v-for="item in address" class="SingerRegion component-radius-4 component-pointer" @click="SingerAddress(item.id)">{{item.title}}</div>
                         </div>
                     </div>
                     <div class="singer-hot">
@@ -59,12 +59,12 @@ import '@/style/Singer.scss'
 import '../../style/Skeleton/Home.sass'
 import useStore from "../../stores/counter";
 import {useRoute} from "vue-router";
-import {MusicSinger} from '../../uilt/VueIncident'
+import {MusicSinger, SingerAddress} from '../../uilt/VueIncident'
 import Scroll from '../../components/MusicScroll.vue'
 import SecondaryRoutingPage from "../../components/SecondaryRoutingPage.vue";
 
 
 const {Singer, Start} = useStore()
 const route = useRoute()
-const address = ['华语', '欧美', '韩国', '日本']
+const address = [{title:'华语' , id:1},{title:'欧美' , id:2},{title:'韩国' , id:3},{title:'日本' , id:4}]
 </script>

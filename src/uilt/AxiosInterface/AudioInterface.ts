@@ -13,3 +13,4 @@ interface MusicLyric {
 interface MusicSongNow {
     id:string
 }
+

@@ -24,21 +24,6 @@
     left: 50%
     transform: translateX(-50%) translateY(-50%) scale(1)
 
-// 所有页面加载
-.fade-enter-active
-  animation: fade .4s
-
-.fade-leave-active
-  animation: fade .4s reverse
-
-@keyframes fade
-  0%
-    transform: translateY(10px)
-  50%
-    transform: translateY(60px)
-  100%
-    transform: translateY(100px)
-
 
 // 播放器显示
 .PlayActive-enter-active
@@ -95,9 +80,12 @@
     transform: scale(1)
 
 //播放列表-滑动动画
-.SongList-enter-active, .SongList-leave-active
+.SongList-enter-active
   transition: all 500ms ease-out
-  transition-delay: 500ms
+
+.SongList-leave-active
+  transition: all 500ms ease-out
+  transition-delay: 550ms
 
 .SongList-enter-from, .SongList-leave-to
   transform: translateX(400px)
@@ -105,23 +93,11 @@
 
 .Box-enter-active, .Box-leave-active
   transition: all 300ms ease-out
-  transition-delay: 500ms
+  transition-delay: 300ms
 
 .Box-enter-from, .Box-leave-to
   opacity: 0
 
-
-////播放倍速（项目已取消倍速）
-//.SpeedAnimate-enter-active, .SpeedAnimate-leave-active
-//  transition: all .25s ease-out
-//
-//.SpeedAnimate-enter-from
-//  transform: translateY(-10px)
-//  opacity: 0
-//
-//.SpeedAnimate-leave-to
-//  transform: translateY(-10px)
-//  opacity: 0
 
 //播放列表动画
 .list-enter-active,

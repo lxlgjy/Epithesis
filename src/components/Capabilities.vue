@@ -1,11 +1,11 @@
 <template>
     <div id="capabilities" :style="background" class="capabilities component-radius-4 component-index-5"
-         v-if="Detail.MusicCapabilities.id"
+         v-show="Detail.MusicCapabilities"
     >
-        <div class="capabilities-image-title">
+        <div class="capabilities-image-title" v-if="Audio.MusicSongNow.length">
             <div class="component-flex">
-                <div class="capabilities-image">
-                    <img :src="Detail.MusicCapabilities['al']['picUrl']" alt="">
+                <div class="capabilities-image" >
+                    <img :src="CapabilitiesImg" alt="">
                 </div>
                 <div class="component-flex capabilities-title">
                     <span>{{ Detail.MusicCapabilities.name }}</span>
@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div v-if="Audio.MusicSongNow.length">
             <ul class="capabilities-ul component-left component-pointer component-flex-text component-hidden ">
                 <router-link to="/MusicThatILove/LoveDetail/SongAlbum">
                     <li @click="MusicAlbumDetail">
@@ -23,13 +23,13 @@
                         <p class="">{{ Detail.MusicCapabilities.al.name }}</p>
                     </li>
                 </router-link>
-                <li v-show="!IsLove" @click.stop="Like('true');mess('success')">
+                <li v-show="!LoveCap" @click.stop="Like('true');mess('success')">
                     <n-icon size="20px">
                         <HeartSharp/>
                     </n-icon>
                     <p>{{ $t('msg.AddWhatILike') }}</p>
                 </li>
-                <li v-show="IsLove" @click.stop="Like('false');mess('success')">
+                <li v-show="LoveCap" @click.stop="Like('false');mess('success')">
                     <n-icon size="20px">
                         <HeartSharp/>
                     </n-icon>
@@ -67,10 +67,9 @@ import {AudioListPush, Like, MusicAlbumDetail, MusicDownload} from '../uilt/VueI
 import {mess} from "../uilt/VueEvent";
 import {useCapabilitiesComputed} from '../uilt/vueComputed'
 
-const {Detail} = useStore()
-const {IsLove, background} = useCapabilitiesComputed()
+const {Detail , Audio} = useStore()
+const {LoveCap, background , CapabilitiesImg} = useCapabilitiesComputed()
 
-console.log(MusicListNoticeShow.value)
 </script>
 
 <style lang="scss" scoped>

@@ -18,6 +18,8 @@ const useStartStore = defineStore('Start', {
             BackgroundIndex: 0 as number,
             ThemesBoolean: false, //主题
             SkeletonShow:false as boolean,
+            status:false,
+            otherSetting:'',
             //设置信息
             Language: '汉语', //语言
             Topic: 'light', //主题
@@ -110,6 +112,12 @@ const useStartStore = defineStore('Start', {
         },
         setAudioIndex(value:number) {
             this.AudioSongIndex = value
+        },
+        ToggleStatus(Boolean:boolean) {
+            this.status = Boolean
+        },
+        setOtherSetting(data:string) {
+            this.otherSetting = data
         }
     },
     persist: {

@@ -26,7 +26,7 @@
     <div class="Ribbon">
       <ul>
         <router-link
-            v-for="item in [{router: '/MusicThatILove',notice: $t('msg.LeftBoxMusicLibrary'),icon: HeartSharp}, {router: '/MyDownloads',notice: $t('msg.LeftBoxDownload'),icon: Archive}]"
+            v-for="item in [{router: '/MusicThatILove',notice: $t('msg.LeftBoxMusicLibrary'),icon: HeartSharp}]"
             v-slot="{navigate , isActive}" :to="item.router">
           <div :class="isActive ? 'music' : ''" class="li" @click="navigate">
             <n-icon class="Home" size="20">
@@ -36,9 +36,6 @@
           </div>
         </router-link>
       </ul>
-    </div>
-    <div class="text">
-      <span>2022-2023毕业设计</span>
     </div>
   </div>
 </template>
